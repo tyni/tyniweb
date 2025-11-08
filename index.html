@@ -16,10 +16,23 @@
       padding: 60px 20px 30px;
       text-align: center;
     }
-    h1 {
+    h1.logo {
       font-family: 'Cormorant Garamond', serif;
       font-size: 48px;
       margin-bottom: 10px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1.5s ease-out forwards, sparkle 2s infinite ease-in-out;
+    }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes sparkle {
+      0%, 100% { text-shadow: 0 0 5px #f4a261; }
+      50% { text-shadow: 0 0 15px #e38b4d; }
     }
     p {
       font-size: 20px;
@@ -50,7 +63,7 @@
 </head>
 <body>
   <header>
-    <h1>✨ Tyniweb</h1>
+    <h1 class="logo">✨ Tyniweb</h1>
     <p>Instant, handcrafted brand kits for handmade sellers — no logins, no stress, just magic.</p>
     <a href="start.html" class="cta">Start Your Brand Kit</a>
   </header>
