@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Start Your Brand Kit — Tyniweb</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Cormorant+Garamond&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent: #f4a261;
+      --bg: #fffaf3;
+      --text: #333;
+    }
+    body {
+      margin: 0;
+      font-family: 'Open Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    nav {
+      position: sticky;
+      top: 0;
+      background: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 32px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      z-index: 100;
+    }
+    nav .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      color: var(--accent);
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 24px;
+      margin: 0;
+      padding: 0;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: bold;
+    }
+    .form-section {
+      padding: 60px 20px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    label {
+      font-weight: bold;
+    }
+    input, select {
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    .submit-btn {
+      background: var(--accent);
+      color: white;
+      padding: 16px;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .submit-btn:hover {
+      background: #e38b4d;
+    }
+    footer {
+      text-align: center;
+      font-size: 14px;
+      color: #888;
+      padding: 40px 20px;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">✨ Tyniweb</div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="#">Start Your Kit</a></li>
+      <li><a href="#">How It Works</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">FAQ</a></li>
+    </ul>
+  </nav>
+
+  <section class="form-section">
+    <h2>Start Your Brand Kit</h2>
+    <form action="https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec" method="POST">
+      <label for="name">Your Name</label>
+      <input type="text" id="name" name="name" required />
+
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" required />
+
+      <label for="product">What Do You Sell?</label>
+      <input type="text" id="product" name="product" placeholder="e.g. handmade candles" required />
+
+      <label for="vibe">Choose Your Brand Vibe</label>
+      <select id="vibe" name="vibe" required>
+        <option value="">Select a vibe</option>
+        <option value="Cozy">Cozy</option>
+        <option value="Bold">Bold</option>
+        <option value="Playful">Playful</option>
+        <option value="Earthy">Earthy</option>
+      </select>
+
+      <button type="submit" class="submit-btn">Generate My Kit</button>
+    </form>
+  </section>
+
+  <footer>
+    &copy; 2025 Tyniweb. Built with love and automation.
+  </footer>
+</body>
+</html>
