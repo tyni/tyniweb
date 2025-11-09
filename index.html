@@ -3,55 +3,117 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Tyniweb — Instant Brand Kits for Handmade Sellers</title>
+  <title>Tyniweb — Instant Brand Kits</title>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Cormorant+Garamond&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --accent: #f4a261;
+      --bg: #fffaf3;
+      --text: #333;
+    }
     body {
       margin: 0;
       font-family: 'Open Sans', sans-serif;
-      background: #fffaf3;
-      color: #333;
+      background: var(--bg);
+      color: var(--text);
+    }
+    nav {
+      position: sticky;
+      top: 0;
+      background: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 32px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      z-index: 100;
+    }
+    nav .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      color: var(--accent);
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 24px;
+      margin: 0;
+      padding: 0;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: bold;
     }
     header {
-      padding: 60px 20px 30px;
       text-align: center;
+      padding: 80px 20px 40px;
     }
-    h1.logo {
+    h1.hero-logo {
       font-family: 'Cormorant Garamond', serif;
       font-size: 48px;
-      margin-bottom: 10px;
+      animation: fadeInUp 1.5s ease-out forwards, sparkle 2s infinite ease-in-out;
       opacity: 0;
       transform: translateY(20px);
-      animation: fadeInUp 1.5s ease-out forwards, sparkle 2s infinite ease-in-out;
     }
     @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      to { opacity: 1; transform: translateY(0); }
     }
     @keyframes sparkle {
-      0%, 100% { text-shadow: 0 0 5px #f4a261; }
+      0%, 100% { text-shadow: 0 0 5px var(--accent); }
       50% { text-shadow: 0 0 15px #e38b4d; }
-    }
-    p {
-      font-size: 20px;
-      max-width: 600px;
-      margin: 0 auto 30px;
     }
     .cta {
       display: inline-block;
-      background: #f4a261;
+      background: var(--accent);
       color: white;
       padding: 16px 32px;
       font-size: 18px;
       font-weight: bold;
       border-radius: 8px;
       text-decoration: none;
+      margin-top: 20px;
       transition: background 0.3s ease;
     }
     .cta:hover {
       background: #e38b4d;
+    }
+    .vibe-section {
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .vibe-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .vibe-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      padding: 20px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .vibe-card:hover {
+      transform: scale(1.05);
+    }
+    .vibe-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+    .swatches {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+    }
+    .swatch {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
     }
     footer {
       text-align: center;
@@ -62,11 +124,60 @@
   </style>
 </head>
 <body>
+  <nav>
+    <div class="logo">✨ Tyniweb</div>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="start.html">Start Your Kit</a></li>
+      <li><a href="#">How It Works</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">FAQ</a></li>
+    </ul>
+  </nav>
+
   <header>
-    <h1 class="logo">✨ Tyniweb</h1>
-    <p>Instant, handcrafted brand kits for handmade sellers — no logins, no stress, just magic.</p>
+    <h1 class="hero-logo">✨ Tyniweb</h1>
+    <p>Instant brand kits for handmade sellers — no logins, no stress, just magic.</p>
     <a href="start.html" class="cta">Start Your Brand Kit</a>
   </header>
+
+  <section class="vibe-section">
+    <h2>Pick Your Brand Vibe</h2>
+    <div class="vibe-grid">
+      <div class="vibe-card">
+        <div class="vibe-title">Cozy</div>
+        <div class="swatches">
+          <div class="swatch" style="background:#d8cfc4;"></div>
+          <div class="swatch" style="background:#a67c52;"></div>
+          <div class="swatch" style="background:#f4e9dc;"></div>
+        </div>
+      </div>
+      <div class="vibe-card">
+        <div class="vibe-title">Bold</div>
+        <div class="swatches">
+          <div class="swatch" style="background:#1a1a1a;"></div>
+          <div class="swatch" style="background:#e63946;"></div>
+          <div class="swatch" style="background:#f1faee;"></div>
+        </div>
+      </div>
+      <div class="vibe-card">
+        <div class="vibe-title">Playful</div>
+        <div class="swatches">
+          <div class="swatch" style="background:#ffbe0b;"></div>
+          <div class="swatch" style="background:#fb5607;"></div>
+          <div class="swatch" style="background:#ff006e;"></div>
+        </div>
+      </div>
+      <div class="vibe-card">
+        <div class="vibe-title">Earthy</div>
+        <div class="swatches">
+          <div class="swatch" style="background:#6b705c;"></div>
+          <div class="swatch" style="background:#a5a58d;"></div>
+          <div class="swatch" style="background:#ffe8d6;"></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <footer>
     &copy; 2025 Tyniweb. Built with love and automation.
