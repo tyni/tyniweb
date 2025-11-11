@@ -1,136 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Start Your Brand Kit — Tyniweb</title>
+  <meta charset="UTF-8">
+  <title>Start Your Brand Kit | Tyniweb</title>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Cormorant+Garamond&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --accent: #f4a261;
-      --bg: #fffaf3;
-      --text: #333;
-    }
     body {
-      margin: 0;
       font-family: 'Open Sans', sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      background-color: #fffaf3;
     }
-    nav {
-      position: sticky;
-      top: 0;
-      background: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 32px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-      z-index: 100;
-    }
-    nav .logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 28px;
-      color: var(--accent);
-    }
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 24px;
-      margin: 0;
-      padding: 0;
-    }
-    nav ul li a {
-      text-decoration: none;
-      color: var(--text);
-      font-weight: bold;
-    }
-    .form-section {
-      padding: 60px 20px;
+    .form-container {
       max-width: 600px;
-      margin: 0 auto;
+      margin: auto;
+      background-color: #fffaf3;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      color: #333;
     }
-    h2 {
+    h2, h3 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 32px;
-      text-align: center;
-      margin-bottom: 40px;
-    }
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
+      color: #444;
     }
     label {
       font-weight: bold;
+      margin-top: 12px;
+      display: block;
     }
-    input, select {
+    small {
+      display: block;
+      margin-bottom: 6px;
+      color: #666;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="file"],
+    select,
+    textarea {
+      width: 100%;
       padding: 12px;
-      font-size: 16px;
+      margin-top: 6px;
+      margin-bottom: 16px;
       border: 1px solid #ccc;
       border-radius: 8px;
+      font-size: 16px;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
     }
-    .submit-btn {
-      background: var(--accent);
+    button[type="submit"] {
+      background-color: #f4a261;
       color: white;
-      padding: 16px;
-      font-size: 18px;
-      font-weight: bold;
+      padding: 14px 28px;
       border: none;
       border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
-    .submit-btn:hover {
-      background: #e38b4d;
+    button[type="submit"]:hover {
+      background-color: #e38b4d;
     }
-    footer {
-      text-align: center;
+    .trust-note {
       font-size: 14px;
-      color: #888;
-      padding: 40px 20px;
+      color: #777;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
-  <nav>
-    <div class="logo">✨ Tyniweb</div>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="#">Start Your Kit</a></li>
-      <li><a href="#">How It Works</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">FAQ</a></li>
-    </ul>
-  </nav>
+  <div class="form-container">
+    <h2>Let’s Build Your Brand in a Day</h2>
+    <p>Fill this out in 2 minutes and we’ll handle the rest.</p>
 
-  <section class="form-section">
-    <h2>Start Your Brand Kit</h2>
-    <form action="https://script.google.com/u/0/home/projects/1h8sEgpE8hJx61n0fEb_BCca3p2-PNBmMV6b7EW2fRJUCMAC7sNk-Fsgd" method="POST" target="hiddenFrame" onsubmit="setTimeout(() => window.location.href='redirect.html', 500)">
-      <label for="name">Your Name</label>
-      <input type="text" id="name" name="name" required />
+    <form action="https://formsubmit.co/tyniweb@gmail.com" method="POST">
 
-      <label for="email">Email Address</label>
-      <input type="email" id="email" name="email" required />
+      <!-- Section: Business Info -->
+      <h3>🧾 About Your Business</h3>
 
-      <label for="product">What Do You Sell?</label>
-      <input type="text" id="product" name="product" placeholder="e.g. handmade candles" required />
+      <label>Business or Shop Name*</label>
+      <small>This will appear on your logo and brand kit. If you don’t have one yet, just write a placeholder.</small>
+      <input type="text" name="Business Name" required>
 
-      <label for="vibe">Choose Your Brand Vibe</label>
-      <select id="vibe" name="vibe" required>
-        <option value="">Select a vibe</option>
-        <option value="Cozy">Cozy</option>
-        <option value="Bold">Bold</option>
-        <option value="Playful">Playful</option>
-        <option value="Earthy">Earthy</option>
+      <label>What do you sell or make?*</label>
+      <input type="text" name="Product Type" required>
+
+      <label>Describe your brand vibe in 3 words*</label>
+      <input type="text" name="Brand Vibe" required>
+
+      <label>Who is your ideal customer?*</label>
+      <input type="text" name="Ideal Customer" required>
+
+      <!-- Section: Style -->
+      <h3>🎨 Your Brand Style</h3>
+
+      <label>Favorite colors or styles (optional)</label>
+      <input type="text" name="Color Preferences">
+
+      <label>Upload inspiration (logo, product, moodboard)</label>
+      <input type="file" name="Inspiration Upload">
+
+      <label>What tone should your brand use?*</label>
+      <select name="Brand Tone" required>
+        <option value="">Select one</option>
+        <option>Playful & fun</option>
+        <option>Calm & natural</option>
+        <option>Bold & confident</option>
+        <option>Elegant & refined</option>
+        <option>Warm & whimsical</option>
+        <option>Cozy & nostalgic</option>
+        <option>Earthy & grounded</option>
+        <option>Magical & dreamy</option>
+        <option>Friendly & conversational</option>
+        <option>Vintage & romantic</option>
+        <option>Artistic & expressive</option>
+        <option>Professional & trustworthy</option>
+        <option>Other</option>
       </select>
 
-      <button type="submit" class="submit-btn">Generate My Kit</button>
+      <label>Anything else we should know?</label>
+      <textarea name="Extra Notes" rows="4" cols="40"></textarea>
+
+      <!-- Section: Contact -->
+      <h3>📬 Contact & Consent</h3>
+
+      <label>Your Name*</label>
+      <input type="text" name="Client Name" required>
+
+      <label>Your Email Address*</label>
+      <input type="email" name="Client Email" required>
+
+      <label>Can we use your kit as a portfolio example?</label>
+      <input type="radio" name="Portfolio Consent" value="Yes" checked> Yes  
+      <input type="radio" name="Portfolio Consent" value="No"> No
+
+      <!-- Hidden Slug Field for Automation -->
+      <input type="hidden" name="Slug" value="auto-generated-or-client-name">
+
+      <!-- FormSubmit options -->
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_subject" value="New Brand Kit Request from Tyniweb">
+      <input type="hidden" name="_redirect" value="https://tyniweb.com/kits/auto-generated-or-client-name/your-brand-kit.html">
+
+      <button type="submit">Build My Brand Kit</button>
+
+      <p class="trust-note">We’ll never share your info. This form is secure and designed to be fast and easy.</p>
     </form>
-	<iframe name="hiddenFrame" style="display:none;"></iframe>
-  </section>
-  <footer>
-    &copy; 2025 Tyniweb. Built with love and automation.
-  </footer>
+  </div>
 </body>
 </html>
