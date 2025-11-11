@@ -5,13 +5,18 @@
   <title>Start Your Brand Kit | Tyniweb</title>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Cormorant+Garamond&display=swap" rel="stylesheet">
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
       font-family: 'Open Sans', sans-serif;
       background-color: #fffaf3;
+      margin: 0;
+      padding: 0;
     }
     .form-container {
       max-width: 600px;
-      margin: auto;
+      margin: 40px auto;
       background-color: #fffaf3;
       padding: 30px;
       border-radius: 12px;
@@ -73,7 +78,7 @@
     <h2>Let’s Build Your Brand in a Day</h2>
     <p>Fill this out in 2 minutes and we’ll handle the rest.</p>
 
-    <form action="https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycby8NVbeH0LkFpGcYbBHyuXeNV67B98oVuazHDSTPdf75-yR27LKnRIkB2sU90JHFAmasQ/exec/exec" method="POST">
+    <form action="https://script.google.com/macros/s/AKfycby8NVbeH0LkFpGcYbBHyuXeNV67B98oVuazHDSTPdf75-yR27LKnRIkB2sU90JHFAmasQ/exec" method="POST">
 
       <!-- Section: Business Info -->
       <h3>🧾 About Your Business</h3>
@@ -134,19 +139,32 @@
       <input type="radio" name="Portfolio Consent" value="Yes" checked> Yes  
       <input type="radio" name="Portfolio Consent" value="No"> No
 
-      <!-- Hidden Slug Field for Automation -->
-      <input type="hidden" name="Slug" value="auto-generated-or-client-name">
-
-      <!-- FormSubmit options -->
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_subject" value="New Brand Kit Request from Tyniweb">
-      <input type="hidden" name="_redirect" value="https://tyniweb.com/kits/auto-generated-or-client-name/your-brand-kit.html">
+      <!-- Hidden Slug + Redirect -->
+      <input type="hidden" name="Slug" value="">
+      <input type="hidden" name="_redirect" value="">
 
       <button type="submit">Build My Brand Kit</button>
 
       <p class="trust-note">We’ll never share your info. This form is secure and designed to be fast and easy.</p>
     </form>
   </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const form = document.querySelector("form");
+      form.addEventListener("submit", function() {
+        const name = document.querySelector('input[name="Client Name"]').value.trim().toLowerCase().replace(/\s+/g, "-");
+        const now = new Date();
+        const timestamp = now.getFullYear().toString() +
+                          String(now.getMonth()+1).padStart(2, '0') +
+                          String(now.getDate()).padStart(2, '0') + "-" +
+                          String(now.getHours()).padStart(2, '0') +
+                          String(now.getMinutes()).padStart(2, '0');
+        const slug = `${name}-${timestamp}`;
+        document.querySelector('input[name="Slug"]').value = slug;
+        document.querySelector('input[name="_redirect"]').value = `https://tyniweb.com/kits/${slug}/your-brand-kit.html`;
+      });
+    });
+  </script>
 </body>
 </html>
