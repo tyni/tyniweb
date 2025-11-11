@@ -147,11 +147,11 @@
       <p class="trust-note">We’ll never share your info. This form is secure and designed to be fast and easy.</p>
     </form>
   </div>
-
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     const form = document.querySelector("form");
-    form.addEventListener("submit", function() {
+
+    form.addEventListener("submit", function(e) {
       const name = document.querySelector('input[name="Client Name"]').value.trim().toLowerCase().replace(/\s+/g, "-");
       const now = new Date();
       const timestamp = now.getFullYear().toString() +
@@ -161,9 +161,15 @@
                         String(now.getMinutes()).padStart(2, '0');
       const slug = `${name}-${timestamp}`;
       document.querySelector('input[name="Slug"]').value = slug;
+
+      // Show slug on page
+      const preview = document.createElement("p");
+      preview.textContent = `Your brand kit will be saved as: ${slug}`;
+      preview.style.fontSize = "14px";
+      preview.style.color = "#666";
+      form.insertBefore(preview, form.querySelector("button[type='submit']"));
     });
   });
 </script>
-
 </body>
 </html>
