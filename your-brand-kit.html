@@ -7,50 +7,79 @@
   <style>
     body {
       font-family: 'Open Sans', sans-serif;
-      background-color: #fffaf3;
+      background: linear-gradient(135deg, #fffaf3, #fdfdfd);
       color: #333;
       margin: 0;
       padding: 0;
     }
+
+    nav {
+      background-color: #264653;
+      padding: 12px;
+      text-align: center;
+    }
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+    nav a:hover {
+      color: #f4a261;
+    }
+
     .container {
-      max-width: 800px;
+      max-width: 900px;
       margin: auto;
       padding: 40px 20px;
       text-align: center;
     }
+
     h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 36px;
+      font-size: 42px;
       color: #444;
       margin-bottom: 10px;
     }
-    p {
+    p.subtitle {
       font-size: 18px;
+      color: #666;
       margin-bottom: 30px;
     }
+
     .brand-preview {
       max-width: 100%;
       border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
       margin-bottom: 30px;
     }
+
     .palette {
       display: flex;
       justify-content: center;
-      gap: 10px;
+      flex-wrap: wrap;
+      gap: 12px;
       margin-bottom: 30px;
     }
     .swatch {
-      width: 60px;
-      height: 60px;
+      width: 70px;
+      height: 70px;
       border-radius: 8px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease;
     }
+    .swatch:hover {
+      transform: scale(1.1);
+    }
+
     .font-sample {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 24px;
+      font-size: 26px;
       margin-bottom: 40px;
+      color: #333;
     }
+
     .button {
       background-color: #f4a261;
       color: white;
@@ -63,10 +92,12 @@
       text-decoration: none;
       display: inline-block;
       margin: 10px;
+      transition: background-color 0.3s ease;
     }
     .button:hover {
       background-color: #e38b4d;
     }
+
     .regenerate-form {
       margin-top: 50px;
       text-align: left;
@@ -85,17 +116,26 @@
       border-radius: 8px;
       font-size: 16px;
     }
-    .footer-cta {
+
+    footer {
       margin-top: 60px;
-      font-size: 16px;
-      color: #666;
+      font-size: 14px;
+      color: #888;
+      text-align: center;
     }
   </style>
 </head>
 <body>
+  <!-- Navigation -->
+  <nav>
+    <a href="/">Home</a>
+    <a href="#download">Download</a>
+    <a href="#request">Request Changes</a>
+  </nav>
+
   <div class="container">
     <h1>🎉 Your Brand Kit Is Ready!</h1>
-    <p>Below you'll find your handcrafted logo variations, color palette, font pairing, and mockups. This is your starter identity — perfect for Etsy, Instagram, packaging, and more.</p>
+    <p class="subtitle">Below you'll find your handcrafted logo variations, color palette, font pairing, and mockups. Perfect for Etsy, Instagram, packaging, and more.</p>
 
     <!-- Brand Kit Preview Image -->
     <img src="brand-kit-preview.jpg" alt="Your Brand Kit Preview" class="brand-preview">
@@ -112,13 +152,13 @@
     <div class="font-sample">Elegant Serif Headline + Clean Sans Body</div>
 
     <!-- Download Button -->
-    <a href="https://your-download-link.com" class="button">Download Your Brand Kit</a>
+    <a id="download" href="https://your-download-link.com" class="button">Download Your Brand Kit</a>
 
     <!-- Share CTA -->
-    <p class="footer-cta">Love your kit? Share it with a friend who needs a brand glow-up ✨</p>
+    <p class="subtitle">Love your kit? Share it with a friend who needs a brand glow-up ✨</p>
 
     <!-- Regenerate Request Form -->
-    <div class="regenerate-form">
+    <div id="request" class="regenerate-form">
       <h2>Need a tweak?</h2>
       <p>If you'd like to adjust your kit, just let us know below:</p>
       <form action="https://formsubmit.co/tyniweb@gmail.com" method="POST">
@@ -137,5 +177,9 @@
       </form>
     </div>
   </div>
+
+  <footer>
+    © 2025 Tyniweb — Crafted with care ✨
+  </footer>
 </body>
 </html>
