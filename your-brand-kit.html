@@ -34,6 +34,23 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       margin-bottom: 30px;
     }
+    .palette {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+    .swatch {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .font-sample {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      margin-bottom: 40px;
+    }
     .button {
       background-color: #f4a261;
       color: white;
@@ -51,7 +68,7 @@
       background-color: #e38b4d;
     }
     .regenerate-form {
-      margin-top: 40px;
+      margin-top: 50px;
       text-align: left;
     }
     label {
@@ -68,6 +85,11 @@
       border-radius: 8px;
       font-size: 16px;
     }
+    .footer-cta {
+      margin-top: 60px;
+      font-size: 16px;
+      color: #666;
+    }
   </style>
 </head>
 <body>
@@ -78,8 +100,22 @@
     <!-- Brand Kit Preview Image -->
     <img src="brand-kit-preview.jpg" alt="Your Brand Kit Preview" class="brand-preview">
 
+    <!-- Color Palette Preview -->
+    <div class="palette">
+      <div class="swatch" style="background-color: #f4a261;"></div>
+      <div class="swatch" style="background-color: #2a9d8f;"></div>
+      <div class="swatch" style="background-color: #e76f51;"></div>
+      <div class="swatch" style="background-color: #264653;"></div>
+    </div>
+
+    <!-- Font Sample -->
+    <div class="font-sample">Elegant Serif Headline + Clean Sans Body</div>
+
     <!-- Download Button -->
     <a href="https://your-download-link.com" class="button">Download Your Brand Kit</a>
+
+    <!-- Share CTA -->
+    <p class="footer-cta">Love your kit? Share it with a friend who needs a brand glow-up ✨</p>
 
     <!-- Regenerate Request Form -->
     <div class="regenerate-form">
