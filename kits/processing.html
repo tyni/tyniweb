@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Processing Your Brand Kit | Tyniweb</title>
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: #fffaf3;
+      color: #333;
+      text-align: center;
+      padding: 60px 20px;
+    }
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      color: #444;
+    }
+    p {
+      font-size: 16px;
+      color: #666;
+    }
+    .spinner {
+      margin: 30px auto;
+      width: 60px;
+      height: 60px;
+      border: 6px solid #ccc;
+      border-top: 6px solid #f4a261;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+    a {
+      color: #f4a261;
+      font-weight: bold;
+      text-decoration: none;
+    }
+  </style>
+  <script>
+    // Get slug from query string
+    function getSlug() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get("slug");
+    }
+
+    function redirectToKit() {
+      const slug = getSlug();
+      if (!slug) {
+        document.getElementById("status").innerText = "Missing slug parameter.";
+        return;
+      }
+      // Wait 20 seconds before redirecting
+      setTimeout(() => {
+        window.location.href = `/kits/${slug}/your-brand-kit.html`;
+      }, 20000);
+    }
+
+    window.onload = redirectToKit;
+  </script>
+</head>
+<body>
+  <h1>✨ Processing Your Brand Kit...</h1>
+  <div class="spinner"></div>
+  <p id="status">Please wait while we craft your kit.</p>
+  <p>You’ll be redirected automatically once it’s ready.</p>
+  <p>If not, <a id="manualLink" href="#">click here</a>.</p>
+
+  <script>
+    // Update manual link once slug is known
+    const slug = getSlug();
+    if (slug) {
+      document.getElementById("manualLink").href = `/kits/${slug}/your-brand-kit.html`;
+    }
+  </script>
+</body>
+</html>
