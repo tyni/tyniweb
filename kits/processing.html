@@ -2,77 +2,100 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Processing Your Brand Kit | Tyniweb</title>
+  <title>Processing Your Kit</title>
   <style>
     body {
-      font-family: 'Open Sans', sans-serif;
-      background: #fffaf3;
-      color: #333;
+      font-family: Arial, sans-serif;
       text-align: center;
-      padding: 60px 20px;
+      padding: 50px;
     }
-    h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 32px;
-      color: #444;
+    #message {
+      font-size: 1.2em;
+      margin-top: 20px;
     }
-    p {
-      font-size: 16px;
-      color: #666;
+    #timer {
+      font-size: 1.5em;
+      margin-top: 10px;
+      color: #555;
     }
-    .spinner {
-      margin: 30px auto;
-      width: 60px;
-      height: 60px;
-      border: 6px solid #ccc;
-      border-top: 6px solid #f4a261;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
+    #emailForm {
+      display: none;
+      margin-top: 30px;
     }
-    @keyframes spin {
-      100% { transform: rotate(360deg); }
+    input[type="email"] {
+      padding: 8px;
+      font-size: 1em;
     }
-    a {
-      color: #f4a261;
-      font-weight: bold;
-      text-decoration: none;
+    button {
+      padding: 8px 12px;
+      font-size: 1em;
+      margin-left: 10px;
     }
   </style>
-  <script>
-    // Get slug from query string
-    function getSlug() {
-      const params = new URLSearchParams(window.location.search);
-      return params.get("slug");
-    }
-
-    function redirectToKit() {
-      const slug = getSlug();
-      if (!slug) {
-        document.getElementById("status").innerText = "Missing slug parameter.";
-        return;
-      }
-      // Wait 20 seconds before redirecting
-      setTimeout(() => {
-        window.location.href = `/kits/${slug}/your-brand-kit.html`;
-      }, 20000);
-    }
-
-    window.onload = redirectToKit;
-  </script>
 </head>
 <body>
-  <h1>✨ Processing Your Brand Kit...</h1>
-  <div class="spinner"></div>
-  <p id="status">Please wait while we craft your kit.</p>
-  <p>You’ll be redirected automatically once it’s ready.</p>
-  <p>If not, <a id="manualLink" href="#">click here</a>.</p>
+  <h1>✨ Processing Your Brand Kit ✨</h1>
+  <div id="message">Our magic is putting your kit together...</div>
+  <div id="timer">Elapsed: 0s</div>
+
+  <div id="emailForm">
+    <p>Still waiting? Enter your email and we’ll notify you when your kit is ready:</p>
+    <input type="email" id="userEmail" placeholder="you@example.com" />
+    <button onclick="submitEmail()">Notify Me</button>
+  </div>
 
   <script>
-    // Update manual link once slug is known
-    const slug = getSlug();
-    if (slug) {
-      document.getElementById("manualLink").href = `/kits/${slug}/your-brand-kit.html`;
+    const params = new URLSearchParams(window.location.search);
+    const slug = params.get("slug");
+
+    let elapsed = 0;
+    const messages = [
+      "Our magic is putting your kit together and will be with you shortly...",
+      "Processing your kit now...",
+      "Hang tight, we’re almost there..."
+    ];
+
+    function updateUI() {
+      document.getElementById("timer").textContent = "Elapsed: " + elapsed + "s";
+      if (elapsed % 15 === 0) {
+        const msgIndex = (elapsed / 15) % messages.length;
+        document.getElementById("message").textContent = messages[msgIndex];
+      }
+      if (elapsed >= 120) {
+        document.getElementById("emailForm").style.display = "block";
+      }
     }
+
+    async function checkKit() {
+      try {
+        const res = await fetch(`/kits/${slug}/your-brand-kit.html`, { method: "HEAD" });
+        if (res.ok) {
+          window.location.href = `/kits/${slug}/your-brand-kit.html`;
+        } else {
+          setTimeout(checkKit, 5000); // retry in 5s
+        }
+      } catch (err) {
+        setTimeout(checkKit, 5000);
+      }
+    }
+
+    function tick() {
+      elapsed += 1;
+      updateUI();
+      setTimeout(tick, 1000);
+    }
+
+    function submitEmail() {
+      const email = document.getElementById("userEmail").value;
+      if (email) {
+        alert("Thanks! We’ll notify you at " + email + " when your kit is ready.");
+        // TODO: Hook this into Apps Script or backend to actually send notification
+      }
+    }
+
+    // Start everything
+    tick();
+    checkKit();
   </script>
 </body>
 </html>
