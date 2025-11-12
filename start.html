@@ -78,6 +78,7 @@
     <h2>Let’s Build Your Brand in a Day</h2>
     <p>Fill this out in 2 minutes and we’ll handle the rest.</p>
 
+    <!-- ✅ Removed action/method -->
     <form id="brandKitForm">
       <!-- Section: Business Info -->
       <h3>🧾 About Your Business</h3>
@@ -138,7 +139,7 @@
       <input type="radio" name="Portfolio Consent" value="Yes" checked> Yes  
       <input type="radio" name="Portfolio Consent" value="No"> No
 
-      <!-- Hidden Slug + Redirect -->
+      <!-- Hidden Slug -->
       <input type="hidden" name="Slug" value="">
 
       <button type="submit">Build My Brand Kit</button>
@@ -152,7 +153,7 @@
     const form = document.getElementById("brandKitForm");
 
     form.addEventListener("submit", async function(e) {
-      e.preventDefault();
+      e.preventDefault(); // ✅ stops default navigation
 
       // Generate slug from Client Name + timestamp
       const name = document.querySelector('input[name="Client Name"]').value.trim().toLowerCase().replace(/\s+/g, "-");
