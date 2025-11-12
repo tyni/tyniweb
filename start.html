@@ -78,8 +78,7 @@
     <h2>Let’s Build Your Brand in a Day</h2>
     <p>Fill this out in 2 minutes and we’ll handle the rest.</p>
 
-    <form action="https://script.google.com/macros/s/AKfycby8NVbeH0LkFpGcYbBHyuXeNV67B98oVuazHDSTPdf75-yR27LKnRIkB2sU90JHFAmasQ/exec" method="POST">
-
+    <form id="brandKitForm">
       <!-- Section: Business Info -->
       <h3>🧾 About Your Business</h3>
 
@@ -147,11 +146,15 @@
       <p class="trust-note">We’ll never share your info. This form is secure and designed to be fast and easy.</p>
     </form>
   </div>
+
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    const form = document.querySelector("form");
+    const form = document.getElementById("brandKitForm");
 
-    form.addEventListener("submit", function(e) {
+    form.addEventListener("submit", async function(e) {
+      e.preventDefault();
+
+      // Generate slug from Client Name + timestamp
       const name = document.querySelector('input[name="Client Name"]').value.trim().toLowerCase().replace(/\s+/g, "-");
       const now = new Date();
       const timestamp = now.getFullYear().toString() +
@@ -162,12 +165,31 @@
       const slug = `${name}-${timestamp}`;
       document.querySelector('input[name="Slug"]').value = slug;
 
-      // Show slug on page
+      // Show slug preview
       const preview = document.createElement("p");
       preview.textContent = `Your brand kit will be saved as: ${slug}`;
       preview.style.fontSize = "14px";
       preview.style.color = "#666";
       form.insertBefore(preview, form.querySelector("button[type='submit']"));
+
+      try {
+        // Apps Script endpoint (hidden from user)
+        const scriptURL = "https://script.google.com/macros/s/AKfycby8NVbeH0LkFpGcYbBHyuXeNV67B98oVuazHDSTPdf75-yR27LKnRIkB2sU90JHFAmasQ/exec";
+
+        const formData = new FormData(form);
+
+        // Send form data silently
+        await fetch(scriptURL, {
+          method: "POST",
+          body: formData
+        });
+
+        // Redirect to processing page on your domain
+        window.location.href = `/kits/processing.html?slug=${encodeURIComponent(slug)}`;
+      } catch (error) {
+        alert("Oops! Something went wrong submitting your kit. Please try again.");
+        console.error("Submission error:", error);
+      }
     });
   });
 </script>
