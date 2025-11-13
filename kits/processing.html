@@ -4,33 +4,12 @@
   <meta charset="UTF-8">
   <title>Processing Your Kit</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 50px;
-    }
-    #message {
-      font-size: 1.2em;
-      margin-top: 20px;
-    }
-    #timer {
-      font-size: 1.5em;
-      margin-top: 10px;
-      color: #555;
-    }
-    #emailForm {
-      display: none;
-      margin-top: 30px;
-    }
-    input[type="email"] {
-      padding: 8px;
-      font-size: 1em;
-    }
-    button {
-      padding: 8px 12px;
-      font-size: 1em;
-      margin-left: 10px;
-    }
+    body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+    #message { font-size: 1.2em; margin-top: 20px; }
+    #timer { font-size: 1.5em; margin-top: 10px; color: #555; }
+    #emailForm { display: none; margin-top: 30px; }
+    input[type="email"] { padding: 8px; font-size: 1em; }
+    button { padding: 8px 12px; font-size: 1em; margin-left: 10px; }
   </style>
 </head>
 <body>
@@ -70,6 +49,8 @@
       try {
         const res = await fetch(`/kits/${slug}/your-brand-kit.html`, { method: "HEAD" });
         if (res.ok) {
+          // ✅ Mark kit as done before redirect
+          localStorage.setItem("kitStatus", "done");
           window.location.href = `/kits/${slug}/your-brand-kit.html`;
         } else {
           setTimeout(checkKit, 5000); // retry in 5s
@@ -89,9 +70,13 @@
       const email = document.getElementById("userEmail").value;
       if (email) {
         alert("Thanks! We’ll notify you at " + email + " when your kit is ready.");
-        // TODO: Hook this into Apps Script or backend to actually send notification
+        // TODO: Hook into backend for actual notification
       }
     }
+
+    // ✅ Mark kit as pending when processing starts
+    localStorage.setItem("kitStatus", "pending");
+    localStorage.setItem("lastSlug", slug);
 
     // Start everything
     tick();
