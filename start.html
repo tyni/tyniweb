@@ -27,7 +27,7 @@
     <h2>Let’s Build Your Brand in a Day</h2>
     <p>Fill this out in 2 minutes and we’ll handle the rest.</p>
 
-    <form id="brandKitForm" method="post" action="#">
+  <form id="brandKitForm" method="post" action="#" onsubmit="return false;">
       <!-- Business Info -->
       <h3>🧾 About Your Business</h3>
       <label>Business or Shop Name*</label>
@@ -106,7 +106,8 @@
     }
 
     form.addEventListener("submit", async function(e) {
-      e.preventDefault(); // stop default GET submission
+      console.log("Intercepted submit"); // Debug log
+      e.preventDefault(); // Stop native submission
 
       submitBtn.disabled = true;
       submitBtn.textContent = "Submitting…";
@@ -131,7 +132,7 @@
       form.insertBefore(preview, submitBtn);
 
       try {
-        const scriptURL = "YOUR_DEPLOYED_WEB_APP_URL"; // replace with your Apps Script URL
+        const scriptURL = "https://script.google.com/macros/s/AKfycby8NVbeH0LkFpGcYbBHyuXeNV67B98oVuazHDSTPdf75-yR27LKnRIkB2sU90JHFAmasQ/exec";
         const formData = new FormData(form);
         const jsonData = Object.fromEntries(formData);
 
