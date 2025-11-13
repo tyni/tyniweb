@@ -27,7 +27,8 @@
     <h2>Let’s Build Your Brand in a Day</h2>
     <p>Fill this out in 2 minutes and we’ll handle the rest.</p>
 
-  <form id="brandKitForm" method="post" action="#" onsubmit="return false;">
+    <!-- ✅ Prevent native submission -->
+    <form id="brandKitForm" method="post" action="#" onsubmit="return false;">
       <!-- Business Info -->
       <h3>🧾 About Your Business</h3>
       <label>Business or Shop Name*</label>
@@ -88,6 +89,7 @@
       <p class="trust-note">We’ll never share your info. This form is secure and designed to be fast and easy.</p>
     </form>
   </div>
+
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById("brandKitForm");
@@ -142,16 +144,21 @@
           body: JSON.stringify(jsonData)
         });
 
-        const result = await res.json();
+        let result;
+        try {
+          result = await res.json();
+        } catch (err) {
+          console.error("Failed to parse JSON:", err);
+          alert("Server returned an invalid response.");
+          return;
+        }
 
         if (result.status === "success") {
-          // Save slug + status for pending flow
           localStorage.setItem("lastSlug", slug);
           localStorage.setItem("kitStatus", "pending");
-
           window.location.href = `/kits/processing.html?slug=${encodeURIComponent(result.slug)}`;
         } else {
-          alert("Oops! Something went wrong submitting your kit. Please try again.");
+          alert("Server error: " + result.message);
         }
       } catch (error) {
         alert("Oops! Something went wrong submitting your kit. Please try again.");
