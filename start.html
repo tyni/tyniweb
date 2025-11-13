@@ -88,7 +88,6 @@
       <p class="trust-note">We’ll never share your info. This form is secure and designed to be fast and easy.</p>
     </form>
   </div>
-
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById("brandKitForm");
@@ -107,13 +106,14 @@
     }
 
     form.addEventListener("submit", async function(e) {
-      e.preventDefault();
+      e.preventDefault(); // stop default GET submission
 
       submitBtn.disabled = true;
       submitBtn.textContent = "Submitting…";
 
       // Generate slug: name + timestamp
-      const name = document.querySelector('input[name="Client Name"]').value.trim().toLowerCase().replace(/\s+/g, "-");
+      const name = document.querySelector('input[name="Client Name"]').value
+        .trim().toLowerCase().replace(/\s+/g, "-");
       const now = new Date();
       const timestamp = now.getFullYear().toString() +
                         String(now.getMonth()+1).padStart(2, '0') +
@@ -130,34 +130,34 @@
       preview.style.color = "#666";
       form.insertBefore(preview, submitBtn);
 
-      try {try {
-	  const scriptURL = "YOUR_DEPLOYED_WEB_APP_URL";
-	  const formData = new FormData(form);
-	  const jsonData = Object.fromEntries(formData);
+      try {
+        const scriptURL = "YOUR_DEPLOYED_WEB_APP_URL"; // replace with your Apps Script URL
+        const formData = new FormData(form);
+        const jsonData = Object.fromEntries(formData);
 
-	  const res = await fetch(scriptURL, {
-		method: "POST",
-		headers: { "Content-Type": "application/json" },
-		body: JSON.stringify(jsonData)
-	  });
+        const res = await fetch(scriptURL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(jsonData)
+        });
 
-	  const result = await res.json();
+        const result = await res.json();
 
-	  if (result.status === "success") {
-		// Save slug + status for pending flow
-		localStorage.setItem("lastSlug", slug);
-		localStorage.setItem("kitStatus", "pending");
+        if (result.status === "success") {
+          // Save slug + status for pending flow
+          localStorage.setItem("lastSlug", slug);
+          localStorage.setItem("kitStatus", "pending");
 
-		window.location.href = `/kits/processing.html?slug=${encodeURIComponent(result.slug)}`;
-	  } else {
-		alert("Oops! Something went wrong submitting your kit. Please try again.");
-	  }
-	} catch (error) {
-	  alert("Oops! Something went wrong submitting your kit. Please try again.");
-	  console.error("Submission error:", error);
-	  submitBtn.disabled = false;
-	  submitBtn.textContent = "Build My Brand Kit";
-	}
+          window.location.href = `/kits/processing.html?slug=${encodeURIComponent(result.slug)}`;
+        } else {
+          alert("Oops! Something went wrong submitting your kit. Please try again.");
+        }
+      } catch (error) {
+        alert("Oops! Something went wrong submitting your kit. Please try again.");
+        console.error("Submission error:", error);
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Build My Brand Kit";
+      }
     });
   });
 </script>
