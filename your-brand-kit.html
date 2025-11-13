@@ -3,24 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <title>Your Brand Kit | Tyniweb</title>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Cormorant+Garamond&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond&family=Open+Sans&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Open Sans', sans-serif; background: linear-gradient(135deg, #fffaf3, #fdfdfd); color: #333; margin: 0; padding: 0; }
-    nav { background-color: #264653; padding: 12px; text-align: center; }
-    nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
-    nav a:hover { color: #f4a261; }
+    :root {
+      --bg-color: #fffaf3;
+      --text-color: #333;
+      --nav-bg: #264653;
+      --nav-link: #fff;
+      --nav-link-hover: #f4a261;
+      --button-bg: #f4a261;
+      --button-hover: #e38b4d;
+      --footer-color: #888;
+    }
+    body { font-family: 'Open Sans', sans-serif; background: var(--bg-color); color: var(--text-color); margin: 0; padding: 0; }
+    nav { background-color: var(--nav-bg); padding: 12px; text-align: center; }
+    nav a { color: var(--nav-link); margin: 0 15px; text-decoration: none; font-weight: bold; transition: color 0.3s ease; }
+    nav a:hover { color: var(--nav-link-hover); }
+    .toggle-btn { cursor: pointer; color: var(--nav-link); font-weight: bold; margin-left: 20px; }
     .container { max-width: 900px; margin: auto; padding: 40px 20px; text-align: center; }
-    h1 { font-family: 'Cormorant Garamond', serif; font-size: 42px; color: #444; margin-bottom: 10px; }
+    h1 { font-family: 'Cormorant Garamond', serif; font-size: 42px; color: var(--text-color); margin-bottom: 10px; }
     p.subtitle { font-size: 18px; color: #666; margin-bottom: 30px; }
     .brand-preview { max-width: 100%; border-radius: 12px; box-shadow: 0 6px 16px rgba(0,0,0,0.1); margin-bottom: 30px; }
     .palette { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-bottom: 30px; }
-    .swatch { width: 70px; height: 70px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    .swatch { width: 70px; height: 70px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); transition: transform 0.2s ease; }
+    .swatch:hover { transform: scale(1.1); }
     .font-section { margin: 40px 0; }
     .font-headline { font-family: 'Cormorant Garamond', serif; font-size: 32px; margin-bottom: 10px; }
     .font-body { font-family: 'Open Sans', sans-serif; font-size: 18px; color: #555; }
-    .button { background-color: #f4a261; color: white; padding: 14px 28px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; text-decoration: none; display: inline-block; margin: 10px; }
-    .button:hover { background-color: #e38b4d; }
-    footer { margin-top: 60px; font-size: 14px; color: #888; text-align: center; }
+    .button { background-color: var(--button-bg); color: white; padding: 14px 28px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; text-decoration: none; display: inline-block; margin: 10px; transition: background-color 0.3s ease; }
+    .button:hover { background-color: var(--button-hover); }
+    footer { margin-top: 60px; font-size: 14px; color: var(--footer-color); text-align: center; }
+    .share-link { margin-top: 20px; font-size: 16px; }
+    body.dark-mode {
+      --bg-color: #1e1e1e;
+      --text-color: #f5f5f5;
+      --nav-bg: #111;
+      --nav-link: #ddd;
+      --nav-link-hover: #f4a261;
+      --button-bg: #444;
+      --button-hover: #666;
+      --footer-color: #aaa;
+    }
   </style>
 </head>
 <body>
@@ -28,23 +51,67 @@
     <a href="/">Home</a>
     <a href="#download">Download</a>
     <a href="#request">Request Changes</a>
+    <span class="toggle-btn" onclick="toggleDarkMode()">🌙 Dark Mode</span>
   </nav>
 
   <div class="container">
     <h1>🎉 Your Brand Kit Is Ready!</h1>
     <p class="subtitle">Below you'll find your handcrafted logo variations, color palette, font pairing, and mockups.</p>
 
+    <!-- Preview image (replace dynamically if needed) -->
     <img src="brand-kit-preview.jpg" alt="Your Brand Kit Preview" class="brand-preview">
 
+    <!-- Palette (replace with dynamic swatches if you render via Apps Script) -->
     <div class="palette">
       <div class="swatch" style="background-color:#f4a261;"></div>
       <div class="swatch" style="background-color:#2a9d8f;"></div>
       <div class="swatch" style="background-color:#e76f51;"></div>
     </div>
 
+    <!-- Font sample section -->
     <div class="font-section">
       <div class="font-headline">This is a Headline in Cormorant Garamond</div>
       <div class="font-body">This is body text in Open Sans. It shows how your paragraphs will look in everyday use.</div>
     </div>
 
-    <a id="download" href="https://your-download-link.com
+    <!-- Download link -->
+    <a id="download" href="#" class="button">Download Your Brand Kit</a>
+
+    <!-- Share link -->
+    <p class="share-link">✨ Love your kit? Share it: <a href="https://tyniweb.com/kits/sample-slug/" target="_blank">https://tyniweb.com/kits/sample-slug/</a></p>
+
+    <!-- Start new kit + Home buttons -->
+    <a href="/kits/start.html" class="button" onclick="clearKitState()">Start a New Brand Kit</a>
+    <a href="https://tyniweb.com" class="button">🏠 Back to Tyniweb Home</a>
+  </div>
+
+  <footer>
+    © 2025 Tyniweb — Crafted with care ✨
+  </footer>
+
+  <script>
+    // Clear saved slug + status when final kit loads
+    function clearKitState() {
+      localStorage.removeItem('lastSlug');
+      localStorage.removeItem('kitStatus');
+    }
+    clearKitState();
+
+    // Dark mode persistence
+    window.onload = function() {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+      }
+    };
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      if (document.body.classList.contains('dark-mode')) {
+        localStorage.setItem('theme', 'dark');
+      } else {
+        localStorage.setItem('theme', 'light');
+      }
+    }
+  </script>
+</body>
+</html>
