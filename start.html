@@ -5,9 +5,7 @@
   <title>Start Your Brand Kit | Tyniweb</title>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Cormorant+Garamond&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
     body {
       font-family: 'Open Sans', sans-serif;
       background-color: #fffaf3;
@@ -78,11 +76,9 @@
     <h2>Let’s Build Your Brand in a Day</h2>
     <p>Fill this out in 2 minutes and we’ll handle the rest.</p>
 
-    <!-- ✅ Removed action/method -->
     <form id="brandKitForm">
-      <!-- Section: Business Info -->
+      <!-- Business Info -->
       <h3>🧾 About Your Business</h3>
-
       <label>Business or Shop Name*</label>
       <small>This will appear on your logo and brand kit. If you don’t have one yet, just write a placeholder.</small>
       <input type="text" name="Business Name" required>
@@ -96,16 +92,14 @@
       <label>Who is your ideal customer?*</label>
       <input type="text" name="Ideal Customer" required>
 
-      <!-- Section: Style -->
+      <!-- Style -->
       <h3>🎨 Your Brand Style</h3>
-
       <label>Favorite colors or styles (optional)</label>
       <input type="text" name="Color Preferences">
-      
-      <!--
-      <label>Upload inspiration (logo, product, moodboard)</label>
-      <input type="file" name="Inspiration Upload">
-      -->
+
+      <!-- File upload temporarily disabled until Drive handling is added -->
+      <!-- <label>Upload inspiration (logo, product, moodboard)</label>
+      <input type="file" name="Inspiration Upload"> -->
 
       <label>What tone should your brand use?*</label>
       <select name="Brand Tone" required>
@@ -128,9 +122,8 @@
       <label>Anything else we should know?</label>
       <textarea name="Extra Notes" rows="4" cols="40"></textarea>
 
-      <!-- Section: Contact -->
+      <!-- Contact -->
       <h3>📬 Contact & Consent</h3>
-
       <label>Your Name*</label>
       <input type="text" name="Client Name" required>
 
@@ -145,7 +138,6 @@
       <input type="hidden" name="Slug" value="">
 
       <button type="submit">Build My Brand Kit</button>
-
       <p class="trust-note">We’ll never share your info. This form is secure and designed to be fast and easy.</p>
     </form>
   </div>
@@ -154,10 +146,22 @@
   document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById("brandKitForm");
 
-    form.addEventListener("submit", async function(e) {
-      e.preventDefault(); // ✅ stops default navigation
+    // 🔙 If user goes back, redirect them to processing page
+    const existingSlug = localStorage.getItem("lastSlug");
+    if (existingSlug) {
+      window.location.href = `/kits/processing.html?slug=${encodeURIComponent(existingSlug)}`;
+      return;
+    }
 
-      // Generate slug from Client Name + timestamp
+    form.addEventListener("submit", async function(e) {
+      e.preventDefault();
+
+      // Disable submit button
+      const submitBtn = form.querySelector("button[type='submit']");
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Submitting…";
+
+      // Generate slug
       const name = document.querySelector('input[name="Client Name"]').value.trim().toLowerCase().replace(/\s+/g, "-");
       const now = new Date();
       const timestamp = now.getFullYear().toString() +
@@ -173,25 +177,24 @@
       preview.textContent = `Your brand kit will be saved as: ${slug}`;
       preview.style.fontSize = "14px";
       preview.style.color = "#666";
-      form.insertBefore(preview, form.querySelector("button[type='submit']"));
+      form.insertBefore(preview, submitBtn);
 
       try {
-        // Apps Script endpoint (hidden from user)
         const scriptURL = "https://script.google.com/macros/s/AKfycby8NVbeH0LkFpGcYbBHyuXeNV67B98oVuazHDSTPdf75-yR27LKnRIkB2sU90JHFAmasQ/exec";
-
         const formData = new FormData(form);
 
-        // Send form data silently
-        await fetch(scriptURL, {
-          method: "POST",
-          body: formData
-        });
+        await fetch(scriptURL, { method: "POST", body: formData });
 
-        // Redirect to processing page on your domain
+        // Save slug in localStorage for back navigation
+        localStorage.setItem("lastSlug", slug);
+
+        // Redirect to processing page
         window.location.href = `/kits/processing.html?slug=${encodeURIComponent(slug)}`;
       } catch (error) {
         alert("Oops! Something went wrong submitting your kit. Please try again.");
         console.error("Submission error:", error);
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Build My Brand Kit";
       }
     });
   });
