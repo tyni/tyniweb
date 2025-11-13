@@ -130,23 +130,34 @@
       preview.style.color = "#666";
       form.insertBefore(preview, submitBtn);
 
-      try {
-        const scriptURL = "https://script.google.com/macros/s/AKfycby8NVbeH0LkFpGcYbBHyuXeNV67B98oVuazHDSTPdf75-yR27LKnRIkB2sU90JHFAmasQ/exec";
-        const formData = new FormData(form);
+      try {try {
+	  const scriptURL = "YOUR_DEPLOYED_WEB_APP_URL";
+	  const formData = new FormData(form);
+	  const jsonData = Object.fromEntries(formData);
 
-        await fetch(scriptURL, { method: "POST", body: formData });
+	  const res = await fetch(scriptURL, {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify(jsonData)
+	  });
 
-        // Save slug + status for pending flow
-        localStorage.setItem("lastSlug", slug);
-        localStorage.setItem("kitStatus", "pending");
+	  const result = await res.json();
 
-        window.location.href = `/kits/processing.html?slug=${encodeURIComponent(slug)}`;
-      } catch (error) {
-        alert("Oops! Something went wrong submitting your kit. Please try again.");
-        console.error("Submission error:", error);
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Build My Brand Kit";
-      }
+	  if (result.status === "success") {
+		// Save slug + status for pending flow
+		localStorage.setItem("lastSlug", slug);
+		localStorage.setItem("kitStatus", "pending");
+
+		window.location.href = `/kits/processing.html?slug=${encodeURIComponent(result.slug)}`;
+	  } else {
+		alert("Oops! Something went wrong submitting your kit. Please try again.");
+	  }
+	} catch (error) {
+	  alert("Oops! Something went wrong submitting your kit. Please try again.");
+	  console.error("Submission error:", error);
+	  submitBtn.disabled = false;
+	  submitBtn.textContent = "Build My Brand Kit";
+	}
     });
   });
 </script>
