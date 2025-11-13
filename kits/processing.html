@@ -10,6 +10,19 @@
     #emailForm { display: none; margin-top: 30px; }
     input[type="email"] { padding: 8px; font-size: 1em; }
     button { padding: 8px 12px; font-size: 1em; margin-left: 10px; }
+    .cancel-btn {
+      margin-top: 40px;
+      background-color: #e76f51;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 12px 20px;
+      font-size: 1em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .cancel-btn:hover { background-color: #c44536; }
   </style>
 </head>
 <body>
@@ -22,6 +35,9 @@
     <input type="email" id="userEmail" placeholder="you@example.com" />
     <button onclick="submitEmail()">Notify Me</button>
   </div>
+
+  <!-- Cancel and Start Over -->
+  <button class="cancel-btn" onclick="cancelAndRestart()">❌ Cancel and Start Over</button>
 
   <script>
     const params = new URLSearchParams(window.location.search);
@@ -53,7 +69,7 @@
           localStorage.setItem("kitStatus", "done");
           window.location.href = `/kits/${slug}/your-brand-kit.html`;
         } else {
-          setTimeout(checkKit, 5000); // retry in 5s
+          setTimeout(checkKit, 5000);
         }
       } catch (err) {
         setTimeout(checkKit, 5000);
@@ -72,6 +88,13 @@
         alert("Thanks! We’ll notify you at " + email + " when your kit is ready.");
         // TODO: Hook into backend for actual notification
       }
+    }
+
+    // ✅ Cancel and restart
+    function cancelAndRestart() {
+      localStorage.removeItem("lastSlug");
+      localStorage.removeItem("kitStatus");
+      window.location.href = "/kits/start.html";
     }
 
     // ✅ Mark kit as pending when processing starts
