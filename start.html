@@ -37,7 +37,6 @@
     }
     input[type="text"],
     input[type="email"],
-    input[type="file"],
     select,
     textarea {
       width: 100%;
@@ -97,10 +96,6 @@
       <label>Favorite colors or styles (optional)</label>
       <input type="text" name="Color Preferences">
 
-      <!-- File upload temporarily disabled until Drive handling is added -->
-      <!-- <label>Upload inspiration (logo, product, moodboard)</label>
-      <input type="file" name="Inspiration Upload"> -->
-
       <label>What tone should your brand use?*</label>
       <select name="Brand Tone" required>
         <option value="">Select one</option>
@@ -145,10 +140,17 @@
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById("brandKitForm");
+    const submitBtn = form.querySelector("button[type='submit']");
 
-    // 🔙 If user goes back, redirect them to processing page
+    // ✅ Always reset button state on page load
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Build My Brand Kit";
+
+    // 🔙 If user goes back, redirect them to processing page only if kit is still pending
     const existingSlug = localStorage.getItem("lastSlug");
     if (existingSlug) {
+      // Optional: check if kit is already generated before redirecting
+      // For now, just redirect to processing page
       window.location.href = `/kits/processing.html?slug=${encodeURIComponent(existingSlug)}`;
       return;
     }
@@ -157,7 +159,6 @@
       e.preventDefault();
 
       // Disable submit button
-      const submitBtn = form.querySelector("button[type='submit']");
       submitBtn.disabled = true;
       submitBtn.textContent = "Submitting…";
 
