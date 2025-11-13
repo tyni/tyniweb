@@ -5,31 +5,87 @@
   <title>Start Your Brand Kit | Tyniweb</title>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Cormorant+Garamond&display=swap" rel="stylesheet">
   <style>
+    * { box-sizing: border-box; }
     body { font-family: 'Open Sans', sans-serif; background-color: #fffaf3; margin: 0; padding: 20px; }
-    .form-container { max-width: 600px; margin: 40px auto; background: #fffaf3; padding: 30px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .form-container { max-width: 600px; margin: 40px auto; background-color: #fffaf3; padding: 30px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); color: #333; }
     h2, h3 { font-family: 'Cormorant Garamond', serif; color: #444; }
     label { font-weight: bold; margin-top: 12px; display: block; }
-    input, select, textarea { width: 100%; padding: 12px; margin-top: 6px; margin-bottom: 16px; border: 1px solid #ccc; border-radius: 8px; font-size: 16px; }
-    button { background-color: #f4a261; color: white; padding: 14px 28px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; }
-    button:hover { background-color: #e38b4d; }
+    small { display: block; margin-bottom: 6px; color: #666; }
+    input[type="text"], input[type="email"], select, textarea {
+      width: 100%; padding: 12px; margin-top: 6px; margin-bottom: 16px; border: 1px solid #ccc; border-radius: 8px; font-size: 16px;
+    }
+    button[type="submit"] {
+      background-color: #f4a261; color: white; padding: 14px 28px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer;
+      transition: background-color 0.3s ease; box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    button[type="submit"]:hover { background-color: #e38b4d; }
     .trust-note { font-size: 14px; color: #777; margin-top: 20px; }
   </style>
 </head>
 <body>
   <div class="form-container">
     <h2>Let’s Build Your Brand in a Day</h2>
+    <p>Fill this out in 2 minutes and we’ll handle the rest.</p>
+
     <form id="brandKitForm">
+      <!-- Business Info -->
+      <h3>🧾 About Your Business</h3>
+      <label>Business or Shop Name*</label>
+      <small>This will appear on your logo and brand kit. If you don’t have one yet, just write a placeholder.</small>
+      <input type="text" name="Business Name" required>
+
+      <label>What do you sell or make?*</label>
+      <input type="text" name="Product Type" required>
+
+      <label>Describe your brand vibe in 3 words*</label>
+      <input type="text" name="Brand Vibe" required>
+
+      <label>Who is your ideal customer?*</label>
+      <input type="text" name="Ideal Customer" required>
+
+      <!-- Style -->
+      <h3>🎨 Your Brand Style</h3>
+      <label>Favorite colors or styles (optional)</label>
+      <input type="text" name="Color Preferences">
+
+      <label>What tone should your brand use?*</label>
+      <select name="Brand Tone" required>
+        <option value="">Select one</option>
+        <option>Playful & fun</option>
+        <option>Calm & natural</option>
+        <option>Bold & confident</option>
+        <option>Elegant & refined</option>
+        <option>Warm & whimsical</option>
+        <option>Cozy & nostalgic</option>
+        <option>Earthy & grounded</option>
+        <option>Magical & dreamy</option>
+        <option>Friendly & conversational</option>
+        <option>Vintage & romantic</option>
+        <option>Artistic & expressive</option>
+        <option>Professional & trustworthy</option>
+        <option>Other</option>
+      </select>
+
+      <label>Anything else we should know?</label>
+      <textarea name="Extra Notes" rows="4" cols="40"></textarea>
+
+      <!-- Contact -->
+      <h3>📬 Contact & Consent</h3>
       <label>Your Name*</label>
       <input type="text" name="Client Name" required>
-      <label>Your Email*</label>
+
+      <label>Your Email Address*</label>
       <input type="email" name="Client Email" required>
-      <label>Business Name*</label>
-      <input type="text" name="Business Name" required>
-      <label>Color Preferences</label>
-      <input type="text" name="Color Preferences">
+
+      <label>Can we use your kit as a portfolio example?</label>
+      <input type="radio" name="Portfolio Consent" value="Yes" checked> Yes
+      <input type="radio" name="Portfolio Consent" value="No"> No
+
+      <!-- Hidden Slug -->
       <input type="hidden" name="Slug" value="">
+
       <button type="submit">Build My Brand Kit</button>
-      <p class="trust-note">We’ll never share your info. This form is secure.</p>
+      <p class="trust-note">We’ll never share your info. This form is secure and designed to be fast and easy.</p>
     </form>
   </div>
 
@@ -38,11 +94,11 @@
     const form = document.getElementById("brandKitForm");
     const submitBtn = form.querySelector("button[type='submit']");
 
-    // Reset button state
+    // Reset button each load
     submitBtn.disabled = false;
     submitBtn.textContent = "Build My Brand Kit";
 
-    // ✅ Only redirect if kit is still pending
+    // Only redirect if kit is pending
     const existingSlug = localStorage.getItem("lastSlug");
     const kitStatus = localStorage.getItem("kitStatus");
     if (existingSlug && kitStatus === "pending") {
@@ -52,10 +108,11 @@
 
     form.addEventListener("submit", async function(e) {
       e.preventDefault();
+
       submitBtn.disabled = true;
       submitBtn.textContent = "Submitting…";
 
-      // Generate slug
+      // Generate slug: name + timestamp
       const name = document.querySelector('input[name="Client Name"]').value.trim().toLowerCase().replace(/\s+/g, "-");
       const now = new Date();
       const timestamp = now.getFullYear().toString() +
@@ -66,18 +123,27 @@
       const slug = `${name}-${timestamp}`;
       document.querySelector('input[name="Slug"]').value = slug;
 
+      // Optional preview line
+      const preview = document.createElement("p");
+      preview.textContent = `Your brand kit will be saved as: ${slug}`;
+      preview.style.fontSize = "14px";
+      preview.style.color = "#666";
+      form.insertBefore(preview, submitBtn);
+
       try {
-        const scriptURL = "YOUR_SCRIPT_URL_HERE";
+        const scriptURL = "https://script.google.com/macros/s/AKfycby8NVbeH0LkFpGcYbBHyuXeNV67B98oVuazHDSTPdf75-yR27LKnRIkB2sU90JHFAmasQ/exec";
         const formData = new FormData(form);
+
         await fetch(scriptURL, { method: "POST", body: formData });
 
-        // Save slug + status
+        // Save slug + status for pending flow
         localStorage.setItem("lastSlug", slug);
         localStorage.setItem("kitStatus", "pending");
 
         window.location.href = `/kits/processing.html?slug=${encodeURIComponent(slug)}`;
       } catch (error) {
-        alert("Oops! Something went wrong.");
+        alert("Oops! Something went wrong submitting your kit. Please try again.");
+        console.error("Submission error:", error);
         submitBtn.disabled = false;
         submitBtn.textContent = "Build My Brand Kit";
       }
