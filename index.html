@@ -74,6 +74,7 @@
       text-decoration: none;
       margin-top: 20px;
       transition: background 0.3s ease;
+      cursor: pointer;
     }
     .cta:hover {
       background: #e38b4d;
@@ -128,7 +129,6 @@
     <div class="logo">✨ Tyniweb</div>
     <ul>
       <li><a href="#">Home</a></li>
-      <li><a href="start.html">Start Your Kit</a></li>
       <li><a href="#">How It Works</a></li>
       <li><a href="#">About</a></li>
       <li><a href="#">FAQ</a></li>
@@ -138,7 +138,7 @@
   <header>
     <h1 class="hero-logo">✨ Tyniweb</h1>
     <p>Instant brand kits for handmade sellers — no logins, no stress, just magic.</p>
-    <a href="start.html" class="cta">Start Your Brand Kit</a>
+    <button class="cta" id="startKitBtn">Start Your Brand Kit</button>
   </header>
 
   <section class="vibe-section">
@@ -182,5 +182,11 @@
   <footer>
     &copy; 2025 Tyniweb. Built with love and automation.
   </footer>
+
+  <script>
+    document.getElementById("startKitBtn").addEventListener("click", () => {
+      window.location.href = "https://script.google.com/macros/s/AKfycby8NVbeH0LkFpGcYbBHyuXeNV67B98oVuazHDSTPdf75-yR27LKnRIkB2sU90JHFAmasQ/exec?page=start";
+    });
+  </script>
 </body>
 </html>
