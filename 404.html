@@ -6,17 +6,35 @@
   <title>Page Not Found — Tyniweb</title>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Cormorant+Garamond&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --max-width: 640px;
+      --side-padding: 20px;
+      --container-radius: 12px;
+      --container-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      --container-bg: #fff;
+      --font-body: 'Open Sans', sans-serif;
+      --font-heading: 'Cormorant Garamond', serif;
+      --color-text: #333;
+      --color-accent: #f4a261;
+      --color-bg: #fffaf3;
+    }
+    
     body {
       margin: 0;
-      font-family: 'Open Sans', sans-serif;
-      background: #fffaf3;
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
+      padding: var(--side-padding);
+      font-family: var(--font-body);
+      background-color: var(--color-bg);
+      color: var(--color-text);
+    }
+    
+    .container {
+      max-width: var(--max-width);
+      margin: 40px auto;
+      padding: 30px;
+      background-color: var(--container-bg);
+      border-radius: var(--container-radius);
+      box-shadow: var(--container-shadow);
+      box-sizing: border-box;
     }
     h1 {
       font-family: 'Cormorant Garamond', serif;
