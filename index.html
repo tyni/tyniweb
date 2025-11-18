@@ -11,33 +11,23 @@
       --bg: #fffaf3;
       --text: #333;
       --primary: #002b5c;
-      --max-width: 640px;
-      --side-padding: 20px;
-      --container-radius: 12px;
-      --container-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      --container-bg: #fff;
     }
 
     body {
       margin: 0;
-      padding: var(--side-padding);
+      padding: 20px;
       font-family: 'Open Sans', sans-serif;
       background: var(--bg);
       color: var(--text);
-      position: relative;
-      z-index: 1;
     }
 
     nav {
-      position: sticky;
-      top: 0;
-      background: white;
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 16px 32px;
+      background: white;
       box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-      z-index: 100;
     }
 
     nav .logo {
@@ -47,11 +37,19 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      position: relative;
     }
 
-    nav .logo span {
-      font-size: 20px;
-      color: var(--accent);
+    .edit-icon {
+      position: absolute;
+      top: -10px;
+      right: -20px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      padding: 4px 8px;
+      cursor: pointer;
     }
 
     nav ul {
@@ -69,12 +67,11 @@
     }
 
     header {
-      background-color: var(--primary);
+      background: var(--primary);
       padding: 60px 20px;
       border-radius: 0 0 12px 12px;
       text-align: center;
       position: relative;
-      z-index: 0;
       overflow: hidden;
     }
 
@@ -85,7 +82,6 @@
       width: 100%; height: 100%;
       background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><polygon points="50,15 90,40 90,80 50,105 10,80 10,40" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/></svg>');
       background-size: 80px 80px;
-      background-position: center;
       animation: drift 60s linear infinite;
       z-index: -1;
     }
@@ -99,21 +95,16 @@
       font-family: 'Quicksand', sans-serif;
       font-size: 48px;
       color: white;
-      display: inline-block;
       position: relative;
-      z-index: 1;
     }
 
     .hero-subtext {
       color: white;
       font-size: 18px;
       margin-top: 12px;
-      position: relative;
-      z-index: 1;
     }
 
     .cta {
-      display: inline-block;
       background: var(--accent);
       color: white;
       padding: 16px 32px;
@@ -122,14 +113,8 @@
       border-radius: 8px;
       text-decoration: none;
       margin-top: 24px;
-      transition: background 0.3s ease;
+      display: inline-block;
       cursor: pointer;
-      position: relative;
-      z-index: 1;
-    }
-
-    .cta:hover {
-      background: #e38b4d;
     }
 
     .vibe-section {
@@ -137,29 +122,19 @@
       text-align: center;
     }
 
-    .container {
-      max-width: 640px;
-      margin: 0 auto;
-      padding-left: 24px;
-      padding-right: 24px;
-      box-sizing: border-box;
-    }
-
     .vibe-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 24px;
-      margin-top: 40px;
-      width: 100%;
-      box-sizing: border-box;
+      max-width: 640px;
+      margin: 0 auto;
     }
 
     .vibe-card {
       background: white;
       border-radius: 12px;
-      box-shadow: var(--container-shadow);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       padding: 20px;
-      cursor: pointer;
       transition: transform 0.3s ease;
     }
 
@@ -175,8 +150,8 @@
 
     .swatches {
       display: flex;
-      gap: 8px;
       justify-content: center;
+      gap: 8px;
     }
 
     .swatch {
@@ -198,9 +173,9 @@
       top: 0; left: 0;
       width: 100%; height: 100%;
       background: rgba(0,0,0,0.6);
-      z-index: 999;
       justify-content: center;
       align-items: center;
+      z-index: 999;
     }
 
     #signinOverlay > div {
@@ -209,8 +184,7 @@
       border-radius: 12px;
       text-align: center;
       max-width: 420px;
-      width: calc(100% - 40px); /* NEW: ensures consistent spacing */
-      margin: 0 auto;
+      width: calc(100% - 40px);
       box-sizing: border-box;
     }
 
@@ -237,11 +211,35 @@
       display: block;
       margin-top: 16px;
     }
+
+    .editor-panel {
+      position: fixed;
+      top: 100px;
+      right: 40px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      display: none;
+      z-index: 1000;
+    }
+
+    .editor-panel label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .editor-panel input {
+      margin-left: 10px;
+    }
   </style>
 </head>
 <body>
   <nav>
-    <div class="logo"><span>≡</span> tyniweb</div>
+    <div class="logo" id="logoBlock">
+      <span>≡</span> <span class="hero-logo">tyniweb</span>
+      <button class="edit-icon" onclick="openEditor()">✏️</button>
+    </div>
     <ul>
       <li><a href="#">Home</a></li>
       <li><a href="#">How It Works</a></li>
@@ -251,97 +249,124 @@
   </nav>
 
   <header>
-    <h1 class="hero-logo">≡ tyniweb</h1>
     <p class="hero-subtext">A portal for multi-hyphenates — starting with brand kits.</p>
     <button class="cta" onclick="openOverlay()">Sign In</button>
   </header>
 
   <section class="vibe-section">
     <h2>Pick Your Brand Vibe</h2>
-    <div class="container">
-      <div class="vibe-grid">
-        <div class="vibe-card">
-          <div class="vibe-title">Cozy</div>
-          <div class="swatches">
-            <div class="swatch" style="background:#d8cfc4;"></div>
-            <div class="swatch" style="background:#a67c52;"></div>
-            <div class="swatch" style="background:#f4e9dc;"></div>
-          </div>
+    <div class="vibe-grid">
+      <div class="vibe-card">
+        <div class="vibe-title">Cozy</div>
+        <div class="swatches">
+          <div class="swatch" style="background:#d8cfc4;"></div>
+          <div class="swatch" style="background:#a67c52;"></div>
+          <div class="swatch" style="background:#f4e9dc;"></div>
         </div>
-        <div class="vibe-card">
-          <div class="vibe-title">Bold</div>
-          <div class="swatches">
-            <div class="swatch" style="background:#1a1a1a;"></div>
-            <div class="swatch" style="background:#e63946;"></div>
-            <div class="swatch" style="background:#f1faee;"></div>
-          </div>
+      </div>
+      <div class="vibe-card">
+        <div class="vibe-title">Bold</div>
+        <div class="swatches">
+          <div class="swatch" style="background:#1a1a1a;"></div>
+          <div class="swatch" style="background:#e63946;"></div>
+          <div class="swatch" style="background:#f1faee;"></div>
         </div>
-        <div class="vibe-card">
-<div class="vibe-title">Playful</div>
-<div class="swatches">
-  <div class="swatch" style="background:#ffbe0b;"></div>
-  <div class="swatch" style="background:#fb5607;"></div>
-  <div class="swatch" style="background:#ff006e;"></div>
-</div>
-</div>
-<div class="vibe-card">
-  <div class="vibe-title">Earthy</div>
-  <div class="swatches">
-    <div class="swatch" style="background:#6b705c;"></div>
-    <div class="swatch" style="background:#a5a58d;"></div>
-    <div class="swatch" style="background:#ffe8d6;"></div>
+      </div>
+      <div class="vibe-card">
+        <div class="vibe-title">Playful</div>
+        <div class="swatches">
+          <div class="swatch" style="background:#ffbe0b;"></div>
+          <div class="swatch" style="background:#fb5607;"></div>
+          <div class="swatch" style="background:#ff006e;"></div>
+        </div>
+      </div>
+      <div class="vibe-card">
+        <div class="vibe-title">Earthy</div>
+        <div class="swatches">
+          <div class="swatch" style="background:#6b705c;"></div>
+          <div class="swatch" style="background:#a5a58d;"></div>
+          <div class="swatch" style="background:#ffe8d6;"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 tyniweb. Built with love and automation.
+  </footer>
+
+  <!-- 🔐 Sign-In Overlay -->
+  <div id="signinOverlay">
+    <div>
+      <h2>Sign In</h2>
+      <input type="password" id="accessKey" placeholder="Enter access key" />
+      <button onclick="checkAccess()">Enter</button>
+      <a href="#" onclick="closeOverlay()">Cancel</a>
+    </div>
   </div>
-</div>
-</div> <!-- end .vibe-grid -->
-</div> <!-- end .container -->
-</section>
 
-<footer>
-  &copy; 2025 tyniweb. Built with love and automation.
-</footer>
-
-<!-- 🔐 Sign-In Overlay -->
-<div id="signinOverlay">
-  <div>
-    <h2>Sign In</h2>
-    <input type="password" id="accessKey" placeholder="Enter access key" />
-    <button onclick="checkAccess()">Enter</button>
-    <a href="#" onclick="closeOverlay()">Cancel</a>
+  <!-- ✏️ Editor Panel -->
+  <div class="editor-panel" id="editorPanel">
+    <h3>Edit Logo</h3>
+    <label>Text: <input type="text" id="editText" /></label>
+    <label>Font Size: <input type="number" id="editSize" /></label>
+    <label>Color: <input type="color" id="editColor" /></label>
+    <button onclick="applyChanges()">Apply</button>
+    <button onclick="copyChanges()">Copy Code</button>
   </div>
-</div>
 
-<script>
-  function openOverlay() {
-    document.getElementById("signinOverlay").style.display = "flex";
-  }
-
-  function closeOverlay() {
-    document.getElementById("signinOverlay").style.display = "none";
-  }
-
-  ffunction checkAccess() {
-    const key = document.getElementById("accessKey").value;
-    const allowedKey = "tj-only-access"; // your private key
-  
-    if (key === allowedKey) {
-      localStorage.setItem("accessGranted", "true");
-      window.location.href = "/portal.html";
-    } else {
-      alert("Incorrect key. Try again.");
+  <script>
+    function openOverlay() {
+      document.getElementById("signinOverlay").style.display = "flex";
     }
-  }
 
-  window.onload = function () {
-    if (localStorage.getItem("accessGranted") === "true") {
-      // Optional: auto-forward
-      // window.location.href = "/start.html";
+    function closeOverlay() {
+      document.getElementById("signinOverlay").style.display = "none";
     }
-  };
-</script>
+
+    function checkAccess() {
+      const key = document.getElementById("accessKey").value;
+      if (key === "tj-only-access") {
+        localStorage.setItem("accessGranted", "true");
+        window.location.href = "/portal.html";
+      } else {
+        alert("Incorrect key. Try again.");
+      }
+    }
+
+    function openEditor() {
+      const logo = document.querySelector(".hero-logo");
+      document.getElementById("editText").value = logo.textContent;
+      document.getElementById("editSize").value = parseInt(window.getComputedStyle(logo).fontSize);
+      document.getElementById("editColor").value = rgbToHex(window.getComputedStyle(logo).color);
+      document.getElementById("editorPanel").style.display = "block";
+    }
+
+    function applyChanges() {
+      const logo = document.querySelector(".hero-logo");
+      logo.textContent = document.getElementById("editText").value;
+      logo.style.fontSize = document.getElementById("editSize").value + "px";
+      logo.style.color = document.getElementById("editColor").value;
+    }
+
+    function copyChanges() {
+      const logo = document.querySelector(".hero-logo");
+      const html = logo.outerHTML;
+      navigator.clipboard.writeText(html);
+      alert("Copied updated HTML to clipboard!");
+    }
+
+    function rgbToHex(rgb) {
+      const result = rgb.match(/\d+/g).map(x => parseInt(x).toString(16).padStart(2, '0'));
+      return '#' + result.join('');
+    }
+
+    window.onload = function () {
+      if (localStorage.getItem("accessGranted") === "true") {
+        // Optional: auto-forward
+        // window.location.href = "/portal.html";
+      }
+    };
+  </script>
 </body>
 </html>
-
-
-
-
-
