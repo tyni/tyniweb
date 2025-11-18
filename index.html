@@ -7,35 +7,25 @@
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Quicksand:wght@500&display=swap" rel="stylesheet">
   <style>
     :root {
+      --accent: #f4a261;
+      --bg: #fffaf3;
+      --text: #333;
+      --primary: #002b5c;
       --max-width: 640px;
       --side-padding: 20px;
       --container-radius: 12px;
       --container-shadow: 0 4px 12px rgba(0,0,0,0.1);
       --container-bg: #fff;
-      --font-body: 'Open Sans', sans-serif;
-      --font-heading: 'Cormorant Garamond', serif;
-      --color-text: #333;
-      --color-accent: #f4a261;
-      --color-bg: #fffaf3;
     }
-    
+
     body {
       margin: 0;
       padding: var(--side-padding);
-      font-family: var(--font-body);
-      background-color: var(--color-bg);
-      color: var(--color-text);
+      font-family: 'Open Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
     }
-    
-    .container {
-      max-width: var(--max-width);
-      margin: 40px auto;
-      padding: 30px;
-      background-color: var(--container-bg);
-      border-radius: var(--container-radius);
-      box-shadow: var(--container-shadow);
-      box-sizing: border-box;
-    }
+
     nav {
       position: sticky;
       top: 0;
@@ -47,6 +37,7 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.05);
       z-index: 100;
     }
+
     nav .logo {
       font-family: 'Quicksand', sans-serif;
       font-size: 28px;
@@ -55,10 +46,12 @@
       align-items: center;
       gap: 8px;
     }
+
     nav .logo span {
       font-size: 20px;
       color: var(--accent);
     }
+
     nav ul {
       list-style: none;
       display: flex;
@@ -66,28 +59,58 @@
       margin: 0;
       padding: 0;
     }
+
     nav ul li a {
       text-decoration: none;
       color: var(--text);
       font-weight: bold;
     }
+
     header {
       background-color: var(--primary);
       padding: 60px 20px;
       border-radius: 0 0 12px 12px;
       text-align: center;
+      position: relative;
+      overflow: hidden;
     }
+
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><polygon points="50,15 90,40 90,80 50,105 10,80 10,40" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/></svg>');
+      background-size: 100px 100px;
+      animation: drift 60s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes drift {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(-100px, -100px); }
+    }
+
     .hero-logo {
       font-family: 'Quicksand', sans-serif;
       font-size: 48px;
       color: white;
-      margin: 0;
+      background: rgba(255,255,255,0.1);
+      padding: 12px 24px;
+      border-radius: 12px;
+      display: inline-block;
+      position: relative;
+      z-index: 1;
     }
+
     .hero-subtext {
       color: white;
       font-size: 18px;
       margin-top: 12px;
+      position: relative;
+      z-index: 1;
     }
+
     .cta {
       display: inline-block;
       background: var(--accent);
@@ -100,14 +123,19 @@
       margin-top: 24px;
       transition: background 0.3s ease;
       cursor: pointer;
+      position: relative;
+      z-index: 1;
     }
+
     .cta:hover {
       background: #e38b4d;
     }
+
     .vibe-section {
       padding: 60px 20px;
       text-align: center;
     }
+
     .vibe-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -115,52 +143,90 @@
       max-width: 1000px;
       margin: 0 auto;
     }
+
     .vibe-card {
       background: white;
       border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      box-shadow: var(--container-shadow);
       padding: 20px;
       cursor: pointer;
       transition: transform 0.3s ease;
     }
+
     .vibe-card:hover {
       transform: scale(1.05);
     }
+
     .vibe-title {
       font-family: 'Quicksand', sans-serif;
       font-size: 24px;
       margin-bottom: 12px;
     }
+
     .swatches {
       display: flex;
       gap: 8px;
       justify-content: center;
     }
+
     .swatch {
       width: 24px;
       height: 24px;
       border-radius: 50%;
     }
+
     footer {
       text-align: center;
       font-size: 14px;
       color: #888;
       padding: 40px 20px;
     }
-      .header::before {
-        content: "";
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><polygon points="50,15 90,40 90,80 50,105 10,80 10,40" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/></svg>');
-        background-size: 100px 100px;
-        animation: drift 60s linear infinite;
-        z-index: -1;
-        background-color: rgba(0, 43, 92, 0.9); /* dark blue overlay */
-      }
-    @keyframes drift {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(-100px, -100px); }
+
+    #signinOverlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      z-index: 999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #signinOverlay > div {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+      box-sizing: border-box;
+      margin: 0 20px;
+    }
+
+    #signinOverlay input {
+      padding: 12px;
+      width: 100%;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    #signinOverlay button {
+      background: var(--accent);
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
+    #signinOverlay a {
+      color: #888;
+      font-size: 14px;
+      display: block;
+      margin-top: 16px;
     }
   </style>
 </head>
@@ -175,11 +241,11 @@
     </ul>
   </nav>
 
-<header>
-  <h1 class="hero-logo">≡ tyniweb</h1>
-  <p class="hero-subtext">A portal for multi-hyphenates — starting with brand kits.</p>
-  <button class="cta" onclick="openOverlay()">Sign In</button>
-</header>
+  <header>
+    <h1 class="hero-logo">≡ tyniweb</h1>
+    <p class="hero-subtext">A portal for multi-hyphenates — starting with brand kits.</p>
+    <button class="cta" onclick="openOverlay()">Sign In</button>
+  </header>
 
   <section class="vibe-section">
     <h2>Pick Your Brand Vibe</h2>
@@ -222,37 +288,43 @@
   <footer>
     &copy; 2025 tyniweb. Built with love and automation.
   </footer>
-  <div id="signinOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:999; justify-content:center; align-items:center;">
-  <div style="background:white; padding:40px 30px; border-radius:12px; text-align:center; max-width:400px; width:90%;">
-    <h2 style="margin-top:0;">Sign In</h2>
-    <input type="password" id="accessKey" placeholder="Enter access key" style="padding:12px; width:100%; margin-bottom:20px; border:1px solid #ccc; border-radius:6px;" />
-    <br />
-    <button onclick="checkAccess()" style="background:#f4a261; color:white; padding:12px 24px; border:none; border-radius:6px; font-weight:bold;">Enter</button>
-    <br /><br />
-    <a href="#" onclick="closeOverlay()" style="color:#888; font-size:14px;">Cancel</a>
+
+  <!-- 🔐 Sign-In Overlay -->
+  <div id="signinOverlay">
+    <div>
+      <h2>Sign In</h2>
+      <input type="password" id="accessKey" placeholder="Enter access key" />
+      <button onclick="checkAccess()">Enter</button>
+      <a href="#" onclick="closeOverlay()">Cancel</a>
+    </div>
   </div>
-</div>
+
   <script>
-  function openOverlay() {
-    document.getElementById("signinOverlay").style.display = "flex";
-  }
-
-  function closeOverlay() {
-    document.getElementById("signinOverlay").style.display = "none";
-  }
-
-  function checkAccess() {
-    const key = document.getElementById("accessKey").value;
-    if (key === "your-secret-key") {
-      window.location.href = "/admin";
-    } else {
-      alert("Incorrect key. Try again.");
+    function openOverlay() {
+      document.getElementById("signinOverlay").style.display = "flex";
     }
-  }
-</script>
+
+    function closeOverlay() {
+      document.getElementById("signinOverlay").style.display = "none";
+    }
+
+    function checkAccess() {
+      const key = document.getElementById("accessKey").value;
+      if (key === "your-secret-key") {
+        localStorage.setItem("accessGranted", "true");
+        window.location.href = "/start.html";
+      } else {
+        alert("Incorrect key. Try again.");
+      }
+    }
+
+    // Optional: auto-redirect if already signed in
+    window.onload = function () {
+      if (localStorage.getItem("accessGranted") === "true") {
+        // Uncomment if you want auto-forwarding
+        // window.location.href = "/start.html";
+      }
+    };
+  </script>
 </body>
 </html>
-
-
-
-
