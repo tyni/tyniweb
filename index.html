@@ -339,19 +339,6 @@
         openOverlay();
       }
     }
-    
-    window.onload = function () {
-      const authButton = document.getElementById("authButton");
-      if (authButton) {
-        if (localStorage.getItem("accessGranted") === "true") {
-          authButton.textContent = "Sign Out";
-          // Optional: auto-forward
-          // window.location.href = "/portal.html";
-        } else {
-          authButton.textContent = "Sign In";
-        }
-      }
-    };
     function openOverlay() {
       const overlay = document.getElementById("signinOverlay");
       overlay.style.display = "flex";
@@ -403,16 +390,33 @@
       const result = rgb.match(/\d+/g).map(x => parseInt(x).toString(16).padStart(2, '0'));
       return '#' + result.join('');
     }
-
     window.onload = function () {
+      const authButton = document.getElementById("authButton");
+      const logoBlock = document.getElementById("logoBlock");
+  
       if (localStorage.getItem("accessGranted") === "true") {
-        // Optional: auto-forward
-        // window.location.href = "/portal.html";
+        if (authButton) authButton.textContent = "Sign Out";
+  
+        // ✅ Add visual indicator
+        if (logoBlock) {
+          const badge = document.createElement("span");
+          badge.textContent = "✔ Signed In";
+          badge.style.background = "#2a9d8f";
+          badge.style.color = "white";
+          badge.style.padding = "4px 8px";
+          badge.style.borderRadius = "6px";
+          badge.style.marginLeft = "12px";
+          badge.style.fontSize = "14px";
+          logoBlock.appendChild(badge);
+        }
+      } else {
+        if (authButton) authButton.textContent = "Sign In";
       }
     };
   </script>
 </body>
 </html>
+
 
 
 
