@@ -342,12 +342,14 @@
     
     window.onload = function () {
       const authButton = document.getElementById("authButton");
-      if (localStorage.getItem("accessGranted") === "true") {
-        authButton.textContent = "Sign Out";
-        // Optional: auto-forward
-        // window.location.href = "/portal.html";
-      } else {
-        authButton.textContent = "Sign In";
+      if (authButton) {
+        if (localStorage.getItem("accessGranted") === "true") {
+          authButton.textContent = "Sign Out";
+          // Optional: auto-forward
+          // window.location.href = "/portal.html";
+        } else {
+          authButton.textContent = "Sign In";
+        }
       }
     };
     function openOverlay() {
@@ -411,5 +413,6 @@
   </script>
 </body>
 </html>
+
 
 
