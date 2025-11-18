@@ -194,6 +194,33 @@
       box-sizing: border-box;
     }
 
+    .button-row {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    #signinOverlay button {
+      background: var(--accent);
+      color: white;
+      padding: 14px 32px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
+    .cancel-btn {
+      background: #e63946;
+      color: white;
+      padding: 14px 32px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
     .editor-panel {
       position: fixed;
       top: 100px;
@@ -282,8 +309,10 @@
     <div>
       <h2>Sign In</h2>
       <input type="password" id="accessKey" placeholder="Enter access key" />
-      <button onclick="checkAccess()">Enter</button>
-      <a href="#" onclick="closeOverlay()">Cancel</a>
+      <div class="button-row">
+        <button onclick="checkAccess()">Enter</button>
+        <button onclick="closeOverlay()" class="cancel-btn">Cancel</button>
+      </div>
     </div>
   </div>
 
@@ -320,6 +349,10 @@
     }
 
     function openEditor() {
+      if (localStorage.getItem("accessGranted") !== "true") {
+        alert("Sign in to edit the logo.");
+        return;
+      }
       const logo = document.querySelector(".hero-logo");
       document.getElementById("editText").value = logo.textContent;
       document.getElementById("editSize").value = parseInt(window.getComputedStyle(logo).fontSize);
