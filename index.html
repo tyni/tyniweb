@@ -157,11 +157,11 @@
     </ul>
   </nav>
 
-  <header>
-    <h1 class="hero-logo">≡ tyniweb</h1>
-    <p class="hero-subtext">A curated portal of brand kits, creative tools, and trusted services — some we build, some we pass along.</p>
-    <button class="cta" onclick="window.location.href='/admin?key=your-secret-key'">Sign In</button>
-  </header>
+<header>
+  <h1 class="hero-logo">≡ tyniweb</h1>
+  <p class="hero-subtext">A portal for multi-hyphenates — starting with brand kits.</p>
+  <button class="cta" onclick="openOverlay()">Sign In</button>
+</header>
 
   <section class="vibe-section">
     <h2>Pick Your Brand Vibe</h2>
@@ -204,7 +204,36 @@
   <footer>
     &copy; 2025 tyniweb. Built with love and automation.
   </footer>
+  <div id="signinOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:999; justify-content:center; align-items:center;">
+  <div style="background:white; padding:40px 30px; border-radius:12px; text-align:center; max-width:400px; width:90%;">
+    <h2 style="margin-top:0;">Sign In</h2>
+    <input type="password" id="accessKey" placeholder="Enter access key" style="padding:12px; width:100%; margin-bottom:20px; border:1px solid #ccc; border-radius:6px;" />
+    <br />
+    <button onclick="checkAccess()" style="background:#f4a261; color:white; padding:12px 24px; border:none; border-radius:6px; font-weight:bold;">Enter</button>
+    <br /><br />
+    <a href="#" onclick="closeOverlay()" style="color:#888; font-size:14px;">Cancel</a>
+  </div>
+</div>
+  <script>
+  function openOverlay() {
+    document.getElementById("signinOverlay").style.display = "flex";
+  }
+
+  function closeOverlay() {
+    document.getElementById("signinOverlay").style.display = "none";
+  }
+
+  function checkAccess() {
+    const key = document.getElementById("accessKey").value;
+    if (key === "your-secret-key") {
+      window.location.href = "/admin";
+    } else {
+      alert("Incorrect key. Try again.");
+    }
+  }
+</script>
 </body>
 </html>
+
 
 
