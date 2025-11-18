@@ -319,11 +319,13 @@
     document.getElementById("signinOverlay").style.display = "none";
   }
 
-  function checkAccess() {
+  ffunction checkAccess() {
     const key = document.getElementById("accessKey").value;
-    if (key === "your-secret-key") {
+    const allowedKey = "tj-only-access"; // your private key
+  
+    if (key === allowedKey) {
       localStorage.setItem("accessGranted", "true");
-      window.location.href = "/start.html";
+      window.location.href = "/portal.html";
     } else {
       alert("Incorrect key. Try again.");
     }
@@ -338,6 +340,7 @@
 </script>
 </body>
 </html>
+
 
 
 
