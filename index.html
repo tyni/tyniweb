@@ -24,6 +24,8 @@
       font-family: 'Open Sans', sans-serif;
       background: var(--bg);
       color: var(--text);
+      position: relative;
+      z-index: 0;
     }
 
     nav {
@@ -83,7 +85,7 @@
       background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><polygon points="50,15 90,40 90,80 50,105 10,80 10,40" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/></svg>');
       background-size: 100px 100px;
       animation: drift 60s linear infinite;
-      z-index: 0;
+      z-index: -1;
     }
 
     @keyframes drift {
@@ -136,12 +138,18 @@
       text-align: center;
     }
 
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+
     .vibe-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 24px;
-      max-width: 1000px;
-      margin: 0 auto;
+      margin-top: 40px;
     }
 
     .vibe-card {
@@ -249,82 +257,83 @@
 
   <section class="vibe-section">
     <h2>Pick Your Brand Vibe</h2>
-    <div class="vibe-grid">
-      <div class="vibe-card">
-        <div class="vibe-title">Cozy</div>
-        <div class="swatches">
-          <div class="swatch" style="background:#d8cfc4;"></div>
-          <div class="swatch" style="background:#a67c52;"></div>
-          <div class="swatch" style="background:#f4e9dc;"></div>
+    <div class="container">
+      <div class="vibe-grid">
+        <div class="vibe-card">
+          <div class="vibe-title">Cozy</div>
+          <div class="swatches">
+            <div class="swatch" style="background:#d8cfc4;"></div>
+            <div class="swatch" style="background:#a67c52;"></div>
+            <div class="swatch" style="background:#f4e9dc;"></div>
+          </div>
         </div>
-      </div>
-      <div class="vibe-card">
-        <div class="vibe-title">Bold</div>
-        <div class="swatches">
-          <div class="swatch" style="background:#1a1a1a;"></div>
-          <div class="swatch" style="background:#e63946;"></div>
-          <div class="swatch" style="background:#f1faee;"></div>
+        <div class="vibe-card">
+          <div class="vibe-title">Bold</div>
+          <div class="swatches">
+            <div class="swatch" style="background:#1a1a1a;"></div>
+            <div class="swatch" style="background:#e63946;"></div>
+            <div class="swatch" style="background:#f1faee;"></div>
+          </div>
         </div>
-      </div>
-      <div class="vibe-card">
-        <div class="vibe-title">Playful</div>
-        <div class="swatches">
-          <div class="swatch" style="background:#ffbe0b;"></div>
-          <div class="swatch" style="background:#fb5607;"></div>
-          <div class="swatch" style="background:#ff006e;"></div>
-        </div>
-      </div>
-      <div class="vibe-card">
-        <div class="vibe-title">Earthy</div>
-        <div class="swatches">
-          <div class="swatch" style="background:#6b705c;"></div>
-          <div class="swatch" style="background:#a5a58d;"></div>
-          <div class="swatch" style="background:#ffe8d6;"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    &copy; 2025 tyniweb. Built with love and automation.
-  </footer>
-
-  <!-- 🔐 Sign-In Overlay -->
-  <div id="signinOverlay">
-    <div>
-      <h2>Sign In</h2>
-      <input type="password" id="accessKey" placeholder="Enter access key" />
-      <button onclick="checkAccess()">Enter</button>
-      <a href="#" onclick="closeOverlay()">Cancel</a>
-    </div>
+        <div class="vibe-card">
+<div class="vibe-title">Playful</div>
+<div class="swatches">
+  <div class="swatch" style="background:#ffbe0b;"></div>
+  <div class="swatch" style="background:#fb5607;"></div>
+  <div class="swatch" style="background:#ff006e;"></div>
+</div>
+</div>
+<div class="vibe-card">
+  <div class="vibe-title">Earthy</div>
+  <div class="swatches">
+    <div class="swatch" style="background:#6b705c;"></div>
+    <div class="swatch" style="background:#a5a58d;"></div>
+    <div class="swatch" style="background:#ffe8d6;"></div>
   </div>
+</div>
+</div> <!-- end .vibe-grid -->
+</div> <!-- end .container -->
+</section>
 
-  <script>
-    function openOverlay() {
-      document.getElementById("signinOverlay").style.display = "flex";
+<footer>
+  &copy; 2025 tyniweb. Built with love and automation.
+</footer>
+
+<!-- 🔐 Sign-In Overlay -->
+<div id="signinOverlay">
+  <div>
+    <h2>Sign In</h2>
+    <input type="password" id="accessKey" placeholder="Enter access key" />
+    <button onclick="checkAccess()">Enter</button>
+    <a href="#" onclick="closeOverlay()">Cancel</a>
+  </div>
+</div>
+
+<script>
+  function openOverlay() {
+    document.getElementById("signinOverlay").style.display = "flex";
+  }
+
+  function closeOverlay() {
+    document.getElementById("signinOverlay").style.display = "none";
+  }
+
+  function checkAccess() {
+    const key = document.getElementById("accessKey").value;
+    if (key === "your-secret-key") {
+      localStorage.setItem("accessGranted", "true");
+      window.location.href = "/start.html";
+    } else {
+      alert("Incorrect key. Try again.");
     }
+  }
 
-    function closeOverlay() {
-      document.getElementById("signinOverlay").style.display = "none";
+  window.onload = function () {
+    if (localStorage.getItem("accessGranted") === "true") {
+      // Optional: auto-forward
+      // window.location.href = "/start.html";
     }
-
-    function checkAccess() {
-      const key = document.getElementById("accessKey").value;
-      if (key === "your-secret-key") {
-        localStorage.setItem("accessGranted", "true");
-        window.location.href = "/start.html";
-      } else {
-        alert("Incorrect key. Try again.");
-      }
-    }
-
-    // Optional: auto-redirect if already signed in
-    window.onload = function () {
-      if (localStorage.getItem("accessGranted") === "true") {
-        // Uncomment if you want auto-forwarding
-        // window.location.href = "/start.html";
-      }
-    };
-  </script>
+  };
+</script>
 </body>
 </html>
