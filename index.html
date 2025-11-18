@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>tyniweb — A Multi-Hyphenate Portal</title>
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Quicksand:wght@500&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -11,6 +12,10 @@
       --bg: #fffaf3;
       --text: #333;
       --primary: #002b5c;
+    }
+
+    html, body {
+      min-height: 100vh;
     }
     
     body {
@@ -20,6 +25,11 @@
       background: var(--bg);
       color: var(--text);
       overflow-x: hidden;
+      box-sizing: border-box;
+    }
+
+    *, *::before, *::after {
+      box-sizing: inherit;
     }
     
     nav {
@@ -34,14 +44,23 @@
     nav .logo {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       position: relative;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      object-fit: contain;
+      display: inline-block;
     }
 
     .nav-logo-text {
       font-family: 'Quicksand', sans-serif;
       font-size: 28px;
       color: var(--primary);
+      line-height: 1;
     }
 
     .edit-icon {
@@ -96,11 +115,27 @@
       100% { transform: translate(-100px, -100px); }
     }
 
+    .hero-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .hero-logo-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      object-fit: contain;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+
     .hero-logo {
       font-family: 'Quicksand', sans-serif;
       font-size: 48px;
       color: white;
       position: relative;
+      margin: 0;
     }
 
     .hero-subtext {
@@ -151,6 +186,7 @@
       font-family: 'Quicksand', sans-serif;
       font-size: 24px;
       margin-bottom: 12px;
+      color: var(--primary);
     }
 
     .swatches {
@@ -170,7 +206,7 @@
       font-size: 14px;
       color: #888;
       padding: 40px 20px;
-      margin-bottom: 20px; /* 👈 Add this line */
+      margin-bottom: 20px; /* space for version footer */
     }
     
     #signinOverlay {
@@ -210,6 +246,7 @@
       border: none;
       border-radius: 6px;
       font-weight: bold;
+      cursor: pointer;
     }
 
     .cancel-btn {
@@ -220,6 +257,7 @@
       border: none;
       border-radius: 6px;
       font-weight: bold;
+      cursor: pointer;
     }
 
     .editor-panel {
@@ -232,6 +270,11 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
       display: none;
       z-index: 1000;
+      width: 280px;
+    }
+
+    .editor-panel h3 {
+      margin-top: 0;
     }
 
     .editor-panel label {
@@ -245,21 +288,25 @@
     
     .version-footer {
       position: relative;
-  background: #fffaf3;
-  text-align: center;
-  font-size: 16px;
-  font-weight: bold;
-  color: #e63946;
-  padding: 12px 20px;
-  border-top: 2px solid #f4a261;
-  margin-top: 20px;
-        }
+      background: #fffaf3;
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+      color: #e63946;
+      padding: 12px 20px;
+      border-top: 2px solid #f4a261;
+      margin-top: 20px;
+      clear: both;
+      width: 100%;
+      box-sizing: border-box;
+    }
   </style>
 </head>
 <body>
   <nav>
     <div class="logo" id="logoBlock">
-      <span>≡</span> <span class="nav-logo-text">tyniweb</span>
+      <img src="/img_≡_tyniweb_icon_128x128.png" alt="tyniweb icon" class="logo-icon" />
+      <span class="nav-logo-text">tyniweb</span>
       <button class="edit-icon" onclick="openEditor()">✏️</button>
     </div>
     <ul>
@@ -271,13 +318,17 @@
   </nav>
 
   <header>
-    <h1 class="hero-logo">≡ tyniweb</h1>
+    <div class="hero-brand">
+      <img src="/img_≡_tyniweb_icon_128x128.png" alt="tyniweb brand icon" class="hero-logo-icon" />
+      <h1 class="hero-logo">tyniweb</h1>
+    </div>
     <p class="hero-subtext">A portal for multi-hyphenates — starting with brand kits.</p>
     <p style="font-weight:bold; color:#f4a261; margin-top:16px;">
       WEBSITE CURRENTLY UNDER CONSTRUCTION, SORRY FOR THE INCONVENIENCE
     </p>
     <button class="cta" id="authButton" onclick="handleAuth()">Sign In</button>
   </header>
+
   <section class="vibe-section">
     <h2>Pick Your Brand Vibe</h2>
     <div class="vibe-grid">
@@ -348,6 +399,7 @@
         openOverlay();
       }
     }
+
     function openOverlay() {
       const overlay = document.getElementById("signinOverlay");
       overlay.style.display = "flex";
@@ -399,6 +451,7 @@
       const result = rgb.match(/\d+/g).map(x => parseInt(x).toString(16).padStart(2, '0'));
       return '#' + result.join('');
     }
+
     window.onload = function () {
       const authButton = document.getElementById("authButton");
       const logoBlock = document.getElementById("logoBlock");
@@ -428,9 +481,9 @@
   <footer>
     &copy; 2025 tyniweb. Built with love and automation.
   </footer>
+
   <div class="version-footer">
-  🔄 <strong>Version 1.3.7 — index.html — Last updated: Nov 18, 2025 @ 2:37 PM MST</strong>
-</div>
+    🔄 <strong>Version 1.3.7 — index.html — Last updated: Nov 18, 2025 @ 2:37 PM MST</strong>
+  </div>
 </body>
 </html>
-
