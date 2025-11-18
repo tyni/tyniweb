@@ -19,6 +19,7 @@
       font-family: 'Open Sans', sans-serif;
       background: var(--bg);
       color: var(--text);
+      overflow-x: hidden;
     }
 
     nav {
@@ -31,13 +32,16 @@
     }
 
     nav .logo {
-      font-family: 'Quicksand', sans-serif;
-      font-size: 28px;
-      color: var(--primary);
       display: flex;
       align-items: center;
       gap: 8px;
       position: relative;
+    }
+
+    .nav-logo-text {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 28px;
+      color: var(--primary);
     }
 
     .edit-icon {
@@ -185,32 +189,9 @@
       border-radius: 12px;
       text-align: center;
       max-width: 420px;
-      width: calc(100% - 40px);
-      box-sizing: border-box;
-    }
-
-    #signinOverlay input {
-      padding: 12px;
       width: 100%;
-      margin-bottom: 20px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
-
-    #signinOverlay button {
-      background: var(--accent);
-      color: white;
-      padding: 12px 24px;
-      border: none;
-      border-radius: 6px;
-      font-weight: bold;
-    }
-
-    #signinOverlay a {
-      color: #888;
-      font-size: 14px;
-      display: block;
-      margin-top: 16px;
+      margin: 0 20px;
+      box-sizing: border-box;
     }
 
     .editor-panel {
@@ -238,7 +219,7 @@
 <body>
   <nav>
     <div class="logo" id="logoBlock">
-      <span>≡</span> <span class="hero-logo">tyniweb</span>
+      <span>≡</span> <span class="nav-logo-text">tyniweb</span>
       <button class="edit-icon" onclick="openEditor()">✏️</button>
     </div>
     <ul>
@@ -250,10 +231,10 @@
   </nav>
 
   <header>
+    <h1 class="hero-logo">tyniweb</h1>
     <p class="hero-subtext">A portal for multi-hyphenates — starting with brand kits.</p>
     <button class="cta" onclick="openOverlay()">Sign In</button>
   </header>
-
   <section class="vibe-section">
     <h2>Pick Your Brand Vibe</h2>
     <div class="vibe-grid">
@@ -374,5 +355,3 @@
   </script>
 </body>
 </html>
-
-
