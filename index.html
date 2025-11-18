@@ -260,7 +260,7 @@
   <header>
     <h1 class="hero-logo">tyniweb</h1>
     <p class="hero-subtext">A portal for multi-hyphenates — starting with brand kits.</p>
-    <button class="cta" onclick="openOverlay()">Sign In</button>
+    <button class="cta" id="authButton" onclick="handleAuth()">Sign In</button>
   </header>
   <section class="vibe-section">
     <h2>Pick Your Brand Vibe</h2>
@@ -327,6 +327,24 @@
   </div>
 
   <script>
+    function handleAuth() {
+      const isSignedIn = localStorage.getItem("accessGranted") === "true";
+      if (isSignedIn) {
+        localStorage.removeItem("accessGranted");
+        location.reload(); // Refresh to reset UI
+      } else {
+        openOverlay();
+      }
+    }
+    
+    window.onload = function () {
+      const authButton = document.getElementById("authButton");
+      if (localStorage.getItem("accessGranted") === "true") {
+        authButton.textContent = "Sign Out";
+      } else {
+        authButton.textContent = "Sign In";
+      }
+    };
     function openOverlay() {
       const overlay = document.getElementById("signinOverlay");
       overlay.style.display = "flex";
@@ -388,3 +406,4 @@
   </script>
 </body>
 </html>
+
