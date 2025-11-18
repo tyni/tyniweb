@@ -7,16 +7,34 @@
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Quicksand:wght@500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --accent: #f4a261;
-      --bg: #fffaf3;
-      --text: #333;
-      --primary: #002b5c;
+      --max-width: 640px;
+      --side-padding: 20px;
+      --container-radius: 12px;
+      --container-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      --container-bg: #fff;
+      --font-body: 'Open Sans', sans-serif;
+      --font-heading: 'Cormorant Garamond', serif;
+      --color-text: #333;
+      --color-accent: #f4a261;
+      --color-bg: #fffaf3;
     }
+    
     body {
       margin: 0;
-      font-family: 'Open Sans', sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      padding: var(--side-padding);
+      font-family: var(--font-body);
+      background-color: var(--color-bg);
+      color: var(--color-text);
+    }
+    
+    .container {
+      max-width: var(--max-width);
+      margin: 40px auto;
+      padding: 30px;
+      background-color: var(--container-bg);
+      border-radius: var(--container-radius);
+      box-shadow: var(--container-shadow);
+      box-sizing: border-box;
     }
     nav {
       position: sticky;
@@ -234,6 +252,7 @@
 </script>
 </body>
 </html>
+
 
 
 
