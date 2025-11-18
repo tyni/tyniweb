@@ -317,7 +317,10 @@
 
   <script>
     function openOverlay() {
-      document.getElementById("signinOverlay").style.display = "flex";
+      const overlay = document.getElementById("signinOverlay");
+      overlay.style.display = "flex";
+      overlay.style.justifyContent = "center";
+      overlay.style.alignItems = "center";
     }
 
     function closeOverlay() {
@@ -370,3 +373,4 @@
   </script>
 </body>
 </html>
+
