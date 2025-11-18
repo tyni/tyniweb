@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Tyniweb — Instant Brand Kits</title>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Cormorant+Garamond&display=swap" rel="stylesheet">
+  <title>tyniweb — A Multi-Hyphenate Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Quicksand:wght@500&display=swap" rel="stylesheet">
   <style>
     :root {
       --accent: #f4a261;
       --bg: #fffaf3;
       --text: #333;
+      --primary: #002b5c;
     }
     body {
       margin: 0;
@@ -29,8 +30,15 @@
       z-index: 100;
     }
     nav .logo {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Quicksand', sans-serif;
       font-size: 28px;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    nav .logo span {
+      font-size: 20px;
       color: var(--accent);
     }
     nav ul {
@@ -46,22 +54,21 @@
       font-weight: bold;
     }
     header {
+      background-color: var(--primary);
+      padding: 60px 20px;
+      border-radius: 0 0 12px 12px;
       text-align: center;
-      padding: 80px 20px 40px;
     }
-    h1.hero-logo {
-      font-family: 'Cormorant Garamond', serif;
+    .hero-logo {
+      font-family: 'Quicksand', sans-serif;
       font-size: 48px;
-      animation: fadeInUp 1.5s ease-out forwards, sparkle 2s infinite ease-in-out;
-      opacity: 0;
-      transform: translateY(20px);
+      color: white;
+      margin: 0;
     }
-    @keyframes fadeInUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes sparkle {
-      0%, 100% { text-shadow: 0 0 5px var(--accent); }
-      50% { text-shadow: 0 0 15px #e38b4d; }
+    .hero-subtext {
+      color: white;
+      font-size: 18px;
+      margin-top: 12px;
     }
     .cta {
       display: inline-block;
@@ -72,7 +79,7 @@
       font-weight: bold;
       border-radius: 8px;
       text-decoration: none;
-      margin-top: 20px;
+      margin-top: 24px;
       transition: background 0.3s ease;
       cursor: pointer;
     }
@@ -102,7 +109,7 @@
       transform: scale(1.05);
     }
     .vibe-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Quicksand', sans-serif;
       font-size: 24px;
       margin-bottom: 12px;
     }
@@ -126,7 +133,7 @@
 </head>
 <body>
   <nav>
-    <div class="logo">✨ Tyniweb</div>
+    <div class="logo"><span>≡</span> tyniweb</div>
     <ul>
       <li><a href="#">Home</a></li>
       <li><a href="#">How It Works</a></li>
@@ -136,9 +143,9 @@
   </nav>
 
   <header>
-    <h1 class="hero-logo">✨ Tyniweb</h1>
-    <p>Instant brand kits for handmade sellers — no logins, no stress, just magic.</p>
-    <button class="cta" id="startKitBtn">Start Your Brand Kit</button>
+    <h1 class="hero-logo">≡ tyniweb</h1>
+    <p class="hero-subtext">A curated portal of brand kits, creative tools, and trusted services — some we build, some we pass along.</p>
+    <button class="cta" onclick="window.location.href='/admin?key=your-secret-key'">Sign In</button>
   </header>
 
   <section class="vibe-section">
@@ -180,13 +187,7 @@
   </section>
 
   <footer>
-    &copy; 2025 Tyniweb. Built with love and automation.
+    &copy; 2025 tyniweb. Built with love and automation.
   </footer>
-
-  <script>
-    document.getElementById("startKitBtn").addEventListener("click", () => {
-      window.location.href = "https://script.google.com/macros/s/AKfycby8NVbeH0LkFpGcYbBHyuXeNV67B98oVuazHDSTPdf75-yR27LKnRIkB2sU90JHFAmasQ/exec?page=start";
-    });
-  </script>
 </body>
 </html>
