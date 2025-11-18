@@ -258,8 +258,11 @@
   </nav>
 
   <header>
-    <h1 class="hero-logo">tyniweb</h1>
+    <h1 class="hero-logo">≡ tyniweb</h1>
     <p class="hero-subtext">A portal for multi-hyphenates — starting with brand kits.</p>
+    <p style="font-weight:bold; color:#f4a261; margin-top:16px;">
+      WEBSITE CURRENTLY UNDER CONSTRUCTION, SORRY FOR THE INCONVENIENCE
+    </p>
     <button class="cta" id="authButton" onclick="handleAuth()">Sign In</button>
   </header>
   <section class="vibe-section">
@@ -341,6 +344,8 @@
       const authButton = document.getElementById("authButton");
       if (localStorage.getItem("accessGranted") === "true") {
         authButton.textContent = "Sign Out";
+        // Optional: auto-forward
+        // window.location.href = "/portal.html";
       } else {
         authButton.textContent = "Sign In";
       }
@@ -406,4 +411,5 @@
   </script>
 </body>
 </html>
+
 
