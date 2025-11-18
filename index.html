@@ -393,29 +393,31 @@
     window.onload = function () {
       const authButton = document.getElementById("authButton");
       const logoBlock = document.getElementById("logoBlock");
-  
-      if (localStorage.getItem("accessGranted") === "true") {
-        if (authButton) authButton.textContent = "Sign Out";
-  
-        // ✅ Add visual indicator
-        if (logoBlock) {
-          const badge = document.createElement("span");
-          badge.textContent = "✔ Signed In";
-          badge.style.background = "#2a9d8f";
-          badge.style.color = "white";
-          badge.style.padding = "4px 8px";
-          badge.style.borderRadius = "6px";
-          badge.style.marginLeft = "12px";
-          badge.style.fontSize = "14px";
-          logoBlock.appendChild(badge);
-        }
-      } else {
-        if (authButton) authButton.textContent = "Sign In";
+    
+      const isSignedIn = localStorage.getItem("accessGranted") === "true";
+    
+      if (authButton) {
+        authButton.textContent = isSignedIn ? "Sign Out" : "Sign In";
+      }
+    
+      if (isSignedIn && logoBlock && !document.getElementById("signedInBadge")) {
+        const badge = document.createElement("span");
+        badge.id = "signedInBadge";
+        badge.textContent = "✔ Signed In";
+        badge.style.background = "#2a9d8f";
+        badge.style.color = "white";
+        badge.style.padding = "4px 8px";
+        badge.style.borderRadius = "6px";
+        badge.style.marginLeft = "12px";
+        badge.style.fontSize = "14px";
+        badge.style.fontWeight = "bold";
+        logoBlock.appendChild(badge);
       }
     };
   </script>
 </body>
 </html>
+
 
 
 
