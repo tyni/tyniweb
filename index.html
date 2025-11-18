@@ -243,14 +243,16 @@
     }
     
     .version-footer {
+      position: sticky;
+      bottom: 0;
+      background: #fffaf3;
       text-align: center;
       font-size: 16px;
       font-weight: bold;
       color: #e63946;
-      background: #fffaf3;
       padding: 12px 20px;
       border-top: 2px solid #f4a261;
-    }
+        }
   </style>
 </head>
 <body>
@@ -313,13 +315,6 @@
     </div>
   </section>
 
-  <footer>
-    &copy; 2025 tyniweb. Built with love and automation.
-  </footer>
-  <div class="version-footer">
-    🔄 <strong>Version 1.3.5 — index.html — Last updated: Nov 18, 2025 @ 2:01 PM MST</strong>
-  </div>
-
   <!-- 🔐 Sign-In Overlay -->
   <div id="signinOverlay">
     <div>
@@ -341,7 +336,7 @@
     <button onclick="applyChanges()">Apply</button>
     <button onclick="copyChanges()">Copy Code</button>
   </div>
-
+  
   <script>
     function handleAuth() {
       const isSignedIn = localStorage.getItem("accessGranted") === "true";
@@ -428,8 +423,17 @@
       }
     };
   </script>
+  
+  <footer>
+    &copy; 2025 tyniweb. Built with love and automation.
+  </footer>
+  <div class="version-footer">
+    🔄 <strong>Version 1.3.5 — index.html — Last updated: Nov 18, 2025 @ 2:01 PM MST</strong>
+  </div>
+  
 </body>
 </html>
+
 
 
 
