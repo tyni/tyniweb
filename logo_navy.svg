@@ -5,6 +5,6 @@
     <rect x="32" y="58" width="64" height="12" rx="6"/>
     <rect x="32" y="76" width="64" height="12" rx="6"/>
   </g>
-  <path d="M144,84 h12 v-36 h-12 z M160,84 h12 v-36 h-12 z M176,84 h12 v-36 h-12 z M192,84 h12 v-36 h-12 z M208,84 h12 v-36 h-12 z M224,84 h12 v-36 h-12 z M240,84 h12 v-36 h-12 z" fill="#002b5c"/>
+  <path d="M144 84h12v-36h-12z M160 84h12v-36h-12z M176 84h12v-36h-12z M192 84h12v-36h-12z M208 84h12v-36h-12z M224 84h12v-36h-12z M240 84h12v-36h-12z" fill="#002b5c"/>
   <circle cx="204" cy="56" r="6" fill="#f4a261"/>
 </svg>
