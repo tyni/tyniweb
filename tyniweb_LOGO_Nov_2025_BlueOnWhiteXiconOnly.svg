@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="26mm"
+   height="26mm"
+   viewBox="0 0 26 26"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   sodipodi:docname="tyniweb_LOGO_Nov_2025_BlueOnWhiteXiconOnly.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="1.8974405"
+     inkscape:cx="226.62107"
+     inkscape:cy="76.682246"
+     inkscape:window-width="1911"
+     inkscape:window-height="1739"
+     inkscape:window-x="229"
+     inkscape:window-y="532"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect26"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,1.48552,0,1 @ F,0,0,1,0,1.48553,0,1 @ F,0,0,1,0,1.47589,0,1 @ F,0,0,1,0,1.47588,0,1"
+       radius="0"
+       unit="px"
+       method="auto"
+       mode="F"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-55,-135.5)">
+    <g
+       id="g27"
+       transform="translate(0.005392,-24.296675)"
+       inkscape:label="tyniweb_Logo">
+      <path
+         id="path24"
+         style="font-size:19.7556px;font-family:'Swis721 BdRnd BT';-inkscape-font-specification:'Swis721 BdRnd BT, Normal';text-align:center;text-anchor:middle;fill:#1a1f36;fill-opacity:1;stroke-width:0"
+         d="m 60.263814,163.47347 a 1.48552,1.48552 0 0 0 -1.485698,1.4857 V 180.644 a 1.47588,1.47588 0 0 0 1.475879,1.47588 H 75.735221 A 1.47589,1.47589 0 0 0 77.2111,180.644 v -15.68483 a 1.48553,1.48553 0 0 0 -1.485181,-1.4857 z m 3.852995,3.68298 h 7.72666 c 0.527333,0 0.922831,0.11576 1.186491,0.34727 0.263666,0.23795 0.395841,0.59198 0.395841,1.06143 0,0.46303 -0.132175,0.8103 -0.395841,1.0418 -0.26366,0.23795 -0.659158,0.35708 -1.186491,0.35708 h -7.72666 c -0.514467,0 -0.903188,-0.11913 -1.166854,-0.35708 -0.257234,-0.23151 -0.386023,-0.57878 -0.386023,-1.0418 0,-0.46945 0.128789,-0.82348 0.386023,-1.06143 0.263666,-0.23151 0.652387,-0.34727 1.166854,-0.34727 z m 0,4.23644 h 7.72666 c 0.527333,0 0.922831,0.11576 1.186491,0.34726 0.263666,0.23795 0.395841,0.59198 0.395841,1.06144 0,0.46302 -0.132175,0.81029 -0.395841,1.04179 -0.26366,0.23795 -0.659158,0.35657 -1.186491,0.35657 h -7.72666 c -0.514467,0 -0.903188,-0.11862 -1.166854,-0.35657 -0.257234,-0.2315 -0.386023,-0.57877 -0.386023,-1.04179 0,-0.46946 0.128789,-0.82349 0.386023,-1.06144 0.263666,-0.2315 0.652387,-0.34726 1.166854,-0.34726 z m 0,4.21059 h 7.72666 c 0.527333,0 0.922831,0.11576 1.186491,0.34727 0.263666,0.23795 0.395841,0.59198 0.395841,1.06143 0,0.46303 -0.132175,0.8103 -0.395841,1.0418 -0.26366,0.23795 -0.659158,0.35657 -1.186491,0.35657 h -7.72666 c -0.514467,0 -0.903188,-0.11862 -1.166854,-0.35657 -0.257234,-0.23151 -0.386023,-0.57878 -0.386023,-1.0418 0,-0.46945 0.128789,-0.82348 0.386023,-1.06143 0.263666,-0.23151 0.652387,-0.34727 1.166854,-0.34727 z"
+         inkscape:label="tyniweb_icon" />
+    </g>
+  </g>
+</svg>
