@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="128" viewBox="0 0 320 128">
+  <rect width="128" height="128" rx="24" fill="#002b5c"/>
+  <g fill="#ffffff">
+    <rect x="32" y="40" width="64" height="12" rx="6"/>
+    <rect x="32" y="58" width="64" height="12" rx="6"/>
+    <rect x="32" y="76" width="64" height="12" rx="6"/>
+  </g>
+  <text x="144" y="84" font-family="Quicksand, sans-serif" font-size="48" fill="#002b5c">tyn</text>
+  <text x="216" y="84" font-family="Quicksand, sans-serif" font-size="48" fill="#002b5c">web</text>
+  <circle cx="204" cy="56" r="6" fill="#f4a261"/>
+</svg>
