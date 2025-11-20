@@ -106,7 +106,7 @@
       0% { transform: translate(0, 0); }
       100% { transform: translate(-100px, -100px); }
     }
-
+    
     .hero-brand {
       display: inline-flex;
       align-items: center;
@@ -310,7 +310,7 @@
     <div class="logo" id="logoBlock">
       <img src="https://github.com/tyni/tyniweb/raw/main/tyniweb_LOGO_Nov_2025_Blue_QuicksandMed.svg" class="logo-icon" alt="tyniweb logo with orange dot" />
       <span class="nav-logo-text">tyniweb</span>
-      <button class="edit-icon" onclick="openEditor()">✏️</button>
+      <button class="edit-icon" id="editIcon" onclick="openEditor()">✏️</button>
     </div>
     <ul>
       <li><a href="#">Home</a></li>
@@ -319,11 +319,14 @@
       <li><a href="#">FAQ</a></li>
     </ul>
   </nav>
-
+  
   <header>
     <div class="hero-brand">
       <img src="https://github.com/tyni/tyniweb/raw/main/tyniweb_LOGO_Nov_2025_White_QuicksandMed.svg" class="hero-logo-icon" alt="tyniweb full logo" />
       <h1 class="hero-logo">tyniweb</h1>
+    </div>
+    <div id="themeToggle" style="display:none; margin-top:20px;">
+      <button onclick="toggleTheme()">Toggle Theme</button>
     </div>
     <p class="hero-subtext">A portal for multi-hyphenates — starting with brand kits.</p>
     <p style="font-weight:bold; color:#f4a261; margin-top:16px;">
@@ -394,18 +397,48 @@
   
   <script>
       const updateLogo = () => {
-        const navLogo = document.querySelector('.logo-icon');
-        const heroLogo = document.querySelector('.hero-logo-icon');
-        const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const logoSrc = isDark
-          ? 'https://github.com/tyni/tyniweb/raw/main/tyniweb_LOGO_Nov_2025_White_QuicksandMed.svg'
-          : 'https://github.com/tyni/tyniweb/raw/main/tyniweb_LOGO_Nov_2025_Blue_QuicksandMed.svg';
-        navLogo.src = logoSrc;
-        heroLogo.src = logoSrc;
-      };
+      const navLogo = document.querySelector('.logo-icon');
+      const heroLogo = document.querySelector('.hero-logo-icon');
+      const editIcon = document.getElementById('editIcon');
+      const themeToggle = document.getElementById('themeToggle');
     
+      // Signed-in state
+      const isSignedIn = localStorage.getItem("accessGranted") === "true";
+    
+      // Theme: manual override via data-theme, else system
+      const manualTheme = document.documentElement.getAttribute('data-theme');
+      const isDark = manualTheme
+        ? manualTheme === 'dark'
+        : window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+      const whiteLogo = 'https://github.com/tyni/tyniweb/raw/main/tyniweb_LOGO_Nov_2025_White_QuicksandMed.svg';
+      const blueLogo  = 'https://github.com/tyni/tyniweb/raw/main/tyniweb_LOGO_Nov_2025_Blue_QuicksandMed.svg';
+    
+      // Hero logo: white in dark, blue in light
+      heroLogo.src = isDark ? whiteLogo : blueLogo;
+    
+      // Nav logo: only show when signed in
+      if (isSignedIn) {
+        navLogo.src = isDark ? whiteLogo : blueLogo;
+        navLogo.style.display = 'inline-block';
+      } else {
+        navLogo.style.display = 'none';
+      }
+    
+      // Edit icon and theme toggle: only visible when signed in
+      if (editIcon) editIcon.style.display = isSignedIn ? 'inline-block' : 'none';
+      if (themeToggle) themeToggle.style.display = isSignedIn ? 'block' : 'none';
+    };
+    
+    updateLogo();
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateLogo);
+    
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
       updateLogo();
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateLogo);
+    }
         
     function handleAuth() {
       const isSignedIn = localStorage.getItem("accessGranted") === "true";
@@ -499,17 +532,9 @@
     &copy; 2025 tyniweb. Built with love and automation.
   </footer>
 
-<div class="version-footer">
-  🔄 <strong>Version 1.4.2 — index.html — Last updated: Nov 19, 2025 @ 6:08 PM MST</strong>
+  <div class="version-footer">
+  🔄 <strong>Version 1.4.3 — index.html — Last updated: Nov 19, 2025 @ 6:36 PM MST</strong>
 </div>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
