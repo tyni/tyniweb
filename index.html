@@ -48,14 +48,6 @@
       position: relative;
     }
 
-    .logo-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      object-fit: contain;
-      display: inline-block;
-    }
-
     .nav-logo-text {
       font-family: 'Quicksand', sans-serif;
       font-size: 28px;
@@ -120,14 +112,6 @@
       align-items: center;
       gap: 12px;
       justify-content: center;
-    }
-
-    .hero-logo-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 12px;
-      object-fit: contain;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
     }
 
     .hero-logo {
@@ -410,11 +394,14 @@
   
   <script>
       const updateLogo = () => {
-        const logo = document.querySelector('.logo-icon');
+        const navLogo = document.querySelector('.logo-icon');
+        const heroLogo = document.querySelector('.hero-logo-icon');
         const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        logo.src = isDark
+        const logoSrc = isDark
           ? 'https://github.com/tyni/tyniweb/raw/main/tyniweb_LOGO_Nov_2025_White_QuicksandMed.svg'
           : 'https://github.com/tyni/tyniweb/raw/main/tyniweb_LOGO_Nov_2025_Blue_QuicksandMed.svg';
+        navLogo.src = logoSrc;
+        heroLogo.src = logoSrc;
       };
     
       updateLogo();
@@ -512,12 +499,13 @@
     &copy; 2025 tyniweb. Built with love and automation.
   </footer>
 
-  <div class="version-footer">
-    🔄 <strong>Version 1.4.1 — index.html — Last updated: Nov 19, 2025 @ 5:45 PM MST</strong>
-  </div>
+<div class="version-footer">
+  🔄 <strong>Version 1.4.2 — index.html — Last updated: Nov 19, 2025 @ 6:08 PM MST</strong>
+</div>
 
 </body>
 </html>
+
 
 
 
