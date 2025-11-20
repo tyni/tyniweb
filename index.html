@@ -409,6 +409,17 @@
   </div>
   
   <script>
+      const updateLogo = () => {
+        const logo = document.querySelector('.logo-icon');
+        const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        logo.src = isDark
+          ? 'https://github.com/tyni/tyniweb/raw/main/tyniweb_LOGO_Nov_2025_White_QuicksandMed.svg'
+          : 'https://github.com/tyni/tyniweb/raw/main/tyniweb_LOGO_Nov_2025_Blue_QuicksandMed.svg';
+      };
+    
+      updateLogo();
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateLogo);
+        
     function handleAuth() {
       const isSignedIn = localStorage.getItem("accessGranted") === "true";
       if (isSignedIn) {
@@ -502,11 +513,12 @@
   </footer>
 
   <div class="version-footer">
-    🔄 <strong>Version 1.4.0 — index.html — Last updated: Nov 19, 2025 @ 5:35 PM MST</strong>
+    🔄 <strong>Version 1.4.1 — index.html — Last updated: Nov 19, 2025 @ 5:45 PM MST</strong>
   </div>
 
 </body>
 </html>
+
 
 
 
