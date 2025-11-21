@@ -285,6 +285,17 @@
       box-sizing: border-box;
     }
     
+    .vibe-desc {
+      font-size: 14px;
+      color: #666;
+      margin-top: 8px;
+    }
+    
+    .logo-icon, .hero-logo-icon {
+      max-width: 160px;
+      height: auto;
+    }
+    
     @media (prefers-color-scheme: dark) {
       .hero-logo-icon {
         content: url("https://github.com/tyni/tyniweb/raw/main/tyniweb_LOGO_Nov_2025_Blue_QuicksandMed.svg");
@@ -327,9 +338,9 @@
     <div id="themeToggle" style="display:none; margin-top:20px;">
       <button onclick="toggleTheme()">Toggle Theme</button>
     </div>
-    <p class="hero-subtext">A portal for multi-hyphenates — starting with brand kits.</p>
+    <p class="hero-subtext">Multi-hyphenate? You need a multi-channel brand.</p>
     <p style="font-weight:bold; color:#f4a261; margin-top:16px;">
-      WEBSITE CURRENTLY UNDER CONSTRUCTION, SORRY FOR THE INCONVENIENCE
+    Private Beta — You’re Early.
     </p>
     <button class="cta" id="authButton" onclick="handleAuth()">Sign In</button>
   </header>
@@ -337,8 +348,8 @@
   <section class="vibe-section">
     <h2>Pick Your Brand Vibe</h2>
     <div class="vibe-grid">
-      <div class="vibe-card">
-        <div class="vibe-title">Cozy</div>
+      <div class="vibe-card"><div class="vibe-title">Cozy</div>
+        <p class="vibe-desc">Warm, soft, inviting</p>
         <div class="swatches">
           <div class="swatch" style="background:#d8cfc4;"></div>
           <div class="swatch" style="background:#a67c52;"></div>
@@ -532,11 +543,12 @@
   </footer>
 
   <div class="version-footer">
-  🔄 <strong>Version 1.4.3 — index.html — Last updated: Nov 19, 2025 @ 6:36 PM MST</strong>
+  🔄 <strong>Version 1.4.4 — index.html — Last updated: Nov 21, 2025 @ 11:51 AM MST</strong>
 </div>
 
 </body>
 </html>
+
 
 
 
