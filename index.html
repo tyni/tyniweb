@@ -229,6 +229,102 @@
     body.dark-mode .cta {
       background-color: #e76f51;
     }
+    .showcase-section {
+  background: #fefefe;
+  padding: 80px 20px;
+  border-top: 1px solid #eee;
+}
+
+.showcase-container {
+  max-width: 880px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.showcase-section h2 {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 32px;
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+
+.showcase-intro {
+  font-size: 18px;
+  margin-bottom: 40px;
+  color: #555;
+}
+
+.showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 32px;
+  margin-bottom: 40px;
+}
+
+.showcase-block {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  text-align: left;
+}
+
+.showcase-block h3 {
+  font-size: 20px;
+  margin-bottom: 12px;
+  color: var(--primary);
+}
+
+.showcase-block p {
+  font-size: 16px;
+  color: #444;
+  line-height: 1.6;
+}
+
+.kit-list {
+  list-style: none;
+  padding: 0;
+  font-size: 16px;
+  color: #333;
+  text-align: left;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.kit-list li {
+  margin-bottom: 12px;
+  padding-left: 1.5em;
+  position: relative;
+}
+
+.kit-list li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: bold;
+}
+
+.divider {
+  height: 2px;
+  background: #f4a261;
+  width: 60px;
+  margin: 40px auto;
+}
+
+body.dark-mode .showcase-section {
+  background: #1e1e1e;
+}
+
+body.dark-mode .showcase-block {
+  background: #2a2a2a;
+  color: #f0f0f0;
+}
+
+body.dark-mode .kit-list li {
+  color: #f0f0f0;
+}
+    
   </style>
 </head>
 <body>
@@ -288,6 +384,58 @@
   </section>
 
   <a href="portal.html" class="cta" id="startKitBtn" style="margin-top: 40px; display:none;">⬅ Back through the Portal</a>
+
+  <section class="showcase-section">
+  <div class="showcase-container">
+    <h2>Why tyniweb?</h2>
+    <p class="showcase-intro">You’re a multi-hyphenate — designer, coach, maker, writer. You wear many hats. Your brand should too.</p>
+
+    <div class="showcase-grid">
+      <div class="showcase-block">
+        <h3>🚀 Fast & Automated</h3>
+        <p>No more blank pages or endless design tweaks. Fill out a 2-minute form — we’ll generate your brand kit instantly.</p>
+      </div>
+      <div class="showcase-block">
+        <h3>🎨 Tailored to Your Vibe</h3>
+        <p>Choose your vibe — cozy, bold, playful, earthy — and we’ll build a brand that feels like you across every channel.</p>
+      </div>
+      <div class="showcase-block">
+        <h3>📦 Ready to Launch</h3>
+        <p>Get a logo, color palette, brand voice, and social media assets — all in one kit, ready to go.</p>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <h2>Why Not Just DIY?</h2>
+    <div class="showcase-grid">
+      <div class="showcase-block">
+        <h3>❌ DIY Is Overwhelming</h3>
+        <p>Fonts, colors, tone, logos — it’s easy to get stuck. tyniweb gives you a clear, cohesive system from the start.</p>
+      </div>
+      <div class="showcase-block">
+        <h3>💸 Designers Are Expensive</h3>
+        <p>Custom branding can cost thousands. We deliver a complete kit for a fraction of the time and cost.</p>
+      </div>
+      <div class="showcase-block">
+        <h3>🧩 Templates Don’t Cut It</h3>
+        <p>Logo makers and Canva templates don’t give you strategy. We do — with voice, visuals, and vibe aligned.</p>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <h2>What You’ll Get</h2>
+    <ul class="kit-list">
+      <li>✔ A custom logo in multiple formats</li>
+      <li>✔ A curated color palette and font pairing</li>
+      <li>✔ A brand voice and messaging guide</li>
+      <li>✔ Social media starter kit (profile, banner, sample posts)</li>
+    </ul>
+
+    <a href="portal.html" class="cta" style="margin-top: 32px;">⬅ Back through the Portal</a>
+  </div>
+</section>
 
   <footer>
     &copy; 2025 tyniweb. Built with love and automation.
@@ -378,3 +526,4 @@
 
 </body>
 </html>
+
