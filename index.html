@@ -352,6 +352,7 @@
       <li><a href="#">About</a></li>
       <li><a href="#">FAQ</a></li>
     </ul>
+    <span id="themeToggleIcon" onclick="toggleTheme()" style="cursor:pointer; font-size:20px;">🌙</span>
   </nav>
   
   <span class="toggle-btn" onclick="toggleTheme()" style="cursor:pointer;">🌙</span>
@@ -408,7 +409,7 @@
     </div>
   </section>
   
-  <a href="start.html" class="cta" style="margin-top: 40px;">Start Your Brand Kit</a>
+  <a href="start.html" class="cta" style="margin-top: 40px id="startKitBtn" display:none ;">Start Your Brand Kit</a>
 
   <!-- 🔐 Sign-In Overlay -->
   <div id="signinOverlay">
@@ -467,10 +468,11 @@
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateLogo);
     
     function toggleTheme() {
-      const current = document.documentElement.getAttribute('data-theme');
-      const next = current === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', next);
-      updateLogo();
+      document.body.classList.toggle("dark-mode");
+      const isDark = document.body.classList.contains("dark-mode");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+      const icon = document.getElementById("themeToggleIcon");
+      if (icon) icon.textContent = isDark ? "☀️" : "🌙";
     }
         
     function handleAuth() {
@@ -536,13 +538,28 @@
     }
 
     window.onload = function () {
+      // ✅ Theme logic
+      const savedTheme = localStorage.getItem("theme");
+      const icon = document.getElementById("themeToggleIcon");
+      if (savedTheme === "dark") {
+        document.body.classList.add("dark-mode");
+        if (icon) icon.textContent = "☀️";
+      } else {
+        if (icon) icon.textContent = "🌙";
+      }
+    
+      // ✅ Auth logic
+      const isSignedIn = localStorage.getItem("accessGranted") === "true";
       const authButton = document.getElementById("authButton");
       const logoBlock = document.getElementById("logoBlock");
-    
-      const isSignedIn = localStorage.getItem("accessGranted") === "true";
+      const startBtn = document.getElementById("startKitBtn");
     
       if (authButton) {
         authButton.textContent = isSignedIn ? "Sign Out" : "Sign In";
+      }
+    
+      if (startBtn) {
+        startBtn.style.display = isSignedIn ? "inline-block" : "none";
       }
     
       if (isSignedIn && logoBlock && !document.getElementById("signedInBadge")) {
@@ -562,20 +579,6 @@
         if (badge) badge.remove();
       }
     };
-
-    function toggleTheme() {
-      document.body.classList.toggle("dark-mode");
-      const isDark = document.body.classList.contains("dark-mode");
-      localStorage.setItem("theme", isDark ? "dark" : "light");
-    }
-    
-    window.onload = function () {
-      const savedTheme = localStorage.getItem("theme");
-      if (savedTheme === "dark") {
-        document.body.classList.add("dark-mode");
-      }
-      // existing auth logic...
-    };
     
   </script>
   
@@ -589,6 +592,7 @@
 
 </body>
 </html>
+
 
 
 
