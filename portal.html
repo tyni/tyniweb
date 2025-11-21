@@ -43,13 +43,60 @@
     .portal-list a:hover {
       background: #e38b4d;
     }
+
+    body.dark-mode {
+      background-color: #1e1e1e;
+      color: #f0f0f0;
+    }
+    body.dark-mode nav {
+      background: #2c2c2c;
+    }
+    body.dark-mode nav ul li a {
+      color: #f0f0f0;
+    }
+    body.dark-mode .portal-list a {
+      background: #e76f51;
+    }
   </style>
 </head>
 <body>
+
+  <nav>
+    <div class="logo" id="logoBlock">
+      <img src="https://github.com/tyni/tyniweb/raw/main/tyniweb_LOGO_Nov_2025_Blue_QuicksandMed.svg" class="logo-icon" alt="tyniweb logo with orange dot" />
+      <button class="edit-icon" id="editIcon" onclick="openEditor()">✏️</button>
+    </div>
+    <ul class="portal-list">
+      <li><a href="/start.html">Start a New Brand Kit</a></li>
+      <li><a href="/your-brand-kit.html">View Sample Brand Kit</a></li>
+      <li><a href="/redirect.html">Processing Preview</a></li>
+    </ul>
+  </nav>
+
   <h1>Welcome to Your Portal</h1>
   <ul class="portal-list">
     <li><a href="/start.html">1. Brand Kits</a></li>
     <!-- More options coming soon -->
   </ul>
+    <script>
+
+      function toggleTheme() {
+        document.body.classList.toggle("dark-mode");
+        const isDark = document.body.classList.contains("dark-mode");
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+      }
+      
+      window.onload = function () {
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme === "dark") {
+          document.body.classList.add("dark-mode");
+        }
+      };
+    </script>
+  
+  <footer style="text-align:center; font-size:14px; color:#888; padding:40px 20px;">
+      &copy; 2025 tyniweb. Built with love and automation.
+    </footer>
+  
 </body>
 </html>
