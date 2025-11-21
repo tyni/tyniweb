@@ -17,10 +17,10 @@
     html, body {
       min-height: 100vh;
     }
-    
+
     body {
       margin: 0;
-      padding: 68px 20px 20px 20px; /* top padding for version bar + normal padding */
+      padding: 68px 20px 20px;
       font-family: 'Open Sans', sans-serif;
       background: var(--bg);
       color: var(--text);
@@ -31,7 +31,7 @@
     *, *::before, *::after {
       box-sizing: inherit;
     }
-    
+
     nav {
       display: flex;
       justify-content: space-between;
@@ -46,13 +46,6 @@
       align-items: center;
       gap: 10px;
       position: relative;
-    }
-
-    .nav-logo-text {
-      font-family: 'Quicksand', sans-serif;
-      font-size: 28px;
-      color: var(--primary);
-      line-height: 1;
     }
 
     .edit-icon {
@@ -81,6 +74,11 @@
       font-weight: bold;
     }
 
+    #themeToggleIcon {
+      cursor: pointer;
+      font-size: 20px;
+    }
+
     header {
       background: var(--primary);
       padding: 60px 20px;
@@ -106,20 +104,16 @@
       0% { transform: translate(0, 0); }
       100% { transform: translate(-100px, -100px); }
     }
-    
+
     .hero-brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
+      display: flex;
       justify-content: center;
+      align-items: center;
     }
 
-    .hero-logo {
-      font-family: 'Quicksand', sans-serif;
-      font-size: 48px;
-      color: white;
-      position: relative;
-      margin: 0;
+    .hero-logo-icon {
+      max-width: 300px;
+      height: auto;
     }
 
     .hero-subtext {
@@ -190,88 +184,9 @@
       font-size: 14px;
       color: #888;
       padding: 40px 20px;
-      margin-bottom: 20px; /* space for version footer */
-    }
-    
-    #signinOverlay {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
     }
 
-    #signinOverlay > div {
-      background: white;
-      padding: 40px 36px;
-      border-radius: 12px;
-      text-align: center;
-      max-width: 420px;
-      width: 100%;
-      margin: 0 20px;
-      box-sizing: border-box;
-    }
-
-    .button-row {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      margin-top: 20px;
-    }
-
-    #signinOverlay button {
-      background: var(--accent);
-      color: white;
-      padding: 14px 32px;
-      font-size: 16px;
-      border: none;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .cancel-btn {
-      background: #e63946;
-      color: white;
-      padding: 14px 32px;
-      font-size: 16px;
-      border: none;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .editor-panel {
-      position: fixed;
-      top: 100px;
-      right: 20px;
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      display: none;
-      z-index: 1000;
-      width: 280px;
-    }
-
-    .editor-panel h3 {
-      margin-top: 0;
-    }
-
-    .editor-panel label {
-      display: block;
-      margin-bottom: 10px;
-    }
-
-    .editor-panel input {
-      margin-left: 10px;
-    }
-    
     .version-footer {
-      position: relative;
       background: #fffaf3;
       text-align: center;
       font-size: 16px;
@@ -280,24 +195,16 @@
       padding: 12px 20px;
       border-top: 2px solid #f4a261;
       margin-top: 20px;
-      clear: both;
-      width: 100%;
-      box-sizing: border-box;
     }
-    
+
     .vibe-desc {
       font-size: 14px;
       color: #666;
       margin-top: 8px;
     }
-    
+
     .logo-icon {
       max-width: 160px;
-      height: auto;
-    }
-    
-    .hero-logo-icon {
-      max-width: 300px;
       height: auto;
     }
 
@@ -305,42 +212,27 @@
       background-color: #1e1e1e;
       color: #f0f0f0;
     }
+
     body.dark-mode nav {
       background: #2c2c2c;
     }
+
     body.dark-mode nav ul li a {
       color: #f0f0f0;
     }
+
     body.dark-mode .vibe-card {
       background: #2a2a2a;
       color: #f0f0f0;
     }
+
     body.dark-mode .cta {
       background-color: #e76f51;
     }
-    
-    @media (prefers-color-scheme: dark) {
-      .hero-logo-icon {
-        content: url("https://github.com/tyni/tyniweb/raw/main/tyniweb_LOGO_Nov_2025_Blue_QuicksandMed.svg");
-      }
-      .logo-icon {
-        content: url("https://github.com/tyni/tyniweb/raw/main/tyniweb_LOGO_Nov_2025_White_QuicksandMed.svg");
-      }
-    }
-    
-    @media (prefers-color-scheme: light) {
-      .hero-logo-icon {
-        content: url("https://github.com/tyni/tyniweb/raw/main/tyniweb_LOGO_Nov_2025_White_QuicksandMed.svg");
-      }
-      .logo-icon {
-        content: url("https://github.com/tyni/tyniweb/raw/main/tyniweb_LOGO_Nov_2025_Blue_QuicksandMed.svg");
-      }
-    }
-    
   </style>
 </head>
 <body>
-  
+
   <nav>
     <div class="logo" id="logoBlock">
       <img src="https://github.com/tyni/tyniweb/raw/main/tyniweb_LOGO_Nov_2025_Blue_QuicksandMed.svg" class="logo-icon" alt="tyniweb logo with orange dot" />
@@ -352,36 +244,28 @@
       <li><a href="#">About</a></li>
       <li><a href="#">FAQ</a></li>
     </ul>
-    <span id="themeToggleIcon" onclick="toggleTheme()" style="cursor:pointer; font-size:20px;">🌙</span>
+    <span id="themeToggleIcon" onclick="toggleTheme()">🌙</span>
   </nav>
-  
+
   <header>
     <div class="hero-brand">
       <img src="https://github.com/tyni/tyniweb/raw/main/tyniweb_LOGO_Nov_2025_White_QuicksandMed.svg" class="hero-logo-icon" alt="tyniweb full logo" />
+    </div>
     <p class="hero-subtext">Multi-hyphenate? You need a multi-channel brand.</p>
-    <p style="font-weight:bold; color:#f4a261; margin-top:16px;">
-    Private Beta — You’re Early.
-    </p>
+    <p style="font-weight:bold; color:#f4a261; margin-top:16px;">Private Beta — You’re Early.</p>
     <button class="cta" id="authButton" onclick="handleAuth()">Sign In</button>
   </header>
 
   <section class="vibe-section">
     <h2>Pick Your Brand Vibe</h2>
     <div class="vibe-grid">
-      <div class="vibe-card"><div class="vibe-title">Cozy</div>
+      <div class="vibe-card">
+        <div class="vibe-title">Cozy</div>
         <p class="vibe-desc">Warm, soft, inviting</p>
         <div class="swatches">
           <div class="swatch" style="background:#d8cfc4;"></div>
           <div class="swatch" style="background:#a67c52;"></div>
           <div class="swatch" style="background:#f4e9dc;"></div>
-        </div>
-      </div>
-      <div class="vibe-card">
-        <div class="vibe-title">Bold</div>
-        <div class="swatches">
-          <div class="swatch" style="background:#1a1a1a;"></div>
-          <div class="swatch" style="background:#e63946;"></div>
-          <div class="swatch" style="background:#f1faee;"></div>
         </div>
       </div>
       <div class="vibe-card">
@@ -402,63 +286,18 @@
       </div>
     </div>
   </section>
-  
+
   <a href="portal.html" class="cta" id="startKitBtn" style="margin-top: 40px; display:none;">⬅ Back through the Portal</a>
 
-  <!-- 🔐 Sign-In Overlay -->
-  <div id="signinOverlay">
-    <div>
-      <h2>Sign In</h2>
-      <input type="password" id="accessKey" placeholder="Enter access key" />
-      <div class="button-row">
-        <button onclick="checkAccess()">Enter</button>
-        <button onclick="closeOverlay()" class="cancel-btn">Cancel</button>
-      </div>
-    </div>
+  <footer>
+    &copy; 2025 tyniweb. Built with love and automation.
+  </footer>
+
+  <div class="version-footer">
+    🔄 <strong>Version 1.4.6 — index.html — Last updated: Nov 21, 2025 @ 2:31 AM MST</strong>
   </div>
 
-  <!-- ✏️ Editor Panel -->
-  <div class="editor-panel" id="editorPanel">
-    <h3>Edit Logo</h3>
-    <label>Text: <input type="text" id="editText" /></label>
-    <label>Font Size: <input type="number" id="editSize" /></label>
-    <label>Color: <input type="color" id="editColor" /></label>
-    <button onclick="applyChanges()">Apply</button>
-    <button onclick="copyChanges()">Copy Code</button>
-  </div>
-  
   <script>
-      const updateLogo = () => {
-      const navLogo = document.querySelector('.logo-icon');
-      const heroLogo = document.querySelector('.hero-logo-icon');
-      const editIcon = document.getElementById('editIcon');
-    
-      // Signed-in state
-      const isSignedIn = localStorage.getItem("accessGranted") === "true";
-    
-      // Theme: manual override via data-theme, else system
-      const manualTheme = document.documentElement.getAttribute('data-theme');
-      const isDark = manualTheme
-        ? manualTheme === 'dark'
-        : window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-      const whiteLogo = 'https://github.com/tyni/tyniweb/raw/main/tyniweb_LOGO_Nov_2025_White_QuicksandMed.svg';
-      const blueLogo  = 'https://github.com/tyni/tyniweb/raw/main/tyniweb_LOGO_Nov_2025_Blue_QuicksandMed.svg';
-    
-      // Hero logo: white in dark, blue in light
-      heroLogo.src = isDark ? whiteLogo : blueLogo;
-    
-      // Always show nav logo
-      navLogo.src = isDark ? whiteLogo : blueLogo;
-      navLogo.style.display = 'inline-block';
-    
-      // Edit icon and theme toggle: only visible when signed in
-      if (editIcon) editIcon.style.display = isSignedIn ? 'inline-block' : 'none';
-    };
-    
-    updateLogo();
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateLogo);
-    
     function toggleTheme() {
       document.body.classList.toggle("dark-mode");
       const isDark = document.body.classList.contains("dark-mode");
@@ -466,22 +305,19 @@
       const icon = document.getElementById("themeToggleIcon");
       if (icon) icon.textContent = isDark ? "☀️" : "🌙";
     }
-        
+
     function handleAuth() {
       const isSignedIn = localStorage.getItem("accessGranted") === "true";
       if (isSignedIn) {
         localStorage.removeItem("accessGranted");
-        location.reload(); // Refresh to reset UI
+        location.reload();
       } else {
         openOverlay();
       }
     }
 
     function openOverlay() {
-      const overlay = document.getElementById("signinOverlay");
-      overlay.style.display = "flex";
-      overlay.style.justifyContent = "center";
-      overlay.style.alignItems = "center";
+      document.getElementById("signinOverlay").style.display = "flex";
     }
 
     function closeOverlay() {
@@ -498,39 +334,7 @@
       }
     }
 
-    function openEditor() {
-      if (localStorage.getItem("accessGranted") !== "true") {
-        alert("Sign in to edit the logo.");
-        return;
-      }
-      const logo = document.querySelector(".hero-logo");
-      document.getElementById("editText").value = logo.textContent;
-      document.getElementById("editSize").value = parseInt(window.getComputedStyle(logo).fontSize);
-      document.getElementById("editColor").value = rgbToHex(window.getComputedStyle(logo).color);
-      document.getElementById("editorPanel").style.display = "block";
-    }
-
-    function applyChanges() {
-      const logo = document.querySelector(".hero-logo");
-      logo.textContent = document.getElementById("editText").value;
-      logo.style.fontSize = document.getElementById("editSize").value + "px";
-      logo.style.color = document.getElementById("editColor").value;
-    }
-
-    function copyChanges() {
-      const logo = document.querySelector(".hero-logo");
-      const html = logo.outerHTML;
-      navigator.clipboard.writeText(html);
-      alert("Copied updated HTML to clipboard!");
-    }
-
-    function rgbToHex(rgb) {
-      const result = rgb.match(/\d+/g).map(x => parseInt(x).toString(16).padStart(2, '0'));
-      return '#' + result.join('');
-    }
-
     window.onload = function () {
-      // ✅ Theme logic
       const savedTheme = localStorage.getItem("theme");
       const icon = document.getElementById("themeToggleIcon");
       if (savedTheme === "dark") {
@@ -539,21 +343,20 @@
       } else {
         if (icon) icon.textContent = "🌙";
       }
-    
-      // ✅ Auth logic
+
       const isSignedIn = localStorage.getItem("accessGranted") === "true";
       const authButton = document.getElementById("authButton");
       const logoBlock = document.getElementById("logoBlock");
       const startBtn = document.getElementById("startKitBtn");
-    
+
       if (authButton) {
         authButton.textContent = isSignedIn ? "Sign Out" : "Sign In";
       }
-    
+
       if (startBtn) {
         startBtn.style.display = isSignedIn ? "inline-block" : "none";
       }
-    
+
       if (isSignedIn && logoBlock && !document.getElementById("signedInBadge")) {
         const badge = document.createElement("span");
         badge.id = "signedInBadge";
@@ -571,31 +374,7 @@
         if (badge) badge.remove();
       }
     };
-    
   </script>
-  
-  <footer>
-    &copy; 2025 tyniweb. Built with love and automation.
-  </footer>
-
-  <div class="version-footer">
-  🔄 <strong>Version 1.4.6 — index.html — Last updated: Nov 21, 2025 @ 2:31 AM MST</strong>
-</div>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
