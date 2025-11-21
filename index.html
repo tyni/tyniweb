@@ -397,8 +397,7 @@ body.dark-mode .kit-list li {
           <div class="swatch" style="background:#ffe8d6;"></div>
         </div>
       </div>
-    </div>
-        <div class="vibe-card">
+      <div class="vibe-card">
       <div class="vibe-title">Minimal</div>
       <p class="vibe-desc">Clean, modern, understated</p>
       <div class="swatches">
@@ -407,7 +406,6 @@ body.dark-mode .kit-list li {
         <div class="swatch" style="background:#333333;"></div>
       </div>
     </div>
-    
     <div class="vibe-card">
       <div class="vibe-title">Retro</div>
       <p class="vibe-desc">Nostalgic, funky, vintage</p>
@@ -417,6 +415,7 @@ body.dark-mode .kit-list li {
         <div class="swatch" style="background:#e76f51;"></div>
       </div>
     </div>
+    </div?    
   </section>
 
   <section class="showcase-section">
@@ -568,10 +567,15 @@ body.dark-mode .kit-list li {
         if (badge) badge.remove();
       }
     };
+    const editIcon = document.getElementById("editIcon");
+    if (editIcon) {
+      editIcon.style.display = isSignedIn ? "inline-block" : "none";
+    }
   </script>
 
 </body>
 </html>
+
 
 
 
