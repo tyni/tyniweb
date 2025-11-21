@@ -218,7 +218,10 @@
         logoBlock.appendChild(badge);
       }
     };
+    const editIcon = document.getElementById("editIcon");
+    if (editIcon) {
+      editIcon.style.display = isSignedIn ? "inline-block" : "none";
+    }
   </script>
-
 </body>
 </html>
