@@ -358,10 +358,6 @@
   <header>
     <div class="hero-brand">
       <img src="https://github.com/tyni/tyniweb/raw/main/tyniweb_LOGO_Nov_2025_White_QuicksandMed.svg" class="hero-logo-icon" alt="tyniweb full logo" />
-    </div>
-    <div id="themeToggle" style="display:none; margin-top:20px;">
-      <button onclick="toggleTheme()">Toggle Theme</button>
-    </div>
     <p class="hero-subtext">Multi-hyphenate? You need a multi-channel brand.</p>
     <p style="font-weight:bold; color:#f4a261; margin-top:16px;">
     Private Beta — You’re Early.
@@ -436,7 +432,6 @@
       const navLogo = document.querySelector('.logo-icon');
       const heroLogo = document.querySelector('.hero-logo-icon');
       const editIcon = document.getElementById('editIcon');
-      const themeToggle = document.getElementById('themeToggle');
     
       // Signed-in state
       const isSignedIn = localStorage.getItem("accessGranted") === "true";
@@ -459,7 +454,6 @@
     
       // Edit icon and theme toggle: only visible when signed in
       if (editIcon) editIcon.style.display = isSignedIn ? 'inline-block' : 'none';
-      if (themeToggle) themeToggle.style.display = isSignedIn ? 'block' : 'none';
     };
     
     updateLogo();
@@ -585,11 +579,12 @@
   </footer>
 
   <div class="version-footer">
-  🔄 <strong>Version 1.4.5 — index.html — Last updated: Nov 21, 2025 @ 12:39 AM MST</strong>
+  🔄 <strong>Version 1.4.6 — index.html — Last updated: Nov 21, 2025 @ 2:31 AM MST</strong>
 </div>
 
 </body>
 </html>
+
 
 
 
