@@ -432,13 +432,9 @@
       // Hero logo: white in dark, blue in light
       heroLogo.src = isDark ? whiteLogo : blueLogo;
     
-      // Nav logo: only show when signed in
-      if (isSignedIn) {
-        navLogo.src = isDark ? whiteLogo : blueLogo;
-        navLogo.style.display = 'inline-block';
-      } else {
-        navLogo.style.display = 'none';
-      }
+      // Always show nav logo
+      navLogo.src = isDark ? whiteLogo : blueLogo;
+      navLogo.style.display = 'inline-block';
     
       // Edit icon and theme toggle: only visible when signed in
       if (editIcon) editIcon.style.display = isSignedIn ? 'inline-block' : 'none';
@@ -539,6 +535,9 @@
         badge.style.fontSize = "14px";
         badge.style.fontWeight = "bold";
         logoBlock.appendChild(badge);
+      } else {
+        const badge = document.getElementById("signedInBadge");
+        if (badge) badge.remove();
       }
     };
   </script>
@@ -548,11 +547,12 @@
   </footer>
 
   <div class="version-footer">
-  🔄 <strong>Version 1.4.4 — index.html — Last updated: Nov 21, 2025 @ 11:51 AM MST</strong>
+  🔄 <strong>Version 1.4.5 — index.html — Last updated: Nov 21, 2025 @ 12:39 AM MST</strong>
 </div>
 
 </body>
 </html>
+
 
 
 
