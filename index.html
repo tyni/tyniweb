@@ -1,582 +1,128 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>tyniweb — A Multi-Hyphenate Portal</title>
-  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Quicksand:wght@500&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --accent: #f4a261;
-      --bg: #fffaf3;
-      --text: #333;
-      --primary: #002b5c;
-    }
+<!-- ===========================
+     HEADER SECTION
+=========================== -->
+<header class="header">
+  <div class="header-container">
+    <a href="#top" class="logo">
+      <img src="https://raw.githubusercontent.com/tyni/tyniweb/main/tyniweb_LOGO_Nov_2025_Blue_Icon.svg" alt="Tyniweb Icon" class="logo-icon">
+      <span class="logo-text">tyniweb</span>
+    </a>
 
-    html, body {
-      min-height: 100vh;
-    }
+    <nav class="nav">
+      <a href="#how-it-works">How It Works</a>
+      <a href="#workers">For Workers</a>
+      <a href="#businesses">For Businesses</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
 
-    body {
-      margin: 0;
-      padding: 68px 20px 20px;
-      font-family: 'Open Sans', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
-      box-sizing: border-box;
-    }
-
-    *, *::before, *::after {
-      box-sizing: inherit;
-    }
-
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 32px;
-      background: white;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    }
-
-    nav .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      position: relative;
-    }
-
-    .edit-icon {
-      position: absolute;
-      top: -10px;
-      right: -20px;
-      background: var(--accent);
-      color: white;
-      border: none;
-      border-radius: 50%;
-      padding: 4px 8px;
-      cursor: pointer;
-    }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 24px;
-      margin: 0;
-      padding: 0;
-    }
-
-    nav ul li a {
-      text-decoration: none;
-      color: var(--text);
-      font-weight: bold;
-    }
-
-    #themeToggleIcon {
-      cursor: pointer;
-      font-size: 20px;
-    }
-
-    header {
-      background: var(--primary);
-      padding: 60px 20px;
-      border-radius: 0 0 12px 12px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      z-index: 0;
-    }
-
-    header::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><polygon points="50,15 90,40 90,80 50,105 10,80 10,40" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/></svg>');
-      background-size: 80px 80px;
-      animation: drift 60s linear infinite;
-      z-index: -1;
-    }
-
-    @keyframes drift {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(-100px, -100px); }
-    }
-
-    .hero-brand {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .hero-logo-icon {
-      max-width: 300px;
-      height: auto;
-    }
-
-    .hero-subtext {
-      color: white;
-      font-size: 18px;
-      margin-top: 12px;
-    }
-
-    .cta {
-      background: var(--accent);
-      color: white;
-      padding: 16px 32px;
-      font-size: 18px;
-      font-weight: bold;
-      border-radius: 8px;
-      text-decoration: none;
-      margin-top: 24px;
-      display: inline-block;
-      cursor: pointer;
-    }
-
-    .vibe-section {
-      padding: 60px 20px;
-      text-align: center;
-    }
-
-    .vibe-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 24px;
-      max-width: 640px;
-      margin: 0 auto;
-    }
-
-    .vibe-card {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      padding: 20px;
-      transition: transform 0.3s ease;
-    }
-
-    .vibe-card:hover {
-      transform: scale(1.05);
-    }
-
-    .vibe-title {
-      font-family: 'Quicksand', sans-serif;
-      font-size: 24px;
-      margin-bottom: 12px;
-      color: var(--primary);
-    }
-
-    .swatches {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .swatch {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-    }
-
-    footer {
-      text-align: center;
-      font-size: 14px;
-      color: #888;
-      padding: 40px 20px;
-    }
-
-    .version-footer {
-      background: #fffaf3;
-      text-align: center;
-      font-size: 16px;
-      font-weight: bold;
-      color: #e63946;
-      padding: 12px 20px;
-      border-top: 2px solid #f4a261;
-      margin-top: 20px;
-    }
-
-    .vibe-desc {
-      font-size: 14px;
-      color: #666;
-      margin-top: 8px;
-    }
-
-    .logo-icon {
-      max-width: 160px;
-      height: auto;
-    }
-
-    body.dark-mode {
-      background-color: #1e1e1e;
-      color: #f0f0f0;
-    }
-
-    body.dark-mode nav {
-      background: #2c2c2c;
-    }
-
-    body.dark-mode nav ul li a {
-      color: #f0f0f0;
-    }
-
-    body.dark-mode .vibe-card {
-      background: #2a2a2a;
-      color: #f0f0f0;
-    }
-
-    body.dark-mode .cta {
-      background-color: #e76f51;
-    }
-    .showcase-section {
-  background: #fefefe;
-  padding: 80px 20px;
-  border-top: 1px solid #eee;
-}
-
-.showcase-container {
-  max-width: 880px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.showcase-section h2 {
-  font-family: 'Quicksand', sans-serif;
-  font-size: 32px;
-  color: var(--primary);
-  margin-bottom: 12px;
-}
-
-.showcase-intro {
-  font-size: 18px;
-  margin-bottom: 40px;
-  color: #555;
-}
-
-.showcase-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 32px;
-  margin-bottom: 40px;
-}
-
-.showcase-block {
-  background: white;
-  padding: 24px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  text-align: left;
-}
-
-.showcase-block h3 {
-  font-size: 20px;
-  margin-bottom: 12px;
-  color: var(--primary);
-}
-
-.showcase-block p {
-  font-size: 16px;
-  color: #444;
-  line-height: 1.6;
-}
-
-.kit-list {
-  list-style: none;
-  padding: 0;
-  font-size: 16px;
-  color: #333;
-  text-align: left;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.kit-list li {
-  margin-bottom: 12px;
-  padding-left: 1.5em;
-  position: relative;
-}
-
-.kit-list li::before {
-  content: "✔";
-  position: absolute;
-  left: 0;
-  color: var(--accent);
-  font-weight: bold;
-}
-
-.divider {
-  height: 2px;
-  background: #f4a261;
-  width: 60px;
-  margin: 40px auto;
-}
-
-body.dark-mode .showcase-section {
-  background: #1e1e1e;
-}
-
-body.dark-mode .showcase-block {
-  background: #2a2a2a;
-  color: #f0f0f0;
-}
-
-body.dark-mode .kit-list li {
-  color: #f0f0f0;
-}
-    
-  </style>
-</head>
-<body>
-
-  <nav>
-    <div class="logo" id="logoBlock">
-      <img src="https://github.com/tyni/tyniweb/raw/main/tyniweb_LOGO_Nov_2025_Blue_QuicksandMed.svg" class="logo-icon" alt="tyniweb logo with orange dot" />
-      <button class="edit-icon" id="editIcon" onclick="openEditor()">✏️</button>
-    </div>
-    <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">How It Works</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">FAQ</a></li>
-    </ul>
-    <span id="themeToggleIcon" onclick="toggleTheme()">🌙</span>
-  </nav>
-
-  <header>
-    <div class="hero-brand">
-      <img src="https://github.com/tyni/tyniweb/raw/main/tyniweb_LOGO_Nov_2025_White_QuicksandMed.svg" class="hero-logo-icon" alt="tyniweb full logo" />
-    </div>
-    <p class="hero-subtext">Multi-hyphenate? You need a multi-channel brand.</p>
-    <p style="font-weight:bold; color:#f4a261; margin-top:16px;">Private Beta — You’re Early.</p>
-    <button class="cta" id="authButton" onclick="handleAuth()">Sign In</button>
-  </header>
-
-  <section class="portal-section">
-    <div style="margin-top: 40px;">
-      <a href="portal.html" class="cta" id="startKitBtn" style="display:none;">⬅ Back through the Portal</a>
-    </div>
-  </section>
-
-  <section class="vibe-section">
-    <h2>Pick Your Brand Vibe</h2>
-    <div class="vibe-grid">
-      <div class="vibe-card">
-        <div class="vibe-title">Cozy</div>
-        <p class="vibe-desc">Warm, soft, inviting</p>
-        <div class="swatches">
-          <div class="swatch" style="background:#d8cfc4;"></div>
-          <div class="swatch" style="background:#a67c52;"></div>
-          <div class="swatch" style="background:#f4e9dc;"></div>
-        </div>
-      </div>
-      <div class="vibe-card">
-      <div class="vibe-title">Bold</div>
-      <p class="vibe-desc">Strong, confident, high-contrast</p>
-      <div class="swatches">
-        <div class="swatch" style="background:#1a1a1a;"></div>
-        <div class="swatch" style="background:#e63946;"></div>
-        <div class="swatch" style="background:#f1faee;"></div>
-      </div>
-    </div>
-      <div class="vibe-card">
-        <div class="vibe-title">Playful</div>
-        <p class="vibe-desc">Fun, energetic, expressive</p>
-        <div class="swatches">
-          <div class="swatch" style="background:#ffbe0b;"></div>
-          <div class="swatch" style="background:#fb5607;"></div>
-          <div class="swatch" style="background:#ff006e;"></div>
-        </div>
-      </div>
-      <div class="vibe-card">
-        <div class="vibe-title">Earthy</div>
-        <p class="vibe-desc">Natural, grounded, organic</p>
-        <div class="swatches">
-          <div class="swatch" style="background:#6b705c;"></div>
-          <div class="swatch" style="background:#a5a58d;"></div>
-          <div class="swatch" style="background:#ffe8d6;"></div>
-        </div>
-      </div>
-      <div class="vibe-card">
-      <div class="vibe-title">Minimal</div>
-      <p class="vibe-desc">Clean, modern, understated</p>
-      <div class="swatches">
-        <div class="swatch" style="background:#ffffff;"></div>
-        <div class="swatch" style="background:#cccccc;"></div>
-        <div class="swatch" style="background:#333333;"></div>
-      </div>
-    </div>
-    <div class="vibe-card">
-      <div class="vibe-title">Retro</div>
-      <p class="vibe-desc">Nostalgic, funky, vintage</p>
-      <div class="swatches">
-        <div class="swatch" style="background:#f4a261;"></div>
-        <div class="swatch" style="background:#2a9d8f;"></div>
-        <div class="swatch" style="background:#e76f51;"></div>
-      </div>
-    </div>
-    </div>    
-  </section>
-
-  <section class="showcase-section">
-  <div class="showcase-container">
-    <h2>Why tyniweb?</h2>
-    <p class="showcase-intro">You’re a multi-hyphenate — designer, coach, maker, writer. You wear many hats. Your brand should too.</p>
-
-    <div class="showcase-grid">
-      <div class="showcase-block">
-        <h3>🚀 Fast & Automated</h3>
-        <p>No more blank pages or endless design tweaks. Fill out a 2-minute form — we’ll generate your brand kit instantly.</p>
-      </div>
-      <div class="showcase-block">
-        <h3>🎨 Tailored to Your Vibe</h3>
-        <p>Choose your vibe — cozy, bold, playful, earthy — and we’ll build a brand that feels like you across every channel.</p>
-      </div>
-      <div class="showcase-block">
-        <h3>📦 Ready to Launch</h3>
-        <p>Get a logo, color palette, brand voice, and social media assets — all in one kit, ready to go.</p>
-      </div>
-    </div>
-
-    <div class="divider"></div>
-
-    <h2>Why Not Just DIY?</h2>
-    <div class="showcase-grid">
-      <div class="showcase-block">
-        <h3>❌ DIY Is Overwhelming</h3>
-        <p>Fonts, colors, tone, logos — it’s easy to get stuck. tyniweb gives you a clear, cohesive system from the start.</p>
-      </div>
-      <div class="showcase-block">
-        <h3>💸 Designers Are Expensive</h3>
-        <p>Custom branding can cost thousands. We deliver a complete kit for a fraction of the time and cost.</p>
-      </div>
-      <div class="showcase-block">
-        <h3>🧩 Templates Don’t Cut It</h3>
-        <p>Logo makers and Canva templates don’t give you strategy. We do — with voice, visuals, and vibe aligned.</p>
-      </div>
-    </div>
-
-    <div class="divider"></div>
-
-    <h2>What You’ll Get</h2>
-    <ul class="kit-list">
-      <li>✔ A custom logo in multiple formats</li>
-      <li>✔ A curated color palette and font pairing</li>
-      <li>✔ A brand voice and messaging guide</li>
-      <li>✔ Social media starter kit (profile, banner, sample posts)</li>
-    </ul>
-
-    <a href="portal.html" class="cta" style="margin-top: 32px;">⬅ Back through the Portal</a>
+    <a href="#get-started" class="btn-header">Get Started</a>
   </div>
-</section>
-  
-<!-- 🔐 Sign-In Overlay -->
-<div id="signinOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:999;">
-  <div style="background:white; padding:40px 36px; border-radius:12px; text-align:center; max-width:420px; width:100%; margin:0 20px;">
-    <h2>Sign In</h2>
-    <input type="password" id="accessKey" placeholder="Enter access key" style="padding:12px; width:100%; margin-bottom:20px; font-size:16px;" />
-    <div style="display:flex; justify-content:center; gap:16px;">
-      <button onclick="checkAccess()" style="background:var(--accent); color:white; padding:14px 32px; font-size:16px; border:none; border-radius:6px; font-weight:bold; cursor:pointer;">Enter</button>
-      <button onclick="closeOverlay()" style="background:#e63946; color:white; padding:14px 32px; font-size:16px; border:none; border-radius:6px; font-weight:bold; cursor:pointer;">Cancel</button>
-    </div>
-  </div>
-</div>
+</header>
 
-  <footer>
-    &copy; 2025 tyniweb. Built with love and automation.
-  </footer>
+<style>
+/* ===========================
+   HEADER STYLES
+=========================== */
 
-  <div class="version-footer">
-    🔄 <strong>Version 1.4.7 — index.html — Last updated: Nov 21, 2025 @ 3:11 AM MST</strong>
-  </div>
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
 
-  <script>
-    function toggleTheme() {
-      document.body.classList.toggle("dark-mode");
-      const isDark = document.body.classList.contains("dark-mode");
-      localStorage.setItem("theme", isDark ? "dark" : "light");
-      const icon = document.getElementById("themeToggleIcon");
-      if (icon) icon.textContent = isDark ? "☀️" : "🌙";
-    }
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 18px 40px;
+  display: flex;
+  justify-content: center;
+  z-index: 999;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  background: transparent;
+}
 
-    function handleAuth() {
-      const isSignedIn = localStorage.getItem("accessGranted") === "true";
-      if (isSignedIn) {
-        localStorage.removeItem("accessGranted");
-        location.reload();
-      } else {
-        openOverlay();
-      }
-    }
+.header.scrolled {
+  background: #ffffff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
 
-    function openOverlay() {
-      document.getElementById("signinOverlay").style.display = "flex";
-    }
+.header-container {
+  width: 100%;
+  max-width: 1400px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-    function closeOverlay() {
-      document.getElementById("signinOverlay").style.display = "none";
-    }
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
 
-    function checkAccess() {
-      const key = document.getElementById("accessKey").value;
-      if (key === "tj-only-access") {
-        localStorage.setItem("accessGranted", "true");
-        window.location.href = "/portal.html";
-      } else {
-        alert("Incorrect key. Try again.");
-      }
-    }
+.logo-icon {
+  height: 32px;
+  margin-right: 10px;
+}
 
-    window.onload = function () {
-      const savedTheme = localStorage.getItem("theme");
-      const icon = document.getElementById("themeToggleIcon");
-      if (savedTheme === "dark") {
-        document.body.classList.add("dark-mode");
-        if (icon) icon.textContent = "☀️";
-      } else {
-        if (icon) icon.textContent = "🌙";
-      }
+.logo-text {
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+  transition: color 0.3s ease;
+}
 
-      const isSignedIn = localStorage.getItem("accessGranted") === "true";
-      const authButton = document.getElementById("authButton");
-      const logoBlock = document.getElementById("logoBlock");
-      const startBtn = document.getElementById("startKitBtn");
+.header.scrolled .logo-text {
+  color: #111111;
+}
 
-      if (authButton) {
-        authButton.textContent = isSignedIn ? "Sign Out" : "Sign In";
-      }
+.nav a {
+  margin: 0 18px;
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
 
-      if (startBtn) {
-        startBtn.style.display = isSignedIn ? "inline-block" : "none";
-      }
+.header.scrolled .nav a {
+  color: #111111;
+}
 
-      if (isSignedIn && logoBlock && !document.getElementById("signedInBadge")) {
-        const badge = document.createElement("span");
-        badge.id = "signedInBadge";
-        badge.textContent = "✔ Signed In";
-        badge.style.background = "#2a9d8f";
-        badge.style.color = "white";
-        badge.style.padding = "4px 8px";
-        badge.style.borderRadius = "6px";
-        badge.style.marginLeft = "12px";
-        badge.style.fontSize = "14px";
-        badge.style.fontWeight = "bold";
-        logoBlock.appendChild(badge);
-      } else {
-        const badge = document.getElementById("signedInBadge");
-        if (badge) badge.remove();
-      }
-    };
-    const editIcon = document.getElementById("editIcon");
-    if (editIcon) {
-      editIcon.style.display = isSignedIn ? "inline-block" : "none";
-    }
-  </script>
+.btn-header {
+  padding: 10px 20px;
+  border: 2px solid #ffffff;
+  border-radius: 6px;
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
 
-</body>
-</html>
+.header.scrolled .btn-header {
+  border-color: #111111;
+  color: #111111;
+}
 
+.btn-header:hover {
+  background: rgba(255,255,255,0.15);
+}
 
+.header.scrolled .btn-header:hover {
+  background: rgba(0,0,0,0.05);
+}
+</style>
 
-
-
+<script>
+// Header scroll effect
+window.addEventListener('scroll', function() {
+  const header = document.querySelector('.header');
+  if (window.scrollY > 20) {
+    header.classList.add('scrolled');
+  } else {
+    header.classList.remove('scrolled');
+  }
+});
+</script>
