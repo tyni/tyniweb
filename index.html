@@ -9,16 +9,24 @@
   <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/tyni/tyniweb/main/favicon.ico">
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
+    
+    :root {
+      --accent: #f4a261;
+      --bg: #fffaf3;
+      --text: #333;
+      --primary: #002b5c;
+    }
+    
     /* ===========================
        BASE STYLES
     =========================== */
 
     body {
       margin: 0;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Quicksand', sans-serif;
     }
 
     /* ===========================
@@ -138,7 +146,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #007bff; /* deep blue */
+      background: #1a1f36; /* deep blue */
       color: #ffffff;       /* white text */
       font-size: 36px;
       font-weight: 700;
@@ -205,19 +213,103 @@
 }
 
 /* ===========================
-   HEADER LAYOUT UPDATE
+   HEADER — BRAND VERSION
 =========================== */
 
-.header-right {
+.tw-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 18px 24px;
+  display: flex;
+  justify-content: center;
+  z-index: 1000;
+  background: transparent;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tw-header.scrolled {
+  background: #ffffff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.tw-header-container {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* NAV (desktop only) */
+.tw-nav a {
+  margin-right: 24px;
+  text-decoration: none;
+  color: #1a1f36;
+  font-weight: 500;
+}
+
+@media (max-width: 1100px) {
+  .tw-nav {
+    display: none;
+  }
+}
+
+/* RIGHT SIDE */
+.tw-header-right {
   display: flex;
   align-items: center;
   gap: 20px;
 }
 
-/* Hide nav on mobile */
-@media (max-width: 1100px) {
-  .nav {
-    display: none;
+/* CTA BUTTON */
+.tw-btn-header {
+  padding: 10px 18px;
+  background: #ff6a00;
+  color: #ffffff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* LOGO TRIGGER */
+.tw-logo-trigger {
+  position: relative;
+  width: 140px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* LOGO SWAP (crossfade) */
+.tw-logo-trigger img {
+  position: absolute;
+  width: 140px;
+  height: auto;
+  transition: opacity 0.35s ease;
+}
+
+.tw-logo-white {
+  opacity: 1;
+}
+
+.tw-menu-open .tw-logo-white {
+  opacity: 0;
+}
+
+.tw-logo-blue {
+  opacity: 0;
+}
+
+.tw-menu-open .tw-logo-blue {
+  opacity: 1;
+}
+
+/* Reduced motion fallback */
+@media (prefers-reduced-motion: reduce) {
+  .tw-logo-trigger img {
+    transition: none;
   }
 }
 
@@ -317,17 +409,39 @@
   text-align: center;
 }
 
+/* ===========================
+   BETA BANNER (FULL WIDTH)
+=========================== */
+
+.tw-beta-banner {
+  width: 100%;
+  background: #ff6a00; /* brand orange */
+  color: #ffffff;
+  text-align: center;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  position: relative;
+  z-index: 1001; /* above header */
+}
+
     
 </style>
 </head>
 
 
 <body>
-<header class="header">
-  <div class="header-container">
+<!-- BETA BANNER -->
+<div class="tw-beta-banner">
+  Tyniweb is currently in Beta — features are being added daily.
+</div>
+
+<header class="tw-header">
+  <div class="tw-header-container">
 
     <!-- LEFT SIDE (desktop nav only) -->
-    <nav class="nav">
+    <nav class="tw-nav">
       <a href="#how-it-works">How It Works</a>
       <a href="#workers">For Workers</a>
       <a href="#businesses">For Businesses</a>
@@ -335,19 +449,25 @@
       <a href="#contact">Contact</a>
     </nav>
 
-    <!-- RIGHT SIDE (Get Started + Logo/Menu Trigger) -->
-    <div class="header-right">
-      <a href="#get-started" class="btn-header">Get Started</a>
+    <!-- RIGHT SIDE (CTA + Logo Trigger) -->
+    <div class="tw-header-right">
 
-      <!-- STACKED ICON (menu trigger) -->
-      <div class="logo menu-trigger">
-        <div class="logo-icon-stack">
-          <img src="https://raw.githubusercontent.com/tyni/tyniweb/main/tyniweb_LOGO_Nov_2025_White_Icon.svg" class="icon-white">
-          <img src="https://raw.githubusercontent.com/tyni/tyniweb/main/tyniweb_LOGO_Nov_2025_Blue_Icon.svg" class="icon-blue">
-        </div>
-        <span class="logo-text">tyniweb</span>
-        <span class="beta-badge" data-tooltip="Tyniweb is currently in beta — features are being added daily.">Beta</span>
+      <a href="#get-started" class="tw-btn-header">Get Started</a>
+
+      <!-- LOGO TRIGGER -->
+      <div class="tw-logo-trigger" onclick="twToggleMenu()">
+        <img 
+          src="https://raw.githubusercontent.com/tyni/tyniweb/main/tyniweb_LOGO_Nov_2025_White_QuicksandMed.svg" 
+          class="tw-logo-white"
+          alt="Tyniweb Logo White"
+        >
+        <img 
+          src="https://raw.githubusercontent.com/tyni/tyniweb/main/tyniweb_LOGO_Nov_2025_Blue_QuicksandMed.svg" 
+          class="tw-logo-blue"
+          alt="Tyniweb Logo Blue"
+        >
       </div>
+
     </div>
 
   </div>
@@ -421,6 +541,7 @@
 
 </body>
 </html>
+
 
 
 
