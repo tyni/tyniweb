@@ -23,7 +23,7 @@
   --brand-bg: #f4f7fa;       /* soft gray */
   --brand-text: #1a1f36;     /* dark blue text */
 }
-    
+
 /* ===========================
    BASE STYLES
 =========================== */
@@ -32,7 +32,7 @@ body {
   margin: 0;
   font-family: 'Quicksand', sans-serif;
 }
-    
+
 /* ===========================
    HERO — BRAND VERSION
 =========================== */
@@ -41,7 +41,7 @@ body {
   padding-top: 180px; /* accounts for banner + header */
   padding-bottom: 120px;
   min-height: 100vh;
-  background: #1a1f36; /* brand deep blue */
+  background: var(--brand-primary);
   color: #ffffff;
   display: flex;
   align-items: center;
@@ -70,7 +70,7 @@ body {
 .tw-hero-cta {
   display: inline-block;
   padding: 14px 26px;
-  background: #ff6a00;
+  background: var(--brand-accent);
   color: #ffffff;
   border-radius: 10px;
   text-decoration: none;
@@ -123,7 +123,7 @@ body {
 
 #tw-mobile-drawer a {
   font-size: 18px;
-  color: #1a1f36;
+  color: var(--brand-text);
   text-decoration: none;
   font-weight: 500;
 }
@@ -131,7 +131,7 @@ body {
 .tw-drawer-cta {
   margin-top: 20px;
   padding: 12px 18px;
-  background: #ff6a00;
+  background: var(--brand-accent);
   color: #ffffff !important;
   border-radius: 8px;
   text-align: center;
@@ -152,22 +152,22 @@ body {
   z-index: 1000;
   background: transparent;
   transition: background 0.3s ease, box-shadow 0.3s ease;
-  margin-top: 40px; /* matches banner height */
+  margin-top: 40px; /* clears banner */
 }
 
 .tw-header.scrolled {
   background: #ffffff !important;
   box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-  transition: box-shadow 0.3s ease; /* remove background fade */
+  transition: box-shadow 0.3s ease;
 }
 
-/* When header is scrolled, show blue logo */
+/* Logo swap on scroll */
 .tw-header.scrolled .tw-logo-white {
-  opacity: 0;
+  opacity: 0 !important;
 }
 
 .tw-header.scrolled .tw-logo-blue {
-  opacity: 1;
+  opacity: 1 !important;
 }
 
 .tw-header-container {
@@ -182,24 +182,18 @@ body {
 .tw-nav a {
   margin-right: 24px;
   text-decoration: none;
-  color: #1a1f36;
   font-weight: 500;
+  color: #ffffff; /* default at top */
+}
+
+.tw-header.scrolled .tw-nav a {
+  color: var(--brand-text);
 }
 
 @media (max-width: 1100px) {
   .tw-nav {
     display: none;
   }
-}
-
-/* Default (top of page) */
-.tw-nav a {
-  color: #ffffff;
-}
-
-/* When header becomes white */
-.tw-header.scrolled .tw-nav a {
-  color: #1a1f36;
 }
 
 /* RIGHT SIDE */
@@ -209,14 +203,11 @@ body {
   gap: 20px;
 }
 
-/* CTA BUTTON */
-.tw-btn-header {
-  padding: 10px 18px;
-  background: #ff6a00;
-  color: #ffffff;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
+@media (max-width: 1100px) {
+  .tw-header-right {
+    justify-content: center;
+    width: 100%;
+  }
 }
 
 /* LOGO TRIGGER */
@@ -241,16 +232,17 @@ body {
   opacity: 1;
 }
 
-.tw-menu-open .tw-logo-white {
-  opacity: 0;
-}
-
 .tw-logo-blue {
   opacity: 0;
 }
 
+/* Drawer forces blue logo */
+.tw-menu-open .tw-logo-white {
+  opacity: 0 !important;
+}
+
 .tw-menu-open .tw-logo-blue {
-  opacity: 1;
+  opacity: 1 !important;
 }
 
 /* Reduced motion fallback */
@@ -260,20 +252,13 @@ body {
   }
 }
 
-@media (max-width: 1100px) {
-  .tw-header-right {
-    justify-content: center;
-    width: 100%;
-  }
-}
-
 /* ===========================
    BETA BANNER (FULL WIDTH)
 =========================== */
 
 .tw-beta-banner {
   width: 100%;
-  background: #ff6a00; /* brand orange */
+  background: var(--brand-accent);
   color: #ffffff;
   text-align: center;
   padding: 10px 16px;
@@ -281,7 +266,7 @@ body {
   font-weight: 600;
   letter-spacing: 0.3px;
   position: relative;
-  z-index: 1001; /* above header */
+  z-index: 1001;
 }
 
 @media (max-width: 480px) {
@@ -412,6 +397,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 </body>
 </html>
+
 
 
 
