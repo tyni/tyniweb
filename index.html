@@ -11,7 +11,19 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
+<script>
+const body = document.body;
+const menuTrigger = document.querySelector('.menu-trigger');
+const overlay = document.querySelector('.menu-overlay');
 
+function toggleMenu() {
+  body.classList.toggle('menu-open');
+  document.body.style.overflow = body.classList.contains('menu-open') ? 'hidden' : '';
+}
+
+menuTrigger.addEventListener('click', toggleMenu);
+overlay.addEventListener('click', toggleMenu);
+</script>
 <body>
 <!-- ===========================
      HEADER SECTION
@@ -33,39 +45,23 @@
       <a href="#businesses">For Businesses</a>
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
+    </nav>    
+    <nav class="mobile-drawer">
+      <a href="#how-it-works">How It Works</a>
+      <a href="#workers">For Workers</a>
+      <a href="#businesses">For Businesses</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a href="#get-started" class="drawer-cta">Get Started</a>
     </nav>
-
     <a href="#get-started" class="btn-header">Get Started</a>
   </div>
 </header>
 <div class="menu-overlay"></div>
-
-<nav class="mobile-drawer">
-  <a href="#how-it-works">How It Works</a>
-  <a href="#workers">For Workers</a>
-  <a href="#businesses">For Businesses</a>
-  <a href="#about">About</a>
-  <a href="#contact">Contact</a>
-  <a href="#get-started" class="drawer-cta">Get Started</a>
-</nav>
 <style>
 /* ===========================
    HEADER STYLES
-=========================== */
-<script>
-const body = document.body;
-const menuTrigger = document.querySelector('.menu-trigger');
-const overlay = document.querySelector('.menu-overlay');
-
-function toggleMenu() {
-  body.classList.toggle('menu-open');
-  document.body.style.overflow = body.classList.contains('menu-open') ? 'hidden' : '';
-}
-
-menuTrigger.addEventListener('click', toggleMenu);
-overlay.addEventListener('click', toggleMenu);
-</script>
-  
+=========================== */  
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
@@ -380,5 +376,6 @@ window.addEventListener('scroll', function() {
 </style>
 </body>
 </html>
+
 
 
