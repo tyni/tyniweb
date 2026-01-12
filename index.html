@@ -203,6 +203,121 @@
   border-radius: 8px;
   text-align: center;
 }
+
+/* ===========================
+   HEADER LAYOUT UPDATE
+=========================== */
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Hide nav on mobile */
+@media (max-width: 1100px) {
+  .nav {
+    display: none;
+  }
+}
+
+/* ===========================
+   STACKED ICON REVEAL
+=========================== */
+
+.logo-icon-stack {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.logo-icon-stack img {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  transition: opacity 0.3s ease;
+}
+
+.icon-white {
+  opacity: 1;
+}
+
+.icon-blue {
+  opacity: 0;
+}
+
+.tw-menu-open .icon-white {
+  opacity: 0;
+}
+
+.tw-menu-open .icon-blue {
+  opacity: 1;
+}
+
+/* ===========================
+   MOBILE DRAWER MODULE
+=========================== */
+
+#tw-menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 998;
+}
+
+.tw-menu-open #tw-menu-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#tw-mobile-drawer {
+  position: fixed;
+  top: 0;
+  right: -280px;
+  width: 260px;
+  height: 100vh;
+  background: #ffffff;
+  box-shadow: -4px 0 12px rgba(0,0,0,0.1);
+  padding: 80px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  transition: right 0.3s ease, opacity 0.3s ease;
+  z-index: 999;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.tw-menu-open #tw-mobile-drawer {
+  right: 0;
+  visibility: visible;
+  opacity: 1;
+}
+
+#tw-mobile-drawer a {
+  font-size: 18px;
+  color: #111;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.tw-drawer-cta {
+  margin-top: 20px;
+  padding: 12px 18px;
+  background: #007bff;
+  color: #fff !important;
+  border-radius: 8px;
+  text-align: center;
+}
+
+    
 </style>
 </head>
 
@@ -210,12 +325,8 @@
 <body>
 <header class="header">
   <div class="header-container">
-    <a href="#top" class="logo">
-      <img src="https://raw.githubusercontent.com/tyni/tyniweb/main/tyniweb_LOGO_Nov_2025_White_Icon.svg" alt="Tyniweb Icon" class="logo-icon">
-      <span class="logo-text">tyniweb</span>
-      <span class="beta-badge" data-tooltip="Tyniweb is currently in beta — features are being added daily.">Beta</span>
-    </a>
 
+    <!-- LEFT SIDE (desktop nav only) -->
     <nav class="nav">
       <a href="#how-it-works">How It Works</a>
       <a href="#workers">For Workers</a>
@@ -224,7 +335,21 @@
       <a href="#contact">Contact</a>
     </nav>
 
-    <a href="#get-started" class="btn-header">Get Started</a>
+    <!-- RIGHT SIDE (Get Started + Logo/Menu Trigger) -->
+    <div class="header-right">
+      <a href="#get-started" class="btn-header">Get Started</a>
+
+      <!-- STACKED ICON (menu trigger) -->
+      <div class="logo menu-trigger">
+        <div class="logo-icon-stack">
+          <img src="https://raw.githubusercontent.com/tyni/tyniweb/main/tyniweb_LOGO_Nov_2025_White_Icon.svg" class="icon-white">
+          <img src="https://raw.githubusercontent.com/tyni/tyniweb/main/tyniweb_LOGO_Nov_2025_Blue_Icon.svg" class="icon-blue">
+        </div>
+        <span class="logo-text">tyniweb</span>
+        <span class="beta-badge" data-tooltip="Tyniweb is currently in beta — features are being added daily.">Beta</span>
+      </div>
+    </div>
+
   </div>
 </header>
 
@@ -264,9 +389,39 @@
 </script>
 <!-- END MODULE -->
 
+<!-- MODULE: MOBILE MENU -->
+<div id="tw-menu-overlay"></div>
+
+<nav id="tw-mobile-drawer">
+  <a href="#how-it-works">How It Works</a>
+  <a href="#workers">For Workers</a>
+  <a href="#businesses">For Businesses</a>
+  <a href="#about">About</a>
+  <a href="#contact">Contact</a>
+  <a href="#get-started" class="tw-drawer-cta">Get Started</a>
+</nav>
+
+<script>
+(function() {
+  const body = document.body;
+  const overlay = document.getElementById('tw-menu-overlay');
+  const trigger = document.querySelector('.menu-trigger');
+
+  function toggleMenu() {
+    body.classList.toggle('tw-menu-open');
+    body.style.overflow = body.classList.contains('tw-menu-open') ? 'hidden' : '';
+  }
+
+  trigger.addEventListener('click', toggleMenu);
+  overlay.addEventListener('click', toggleMenu);
+})();
+</script>
+<!-- END MODULE -->
+
 
 </body>
 </html>
+
 
 
 
