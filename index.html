@@ -10,43 +10,152 @@
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===========================
+       BASE STYLES
+    =========================== */
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* ===========================
+       HEADER STYLES
+    =========================== */
+
+    .header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 18px 24px;
+      display: flex;
+      justify-content: center;
+      z-index: 999;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      background: transparent;
+    }
+
+    .header.scrolled {
+      background: #ffffff;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    .header-container {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: #111;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      margin-right: 10px;
+    }
+
+    .logo-text {
+      font-size: 20px;
+      font-weight: 700;
+      color: #111;
+    }
+
+    .beta-badge {
+      margin-left: 10px;
+      padding: 2px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #ffffff;
+      border: 1px solid rgba(255,255,255,0.6);
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      opacity: 0.85;
+      position: relative;
+      cursor: default;
+    }
+
+    .beta-badge::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: -38px;
+      left: 0;
+      white-space: nowrap;
+      background: rgba(0,0,0,0.85);
+      color: #ffffff;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(4px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .beta-badge:hover::after {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .nav a {
+      margin-left: 24px;
+      text-decoration: none;
+      color: #111;
+      font-weight: 500;
+    }
+
+    .btn-header {
+      padding: 10px 18px;
+      background: #007bff;
+      color: #fff;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    @media (max-width: 1100px) {
+      .nav {
+        display: none;
+      }
+    }
+
+    /* ===========================
+       HERO PLACEHOLDER
+    =========================== */
+
+    .hero {
+      padding-top: 140px;
+      height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f5f7fa;
+      color: #111;
+      font-size: 32px;
+      font-weight: 600;
+    }
+  </style>
 </head>
-<script>
-const body = document.body;
-const menuTrigger = document.querySelector('.menu-trigger');
-const overlay = document.querySelector('.menu-overlay');
 
-function toggleMenu() {
-  body.classList.toggle('menu-open');
-  document.body.style.overflow = body.classList.contains('menu-open') ? 'hidden' : '';
-}
 
-menuTrigger.addEventListener('click', toggleMenu);
-overlay.addEventListener('click', toggleMenu);
-</script>
 <body>
-<!-- ===========================
-     HEADER SECTION
-=========================== -->
-<header class="header">   
-    <nav class="mobile-drawer">
-      <a href="#how-it-works">How It Works</a>
-      <a href="#workers">For Workers</a>
-      <a href="#businesses">For Businesses</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-      <a href="#get-started" class="drawer-cta">Get Started</a>
-    </nav>
+<header class="header">
   <div class="header-container">
-    <a href="#top" class="logo menu-trigger">
-      <div class="logo-icon-stack">
-        <img src="https://raw.githubusercontent.com/tyni/tyniweb/main/tyniweb_LOGO_Nov_2025_White_Icon.svg" class="icon-white">
-        <img src="https://raw.githubusercontent.com/tyni/tyniweb/main/tyniweb_LOGO_Nov_2025_Blue_Icon.svg" class="icon-blue">
-      </div>
-    
+    <a href="#top" class="logo">
+      <img src="https://raw.githubusercontent.com/tyni/tyniweb/main/tyniweb_LOGO_Nov_2025_White_Icon.svg" alt="Tyniweb Icon" class="logo-icon">
       <span class="logo-text">tyniweb</span>
       <span class="beta-badge" data-tooltip="Tyniweb is currently in beta — features are being added daily.">Beta</span>
     </a>
+
     <nav class="nav">
       <a href="#how-it-works">How It Works</a>
       <a href="#workers">For Workers</a>
@@ -54,408 +163,19 @@ overlay.addEventListener('click', toggleMenu);
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
     </nav>
+
     <a href="#get-started" class="btn-header">Get Started</a>
   </div>
 </header>
-<div class="menu-overlay"></div>
-<style>
-/* ===========================
-   HEADER STYLES
-=========================== */  
-body {
-  margin: 0;
-  font-family: 'Inter', sans-serif;
-}
-
-.header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  padding: 18px 20px;
-  display: flex;
-  justify-content: center;
-  z-index: 999;
-  transition: background 0.3s ease, box-shadow 0.3s ease;
-  background: transparent;
-}
-
-.header.scrolled {
-  background: #ffffff;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-}
-
-.header-container {
-  width: 100%;
-  max-width: 1200px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-}
-
-.logo-icon {
-  height: 32px;
-  margin-right: 10px;
-}
-
-.logo-text {
-  font-size: 22px;
-  font-weight: 700;
-  color: #ffffff;
-  letter-spacing: -0.5px;
-  transition: color 0.3s ease;
-}
-
-.header.scrolled .logo-text {
-  color: #111111;
-}
-
-.nav a {
-  margin: 0 18px;
-  text-decoration: none;
-  color: #ffffff;
-  font-size: 15px;
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
-.header.scrolled .nav a {
-  color: #111111;
-}
-
-.btn-header {
-  padding: 10px 20px;
-  border: 2px solid #ffffff;
-  border-radius: 6px;
-  color: #ffffff;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.header.scrolled .btn-header {
-  border-color: #111111;
-  color: #111111;
-}
-
-.btn-header:hover {
-  background: rgba(255,255,255,0.15);
-}
-
-.header.scrolled .btn-header:hover {
-  background: rgba(0,0,0,0.05);
-}
-
-  .beta-badge {
-  margin-left: 10px;
-  padding: 2px 8px;
-  font-size: 11px;
-  font-weight: 600;
-  color: #ffffff;
-  border: 1px solid rgba(255,255,255,0.6);
-  border-radius: 6px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  opacity: 0.85;
-  transition: color 0.3s ease, border-color 0.3s ease;
-}
-
-.header.scrolled .beta-badge {
-  color: #111111;
-  border-color: rgba(0,0,0,0.4);
-}
-  
-.logo-icon-stack {
-  position: relative;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 10px;
-}
-
-.logo-icon-stack img {
-  position: absolute;
-  width: 32px;
-  height: 32px;
-  transition: opacity 0.3s ease;
-}
-
-.icon-white {
-  opacity: 1;
-}
-
-.icon-blue {
-  opacity: 0;
-}
-
-.menu-open .icon-white {
-  opacity: 0;
-}
-
-.menu-open .icon-blue {
-  opacity: 1;
-}
-
-.menu-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.45);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-  z-index: 998;
-}
-
-.menu-open .menu-overlay {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.mobile-drawer {
-  position: fixed;
-  top: 0;
-  right: -280px;
-  width: 260px;
-  height: 100vh;
-  background: #ffffff;
-  box-shadow: -4px 0 12px rgba(0,0,0,0.1);
-  padding: 80px 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-  transition: right 0.3s ease;
-  z-index: 999;
-}
-
-.menu-open .mobile-drawer {
-  right: 0;
-}
-
-.mobile-drawer a {
-  font-size: 18px;
-  color: #111;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.drawer-cta {
-  margin-top: 20px;
-  padding: 12px 18px;
-  background: #007bff;
-  color: #fff !important;
-  border-radius: 8px;
-  text-align: center;
-}
 
 
-@media (max-width: 1100px) {
-  .nav {
-    display: none;
-  }
-
-  .btn-header {
-    padding: 10px 18px;
-  }
-
-  .header-container {
-    justify-content: space-between;
-  }
-}
-
-</style>
-
-<script>
-// Header scroll effect
-window.addEventListener('scroll', function() {
-  const header = document.querySelector('.header');
-  if (window.scrollY > 20) {
-    header.classList.add('scrolled');
-  } else {
-    header.classList.remove('scrolled');
-  }
-});
-</script>
-<!-- ===========================
-     HERO SECTION
-=========================== -->
 <section id="top" class="hero">
-  <div class="hero-content">
-    <h1>AI‑Powered Work.<br>Real Opportunities. Real Results.</h1>
-
-    <p class="hero-subtext">
-      Tyniweb connects AI‑ready workers with businesses that need modern digital support — 
-      fast, flexible, and future‑proof.
-    </p>
-
-    <div class="hero-buttons">
-      <a href="#workers" class="btn-primary">Start Working</a>
-      <a href="#businesses" class="btn-secondary">Get Business Support</a>
-    </div>
-  </div>
+  Hero Section Placeholder
 </section>
 
-<style>
-/* ===========================
-   HERO STYLES
-=========================== */
 
-.hero {
-  height: 100vh;
-  min-height: 650px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 40px;
-  background: radial-gradient(circle at top right, #1a1f35, #0d0f18 60%);
-  color: #ffffff;
-  text-align: center;
-  position: relative;
-}
+<!-- MODULES GO HERE -->
 
-.hero-content {
-  max-width: 900px;
-  margin-top: 80px; /* creates space under transparent header */
-}
 
-.hero h1 {
-  font-size: 3.2rem;
-  font-weight: 800;
-  line-height: 1.2;
-  margin-bottom: 20px;
-  letter-spacing: -1px;
-}
-
-.hero-subtext {
-  font-size: 1.25rem;
-  font-weight: 400;
-  color: #d9d9d9;
-  margin-bottom: 40px;
-  line-height: 1.6;
-}
-
-.hero-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
-
-.btn-primary {
-  padding: 14px 28px;
-  background: #4c6fff;
-  color: #ffffff;
-  border-radius: 8px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: background 0.3s ease;
-}
-
-.btn-primary:hover {
-  background: #3b57cc;
-}
-
-.btn-secondary {
-  padding: 14px 28px;
-  border: 2px solid #ffffff;
-  border-radius: 8px;
-  color: #ffffff;
-  font-weight: 600;
-  text-decoration: none;
-  transition: background 0.3s ease, color 0.3s ease;
-}
-
-.btn-secondary:hover {
-  background: rgba(255,255,255,0.15);
-}
-
-/* ===========================
-   Tyniweb Mobile Menu Module
-=========================== */
-
-#tw-menu-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.45);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-  z-index: 998;
-}
-
-.tw-menu-open #tw-menu-overlay {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-#tw-mobile-drawer {
-  position: fixed;
-  top: 0;
-  right: -280px;
-  width: 260px;
-  height: 100vh;
-  background: #ffffff;
-  box-shadow: -4px 0 12px rgba(0,0,0,0.1);
-  padding: 80px 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-  transition: right 0.3s ease;
-  z-index: 999;
-}
-
-.tw-menu-open #tw-mobile-drawer {
-  right: 0;
-}
-
-#tw-mobile-drawer a {
-  font-size: 18px;
-  color: #111;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.tw-drawer-cta {
-  margin-top: 20px;
-  padding: 12px 18px;
-  background: #007bff;
-  color: #fff !important;
-  border-radius: 8px;
-  text-align: center;
-}
-
-</style>
-  <!-- MODULE: MOBILE MENU -->
-<div id="tw-menu-overlay"></div>
-
-<nav id="tw-mobile-drawer">
-  <a href="#how-it-works">How It Works</a>
-  <a href="#workers">For Workers</a>
-  <a href="#businesses">For Businesses</a>
-  <a href="#about">About</a>
-  <a href="#contact">Contact</a>
-  <a href="#get-started" class="tw-drawer-cta">Get Started</a>
-</nav>
-<!-- END MODULE -->
-<script>
-(function() {
-  const body = document.body;
-  const overlay = document.getElementById('tw-menu-overlay');
-  const drawer = document.getElementById('tw-mobile-drawer');
-
-  // We will connect this to your logo icon later
-  window.twToggleMenu = function() {
-    body.classList.toggle('tw-menu-open');
-    body.style.overflow = body.classList.contains('tw-menu-open') ? 'hidden' : '';
-  };
-
-  overlay.addEventListener('click', window.twToggleMenu);
-})();
-</script>
 </body>
 </html>
