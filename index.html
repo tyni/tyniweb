@@ -134,71 +134,76 @@
 
     .hero {
       padding-top: 140px;
-      height: 60vh;
+      height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #f5f7fa;
-      color: #111;
-      font-size: 32px;
-      font-weight: 600;
-    }
-
-    /* ===========================
-       Tyniweb Mobile Menu Module
-    =========================== */
-    
-    #tw-menu-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.45);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      z-index: 998;
-    }
-    
-    .tw-menu-open #tw-menu-overlay {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    
-    #tw-mobile-drawer {
-      position: fixed;
-      top: 0;
-      right: -280px;
-      width: 260px;
-      height: 100vh;
-      background: #ffffff;
-      box-shadow: -4px 0 12px rgba(0,0,0,0.1);
-      padding: 80px 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 22px;
-      transition: right 0.3s ease;
-      z-index: 999;
-    }
-    
-    .tw-menu-open #tw-mobile-drawer {
-      right: 0;
-    }
-    
-    #tw-mobile-drawer a {
-      font-size: 18px;
-      color: #111;
-      text-decoration: none;
-      font-weight: 500;
-    }
-    
-    .tw-drawer-cta {
-      margin-top: 20px;
-      padding: 12px 18px;
-      background: #007bff;
-      color: #fff !important;
-      border-radius: 8px;
+      background: #007bff; /* deep blue */
+      color: #ffffff;       /* white text */
+      font-size: 36px;
+      font-weight: 700;
       text-align: center;
     }
-  </style>
+
+/* ===========================
+   Tyniweb Mobile Menu Module
+=========================== */
+
+#tw-menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 998;
+}
+
+.tw-menu-open #tw-menu-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#tw-mobile-drawer {
+  position: fixed;
+  top: 0;
+  right: -280px;
+  width: 260px;
+  height: 100vh;
+  background: #ffffff;
+  box-shadow: -4px 0 12px rgba(0,0,0,0.1);
+  padding: 80px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  transition: right 0.3s ease, opacity 0.3s ease;
+  z-index: 999;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.tw-menu-open #tw-mobile-drawer {
+  right: 0;
+  visibility: visible;
+  opacity: 1;
+}
+
+#tw-mobile-drawer a {
+  font-size: 18px;
+  color: #111;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.tw-drawer-cta {
+  margin-top: 20px;
+  padding: 12px 18px;
+  background: #007bff;
+  color: #fff !important;
+  border-radius: 8px;
+  text-align: center;
+}
+
 </head>
 
 
@@ -262,4 +267,5 @@
 
 </body>
 </html>
+
 
