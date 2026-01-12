@@ -89,7 +89,7 @@ body {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
-  z-index: 998;
+  z-index: 1999;
 }
 
 .tw-menu-open #tw-menu-overlay {
@@ -110,7 +110,7 @@ body {
   flex-direction: column;
   gap: 22px;
   transition: right 0.3s ease, opacity 0.3s ease;
-  z-index: 999;
+  z-index: 2000;
   visibility: hidden;
   opacity: 0;
 }
@@ -156,8 +156,18 @@ body {
 }
 
 .tw-header.scrolled {
-  background: #ffffff;
+  background: #ffffff !important;
   box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  transition: box-shadow 0.3s ease; /* remove background fade */
+}
+
+/* When header is scrolled, show blue logo */
+.tw-header.scrolled .tw-logo-white {
+  opacity: 0;
+}
+
+.tw-header.scrolled .tw-logo-blue {
+  opacity: 1;
 }
 
 .tw-header-container {
@@ -256,7 +266,16 @@ body {
   position: relative;
   z-index: 1001; /* above header */
 }
-    
+
+@media (max-width: 480px) {
+  .tw-beta-banner {
+    font-size: 12px;
+    padding: 12px 10px;
+    white-space: normal;
+  }
+}
+
+
 </style>
 </head>
 
@@ -281,8 +300,6 @@ body {
 
     <!-- RIGHT SIDE (CTA + Logo Trigger) -->
     <div class="tw-header-right">
-
-      <a href="#get-started" class="tw-btn-header">Get Started</a>
 
       <!-- LOGO TRIGGER -->
       <div class="tw-logo-trigger" onclick="twToggleMenu()">
@@ -378,6 +395,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 </body>
 </html>
+
 
 
 
