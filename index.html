@@ -434,143 +434,307 @@
 </header>
 
 <!-- =========================================
-     3.0 HERO SYSTEM
+     3.0 HERO CINEMATIC
 ========================================= -->
 
+/* 3.0 HERO BASE */
 <style>
-
-/* -------------------------------------------
-   3.1 HERO CONTAINER
-------------------------------------------- */
-.tw-hero-animated {
-  position: relative;
-  height: 100vh;
-  overflow: hidden;
-}
-
-/* -------------------------------------------
-   3.2 BACKGROUND LAYER
-------------------------------------------- */
-.tw-hero-bg {
-  background-image: url('https://raw.githubusercontent.com/tyni/tyniweb/main/Background.svg');
-  background-size: cover;
-  background-position: center;
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-}
-
-/* -------------------------------------------
-   3.3 CHARACTER LAYERS
-------------------------------------------- */
-.tw-hero-robot,
-.tw-hero-human {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  transition: transform 1s ease, opacity 1s ease;
-  z-index: 2;
-}
-
-.tw-hero-robot {
-  left: -32%;
-}
-
-.tw-hero-human {
-  right: -32%;
-}
-
-/* -------------------------------------------
-   3.4 GLOW ENGINE
-------------------------------------------- */
-.tw-hero-glow {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0.8);
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,255,255,0.25), transparent 70%);
-  opacity: 0.15;
-  transition: opacity 0.8s ease, transform 0.8s ease;
-  z-index: 3;
-}
-
-.tw-hero-glow.pulse {
-  animation: twPulse 2.4s ease-in-out infinite;
-}
-
-@keyframes twPulse {
-  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.4; }
-  50% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.6; }
-  100% { transform: translate(-50%, -50%) scale(1); opacity: 0.4; }
-}
-
-/* -------------------------------------------
-   3.5 CTA BUTTON
-------------------------------------------- */
-.tw-hero-cta {
-  position: absolute;
-  bottom: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0;
-  transition: opacity 1s ease;
-  z-index: 4;
-}
-
-/* -------------------------------------------
-   3.6 SCROLL CUE
-------------------------------------------- */
-.tw-hero-scroll-cue {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -140%);
-  color: rgba(255,255,255,0.75);
-  font-size: 18px;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  opacity: 1;
-  transition: opacity 0.6s ease;
-  z-index: 4;
-}
-
-.tw-hero-scroll-cue.hidden {
-  opacity: 0;
-}
-
+  .tw-hero {
+    position: relative;
+    width: 100%;
+    height: 200vh; /* gives room for scroll timeline */
+    overflow: hidden;
+  }
+  
+  /* 3.1 STAR SKY BACKGROUND */
+  .tw-hero-sky {
+    position: absolute;
+    inset: 0;
+    background: url('starry-sky.svg') center/cover no-repeat;
+    z-index: 1;
+  }
+  
+  /* 3.2 CINEMATIC LAYER */
+  .tw-hero-cinematic {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+  
+  /* 3.2.1 MASK */
+  .tw-hero-mask {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+  
+  /* 3.2.2 MEETING POINT */
+  .tw-hero-anchor {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 1px;
+    height: 1px;
+    transform: translate(-50%, -50%);
+  }
+  
+  /* 3.2.3 CHARACTERS */
+  .tw-hero-robot,
+  .tw-hero-human {
+    position: absolute;
+    bottom: 0;
+    width: auto;
+    height: 120vh; /* oversized for cinematic */
+    transform-origin: center;
+  }
+  
+  /* robot starts left */
+  .tw-hero-robot {
+    left: -40%;
+  }
+  
+  /* human starts right */
+  .tw-hero-human {
+    right: -40%;
+  }
+  
+  /* 3.2.4 GLOW + RIPPLE */
+  .tw-hero-glow,
+  .tw-hero-ripple {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 300px;
+    height: 300px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    opacity: 0;
+  }
+  
+  /* 3.3 UI LAYER */
+  .tw-hero-ui {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+  
+  /* overlay messages */
+  .tw-hero-overlay {
+    position: absolute;
+    top: 20%;
+    font-size: 2rem;
+    color: white;
+    opacity: 0;
+  }
+  
+  /* CTA */
+  .tw-hero-cta {
+    position: absolute;
+    bottom: 15%;
+    font-size: 1.5rem;
+    color: white;
+    opacity: 0;
+  }
+  
+  /* scroll cue */
+  .tw-hero-scrollcue {
+    position: absolute;
+    bottom: 5%;
+    color: white;
+    opacity: 1;
+  }
 </style>
 
-<!-- =========================================
-     3.7 HERO HTML
-========================================= -->
+<!-- 3.0 HERO CINEMATIC -->
+<section id="tw-hero" class="tw-hero">
 
-<section class="tw-hero-animated">
+  <!-- 3.1 BACKGROUND SKY -->
+  <div class="tw-hero-sky"></div>
 
-  <!-- 3.7.1 Background -->
-  <div class="tw-hero-bg"></div>
+  <!-- 3.2 BACKGROUND CINEMATIC LAYER -->
+  <div class="tw-hero-cinematic">
 
-  <!-- 3.7.2 Characters -->
-  <img src="https://raw.githubusercontent.com/tyni/tyniweb/main/ai.svg"
-       class="tw-hero-robot"
-       alt="AI character">
+    <!-- 3.2.1 MASK LAYER -->
+    <div class="tw-hero-mask">
 
-  <img src="https://raw.githubusercontent.com/tyni/tyniweb/main/human.svg"
-       class="tw-hero-human"
-       alt="Human character">
+      <!-- 3.2.2 MEETING POINT ANCHOR -->
+      <div class="tw-hero-anchor"></div>
 
-  <!-- 3.7.3 Scroll Cue -->
-  <div class="tw-hero-scroll-cue">Scroll to connect</div>
+      <!-- 3.2.3 CHARACTERS -->
+      <img src="robot.png" class="tw-hero-robot" alt="">
+      <img src="human.png" class="tw-hero-human" alt="">
 
-  <!-- 3.7.4 Glow -->
-  <div class="tw-hero-glow"></div>
+      <!-- 3.2.4 GLOW -->
+      <div class="tw-hero-glow"></div>
+      <div class="tw-hero-ripple"></div>
 
-  <!-- 3.7.5 CTA -->
-  <div class="tw-hero-cta">Get Started</div>
+    </div>
+  </div>
+
+  <!-- 3.3 FOREGROUND UI -->
+  <div class="tw-hero-ui">
+
+    <!-- 3.3.1 OVERLAY MESSAGES -->
+    <div class="tw-hero-overlay tw-overlay-1">Human + AI, reaching toward each other</div>
+    <div class="tw-hero-overlay tw-overlay-2">Collaboration begins with connection</div>
+
+    <!-- 3.3.2 CTA -->
+    <div class="tw-hero-cta">Get Started</div>
+
+    <!-- 3.3.3 SCROLL CUE -->
+    <div class="tw-hero-scrollcue">Scroll to explore</div>
+
+  </div>
 
 </section>
+
+<script>
+
+/* ============================================================
+   3.4 HERO SCROLL ENGINE — CINEMATIC TIMELINE
+   ------------------------------------------------------------
+   Converts scroll position → playhead (0 → 1)
+   Smooths with lerp
+   Clamps velocity
+   Drives character transforms, glow, overlays, CTA
+============================================================ */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  /* -------------------------------------------
+     3.4.1 ELEMENT HOOKS
+  ------------------------------------------- */
+  const hero = document.getElementById("tw-hero");
+  const robot = document.querySelector(".tw-hero-robot");
+  const human = document.querySelector(".tw-hero-human");
+  const glow = document.querySelector(".tw-hero-glow");
+  const ripple = document.querySelector(".tw-hero-ripple");
+  const overlay1 = document.querySelector(".tw-overlay-1");
+  const overlay2 = document.querySelector(".tw-overlay-2");
+  const cta = document.querySelector(".tw-hero-cta");
+  const scrollCue = document.querySelector(".tw-hero-scrollcue");
+
+  /* -------------------------------------------
+     3.4.2 PLAYHEAD VARIABLES
+  ------------------------------------------- */
+  let playhead = 0;          // smoothed value
+  let targetPlayhead = 0;    // raw scroll → 0..1
+  const smooth = 0.08;       // lerp factor
+  const maxSpeed = 0.04;     // idiot‑scroll protection
+
+  /* -------------------------------------------
+     3.4.3 SCROLL LISTENER
+  ------------------------------------------- */
+  window.addEventListener("scroll", () => {
+    const rect = hero.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+
+    // how far through the hero we are
+    const progress = Math.min(
+      Math.max((viewportHeight - rect.top) / (rect.height + viewportHeight), 0),
+      1
+    );
+
+    targetPlayhead = progress;
+  });
+
+  /* -------------------------------------------
+     3.4.4 LERP FUNCTION
+  ------------------------------------------- */
+  function lerp(a, b, t) {
+    return a + (b - a) * t;
+  }
+  
+  /* -------------------------------------------
+     3.4.5 MAIN ANIMATION LOOP
+  ------------------------------------------- */
+  function animate() {
+  
+    /* Smooth playhead movement */
+    let delta = targetPlayhead - playhead;
+  
+    // clamp speed
+    if (Math.abs(delta) > maxSpeed) {
+      delta = maxSpeed * Math.sign(delta);
+    }
+  
+    playhead += delta * smooth;
+  
+    /* -------------------------------------------
+       3.4.6 CHARACTER TRANSFORMS
+       - translate inward
+       - scale down
+    ------------------------------------------- */
+  
+    // robot: from left -40% → -5%
+    const robotX = lerp(-40, -5, playhead);
+    const robotScale = lerp(1.45, 1.0, playhead);
+    robot.style.transform = `translate(${robotX}%, -50%) scale(${robotScale})`;
+  
+    // human: from right -40% → -5%
+    const humanX = lerp(-40, -5, playhead);
+    const humanScale = lerp(1.45, 1.0, playhead);
+    human.style.transform = `translate(${humanX}%, -50%) scale(${humanScale})`;
+  
+    /* -------------------------------------------
+       3.4.7 GLOW INTENSITY
+    ------------------------------------------- */
+    const glowOpacity = lerp(0.05, 0.6, playhead);
+    glow.style.opacity = glowOpacity;
+  
+    /* -------------------------------------------
+       4.2 GLOW PULSE ACTIVATION
+    ------------------------------------------- */
+    if (playhead > 0.75) {
+      glow.classList.add("pulse");
+    } else {
+      glow.classList.remove("pulse");
+    }
+  
+    /* -------------------------------------------
+       3.4.8 RIPPLE TRIGGER (55% → 75%)
+    ------------------------------------------- */
+    if (playhead > 0.55 && playhead < 0.75) {
+      ripple.style.opacity = (playhead - 0.55) * 4;
+      ripple.style.transform = `translate(-50%, -50%) scale(${1 + (playhead - 0.55) * 3})`;
+    } else {
+      ripple.style.opacity = 0;
+    }
+  
+    /* -------------------------------------------
+       3.4.9 OVERLAY MESSAGES
+    ------------------------------------------- */
+    // overlay 1: 10% → 30%
+    overlay1.style.opacity =
+      playhead < 0.1 ? 0 :
+      playhead < 0.3 ? (playhead - 0.1) * 5 :
+      playhead < 0.4 ? 1 :
+      Math.max(1 - (playhead - 0.4) * 5, 0);
+  
+    // overlay 2: 30% → 55%
+    overlay2.style.opacity =
+      playhead < 0.3 ? 0 :
+      playhead < 0.55 ? (playhead - 0.3) * 4 :
+      Math.max(1 - (playhead - 0.55) * 4, 0);
+  
+    /* -------------------------------------------
+       3.4.10 CTA + SCROLL CUE
+    ------------------------------------------- */
+    cta.style.opacity = playhead > 0.7 ? (playhead - 0.7) * 3 : 0;
+    scrollCue.style.opacity = Math.max(1 - playhead * 3, 0);
+  
+    requestAnimationFrame(animate);
+  }
+  
+  animate();
+});
+</script>
 
 <!-- =========================================
      4.0 PAGE MODULES
@@ -650,6 +814,12 @@
   opacity: 0.85;
 }
 
+.tw-hero-sky {
+  background-position: center;
+  background-size: cover;
+  will-change: transform;
+}
+
 /* -------------------------------------------
    4.2 FOR WORKERS — MODULE
 ------------------------------------------- */
@@ -712,6 +882,16 @@
 .tw-workers-card p {
   font-size: 16px;
   opacity: 0.85;
+}
+
+@keyframes twGlowPulse {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.4; }
+  50% { transform: translate(-50%, -50%) scale(1.12); opacity: 0.55; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 0.4; }
+}
+
+.tw-hero-glow.pulse {
+  animation: twGlowPulse 3.2s ease-in-out infinite;
 }
 
 /* -------------------------------------------
@@ -1819,3 +1999,4 @@
 <script>
   document.getElementById('tw-year').textContent = new Date().getFullYear();
 </script>
+
