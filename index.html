@@ -599,10 +599,412 @@ body {
       transform: translateY(-3px);
       box-shadow: 0 6px 16px rgba(0,0,0,0.15);
     }
+
+    /* ===========================
+       FEATURES — MODULE
+    =========================== */
     
+    .tw-features {
+      padding: 120px 24px;
+      background: #ffffff;
+      color: var(--brand-text);
+      text-align: center;
+    }
+    
+    .tw-features-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    
+    .tw-features-title {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    
+    .tw-features-subtitle {
+      font-size: 18px;
+      opacity: 0.8;
+      margin-bottom: 60px;
+    }
+    
+    .tw-features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 40px;
+    }
+    
+    .tw-feature-card {
+      background: #f8f9fb;
+      padding: 40px 30px;
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .tw-feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+    }
+    
+    .tw-feature-icon {
+      font-size: 40px;
+      margin-bottom: 20px;
+    }
+    
+    .tw-feature-card h3 {
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+    
+    .tw-feature-card p {
+      font-size: 16px;
+      opacity: 0.85;
+    }
+
+    /* ===========================
+       TESTIMONIALS — MODULE
+    =========================== */
+    
+    .tw-testimonials {
+      padding: 120px 24px;
+      background: var(--brand-bg);
+      color: var(--brand-text);
+      text-align: center;
+    }
+    
+    .tw-testimonials-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    
+    .tw-testimonials-title {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    
+    .tw-testimonials-subtitle {
+      font-size: 18px;
+      opacity: 0.8;
+      margin-bottom: 60px;
+    }
+    
+    .tw-testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 40px;
+    }
+    
+    .tw-testimonial-card {
+      background: #ffffff;
+      padding: 40px 30px;
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .tw-testimonial-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+    }
+    
+    .tw-testimonial-avatar {
+      width: 64px;
+      height: 64px;
+      background: var(--brand-accent);
+      color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      font-weight: 700;
+      margin: 0 auto 20px;
+    }
+    
+    .tw-testimonial-card h3 {
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+    
+    .tw-testimonial-role {
+      font-size: 14px;
+      opacity: 0.7;
+      margin-bottom: 16px;
+    }
+    
+    .tw-testimonial-text {
+      font-size: 16px;
+      opacity: 0.85;
+      line-height: 1.5;
+    }
+
+    /* ===========================
+       FAQ — MODULE
+    =========================== */
+    
+    .tw-faq {
+      padding: 120px 24px;
+      background: #ffffff;
+      color: var(--brand-text);
+      text-align: center;
+    }
+    
+    .tw-faq-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .tw-faq-title {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    
+    .tw-faq-subtitle {
+      font-size: 18px;
+      opacity: 0.8;
+      margin-bottom: 60px;
+    }
+    
+    .tw-faq-list {
+      text-align: left;
+    }
+    
+    .tw-faq-item {
+      margin-bottom: 20px;
+      border-radius: 10px;
+      background: #f8f9fb;
+      padding: 0 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    
+    /* Hide checkbox */
+    .tw-faq-item input {
+      display: none;
+    }
+    
+    /* Question */
+    .tw-faq-question {
+      display: block;
+      padding: 20px 0;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      position: relative;
+    }
+    
+    /* + icon */
+    .tw-faq-question::after {
+      content: "+";
+      position: absolute;
+      right: 0;
+      top: 20px;
+      font-size: 22px;
+      transition: transform 0.3s ease;
+    }
+    
+    /* Rotate icon when open */
+    .tw-faq-item input:checked + .tw-faq-question::after {
+      transform: rotate(45deg);
+    }
+    
+    /* Answer */
+    .tw-faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+      padding-right: 10px;
+    }
+    
+    .tw-faq-item input:checked ~ .tw-faq-answer {
+      max-height: 300px;
+      padding-bottom: 20px;
+    }
+    
+    .tw-faq-answer p {
+      font-size: 16px;
+      opacity: 0.85;
+      line-height: 1.5;
+    }
+
+    /* ===========================
+       PRICING — MODULE
+    =========================== */
+    
+    .tw-pricing {
+      padding: 120px 24px;
+      background: var(--brand-bg);
+      color: var(--brand-text);
+      text-align: center;
+    }
+    
+    .tw-pricing-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    
+    .tw-pricing-title {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    
+    .tw-pricing-subtitle {
+      font-size: 18px;
+      opacity: 0.8;
+      margin-bottom: 60px;
+    }
+    
+    .tw-pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 40px;
+    }
+    
+    .tw-pricing-card {
+      background: #ffffff;
+      padding: 40px 30px;
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
+    }
+    
+    .tw-pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+    }
+    
+    .tw-pricing-featured {
+      border: 2px solid var(--brand-accent);
+      transform: translateY(-6px);
+    }
+    
+    .tw-pricing-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--brand-accent);
+      color: #ffffff;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    
+    .tw-pricing-price {
+      font-size: 40px;
+      font-weight: 700;
+      margin: 10px 0 6px;
+    }
+    
+    .tw-pricing-desc {
+      font-size: 16px;
+      opacity: 0.8;
+      margin-bottom: 20px;
+    }
+    
+    .tw-pricing-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 30px;
+    }
+    
+    .tw-pricing-card ul li {
+      margin-bottom: 10px;
+      font-size: 16px;
+      opacity: 0.85;
+    }
+    
+    .tw-pricing-cta {
+      display: inline-block;
+      padding: 12px 24px;
+      background: var(--brand-accent);
+      color: #ffffff;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .tw-pricing-cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+    
+    .tw-pricing-cta-featured {
+      background: var(--brand-accent);
+    }
+    
+    .tw-pricing-cta.disabled {
+      background: #cccccc;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    /* ===========================
+       FOOTER — MODULE
+    =========================== */
+    
+    .tw-footer {
+      background: var(--brand-primary);
+      color: #ffffff;
+      padding: 60px 24px;
+      text-align: center;
+    }
+    
+    .tw-footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    
+    .tw-footer-brand {
+      margin-bottom: 30px;
+    }
+    
+    .tw-footer-logo {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    
+    .tw-footer-tagline {
+      font-size: 14px;
+      opacity: 0.8;
+    }
+    
+    .tw-footer-links {
+      margin: 30px 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 18px;
+    }
+    
+    .tw-footer-links a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 15px;
+      opacity: 0.85;
+      transition: opacity 0.2s ease;
+    }
+    
+    .tw-footer-links a:hover {
+      opacity: 1;
+    }
+    
+    .tw-footer-legal {
+      font-size: 14px;
+      opacity: 0.7;
+      margin-top: 20px;
+    }
+
+
   </style>
 </head>
-
 
 <body>
 <!-- BETA BANNER -->
@@ -815,6 +1217,208 @@ body {
   </div>
 </section>
 
+<!-- Features SECTION -->
+
+  <section id="features" class="tw-features">
+  <div class="tw-features-inner">
+
+    <h2 class="tw-features-title">Powerful Features Built for Real Work</h2>
+    <p class="tw-features-subtitle">
+      Tyniweb gives workers and businesses the tools they need to move faster, stay organized, and deliver consistent results.
+    </p>
+
+    <div class="tw-features-grid">
+
+      <div class="tw-feature-card">
+        <div class="tw-feature-icon">🧩</div>
+        <h3>Modular Workflows</h3>
+        <p>Break tasks into simple, guided steps powered by AI and human expertise.</p>
+      </div>
+
+      <div class="tw-feature-card">
+        <div class="tw-feature-icon">🔍</div>
+        <h3>Smart Matching</h3>
+        <p>AI connects businesses with the right workers or automated tools instantly.</p>
+      </div>
+
+      <div class="tw-feature-card">
+        <div class="tw-feature-icon">📊</div>
+        <h3>Real‑Time Tracking</h3>
+        <p>Monitor progress, updates, and results in a clean, unified dashboard.</p>
+      </div>
+
+      <div class="tw-feature-card">
+        <div class="tw-feature-icon">🔒</div>
+        <h3>Secure by Design</h3>
+        <p>Your data and workflows are protected with modern security standards.</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- Testimonials SECTION -->
+
+<section id="testimonials" class="tw-testimonials">
+  <div class="tw-testimonials-inner">
+
+    <h2 class="tw-testimonials-title">Trusted by Workers and Businesses</h2>
+    <p class="tw-testimonials-subtitle">
+      Early users are already seeing faster workflows, clearer communication, and more reliable results.
+    </p>
+
+    <div class="tw-testimonials-grid">
+
+      <div class="tw-testimonial-card">
+        <div class="tw-testimonial-avatar">A</div>
+        <h3>Alex R.</h3>
+        <p class="tw-testimonial-role">Small Business Owner</p>
+        <p class="tw-testimonial-text">
+          “Tyniweb helped me handle customer requests twice as fast. The AI tools make everything smoother.”
+        </p>
+      </div>
+
+      <div class="tw-testimonial-card">
+        <div class="tw-testimonial-avatar">J</div>
+        <h3>Jordan M.</h3>
+        <p class="tw-testimonial-role">Freelance Worker</p>
+        <p class="tw-testimonial-text">
+          “The guided workflows are a game changer. I can take on more tasks without feeling overwhelmed.”
+        </p>
+      </div>
+
+      <div class="tw-testimonial-card">
+        <div class="tw-testimonial-avatar">S</div>
+        <h3>Sophia L.</h3>
+        <p class="tw-testimonial-role">Operations Manager</p>
+        <p class="tw-testimonial-text">
+          “Our team became more efficient within days. Tyniweb keeps everything organized and easy to track.”
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- FAQ SECTION -->
+
+  <section id="faq" class="tw-faq">
+  <div class="tw-faq-inner">
+
+    <h2 class="tw-faq-title">Frequently Asked Questions</h2>
+    <p class="tw-faq-subtitle">
+      Answers to the most common questions about Tyniweb.
+    </p>
+
+    <div class="tw-faq-list">
+
+      <div class="tw-faq-item">
+        <input type="checkbox" id="faq1">
+        <label for="faq1" class="tw-faq-question">What is Tyniweb?</label>
+        <div class="tw-faq-answer">
+          <p>Tyniweb is a modular, AI‑powered work platform that connects businesses and workers through guided workflows and smart automation.</p>
+        </div>
+      </div>
+
+      <div class="tw-faq-item">
+        <input type="checkbox" id="faq2">
+        <label for="faq2" class="tw-faq-question">Who can use Tyniweb?</label>
+        <div class="tw-faq-answer">
+          <p>Workers, freelancers, small businesses, and teams looking to streamline tasks, support, and operations.</p>
+        </div>
+      </div>
+
+      <div class="tw-faq-item">
+        <input type="checkbox" id="faq3">
+        <label for="faq3" class="tw-faq-question">How does the AI help?</label>
+        <div class="tw-faq-answer">
+          <p>AI guides workers through tasks, automates repetitive steps, and ensures consistent, high‑quality results.</p>
+        </div>
+      </div>
+
+      <div class="tw-faq-item">
+        <input type="checkbox" id="faq4">
+        <label for="faq4" class="tw-faq-question">Is Tyniweb free to use?</label>
+        <div class="tw-faq-answer">
+          <p>During the beta, Tyniweb is free for both workers and businesses. Pricing will be introduced later with transparent options.</p>
+        </div>
+      </div>
+
+      <div class="tw-faq-item">
+        <input type="checkbox" id="faq5">
+        <label for="faq5" class="tw-faq-question">How do I get started?</label>
+        <div class="tw-faq-answer">
+          <p>Click “Join the Beta” to sign up. You’ll get early access to tools, workflows, and new features as they roll out.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- Pricing SECTION -->
+
+<section id="pricing" class="tw-pricing">
+  <div class="tw-pricing-inner">
+
+    <h2 class="tw-pricing-title">Simple, Transparent Pricing</h2>
+    <p class="tw-pricing-subtitle">
+      Tyniweb is free during the beta. Paid plans will be introduced later with clear, flexible options.
+    </p>
+
+    <div class="tw-pricing-grid">
+
+      <!-- Free Tier -->
+      <div class="tw-pricing-card">
+        <h3>Free</h3>
+        <p class="tw-pricing-price">$0</p>
+        <p class="tw-pricing-desc">Perfect for individuals exploring Tyniweb.</p>
+        <ul>
+          <li>Access to core tools</li>
+          <li>AI‑guided workflows</li>
+          <li>Basic task matching</li>
+          <li>Email support</li>
+        </ul>
+        <a href="#get-started" class="tw-pricing-cta">Get Started</a>
+      </div>
+
+      <!-- Beta Tier (Highlighted) -->
+      <div class="tw-pricing-card tw-pricing-featured">
+        <div class="tw-pricing-badge">Beta</div>
+        <h3>Beta Access</h3>
+        <p class="tw-pricing-price">$0</p>
+        <p class="tw-pricing-desc">Full access while we build the future of work.</p>
+        <ul>
+          <li>All current features</li>
+          <li>Priority task matching</li>
+          <li>Early access to new tools</li>
+          <li>Direct feedback channel</li>
+        </ul>
+        <a href="#get-started" class="tw-pricing-cta tw-pricing-cta-featured">Join the Beta</a>
+      </div>
+
+      <!-- Coming Soon Tier -->
+      <div class="tw-pricing-card">
+        <h3>Pro (Coming Soon)</h3>
+        <p class="tw-pricing-price">—</p>
+        <p class="tw-pricing-desc">Advanced tools for teams and businesses.</p>
+        <ul>
+          <li>Team dashboards</li>
+          <li>Advanced automation</li>
+          <li>Custom workflows</li>
+          <li>Premium support</li>
+        </ul>
+        <a class="tw-pricing-cta disabled">Coming Soon</a>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+  
 <!-- MODULES GO HERE -->
 
 <!-- MOBILE MENU MODULE — BRAND VERSION -->
@@ -875,8 +1479,41 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 <!-- END MODULE -->
 
+<!-- Footer SECTION -->
+  
+  <footer class="tw-footer">
+  <div class="tw-footer-inner">
+
+    <div class="tw-footer-brand">
+      <div class="tw-footer-logo">Tyniweb</div>
+      <p class="tw-footer-tagline">AI‑Powered Work for Everyone.</p>
+    </div>
+
+    <div class="tw-footer-links">
+      <a href="#how-it-works">How It Works</a>
+      <a href="#workers">For Workers</a>
+      <a href="#businesses">For Businesses</a>
+      <a href="#about">About</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </div>
+
+    <div class="tw-footer-legal">
+      <p>© <span id="tw-year"></span> Tyniweb. All rights reserved.</p>
+    </div>
+
+  </div>
+</footer>
+
+<script>
+  // Auto‑update year
+  document.getElementById('tw-year').textContent = new Date().getFullYear();
+</script>
+
 </body>
 </html>
+
 
 
 
