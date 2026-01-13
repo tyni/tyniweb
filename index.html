@@ -139,7 +139,7 @@ body {
 }
 
 /* ===========================
-   HEADER — BRAND VERSION
+   HEADER — FINAL VERSION
 =========================== */
 
 .tw-header {
@@ -149,41 +149,53 @@ body {
   padding: 18px 24px;
   display: flex;
   justify-content: center;
-  z-index: 2002; /* above drawer and overlay */
+  z-index: 2002;
   background: transparent;
   transition: background 0.3s ease, box-shadow 0.3s ease;
-  margin-top: 40px; /* clears banner */
+  margin-top: 40px; /* clears your top banner */
 }
 
+/* Sticky header state */
 .tw-header.scrolled {
   background: #ffffff !important;
   box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-  transition: box-shadow 0.3s ease;
 }
 
-/* Logo swap on scroll */
-.tw-header.scrolled .tw-logo-white {
-  opacity: 0 !important;
-}
-
-.tw-header.scrolled .tw-logo-blue {
-  opacity: 1 !important;
-}
-
+/* Header inner layout */
 .tw-header-container {
   width: 100%;
   max-width: 1200px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 24px;
 }
 
-/* NAV (desktop only) */
+/* ===========================
+   BRAND LOGO
+=========================== */
+
+.tw-logo-img {
+  height: 32px;
+  width: auto;
+  transition: opacity 0.25s ease;
+}
+
+/* Optional: fade logo on scroll */
+.tw-header.scrolled .tw-logo-img {
+  opacity: 1;
+}
+
+/* ===========================
+   NAVIGATION (desktop only)
+=========================== */
+
 .tw-nav a {
   margin-right: 24px;
   text-decoration: none;
   font-weight: 500;
-  color: #ffffff; /* default at top */
+  color: #ffffff;
+  transition: color 0.25s ease;
 }
 
 .tw-header.scrolled .tw-nav a {
@@ -196,58 +208,62 @@ body {
   }
 }
 
-/* RIGHT SIDE */
-.tw-header-right {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
+/* ===========================
+   MENU ICON (hamburger)
+=========================== */
 
-@media (max-width: 1100px) {
-  .tw-header-right {
-    justify-content: center;
-    width: 100%;
-  }
-}
-
-/* LOGO TRIGGER */
-.tw-logo-trigger {
+.tw-menu-trigger {
   position: relative;
-  width: 140px;
+  width: 40px;
+  height: 40px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-/* LOGO SWAP (crossfade) */
-.tw-logo-trigger img {
+.tw-menu-icon-blue,
+.tw-menu-icon-white {
   position: absolute;
-  width: 140px;
-  height: auto;
+  width: 40px;
+  height: 40px;
   transition: opacity 0.35s ease;
 }
 
-.tw-logo-white {
-  opacity: 1;
-}
+/* Default state */
+.tw-menu-icon-blue { opacity: 1; }
+.tw-menu-icon-white { opacity: 0; }
 
-.tw-logo-blue {
-  opacity: 0;
-}
+/* Menu open state */
+.tw-menu-open .tw-menu-icon-blue { opacity: 0 !important; }
+.tw-menu-open .tw-menu-icon-white { opacity: 1 !important; }
 
-/* Drawer forces blue logo */
-.tw-menu-open .tw-logo-white {
-  opacity: 0 !important;
-}
+/* Scroll state (optional) */
+.tw-header.scrolled .tw-menu-icon-blue { opacity: 0; }
+.tw-header.scrolled .tw-menu-icon-white { opacity: 1; }
 
-.tw-menu-open .tw-logo-blue {
-  opacity: 1 !important;
+/* ===========================
+   MOBILE LAYOUT
+=========================== */
+
+@media (max-width: 768px) {
+  .tw-header-container {
+    justify-content: flex-start;
+  }
+
+  /* Menu icon first */
+  .tw-menu-trigger {
+    order: 1;
+  }
+
+  /* Logo second */
+  .tw-logo {
+    order: 2;
+  }
 }
 
 /* Reduced motion fallback */
 @media (prefers-reduced-motion: reduce) {
-  .tw-logo-trigger img {
+  .tw-menu-icon-blue,
+  .tw-menu-icon-white,
+  .tw-logo-img {
     transition: none;
   }
 }
@@ -1203,17 +1219,17 @@ body {
 
 <header class="tw-header">
   <div class="tw-header-container">
-    
+
+    <!-- BRAND LOGO (left side) -->
     <div class="tw-logo">
       <img 
-        src="https://raw.githubusercontent.com/tyni/tyniweb/main/tyniweb_LOGO_Nov_2025_White_QuicksandMed.svg" 
+        src="https://raw.githubusercontent.com/tyni/tyniweb/main/tyniweb_LOGO_Nov_2025_Blue_QuicksandMed.svg"
         alt="Tyniweb Logo"
         class="tw-logo-img"
       >
     </div>
 
-    <!-- LEFT SIDE (desktop nav only) -->
-    
+    <!-- NAVIGATION (desktop only) -->
     <nav class="tw-nav">
       <a href="#how-it-works">How It Works</a>
       <a href="#workers">For Workers</a>
@@ -1222,25 +1238,18 @@ body {
       <a href="#contact">Contact</a>
     </nav>
 
-    <!-- RIGHT SIDE (CTA + Logo Trigger) -->
-    
-    <div class="tw-header-right">
-
-      <!-- LOGO TRIGGER -->
-      
-      <div class="tw-menu-trigger" onclick="twToggleMenu()">
-        <img 
-          src="https://raw.githubusercontent.com/tyni/tyniweb/main/tyniweb_LOGO_Nov_2025_Blue_Icon.svg"
-          class="tw-menu-icon tw-menu-icon-blue"
-          alt="Menu Icon Blue"
-        >
-        <img 
-          src="https://raw.githubusercontent.com/tyni/tyniweb/main/tyniweb_LOGO_Nov_2025_White_Icon.svg"
-          class="tw-menu-icon tw-menu-icon-white"
-          alt="Menu Icon White"
-        >
-      </div>
-
+    <!-- MENU ICON (right side on desktop, left side on mobile) -->
+    <div class="tw-menu-trigger" onclick="twToggleMenu()">
+      <img 
+        src="https://raw.githubusercontent.com/tyni/tyniweb/main/tyniweb_LOGO_Nov_2025_Blue_Icon.svg"
+        class="tw-menu-icon tw-menu-icon-blue"
+        alt="Menu Icon Blue"
+      >
+      <img 
+        src="https://raw.githubusercontent.com/tyni/tyniweb/main/tyniweb_LOGO_Nov_2025_White_Icon.svg"
+        class="tw-menu-icon tw-menu-icon-white"
+        alt="Menu Icon White"
+      >
     </div>
 
   </div>
@@ -1741,6 +1750,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   
 </body>
 </html>
+
 
 
 
