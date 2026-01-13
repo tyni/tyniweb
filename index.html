@@ -1040,6 +1040,128 @@ body {
       }
     }
 
+    /* ===========================
+       STAGGERED ANIMATIONS
+    =========================== */
+    
+    .tw-stagger > * {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    
+    .tw-stagger.visible > * {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .tw-stagger.visible > *:nth-child(1) { transition-delay: 0.1s; }
+    .tw-stagger.visible > *:nth-child(2) { transition-delay: 0.2s; }
+    .tw-stagger.visible > *:nth-child(3) { transition-delay: 0.3s; }
+    .tw-stagger.visible > *:nth-child(4) { transition-delay: 0.4s; }
+    .tw-stagger.visible > *:nth-child(5) { transition-delay: 0.5s; }
+    .tw-stagger.visible > *:nth-child(6) { transition-delay: 0.6s; }
+
+    /* ===========================
+       HERO PARALLAX BACKGROUND
+    =========================== */
+    
+    .tw-hero {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .tw-hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 120%;
+      background: var(--brand-primary);
+      background-size: cover;
+      background-position: center;
+      z-index: -1;
+      transform: translateY(0);
+      transition: transform 0.1s linear;
+    }
+
+    .tw-hero-bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.15),
+        rgba(0,0,0,0.35)
+      );
+    }
+
+    /* ===========================
+       SMOOTH SCROLL BEHAVIOR
+    =========================== */
+    
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 80px; /* adjust if your header height changes */
+    }
+
+    /* ===========================
+       BUTTON MICRO‑INTERACTIONS
+    =========================== */
+    
+    .tw-btn,
+    .tw-hero-cta,
+    .tw-contact-cta,
+    .tw-pricing-cta,
+    .tw-pricing-cta-featured {
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    /* Lift + shadow bloom */
+    .tw-btn:hover,
+    .tw-hero-cta:hover,
+    .tw-contact-cta:hover,
+    .tw-pricing-cta:hover,
+    .tw-pricing-cta-featured:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    
+    /* Pressed state */
+    .tw-btn:active,
+    .tw-hero-cta:active,
+    .tw-contact-cta:active,
+    .tw-pricing-cta:active,
+    .tw-pricing-cta-featured:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    /* Soft glow on hover */
+    .tw-btn::after,
+    .tw-hero-cta::after,
+    .tw-contact-cta::after,
+    .tw-pricing-cta::after,
+    .tw-pricing-cta-featured::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(255,255,255,0.25), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .tw-btn:hover::after,
+    .tw-hero-cta:hover::after,
+    .tw-contact-cta:hover::after,
+    .tw-pricing-cta:hover::after,
+    .tw-pricing-cta-featured:hover::after {
+      opacity: 1;
+    }
+
+    
   </style>
 </head>
   
@@ -1055,6 +1177,14 @@ body {
 
 <header class="tw-header">
   <div class="tw-header-container">
+    
+    <div class="tw-logo">
+      <img 
+        src="https://raw.githubusercontent.com/tyni/tyniweb/main/tyniweb_LOGO_Nov_2025_White_QuicksandMed.svg" 
+        alt="Tyniweb Logo"
+        class="tw-logo-img"
+      >
+    </div>
 
     <!-- LEFT SIDE (desktop nav only) -->
     
@@ -1093,13 +1223,15 @@ body {
 <!-- HERO SECTION -->
 
 <section id="top" class="tw-hero tw-animate">
+  <div class="tw-hero-bg"></div>
+
   <div class="tw-hero-inner">
     <h1 class="tw-hero-title">AI‑Powered Work for Everyone</h1>
     <p class="tw-hero-subtitle">
       Tyniweb connects businesses and workers through fast, modular, AI‑driven tools.
     </p>
 
-    <a href="#get-started" class="tw-hero-cta">Get Started</a>
+    <a href="#get-started" class="tw-hero-cta tw-btn">Get Started</a>
   </div>
 </section>
 
@@ -1148,7 +1280,7 @@ body {
       Tyniweb empowers workers with guided AI tools, flexible opportunities, and fast task completion.
     </p>
 
-    <div class="tw-workers-grid tw-animate">
+    <div class="tw-workers-grid tw-animate tw-stagger">
 
       <div class="tw-workers-card tw-card-hover">
         <div class="tw-workers-icon">💼</div>
@@ -1183,7 +1315,7 @@ body {
       Tyniweb helps businesses streamline operations, reduce workload, and get reliable support powered by AI.
     </p>
 
-    <div class="tw-business-grid tw-animate">
+    <div class="tw-business-grid tw-animate tw-stagger">
 
       <div class="tw-business-card tw-card-hover">
         <div class="tw-business-icon">🤝</div>
@@ -1218,7 +1350,7 @@ body {
       Tyniweb is building a new kind of work platform — one where AI and people collaborate to deliver fast, reliable, and scalable results.
     </p>
 
-    <div class="tw-about-grid tw-animate">
+    <div class="tw-about-grid tw-animate tw-stagger">
 
       <div class="tw-about-card tw-card-hover">
         <h3>Our Mission</h3>
@@ -1256,7 +1388,7 @@ body {
       Whether you're a worker or a business, Tyniweb helps you move faster with AI‑powered tools built for real work.
     </p>
 
-    <a href="#get-started" class="tw-contact-cta">Join the Beta</a>
+    <a href="#get-started" class="tw-contact-cta tw-btn">Join the Beta</a>
 
   </div>
 </section>
@@ -1271,7 +1403,7 @@ body {
       Tyniweb gives workers and businesses the tools they need to move faster, stay organized, and deliver consistent results.
     </p>
 
-    <div class="tw-features-grid tw-animate">
+    <div class="tw-features-grid tw-animate tw-stagger">
 
       <div class="tw-feature-card tw-card-hover">
         <div class="tw-feature-icon">🧩</div>
@@ -1312,7 +1444,7 @@ body {
       Early users are already seeing faster workflows, clearer communication, and more reliable results.
     </p>
 
-    <div class="tw-testimonials-grid tw-animate">
+    <div class="tw-testimonials-grid tw-animate tw-stagger">
 
       <div class="tw-testimonial-card tw-card-hover">
         <div class="tw-testimonial-avatar">A</div>
@@ -1413,7 +1545,7 @@ body {
       Tyniweb is free during the beta. Paid plans will be introduced later with clear, flexible options.
     </p>
 
-    <div class="tw-pricing-grid tw-animate">
+    <div class="tw-pricing-grid tw-animate tw-stagger">
 
       <!-- Free Tier -->
       <div class="tw-pricing-card tw-card-hover">
@@ -1426,7 +1558,7 @@ body {
           <li>Basic task matching</li>
           <li>Email support</li>
         </ul>
-        <a href="#get-started" class="tw-pricing-cta">Get Started</a>
+        <a href="#get-started" class="tw-pricing-cta tw-btn">Get Started</a>
       </div>
 
       <!-- Beta Tier (Highlighted) -->
@@ -1441,7 +1573,7 @@ body {
           <li>Early access to new tools</li>
           <li>Direct feedback channel</li>
         </ul>
-        <a href="#get-started" class="tw-pricing-cta tw-pricing-cta-featured">Join the Beta</a>
+        <a href="#get-started" class="tw-pricing-cta tw-pricing-cta-featured tw-btn">Join the Beta</a>
       </div>
 
       <!-- Coming Soon Tier -->
@@ -1474,7 +1606,7 @@ body {
   <a href="#about">About</a>
   <a href="#contact">Contact</a>
 
-  <a href="#get-started" class="tw-drawer-cta">Get Started</a>
+  <a href="#get-started" class="tw-drawer-cta tw-btn">Get Started</a>
 </nav>
   
 <script>
@@ -1555,8 +1687,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 <!-- Animations SECTION -->
 
-  <script>
-  const animatedElements = document.querySelectorAll('.tw-animate');
+<script>
+  const animatedElements = document.querySelectorAll('.tw-animate, .tw-stagger');
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -1569,8 +1701,21 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   animatedElements.forEach(el => observer.observe(el));
 </script>
 
+<!-- Hero Background SECTION -->
+
+  <script>
+  const heroBg = document.querySelector('.tw-hero-bg');
+
+  window.addEventListener('scroll', () => {
+    const offset = window.pageYOffset * 0.2; // subtle parallax
+    heroBg.style.transform = `translateY(${offset}px)`;
+  });
+</script>
+
+  
 </body>
 </html>
+
 
 
 
