@@ -299,81 +299,93 @@ body {
       opacity: 0 !important;
     }
 
-/* ===========================
-   MOBILE LAYOUT — FINAL
-=========================== */
-
-@media (max-width: 768px) {
-
-  /* Remove desktop banner offset */
-  .tw-header {
-    margin-top: 0;
-  }
-
-  /* Align items left instead of spaced out */
-  .tw-header-container {
-    justify-content: flex-start;
-    gap: 16px;
-  }
-
-  /* Menu icon first */
-  .tw-menu-trigger {
-    order: 1;
-  }
-
-  /* Logo second */
-  .tw-logo {
-    order: 2;
-  }
-
-  /* Icon sizing */
-  .tw-menu-icon-blue,
-  .tw-menu-icon-white {
-    width: 28px;
-    height: 28px;
-  }
-
-  /* Logo sizing */
-  .tw-logo-img {
-    height: 32px;
-  }
-}
-
-/* ===========================
-   BETA BANNER (FULL WIDTH)
-=========================== */
-
-.tw-beta-banner {
-  width: 100%;
-  background: var(--brand-accent);
-  color: #ffffff;
-  text-align: center;
-  padding: 10px 16px;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-  position: relative;
-  z-index: 1001;
-}
-
-@media (max-width: 480px) {
-  .tw-beta-banner {
-    font-size: 12px;
-    padding: 12px 10px;
-    white-space: normal;
-  }
-}
-
-@media (max-width: 1100px) {
-  .tw-header-container {
-    justify-content: center;
-  }
-
-  .tw-header-right {
-    justify-content: center;
-    width: auto;
-  }
-}
+    /* ===========================
+       MOBILE LAYOUT — FINAL
+    =========================== */
+    
+    @media (max-width: 768px) {
+    
+      /* Remove desktop banner offset */
+      .tw-header {
+        margin-top: 0;
+      }
+    
+      /* Align items left instead of spaced out */
+      .tw-header-container {
+        justify-content: flex-start;
+        gap: 16px;
+      }
+    
+      /* Menu icon first */
+      .tw-menu-trigger {
+        order: 1;
+      }
+    
+      /* Logo second */
+      .tw-logo {
+        order: 2;
+      }
+    
+      /* Icon sizing */
+      .tw-menu-icon-blue,
+      .tw-menu-icon-white {
+        width: 28px;
+        height: 28px;
+      }
+    
+      /* Logo sizing */
+      .tw-logo-img {
+        height: 32px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .tw-header,
+      .tw-header.scrolled {
+        height: 64px !important;
+        padding: 12px 16px !important;
+      }
+    
+      .tw-logo-img {
+        height: 32px !important;
+      }
+    }
+    
+    /* ===========================
+       BETA BANNER (FULL WIDTH)
+    =========================== */
+    
+    .tw-beta-banner {
+      width: 100%;
+      background: var(--brand-accent);
+      color: #ffffff;
+      text-align: center;
+      padding: 10px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      position: relative;
+      z-index: 1001;
+    }
+    
+    @media (max-width: 480px) {
+      .tw-beta-banner {
+        font-size: 12px;
+        padding: 12px 10px;
+        white-space: normal;
+      }
+    }
+    
+    @media (max-width: 1100px) {
+      .tw-header-container {
+        justify-content: center;
+      }
+    
+      .tw-header-right {
+        justify-content: center;
+        width: auto;
+      }
+    }
     
     /* ===========================
        HOW IT WORKS — MODULE
@@ -1248,13 +1260,6 @@ body {
       opacity: 1;
     }
 
-    /* Desktop layout */
-    .tw-header-container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
     .tw-header.scrolled .tw-logo-img {
       content: url("https://raw.githubusercontent.com/tyni/tyniweb/main/tyniweb_LOGO_Nov_2025_Blue_QuicksandMed.svg");
     }
@@ -1780,4 +1785,5 @@ window.addEventListener('load', twUpdateHeaderScrollState);
   
 </body>
 </html>
+
 
