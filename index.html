@@ -1002,13 +1002,54 @@ body {
       margin-top: 20px;
     }
 
+    /* ===========================
+       GLOBAL ANIMATIONS
+    =========================== */
+    
+    .tw-animate {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    
+    .tw-animate.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .tw-card-hover {
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    
+    .tw-card-hover:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+    }
+
+    .tw-hero-inner {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: heroFade 1.2s ease forwards;
+      animation-delay: 0.3s;
+    }
+    
+    @keyframes heroFade {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
   </style>
 </head>
+  
 
 <body>
+  
+  
 <!-- BETA BANNER -->
-<div class="tw-beta-banner">
+  
+<div class="tw-beta-banner tw-animate">
   Tyniweb is currently in Beta — features are being added daily.
 </div>
 
@@ -1016,6 +1057,7 @@ body {
   <div class="tw-header-container">
 
     <!-- LEFT SIDE (desktop nav only) -->
+    
     <nav class="tw-nav">
       <a href="#how-it-works">How It Works</a>
       <a href="#workers">For Workers</a>
@@ -1025,9 +1067,11 @@ body {
     </nav>
 
     <!-- RIGHT SIDE (CTA + Logo Trigger) -->
+    
     <div class="tw-header-right">
 
       <!-- LOGO TRIGGER -->
+      
       <div class="tw-logo-trigger" onclick="twToggleMenu()">
         <img 
           src="https://raw.githubusercontent.com/tyni/tyniweb/main/tyniweb_LOGO_Nov_2025_White_QuicksandMed.svg" 
@@ -1048,7 +1092,7 @@ body {
 
 <!-- HERO SECTION -->
 
-<section id="top" class="tw-hero">
+<section id="top" class="tw-hero tw-animate">
   <div class="tw-hero-inner">
     <h1 class="tw-hero-title">AI‑Powered Work for Everyone</h1>
     <p class="tw-hero-subtitle">
@@ -1061,10 +1105,10 @@ body {
 
 <!-- How it works SECTION -->
 
-<section id="how-it-works" class="tw-how">
+<section id="how-it-works" class="tw-how tw-animate">
   <div class="tw-how-inner">
 
-    <h2 class="tw-how-title">How It Works</h2>
+    <h2 class="tw-how-title tw-animate">How It Works</h2>
     <p class="tw-how-subtitle">
       Tyniweb connects businesses and workers through fast, modular, AI‑powered tools.
     </p>
@@ -1096,29 +1140,29 @@ body {
 
 <!-- Workers SECTION -->
 
-  <section id="workers" class="tw-workers">
+  <section id="workers" class="tw-workers tw-animate">
   <div class="tw-workers-inner">
 
-    <h2 class="tw-workers-title">For Workers</h2>
+    <h2 class="tw-workers-title tw-animate">For Workers</h2>
     <p class="tw-workers-subtitle">
       Tyniweb empowers workers with guided AI tools, flexible opportunities, and fast task completion.
     </p>
 
-    <div class="tw-workers-grid">
+    <div class="tw-workers-grid tw-animate">
 
-      <div class="tw-workers-card">
+      <div class="tw-workers-card tw-card-hover">
         <div class="tw-workers-icon">💼</div>
         <h3>Flexible Work</h3>
         <p>Choose tasks that match your skills and availability. Work when you want, how you want.</p>
       </div>
 
-      <div class="tw-workers-card">
+      <div class="tw-workers-card tw-card-hover">
         <div class="tw-workers-icon">⚡</div>
         <h3>AI‑Guided Tools</h3>
         <p>Every task includes built‑in AI assistance, helping you work faster and with greater accuracy.</p>
       </div>
 
-      <div class="tw-workers-card">
+      <div class="tw-workers-card tw-card-hover">
         <div class="tw-workers-icon">🎯</div>
         <h3>Grow Your Skills</h3>
         <p>Learn new workflows, improve your capabilities, and build a reputation across the Tyniweb network.</p>
@@ -1131,29 +1175,29 @@ body {
 
 <!-- Businesses SECTION -->
   
-  <section id="businesses" class="tw-business">
+  <section id="businesses" class="tw-business tw-animate">
   <div class="tw-business-inner">
 
-    <h2 class="tw-business-title">For Businesses</h2>
+    <h2 class="tw-business-title tw-animate">For Businesses</h2>
     <p class="tw-business-subtitle">
       Tyniweb helps businesses streamline operations, reduce workload, and get reliable support powered by AI.
     </p>
 
-    <div class="tw-business-grid">
+    <div class="tw-business-grid tw-animate">
 
-      <div class="tw-business-card">
+      <div class="tw-business-card tw-card-hover">
         <div class="tw-business-icon">🤝</div>
         <h3>Reliable Support</h3>
         <p>Access a network of skilled workers and AI‑guided workflows that ensure consistent, high‑quality results.</p>
       </div>
 
-      <div class="tw-business-card">
+      <div class="tw-business-card tw-card-hover">
         <div class="tw-business-icon">📈</div>
         <h3>Scale Without Stress</h3>
         <p>Handle more tasks, customers, and operations without hiring overhead or complex onboarding.</p>
       </div>
 
-      <div class="tw-business-card">
+      <div class="tw-business-card tw-card-hover">
         <div class="tw-business-icon">🧠</div>
         <h3>AI‑Driven Efficiency</h3>
         <p>Automated tools and smart workflows reduce manual work and speed up your entire operation.</p>
@@ -1166,31 +1210,31 @@ body {
 
 <!-- About SECTION -->
 
-  <section id="about" class="tw-about">
+  <section id="about" class="tw-about tw-animate">
   <div class="tw-about-inner">
 
-    <h2 class="tw-about-title">About Tyniweb</h2>
+    <h2 class="tw-about-title tw-animate">About Tyniweb</h2>
     <p class="tw-about-subtitle">
       Tyniweb is building a new kind of work platform — one where AI and people collaborate to deliver fast, reliable, and scalable results.
     </p>
 
-    <div class="tw-about-grid">
+    <div class="tw-about-grid tw-animate">
 
-      <div class="tw-about-card">
+      <div class="tw-about-card tw-card-hover">
         <h3>Our Mission</h3>
         <p>
           To empower workers and businesses with modular, AI‑driven tools that make work faster, easier, and more accessible for everyone.
         </p>
       </div>
 
-      <div class="tw-about-card">
+      <div class="tw-about-card tw-card-hover">
         <h3>Our Approach</h3>
         <p>
           We combine human skill with intelligent automation, creating workflows that adapt to real‑world needs and deliver consistent quality.
         </p>
       </div>
 
-      <div class="tw-about-card">
+      <div class="tw-about-card tw-card-hover">
         <h3>Our Vision</h3>
         <p>
           A global ecosystem where anyone can contribute, collaborate, and grow — supported by transparent, trustworthy technology.
@@ -1204,10 +1248,10 @@ body {
 
 <!-- Contact SECTION -->
 
-<section id="contact" class="tw-contact">
+<section id="contact" class="tw-contact tw-animate">
   <div class="tw-contact-inner">
 
-    <h2 class="tw-contact-title">Get Started with Tyniweb</h2>
+    <h2 class="tw-contact-title tw-animate">Get Started with Tyniweb</h2>
     <p class="tw-contact-subtitle">
       Whether you're a worker or a business, Tyniweb helps you move faster with AI‑powered tools built for real work.
     </p>
@@ -1219,35 +1263,35 @@ body {
 
 <!-- Features SECTION -->
 
-  <section id="features" class="tw-features">
+  <section id="features" class="tw-features tw-animate">
   <div class="tw-features-inner">
 
-    <h2 class="tw-features-title">Powerful Features Built for Real Work</h2>
+    <h2 class="tw-features-title tw-animate">Powerful Features Built for Real Work</h2>
     <p class="tw-features-subtitle">
       Tyniweb gives workers and businesses the tools they need to move faster, stay organized, and deliver consistent results.
     </p>
 
-    <div class="tw-features-grid">
+    <div class="tw-features-grid tw-animate">
 
-      <div class="tw-feature-card">
+      <div class="tw-feature-card tw-card-hover">
         <div class="tw-feature-icon">🧩</div>
         <h3>Modular Workflows</h3>
         <p>Break tasks into simple, guided steps powered by AI and human expertise.</p>
       </div>
 
-      <div class="tw-feature-card">
+      <div class="tw-feature-card tw-card-hover">
         <div class="tw-feature-icon">🔍</div>
         <h3>Smart Matching</h3>
         <p>AI connects businesses with the right workers or automated tools instantly.</p>
       </div>
 
-      <div class="tw-feature-card">
+      <div class="tw-feature-card tw-card-hover">
         <div class="tw-feature-icon">📊</div>
         <h3>Real‑Time Tracking</h3>
         <p>Monitor progress, updates, and results in a clean, unified dashboard.</p>
       </div>
 
-      <div class="tw-feature-card">
+      <div class="tw-feature-card tw-card-hover">
         <div class="tw-feature-icon">🔒</div>
         <h3>Secure by Design</h3>
         <p>Your data and workflows are protected with modern security standards.</p>
@@ -1260,17 +1304,17 @@ body {
 
 <!-- Testimonials SECTION -->
 
-<section id="testimonials" class="tw-testimonials">
+<section id="testimonials" class="tw-testimonials tw-animate">
   <div class="tw-testimonials-inner">
 
-    <h2 class="tw-testimonials-title">Trusted by Workers and Businesses</h2>
+    <h2 class="tw-testimonials-title tw-animate">Trusted by Workers and Businesses</h2>
     <p class="tw-testimonials-subtitle">
       Early users are already seeing faster workflows, clearer communication, and more reliable results.
     </p>
 
-    <div class="tw-testimonials-grid">
+    <div class="tw-testimonials-grid tw-animate">
 
-      <div class="tw-testimonial-card">
+      <div class="tw-testimonial-card tw-card-hover">
         <div class="tw-testimonial-avatar">A</div>
         <h3>Alex R.</h3>
         <p class="tw-testimonial-role">Small Business Owner</p>
@@ -1279,7 +1323,7 @@ body {
         </p>
       </div>
 
-      <div class="tw-testimonial-card">
+      <div class="tw-testimonial-card tw-card-hover">
         <div class="tw-testimonial-avatar">J</div>
         <h3>Jordan M.</h3>
         <p class="tw-testimonial-role">Freelance Worker</p>
@@ -1288,7 +1332,7 @@ body {
         </p>
       </div>
 
-      <div class="tw-testimonial-card">
+      <div class="tw-testimonial-card tw-card-hover">
         <div class="tw-testimonial-avatar">S</div>
         <h3>Sophia L.</h3>
         <p class="tw-testimonial-role">Operations Manager</p>
@@ -1304,15 +1348,15 @@ body {
 
 <!-- FAQ SECTION -->
 
-  <section id="faq" class="tw-faq">
+  <section id="faq" class="tw-faq tw-animate">
   <div class="tw-faq-inner">
 
-    <h2 class="tw-faq-title">Frequently Asked Questions</h2>
+    <h2 class="tw-faq-title tw-animate">Frequently Asked Questions</h2>
     <p class="tw-faq-subtitle">
       Answers to the most common questions about Tyniweb.
     </p>
 
-    <div class="tw-faq-list">
+    <div class="tw-faq-list tw-animate">
 
       <div class="tw-faq-item">
         <input type="checkbox" id="faq1">
@@ -1361,18 +1405,18 @@ body {
 
 <!-- Pricing SECTION -->
 
-<section id="pricing" class="tw-pricing">
+<section id="pricing" class="tw-pricing tw-animate">
   <div class="tw-pricing-inner">
 
-    <h2 class="tw-pricing-title">Simple, Transparent Pricing</h2>
+    <h2 class="tw-pricing-title tw-animate">Simple, Transparent Pricing</h2>
     <p class="tw-pricing-subtitle">
       Tyniweb is free during the beta. Paid plans will be introduced later with clear, flexible options.
     </p>
 
-    <div class="tw-pricing-grid">
+    <div class="tw-pricing-grid tw-animate">
 
       <!-- Free Tier -->
-      <div class="tw-pricing-card">
+      <div class="tw-pricing-card tw-card-hover">
         <h3>Free</h3>
         <p class="tw-pricing-price">$0</p>
         <p class="tw-pricing-desc">Perfect for individuals exploring Tyniweb.</p>
@@ -1386,7 +1430,7 @@ body {
       </div>
 
       <!-- Beta Tier (Highlighted) -->
-      <div class="tw-pricing-card tw-pricing-featured">
+      <div class="tw-pricing-card tw-pricing-featured tw-card-hover">
         <div class="tw-pricing-badge">Beta</div>
         <h3>Beta Access</h3>
         <p class="tw-pricing-price">$0</p>
@@ -1401,7 +1445,7 @@ body {
       </div>
 
       <!-- Coming Soon Tier -->
-      <div class="tw-pricing-card">
+      <div class="tw-pricing-card tw-card-hover">
         <h3>Pro (Coming Soon)</h3>
         <p class="tw-pricing-price">—</p>
         <p class="tw-pricing-desc">Advanced tools for teams and businesses.</p>
@@ -1418,8 +1462,6 @@ body {
 
   </div>
 </section>
-  
-<!-- MODULES GO HERE -->
 
 <!-- MOBILE MENU MODULE — BRAND VERSION -->
 
@@ -1477,7 +1519,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 </script>
 
-<!-- END MODULE -->
+<!-- END MODULES SECTION -->  
 
 <!-- Footer SECTION -->
   
@@ -1511,8 +1553,25 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   document.getElementById('tw-year').textContent = new Date().getFullYear();
 </script>
 
+<!-- Animations SECTION -->
+
+  <script>
+  const animatedElements = document.querySelectorAll('.tw-animate');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.2 });
+
+  animatedElements.forEach(el => observer.observe(el));
+</script>
+
 </body>
 </html>
+
 
 
 
