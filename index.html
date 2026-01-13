@@ -47,7 +47,7 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-image: url('your-image-url-here'); /* replace with actual image path */
+  background-image: url('https://raw.githubusercontent.com/tyni/tyniweb/main/tyniweb_Hero_Background.png'); /* replace with actual image path */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1268,6 +1268,66 @@ body {
     .tw-header.scrolled .tw-logo-img {
       content: url("https://raw.githubusercontent.com/tyni/tyniweb/main/tyniweb_LOGO_Nov_2025_Blue_QuicksandMed.svg");
     }
+
+    /* ===========================
+       HERO ANIMATIONS
+    =========================== */
+
+    .tw-hero-animated {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+    }
+    
+    .tw-hero-bg {
+      background-image: url('https://raw.githubusercontent.com/tyni/tyniweb/main/tyniweb_Hero_Background.png');
+      background-size: cover;
+      background-position: center;
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+    
+    .tw-hero-robot,
+    .tw-hero-human {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      transition: transform 1s ease, opacity 1s ease;
+      z-index: 2;
+    }
+    
+    .tw-hero-robot {
+      left: -20%;
+    }
+    
+    .tw-hero-human {
+      right: -20%;
+    }
+    
+    .tw-hero-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.3), transparent);
+      opacity: 0;
+      transition: opacity 1s ease;
+      z-index: 3;
+    }
+    
+    .tw-hero-cta {
+      position: absolute;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 1s ease;
+      z-index: 4;
+    }
     
   </style>
 </head>
@@ -1681,6 +1741,16 @@ body {
   </div>
 </section>
 
+<!-- Hero Animation SECTION -->
+
+<section class="tw-hero-animated">
+  <div class="tw-hero-bg"></div>
+  <img src="robot.svg" class="tw-hero-robot">
+  <img src="human.svg" class="tw-hero-human">
+  <div class="tw-hero-glow"></div>
+  <div class="tw-hero-cta">Get Started</div>
+</section>
+
 <!-- MOBILE MENU MODULE — BRAND VERSION -->
 
 <div id="tw-menu-overlay"></div>
@@ -1725,8 +1795,6 @@ function twUpdateHeaderScrollState() {
 window.addEventListener('scroll', twUpdateHeaderScrollState);
 window.addEventListener('load', twUpdateHeaderScrollState);
 </script>
-
-<!-- END MODULES SECTION -->  
 
 <!-- Footer SECTION -->
   
@@ -1778,18 +1846,40 @@ window.addEventListener('load', twUpdateHeaderScrollState);
 
 <!-- Hero Background SECTION -->
 
-  <script>
+<script>
   const heroBg = document.querySelector('.tw-hero-bg');
+  const robot = document.querySelector('.tw-hero-robot');
+  const human = document.querySelector('.tw-hero-human');
+  const glow = document.querySelector('.tw-hero-glow');
+  const cta = document.querySelector('.tw-hero-cta');
 
   window.addEventListener('scroll', () => {
-    const offset = window.pageYOffset * 0.2; // subtle parallax
+    const scrollY = window.scrollY;
+
+    // 1. Background parallax
+    const offset = scrollY * 0.2;
     heroBg.style.transform = `translateY(${offset}px)`;
+
+    // 2. Character movement trigger
+    const triggerPoint = 200; // adjust to taste
+
+    if (scrollY > triggerPoint) {
+      robot.style.transform = 'translateY(-50%) translateX(120%)';
+      human.style.transform = 'translateY(-50%) translateX(-120%)';
+      glow.style.opacity = '1';
+      cta.style.opacity = '1';
+    } else {
+      robot.style.transform = 'translateY(-50%) translateX(0)';
+      human.style.transform = 'translateY(-50%) translateX(0)';
+      glow.style.opacity = '0';
+      cta.style.opacity = '0';
+    }
   });
 </script>
-
   
 </body>
 </html>
+
 
 
 
