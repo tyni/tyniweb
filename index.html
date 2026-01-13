@@ -176,9 +176,10 @@ body {
 =========================== */
 
 .tw-logo-img {
-  height: 32px;
+  height: 42px;
   width: auto;
   transition: opacity 0.25s ease;
+  opacity: 1 !important;
 }
 
 /* Optional: fade logo on scroll */
@@ -239,13 +240,29 @@ body {
 .tw-header.scrolled .tw-menu-icon-blue { opacity: 0; }
 .tw-header.scrolled .tw-menu-icon-white { opacity: 1; }
 
+    .tw-header:not(.scrolled) .tw-menu-icon-blue {
+      opacity: 1 !important;
+    }
+    
+    .tw-header:not(.scrolled) .tw-menu-icon-white {
+      opacity: 0 !important;
+    }
+
 /* ===========================
-   MOBILE LAYOUT
+   MOBILE LAYOUT — FINAL
 =========================== */
 
 @media (max-width: 768px) {
+
+  /* Remove desktop banner offset */
+  .tw-header {
+    margin-top: 0;
+  }
+
+  /* Align items left instead of spaced out */
   .tw-header-container {
     justify-content: flex-start;
+    gap: 16px;
   }
 
   /* Menu icon first */
@@ -257,14 +274,17 @@ body {
   .tw-logo {
     order: 2;
   }
-}
 
-/* Reduced motion fallback */
-@media (prefers-reduced-motion: reduce) {
+  /* Icon sizing */
   .tw-menu-icon-blue,
-  .tw-menu-icon-white,
+  .tw-menu-icon-white {
+    width: 28px;
+    height: 28px;
+  }
+
+  /* Logo sizing */
   .tw-logo-img {
-    transition: none;
+    height: 32px;
   }
 }
 
@@ -1672,6 +1692,8 @@ window.addEventListener('scroll', () => {
   } else {
     header.classList.remove('scrolled');
   }
+  window.addEventListener('scroll', twUpdateHeaderScrollState); 
+  window.addEventListener('load', twUpdateHeaderScrollState);
 });
 
 // Smooth scrolling for anchor links
@@ -1750,6 +1772,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   
 </body>
 </html>
+
 
 
 
