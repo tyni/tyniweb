@@ -47,11 +47,11 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-image: url('https://raw.githubusercontent.com/tyni/tyniweb/main/tyniweb_Hero_Background.png'); /* replace with actual image path */
+  background-image: url('https://raw.githubusercontent.com/tyni/tyniweb/main/background.svg'); /* replace with actual image path */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-color: var(--brand-primary); /* fallback */
+  background-color: #05091a; /* solid fallback */
 }
 
 .tw-hero-inner {
@@ -1298,7 +1298,12 @@ body {
     }
     
     .tw-hero-robot {
+      position: absolute;
+      top: 50%;
       left: -20%;
+      transform: translateY(-50%);
+      transition: transform 1s ease;
+      z-index: 2;
     }
     
     .tw-hero-human {
@@ -1745,8 +1750,8 @@ body {
 
 <section class="tw-hero-animated">
   <div class="tw-hero-bg"></div>
-  <img src="robot.svg" class="tw-hero-robot">
-  <img src="human.svg" class="tw-hero-human">
+  <img src="ai.svg" class="tw-hero-robot" alt="AI character">
+  <img src="human.svg" class="tw-hero-human" alt="Human character">
   <div class="tw-hero-glow"></div>
   <div class="tw-hero-cta">Get Started</div>
 </section>
@@ -1879,6 +1884,7 @@ window.addEventListener('load', twUpdateHeaderScrollState);
   
 </body>
 </html>
+
 
 
 
