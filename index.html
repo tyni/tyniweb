@@ -1161,6 +1161,32 @@ body {
       opacity: 1;
     }
 
+    /* Desktop layout */
+    .tw-header-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    /* Mobile layout */
+    @media (max-width: 768px) {
+      .tw-header-container {
+        justify-content: flex-start;
+        gap: 16px;
+      }
+    
+      .tw-menu-trigger {
+        order: 1;
+      }
+    
+      .tw-logo {
+        order: 2;
+      }
+    
+      .tw-nav {
+        display: none; /* hidden on mobile */
+      }
+    }
     
   </style>
 </head>
@@ -1202,16 +1228,16 @@ body {
 
       <!-- LOGO TRIGGER -->
       
-      <div class="tw-logo-trigger" onclick="twToggleMenu()">
+      <div class="tw-menu-trigger" onclick="twToggleMenu()">
         <img 
-          src="https://raw.githubusercontent.com/tyni/tyniweb/main/tyniweb_LOGO_Nov_2025_White_QuicksandMed.svg" 
-          class="tw-logo-white"
-          alt="Tyniweb Logo White"
+          src="https://raw.githubusercontent.com/tyni/tyniweb/main/tyniweb_LOGO_Nov_2025_Blue_Icon.svg"
+          class="tw-menu-icon tw-menu-icon-blue"
+          alt="Menu Icon Blue"
         >
         <img 
-          src="https://raw.githubusercontent.com/tyni/tyniweb/main/tyniweb_LOGO_Nov_2025_Blue_QuicksandMed.svg" 
-          class="tw-logo-blue"
-          alt="Tyniweb Logo Blue"
+          src="https://raw.githubusercontent.com/tyni/tyniweb/main/tyniweb_LOGO_Nov_2025_White_Icon.svg"
+          class="tw-menu-icon tw-menu-icon-white"
+          alt="Menu Icon White"
         >
       </div>
 
@@ -1715,6 +1741,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   
 </body>
 </html>
+
 
 
 
