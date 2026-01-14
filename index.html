@@ -459,7 +459,7 @@
 .tw-hero {
   position: relative;
   width: 100%;
-  height: 200vh; /* shortened scroll space */
+  height: 140vh; /* shortened scroll space */
   overflow: hidden;
   background: #040714;
 }
@@ -637,6 +637,152 @@ document.addEventListener("DOMContentLoaded", () => {
   }, 3000);
 });
 </script>
+
+  
+  <!-- 3.0.2 HERO HTML -->
+<section id="tw-hero" class="tw-hero">
+
+  <!-- 3.0.2.1 HERO SCENE (SVG) -->
+  <img 
+    src="https://raw.githubusercontent.com/tyni/tyniweb/main/background_with_avatars.svg"
+    alt="Tyniweb Hero Scene"
+    class="tw-hero-scene"
+  >
+
+  <!-- 3.0.2.2 HERO UI LAYER -->
+  <div class="tw-hero-ui">
+
+    <!-- 3.0.2.3 TEXT OVERLAY 1 -->
+    <div class="tw-hero-overlay tw-overlay-1">
+      Collaboration begins with connection.
+    </div>
+
+    <!-- 3.0.2.4 TEXT OVERLAY 2 -->
+    <div class="tw-hero-overlay tw-overlay-2">
+      AI‑powered tools that help people work together.
+    </div>
+
+    <!-- 3.0.2.5 CTA BUTTON -->
+    <a href="#get-started" class="tw-hero-cta">
+      Get Started
+    </a>
+
+    <!-- 3.0.2.6 READ MORE CUE -->
+    <div class="tw-hero-readmore">
+      Read more ↓
+    </div>
+
+  </div>
+
+  <!-- 3.0.2.7 SCROLL CUE -->
+  <div class="tw-hero-scrollcue">
+    Scroll ↓
+  </div>
+
+</section>
+
+  <!-- 3.0.3 HERO JS -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  /* -------------------------------------------
+     3.0.3.1 ELEMENT HOOKS
+  ------------------------------------------- */
+  const hero = document.getElementById("tw-hero");
+  const scene = document.querySelector(".tw-hero-scene");
+  const ui = document.querySelector(".tw-hero-ui");
+  const overlay1 = document.querySelector(".tw-overlay-1");
+  const overlay2 = document.querySelector(".tw-overlay-2");
+  const cta = document.querySelector(".tw-hero-cta");
+  const readmore = document.querySelector(".tw-hero-readmore");
+  const scrollCue = document.querySelector(".tw-hero-scrollcue");
+
+  /* -------------------------------------------
+     3.0.3.2 PLAYHEAD STATE
+  ------------------------------------------- */
+  let playhead = 0;
+  let targetPlayhead = 0;
+  const smooth = 0.08;
+  const maxSpeed = 0.04;
+
+  /* -------------------------------------------
+     3.0.3.3 SCROLL LISTENER
+  ------------------------------------------- */
+  window.addEventListener("scroll", () => {
+    const rect = hero.getBoundingClientRect();
+    const viewport = window.innerHeight;
+
+    const progress = Math.min(
+      Math.max((viewport - rect.top) / rect.height, 0),
+      1
+    );
+
+    targetPlayhead = progress;
+  });
+
+  /* -------------------------------------------
+     3.0.3.4 LERP UTILITY
+  ------------------------------------------- */
+  function lerp(a, b, t) {
+    return a + (b - a) * t;
+  }
+
+  /* -------------------------------------------
+     3.0.3.5 MAIN ANIMATION LOOP
+  ------------------------------------------- */
+  function animate() {
+
+    let delta = targetPlayhead - playhead;
+    if (Math.abs(delta) > maxSpeed) delta = maxSpeed * Math.sign(delta);
+    playhead += delta * smooth;
+
+    const scale = lerp(2.4, 1.0, playhead);
+    scene.style.transform = `scale(${scale})`;
+
+    overlay1.style.opacity =
+      playhead < 0.10 ? 0 :
+      playhead < 0.25 ? (playhead - 0.10) * 6 :
+      playhead < 0.40 ? 1 :
+      Math.max(1 - (playhead - 0.40) * 5, 0);
+
+    overlay2.style.opacity =
+      playhead < 0.50 ? 0 :
+      playhead < 0.70 ? (playhead - 0.50) * 5 :
+      1;
+
+    cta.style.opacity = playhead > 0.75 ? (playhead - 0.75) * 4 : 0;
+
+    if (playhead > 0.92) {
+      cta.classList.add("breathe");
+    } else {
+      cta.classList.remove("breathe");
+    }
+
+    scrollCue.style.opacity = Math.max(1 - playhead * 3, 0);
+
+    if (playhead < 0.1) {
+      scrollCue.classList.add("float");
+    } else {
+      scrollCue.classList.remove("float");
+    }
+
+    if (playhead >= 0.98) {
+      scene.style.position = "absolute";
+      ui.style.position = "absolute";
+    } else {
+      scene.style.position = "fixed";
+      ui.style.position = "fixed";
+    }
+
+    readmore.classList.toggle("show", playhead > 0.75);
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+});
+</script>
+
 
 <!-- =========================================
      4.0 PAGE MODULES
@@ -1901,6 +2047,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <script>
   document.getElementById('tw-year').textContent = new Date().getFullYear();
 </script>
+
 
 
 
