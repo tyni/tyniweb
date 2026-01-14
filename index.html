@@ -528,6 +528,13 @@
   animation: twGlowPulse 3.2s ease-in-out infinite;
 }
 
+.tw-hero-mask {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border: 2px dashed rgba(255,255,255,0.2); /* debug only */
+}
+
 /* -------------------------------------------
    3.4 UI LAYER
 ------------------------------------------- */
@@ -669,7 +676,7 @@ document.addEventListener("DOMContentLoaded", () => {
     sky.style.transform = `translateY(${playhead * -20}px)`;
 
     /* CAMERA ZOOM OUT */
-    const cameraScale = lerp(3.0, 1.0, playhead);
+    const cameraScale = lerp(4.0, 1.0, playhead);
     camera.style.transform = `scale(${cameraScale})`;
 
     /* GLOW INTENSITY */
@@ -1980,6 +1987,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <script>
   document.getElementById('tw-year').textContent = new Date().getFullYear();
 </script>
+
 
 
 
