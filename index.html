@@ -439,30 +439,24 @@
 
 <style>
 
-/* -------------------------------------------
-   3.1 HERO CONTAINER
-------------------------------------------- */
+/* HERO CONTAINER */
 .tw-hero {
   position: relative;
   width: 100%;
-  height: 300vh; /* more scroll runway */
+  height: 300vh;
   overflow: hidden;
 }
 
-/* -------------------------------------------
-   3.2 STAR SKY BACKGROUND
-------------------------------------------- */
+/* BACKGROUND */
 .tw-hero-sky {
   position: absolute;
   inset: 0;
-  background: url('starry-sky.svg') center/cover no-repeat;
+  background: #0a0f2c;
   z-index: 1;
   will-change: transform;
 }
 
-/* -------------------------------------------
-   3.3 CINEMATIC CAMERA LAYER
-------------------------------------------- */
+/* CAMERA LAYER */
 .tw-hero-cinematic {
   position: absolute;
   inset: 0;
@@ -471,40 +465,34 @@
   transform-origin: center;
 }
 
-/* Mask ensures zoom doesn't show edges */
 .tw-hero-mask {
   position: absolute;
   inset: 0;
   overflow: hidden;
 }
 
-/* -------------------------------------------
-   3.3.1 CHARACTERS (FINAL POSITION)
-------------------------------------------- */
+/* CHARACTERS — bottom aligned */
 .tw-hero-robot,
 .tw-hero-human {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  bottom: 0;
   height: 120vh;
-  transform-origin: center;
+  transform-origin: bottom center;
 }
 
-/* They start already touching */
-.tw-hero-robot { left: 50%; transform: translate(-100%, -50%); }
-.tw-hero-human { left: 50%; transform: translate(0%, -50%); }
+/* Robot on right, human on left */
+.tw-hero-robot { right: 50%; transform: translateX(50%); }
+.tw-hero-human { left: 50%; transform: translateX(-50%); }
 
-/* -------------------------------------------
-   3.3.2 GLOW + RIPPLE
-------------------------------------------- */
+/* GLOW + RIPPLE */
 .tw-hero-glow,
 .tw-hero-ripple {
   position: absolute;
   left: 50%;
-  top: 50%;
+  bottom: 325px; /* fingertip height */
   width: 300px;
   height: 300px;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, 50%);
   border-radius: 50%;
   opacity: 0;
 }
@@ -519,25 +507,16 @@
 
 /* Glow pulse */
 @keyframes twGlowPulse {
-  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.4; }
-  50% { transform: translate(-50%, -50%) scale(1.12); opacity: 0.55; }
-  100% { transform: translate(-50%, -50%) scale(1); opacity: 0.4; }
+  0% { transform: translate(-50%, 50%) scale(1); opacity: 0.4; }
+  50% { transform: translate(-50%, 50%) scale(1.12); opacity: 0.55; }
+  100% { transform: translate(-50%, 50%) scale(1); opacity: 0.4; }
 }
 
 .tw-hero-glow.pulse {
   animation: twGlowPulse 3.2s ease-in-out infinite;
 }
 
-.tw-hero-mask {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  border: 2px dashed rgba(255,255,255,0.2); /* debug only */
-}
-
-/* -------------------------------------------
-   3.4 UI LAYER
-------------------------------------------- */
+/* UI LAYER */
 .tw-hero-ui {
   position: absolute;
   inset: 0;
@@ -586,7 +565,6 @@
   opacity: 1;
 }
 
-/* Scroll cue float */
 @keyframes twScrollFloat {
   0% { transform: translateY(0); }
   50% { transform: translateY(6px); }
@@ -596,6 +574,7 @@
 .tw-hero-scrollcue.float {
   animation: twScrollFloat 2.4s ease-in-out infinite;
 }
+
 
 </style>
 
@@ -610,8 +589,8 @@
   <div class="tw-hero-cinematic">
     <div class="tw-hero-mask">
 
-      <!-- Characters already touching -->
-      <img src="robot.svg" class="tw-hero-robot" alt="">
+      <!-- Bottom-aligned characters -->
+      <img src="ai.svg" class="tw-hero-robot" alt="">
       <img src="human.svg" class="tw-hero-human" alt="">
 
       <div class="tw-hero-glow"></div>
@@ -672,48 +651,49 @@ document.addEventListener("DOMContentLoaded", () => {
     if (Math.abs(delta) > maxSpeed) delta = maxSpeed * Math.sign(delta);
     playhead += delta * smooth;
 
-    /* 4.1 STARFIELD PARALLAX */
+    /* STARFIELD PARALLAX */
     sky.style.transform = `translateY(${playhead * -20}px)`;
 
-    /* CAMERA ZOOM OUT */
-    const cameraScale = lerp(4.0, 1.0, playhead);
+    /* CAMERA ZOOM */
+    const cameraScale = lerp(3.5, 1.0, playhead);
     camera.style.transform = `scale(${cameraScale})`;
 
-    /* GLOW INTENSITY */
+    /* GLOW */
     const glowOpacity = lerp(0.05, 0.6, playhead);
     glow.style.opacity = glowOpacity;
 
-    /* GLOW PULSE */
     if (playhead > 0.75) glow.classList.add("pulse");
     else glow.classList.remove("pulse");
 
-    /* RIPPLE EASING */
+    /* RIPPLE */
     if (playhead > 0.55 && playhead < 0.75) {
       const t = (playhead - 0.55) / 0.2;
       const eased = t * t * (3 - 2 * t);
       ripple.style.opacity = eased;
-      ripple.style.transform = `translate(-50%, -50%) scale(${1 + eased * 3})`;
+      ripple.style.transform = `translate(-50%, 50%) scale(${1 + eased * 3})`;
     } else {
       ripple.style.opacity = 0;
     }
 
-    /* OVERLAY MESSAGES */
+    /* TEXT PHASE 1 */
     overlay1.style.opacity =
       playhead < 0.1 ? 0 :
       playhead < 0.3 ? (playhead - 0.1) * 5 :
       playhead < 0.4 ? 1 :
       Math.max(1 - (playhead - 0.4) * 5, 0);
 
+    /* TEXT PHASE 2 */
     overlay2.style.opacity =
-      playhead < 0.3 ? 0 :
-      playhead < 0.55 ? (playhead - 0.3) * 4 :
-      Math.max(1 - (playhead - 0.55) * 4, 0);
+      playhead < 0.55 ? 0 :
+      playhead < 0.75 ? (playhead - 0.55) * 5 :
+      1;
 
-    /* CTA + SCROLL CUE */
-    cta.style.opacity = playhead > 0.7 ? (playhead - 0.7) * 3 : 0;
+    /* CTA */
+    cta.style.opacity = playhead > 0.75 ? (playhead - 0.75) * 4 : 0;
+    if (playhead > 0.85) cta.classList.add("breathe");
+
+    /* SCROLL CUE */
     scrollCue.style.opacity = Math.max(1 - playhead * 3, 0);
-
-    /* SCROLL CUE FLOAT */
     if (playhead < 0.1) scrollCue.classList.add("float");
     else scrollCue.classList.remove("float");
 
@@ -1987,6 +1967,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <script>
   document.getElementById('tw-year').textContent = new Date().getFullYear();
 </script>
+
 
 
 
