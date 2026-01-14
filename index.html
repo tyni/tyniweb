@@ -595,12 +595,48 @@
      3.1 VERSION POPUP
 ========================================= -->
 
+    <style>
+          .tw-version-popup {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+      }
+      
+      .tw-version-popup.show {
+        opacity: 1;
+      }
+      
+      .tw-version-box {
+        background: rgba(0,0,0,0.85);
+        color: #fff;
+        padding: 0.8rem 1.2rem;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      }
+    </style>
+
 <div id="tw-version-popup" class="tw-version-popup">
   <div class="tw-version-box">
-    <strong>Tyniweb Build v3.1.4</strong><br>
-    <span>Updated: Jan 14, 2026 – 1:54 PM MST</span>
+    <strong>Tyniweb Build v3.1.5</strong><br>
+    <span>Updated: Jan 14, 2026 – 2:30 PM MST</span>
   </div>
 </div>
+
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const popup = document.getElementById("tw-version-popup");
+  popup.classList.add("show");
+
+  setTimeout(() => {
+    popup.classList.remove("show");
+  }, 3000);
+});
+</script>
 
 <!-- =========================================
      4.0 PAGE MODULES
@@ -1865,6 +1901,7 @@
 <script>
   document.getElementById('tw-year').textContent = new Date().getFullYear();
 </script>
+
 
 
 
