@@ -471,39 +471,8 @@
   text-align: center;
 }
 
-.tw-hero-prehook.show {
-  opacity: 1;
-}
-
-.tw-hero-prehook.hide {
-  opacity: 0;
-}
-  
-/* -------------------------------------------
-   3.0.1.0 PRE-HOOK TEXT
-------------------------------------------- */
-.tw-hero-prehook {
-  position: fixed;
-  top: 40%;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 1.6rem;
-  font-weight: 500;
-  color: #ffffff;
-  opacity: 0;
-  transition: opacity 0.6s ease;
-  z-index: 3;
-  pointer-events: none;
-  text-align: center;
-}
-
-.tw-hero-prehook.show {
-  opacity: 1;
-}
-
-.tw-hero-prehook.hide {
-  opacity: 0;
-}
+.tw-hero-prehook.show { opacity: 1; }
+.tw-hero-prehook.hide { opacity: 0; }
 
 /* -------------------------------------------
    3.0.1.1 HERO CONTAINER
@@ -511,7 +480,7 @@
 .tw-hero {
   position: relative;
   width: 100%;
-  height: 140vh; /* shortened scroll space */
+  height: 140vh;
   overflow: hidden;
   background: #040714;
 }
@@ -528,17 +497,16 @@
   top: 0;
   left: 0;
   width: 100%;
-  min-width: 100%;
   height: 100vh;
   object-fit: cover;
   transform-origin: top center;
-  background-color: #040714; /* fills subpixel gaps */
+  background-color: #040714;
   z-index: 1;
   will-change: transform;
 }
 
 /* -------------------------------------------
-   3.0.1.3 HERO UI LAYER (CONTAINER)
+   3.0.1.3 HERO UI LAYER
 ------------------------------------------- */
 .tw-hero-ui {
   position: fixed;
@@ -554,21 +522,6 @@
 }
 
 /* -------------------------------------------
-   3.0.1.3.1 READ MORE CUE
-------------------------------------------- */
-.tw-hero-readmore {
-  margin-top: 1.5rem;
-  font-size: 1rem;
-  opacity: 0;
-  transition: opacity 0.6s ease;
-  pointer-events: none;
-}
-
-.tw-hero-readmore.show {
-  opacity: 0.8;
-}
-
-/* -------------------------------------------
    3.0.1.4 TEXT OVERLAYS
 ------------------------------------------- */
 .tw-hero-overlay {
@@ -579,13 +532,8 @@
   max-width: 80%;
 }
 
-.tw-overlay-1 {
-  margin-bottom: 1rem;
-}
-
-.tw-overlay-2 {
-  margin-top: 1rem;
-}
+.tw-overlay-1 { margin-bottom: 1rem; }
+.tw-overlay-2 { margin-top: 1rem; }
 
 /* -------------------------------------------
    3.0.1.5 CTA BUTTON
@@ -603,14 +551,13 @@
   pointer-events: auto;
 }
 
-/* breathing animation */
 .tw-hero-cta.breathe {
   animation: tw-breathe 2.4s ease-in-out infinite;
 }
 
 @keyframes tw-breathe {
-  0%   { transform: scale(1); }
-  50%  { transform: scale(1.06); }
+  0% { transform: scale(1); }
+  50% { transform: scale(1.06); }
   100% { transform: scale(1); }
 }
 
@@ -630,51 +577,38 @@
 }
 
 @keyframes tw-float {
-  0%   { transform: translateY(0); }
-  50%  { transform: translateY(8px); }
+  0% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
   100% { transform: translateY(0); }
 }
 
 </style>
 
-<!-- 3.0.4 HERO BUFFER -->
-<div class="tw-hero-buffer"></div>
-
-<style>
-  .tw-hero-buffer {
-    height: 40vh;
-    background: #040714;
-  }
-</style>
 
 <!-- =========================================
      3.1 VERSION POPUP
 ========================================= -->
 
-    <style>
-          .tw-version-popup {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        z-index: 9999;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.4s ease;
-      }
-      
-      .tw-version-popup.show {
-        opacity: 1;
-      }
-      
-      .tw-version-box {
-        background: rgba(0,0,0,0.85);
-        color: #fff;
-        padding: 0.8rem 1.2rem;
-        border-radius: 8px;
-        font-size: 0.9rem;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      }
-    </style>
+<style>
+.tw-version-popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.tw-version-popup.show { opacity: 1; }
+.tw-version-box {
+  background: rgba(0,0,0,0.85);
+  color: #fff;
+  padding: 0.8rem 1.2rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+</style>
 
 <div id="tw-version-popup" class="tw-version-popup">
   <div class="tw-version-box">
@@ -683,52 +617,112 @@
   </div>
 </div>
 
-  <script>
+<script>
 document.addEventListener("DOMContentLoaded", () => {
   const popup = document.getElementById("tw-version-popup");
   popup.classList.add("show");
-
-  setTimeout(() => {
-    popup.classList.remove("show");
-  }, 3000);
+  setTimeout(() => popup.classList.remove("show"), 3000);
 });
 </script>
 
   
-  <!-- 3.0.2 HERO HTML -->
-<section id="tw-hero" class="tw-hero">
-  
-  <!-- 3.0.2.0 PRE-HOOK TEXT -->
-    <div class="tw-hero-prehook">
-      Welcome to Tyniweb — where small starts lead to big things.
-    </div>
+<!-- =========================================
+     CURRENT VERSION NUMBER
+========================================= -->
 
-  <!-- 3.0.2.1 HERO SCENE (SVG) -->
+  <script>
+    const currentVersion = "3.1.5"; // update this each release
+    const lastSeenVersion = localStorage.getItem("tw-last-version");
+  
+    // If first visit or version changed
+    if (lastSeenVersion !== currentVersion) {
+      document.body.classList.add("tw-show-whats-new");
+  
+      // Save new version
+      localStorage.setItem("tw-last-version", currentVersion);
+    }
+  </script>
+
+  <div class="tw-whats-new-badge">
+    New in this update!
+  </div>
+
+  
+<!-- =========================================
+     3.3 VERSION TRACKING SYSTEM
+========================================= -->
+  
+<style>
+.tw-whats-new-badge {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #ff6a00;
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.4s ease;
+  pointer-events: none;
+  z-index: 9999;
+}
+.tw-show-whats-new .tw-whats-new-badge {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+
+<div class="tw-whats-new-badge">
+  New in this update!
+</div>
+
+<script>
+const currentVersion = "3.1.6";
+const lastSeenVersion = localStorage.getItem("tw-last-version");
+
+if (lastSeenVersion !== currentVersion) {
+  document.body.classList.add("tw-show-whats-new");
+  localStorage.setItem("tw-last-version", currentVersion);
+}
+</script>
+
+  
+  
+<!-- =========================================
+     3.0.2 HERO HTML
+========================================= -->
+  
+<section id="tw-hero" class="tw-hero">
+
+  <!-- 3.0.2.0 PRE-HOOK TEXT -->
+  <div class="tw-hero-prehook">
+    Welcome to Tyniweb — where small starts lead to big things.
+  </div>
+
+  <!-- 3.0.2.1 HERO SCENE -->
   <img 
     src="https://raw.githubusercontent.com/tyni/tyniweb/main/background_with_avatars.svg"
     alt="Tyniweb Hero Scene"
     class="tw-hero-scene"
   >
 
-  <!-- 3.0.2.2 HERO UI LAYER -->
+  <!-- 3.0.2.2 HERO UI -->
   <div class="tw-hero-ui">
 
-    <!-- 3.0.2.3 TEXT OVERLAY 1 -->
     <div class="tw-hero-overlay tw-overlay-1">
       Collaboration begins with connection.
     </div>
 
-    <!-- 3.0.2.4 TEXT OVERLAY 2 -->
     <div class="tw-hero-overlay tw-overlay-2">
       AI‑powered tools that help people work together.
     </div>
 
-    <!-- 3.0.2.5 CTA BUTTON -->
     <a href="#get-started" class="tw-hero-cta">
       Get Started
     </a>
 
-    <!-- 3.0.2.6 READ MORE CUE -->
     <div class="tw-hero-readmore">
       Read more ↓
     </div>
@@ -742,13 +736,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </section>
 
+
   <!-- 3.0.3 HERO JS -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* -------------------------------------------
-     3.0.3.1 ELEMENT HOOKS
-  ------------------------------------------- */
+  /* ELEMENT HOOKS */
   const hero = document.getElementById("tw-hero");
   const scene = document.querySelector(".tw-hero-scene");
   const ui = document.querySelector(".tw-hero-ui");
@@ -757,18 +750,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const cta = document.querySelector(".tw-hero-cta");
   const readmore = document.querySelector(".tw-hero-readmore");
   const scrollCue = document.querySelector(".tw-hero-scrollcue");
+  const prehook = document.querySelector(".tw-hero-prehook");
 
-  /* -------------------------------------------
-     3.0.3.2 PLAYHEAD STATE
-  ------------------------------------------- */
+  /* PLAYHEAD */
   let playhead = 0;
   let targetPlayhead = 0;
   const smooth = 0.08;
   const maxSpeed = 0.04;
 
-  /* -------------------------------------------
-     3.0.3.3 SCROLL LISTENER
-  ------------------------------------------- */
+  /* SCROLL LISTENER */
   window.addEventListener("scroll", () => {
     const rect = hero.getBoundingClientRect();
     const viewport = window.innerHeight;
@@ -780,25 +770,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     targetPlayhead = progress;
 
-    // Re-show prehook if scrolled back to top
     if (progress < 0.02 && !prehook.classList.contains("show")) {
       prehook.classList.add("show");
       prehook.classList.remove("hide");
     }
   });
 
-  /* -------------------------------------------
-     3.0.3.4 LERP UTILITY
-  ------------------------------------------- */
+  /* LERP */
   function lerp(a, b, t) {
     return a + (b - a) * t;
   }
 
-  const prehook = document.querySelector(".tw-hero-prehook");
-
-  /* -------------------------------------------
-     3.0.3.5 MAIN ANIMATION LOOP
-  ------------------------------------------- */
+  /* MAIN LOOP */
   function animate() {
 
     let delta = targetPlayhead - playhead;
@@ -821,19 +804,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     cta.style.opacity = playhead > 0.75 ? (playhead - 0.75) * 4 : 0;
 
-    if (playhead > 0.92) {
-      cta.classList.add("breathe");
-    } else {
-      cta.classList.remove("breathe");
-    }
+    if (playhead > 0.92) cta.classList.add("breathe");
+    else cta.classList.remove("breathe");
 
     scrollCue.style.opacity = Math.max(1 - playhead * 3, 0);
-
-    if (playhead < 0.1) {
-      scrollCue.classList.add("float");
-    } else {
-      scrollCue.classList.remove("float");
-    }
+    scrollCue.classList.toggle("float", playhead < 0.1);
 
     if (playhead >= 0.98) {
       scene.style.position = "absolute";
@@ -847,17 +822,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     readmore.classList.toggle("show", playhead > 0.75);
 
-    // 3.0.3.13.1 PRE-HOOK FADE LOGIC
-    if (playhead < 0.08) {
-      prehook.classList.add("show");
-      prehook.classList.remove("hide");
-    } else {
-      prehook.classList.remove("show");
-      prehook.classList.add("hide");
-    }
-
-    const prehook = document.querySelector(".tw-hero-prehook");
-    
+    /* PREHOOK FADE */
     if (playhead < 0.08) {
       prehook.classList.add("show");
       prehook.classList.remove("hide");
@@ -872,6 +837,15 @@ document.addEventListener("DOMContentLoaded", () => {
   animate();
 });
 </script>
+
+<div class="tw-hero-buffer"></div>
+
+<style>
+  .tw-hero-buffer {
+    height: 40vh;
+    background: #040714;
+  }
+</style>
 
 
 <!-- =========================================
@@ -2137,6 +2111,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <script>
   document.getElementById('tw-year').textContent = new Date().getFullYear();
 </script>
+
 
 
 
