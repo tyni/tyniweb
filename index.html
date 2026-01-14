@@ -458,10 +458,11 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-  transform-origin: center center;
+  width: 100%;
+  height: auto;
+  min-height: 100vh;
+  object-fit: contain;
+  transform-origin: top center;
   z-index: 1;
   will-change: transform;
 }
@@ -647,7 +648,7 @@ document.addEventListener("DOMContentLoaded", () => {
     /* -------------------------------------------
        3.0.3.6 CAMERA ZOOM (SVG SCALE)
     ------------------------------------------- */
-    const scale = lerp(3.2, 1.0, playhead);
+    const scale = lerp(2.4, 1.0, playhead);
     scene.style.transform = `scale(${scale})`;
 
     /* -------------------------------------------
@@ -1969,6 +1970,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <script>
   document.getElementById('tw-year').textContent = new Date().getFullYear();
 </script>
+
 
 
 
