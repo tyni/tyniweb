@@ -434,267 +434,260 @@
 </header>
 
 <!-- =========================================
-     3.0 HERO CINEMATIC — CAMERA ZOOM VERSION
+     3.0 HERO CINEMATIC — SINGLE SVG ZOOM VERSION
 ========================================= -->
 
+<!-- 3.0.1 HERO CSS -->
 <style>
 
-/* HERO CONTAINER */
+/* -------------------------------------------
+   3.0.1.1 HERO CONTAINER
+------------------------------------------- */
 .tw-hero {
   position: relative;
   width: 100%;
-  height: 300vh;
+  height: 300vh; /* scroll space for zoom-out */
   overflow: hidden;
+  background: #040714;
 }
 
-/* BACKGROUND */
-.tw-hero-sky {
-  position: absolute;
-  inset: 0;
-  background: #0a0f2c;
+/* -------------------------------------------
+   3.0.1.2 HERO SCENE (SINGLE SVG)
+------------------------------------------- */
+.tw-hero-scene {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  transform-origin: center center;
   z-index: 1;
   will-change: transform;
 }
 
-/* CAMERA LAYER */
-.tw-hero-cinematic {
-  position: absolute;
+/* -------------------------------------------
+   3.0.1.3 UI LAYER
+------------------------------------------- */
+.tw-hero-ui {
+  position: fixed;
   inset: 0;
   z-index: 2;
-  pointer-events: none;
-  transform-origin: center;
-}
-
-.tw-hero-mask {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-}
-
-/* CHARACTERS — bottom aligned */
-.tw-hero-robot,
-.tw-hero-human {
-  position: absolute;
-  bottom: 0;
-  height: 120vh;
-  transform-origin: bottom center;
-}
-
-/* Robot on right, human on left */
-.tw-hero-robot {
-  left: 50%;
-  bottom: -22px; /* offset to match human finger height */
-  transform: translateX(0%);
-}
-
-.tw-hero-human {
-  left: 50%;
-  bottom: 0;
-  transform: translateX(-100%);
-}
-
-
-/* GLOW + RIPPLE */
-.tw-hero-glow,
-.tw-hero-ripple {
-  position: absolute;
-  left: 50%;
-  bottom: 325px; /* fingertip height */
-  width: 300px;
-  height: 300px;
-  transform: translate(-50%, 50%);
-  border-radius: 50%;
-  opacity: 0;
-}
-
-.tw-hero-glow {
-  background: radial-gradient(circle, rgba(255,255,255,0.4), transparent 70%);
-}
-
-.tw-hero-ripple {
-  border: 2px solid rgba(255,255,255,0.4);
-}
-
-/* Glow pulse */
-@keyframes twGlowPulse {
-  0% { transform: translate(-50%, 50%) scale(1); opacity: 0.4; }
-  50% { transform: translate(-50%, 50%) scale(1.12); opacity: 0.55; }
-  100% { transform: translate(-50%, 50%) scale(1); opacity: 0.4; }
-}
-
-.tw-hero-glow.pulse {
-  animation: twGlowPulse 3.2s ease-in-out infinite;
-}
-
-/* UI LAYER */
-.tw-hero-ui {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   pointer-events: none;
+  color: #ffffff;
+  text-align: center;
 }
 
+/* -------------------------------------------
+   3.0.1.4 TEXT OVERLAYS
+------------------------------------------- */
 .tw-hero-overlay {
-  position: absolute;
-  top: 20%;
-  font-size: 2rem;
-  color: white;
+  font-size: 2.4rem;
+  font-weight: 600;
   opacity: 0;
+  transition: opacity 0.4s ease;
+  max-width: 80%;
 }
 
+.tw-overlay-1 {
+  margin-bottom: 1rem;
+}
+
+.tw-overlay-2 {
+  margin-top: 1rem;
+}
+
+/* -------------------------------------------
+   3.0.1.5 CTA BUTTON
+------------------------------------------- */
 .tw-hero-cta {
-  position: absolute;
-  bottom: 15%;
-  font-size: 1.5rem;
-  color: white;
+  margin-top: 2rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  padding: 14px 28px;
+  background: var(--brand-accent);
+  color: #ffffff;
+  border-radius: 10px;
   opacity: 0;
-  transform: translateX(-50%);
-  left: 50%;
+  transition: opacity 0.4s ease;
+  pointer-events: auto;
 }
 
-/* CTA breathing */
-@keyframes twCTABreathe {
-  0% { transform: translateX(-50%) scale(1); }
-  50% { transform: translateX(-50%) scale(1.04); }
-  100% { transform: translateX(-50%) scale(1); }
+/* CTA breathing animation */
+@keyframes twHeroCTABreathe {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.04); }
+  100% { transform: scale(1); }
 }
 
 .tw-hero-cta.breathe {
-  animation: twCTABreathe 3.5s ease-in-out infinite;
+  animation: twHeroCTABreathe 3.5s ease-in-out infinite;
 }
 
-/* Scroll cue */
+/* -------------------------------------------
+   3.0.1.6 SCROLL CUE
+------------------------------------------- */
 .tw-hero-scrollcue {
   position: absolute;
-  bottom: 5%;
-  color: white;
-  opacity: 1;
+  bottom: 40px;
+  font-size: 1rem;
+  opacity: 0.7;
+  transition: opacity 0.4s ease;
 }
 
-@keyframes twScrollFloat {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(6px); }
+/* Floating animation */
+@keyframes twHeroScrollFloat {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(6px); }
   100% { transform: translateY(0); }
 }
 
 .tw-hero-scrollcue.float {
-  animation: twScrollFloat 2.4s ease-in-out infinite;
-}
-
-.tw-hero-buffer {
-  height: 120vh;
-  background: #0a0f2c;
+  animation: twHeroScrollFloat 2.4s ease-in-out infinite;
 }
 
 </style>
 
-<!-- =========================================
-     3.0 HERO HTML
-========================================= -->
-
+<!-- 3.0.2 HERO HTML -->
 <section id="tw-hero" class="tw-hero">
-  <img src="background_with_avatars.svg" class="tw-hero-scene" alt="Human and AI reaching" />
+
+  <!-- Fixed-position cinematic scene -->
+  <img 
+    src="https://raw.githubusercontent.com/tyni/tyniweb/main/background_with_avatars.svg"
+    alt="Human and AI reaching toward each other"
+    class="tw-hero-scene"
+  >
+
+  <!-- UI Layer -->
   <div class="tw-hero-ui">
-    <div class="tw-hero-overlay tw-overlay-1">AI-powered work for everyone</div>
-    <div class="tw-hero-overlay tw-overlay-2">Collaboration begins with connection</div>
-    <div class="tw-hero-cta">Get Started</div>
-    <div class="tw-hero-scrollcue">Scroll to explore</div>
+
+    <!-- Phase 1 text -->
+    <div class="tw-hero-overlay tw-overlay-1">
+      AI‑powered work for everyone
+    </div>
+
+    <!-- Phase 2 text -->
+    <div class="tw-hero-overlay tw-overlay-2">
+      Collaboration begins with connection
+    </div>
+
+    <!-- CTA -->
+    <a href="#get-started" class="tw-hero-cta">
+      Get Started
+    </a>
+
+    <!-- Scroll cue -->
+    <div class="tw-hero-scrollcue">
+      Scroll to explore
+    </div>
+
   </div>
+
 </section>
 
-<!-- =========================================
-     3.4 HERO SCROLL ENGINE — CAMERA ZOOM
-========================================= -->
-
+<!-- 3.0.3 HERO JS -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
 
+  /* -------------------------------------------
+     3.0.3.1 ELEMENT HOOKS
+  ------------------------------------------- */
   const hero = document.getElementById("tw-hero");
-  const camera = document.querySelector(".tw-hero-cinematic");
-  const glow = document.querySelector(".tw-hero-glow");
-  const ripple = document.querySelector(".tw-hero-ripple");
+  const scene = document.querySelector(".tw-hero-scene");
   const overlay1 = document.querySelector(".tw-overlay-1");
   const overlay2 = document.querySelector(".tw-overlay-2");
   const cta = document.querySelector(".tw-hero-cta");
   const scrollCue = document.querySelector(".tw-hero-scrollcue");
-  const sky = document.querySelector(".tw-hero-sky");
 
+  /* -------------------------------------------
+     3.0.3.2 PLAYHEAD STATE
+  ------------------------------------------- */
   let playhead = 0;
   let targetPlayhead = 0;
   const smooth = 0.08;
   const maxSpeed = 0.04;
 
+  /* -------------------------------------------
+     3.0.3.3 SCROLL LISTENER
+  ------------------------------------------- */
   window.addEventListener("scroll", () => {
     const rect = hero.getBoundingClientRect();
-    const viewportHeight = window.innerHeight;
+    const viewport = window.innerHeight;
 
+    // Normalize scroll progress between 0 → 1
     const progress = Math.min(
-      Math.max((viewportHeight - rect.top) / (rect.height + viewportHeight), 0),
+      Math.max((viewport - rect.top) / (rect.height + viewport), 0),
       1
     );
 
     targetPlayhead = progress;
   });
 
+  /* -------------------------------------------
+     3.0.3.4 LERP UTILITY
+  ------------------------------------------- */
   function lerp(a, b, t) {
     return a + (b - a) * t;
   }
 
+  /* -------------------------------------------
+     3.0.3.5 MAIN ANIMATION LOOP
+  ------------------------------------------- */
   function animate() {
 
+    // Smooth playhead
     let delta = targetPlayhead - playhead;
     if (Math.abs(delta) > maxSpeed) delta = maxSpeed * Math.sign(delta);
     playhead += delta * smooth;
 
-    /* STARFIELD PARALLAX */
-    sky.style.transform = `translateY(${playhead * -20}px)`;
+    /* -------------------------------------------
+       3.0.3.6 CAMERA ZOOM (SVG SCALE)
+    ------------------------------------------- */
+    const scale = lerp(3.2, 1.0, playhead);
+    scene.style.transform = `scale(${scale})`;
 
-    /* CAMERA ZOOM */
-    const cameraScale = lerp(3.5, 1.0, playhead);
-    camera.style.transform = `scale(${cameraScale})`;
-
-    /* GLOW */
-    const glowOpacity = lerp(0.05, 0.6, playhead);
-    glow.style.opacity = glowOpacity;
-
-    if (playhead > 0.75) glow.classList.add("pulse");
-    else glow.classList.remove("pulse");
-
-    /* RIPPLE */
-    if (playhead > 0.55 && playhead < 0.85) {
-      const t = (playhead - 0.55) / 0.3;
-      const eased = t * t * (3 - 2 * t);
-      ripple.style.opacity = eased;
-      ripple.style.transform = `translate(-50%, 50%) scale(${1 + eased * 3})`;
-    } else {
-      ripple.style.opacity = 0;
-    }
-
-    /* TEXT PHASE 1 */
+    /* -------------------------------------------
+       3.0.3.7 TEXT PHASE 1
+    ------------------------------------------- */
     overlay1.style.opacity =
-      playhead < 0.1 ? 0 :
-      playhead < 0.3 ? (playhead - 0.1) * 5 :
-      playhead < 0.4 ? 1 :
-      Math.max(1 - (playhead - 0.4) * 5, 0);
+      playhead < 0.10 ? 0 :
+      playhead < 0.25 ? (playhead - 0.10) * 6 :
+      playhead < 0.40 ? 1 :
+      Math.max(1 - (playhead - 0.40) * 5, 0);
 
-    /* TEXT PHASE 2 */
+    /* -------------------------------------------
+       3.0.3.8 TEXT PHASE 2
+    ------------------------------------------- */
     overlay2.style.opacity =
-      playhead < 0.55 ? 0 :
-      playhead < 0.75 ? (playhead - 0.55) * 5 :
+      playhead < 0.50 ? 0 :
+      playhead < 0.70 ? (playhead - 0.50) * 5 :
       1;
 
-    /* CTA */
+    /* -------------------------------------------
+       3.0.3.9 CTA FADE + BREATHING
+    ------------------------------------------- */
     cta.style.opacity = playhead > 0.75 ? (playhead - 0.75) * 4 : 0;
-    if (playhead > 0.92) cta.classList.add("breathe");
 
-    /* SCROLL CUE */
+    if (playhead > 0.92) {
+      cta.classList.add("breathe");
+    } else {
+      cta.classList.remove("breathe");
+    }
+
+    /* -------------------------------------------
+       3.0.3.10 SCROLL CUE FADE
+    ------------------------------------------- */
     scrollCue.style.opacity = Math.max(1 - playhead * 3, 0);
-    if (playhead < 0.1) scrollCue.classList.add("float");
-    else scrollCue.classList.remove("float");
+
+    if (playhead < 0.1) {
+      scrollCue.classList.add("float");
+    } else {
+      scrollCue.classList.remove("float");
+    }
 
     requestAnimationFrame(animate);
   }
@@ -1966,6 +1959,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <script>
   document.getElementById('tw-year').textContent = new Date().getFullYear();
 </script>
+
 
 
 
