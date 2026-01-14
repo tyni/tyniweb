@@ -481,8 +481,18 @@
 }
 
 /* Robot on right, human on left */
-.tw-hero-robot { right: 50%; transform: translateX(50%); }
-.tw-hero-human { left: 50%; transform: translateX(-50%); }
+.tw-hero-robot {
+  left: 50%;
+  bottom: -22px; /* offset to match human finger height */
+  transform: translateX(0%);
+}
+
+.tw-hero-human {
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-100%);
+}
+
 
 /* GLOW + RIPPLE */
 .tw-hero-glow,
@@ -575,6 +585,10 @@
   animation: twScrollFloat 2.4s ease-in-out infinite;
 }
 
+.tw-hero-buffer {
+  height: 120vh;
+  background: #0a0f2c;
+}
 
 </style>
 
@@ -599,13 +613,15 @@
   </div>
 
   <div class="tw-hero-ui">
-    <div class="tw-hero-overlay tw-overlay-1">Human + AI, reaching toward each other</div>
+    <div class="tw-hero-overlay tw-overlay-1">AI-powered work for everyone</div>
     <div class="tw-hero-overlay tw-overlay-2">Collaboration begins with connection</div>
     <div class="tw-hero-cta">Get Started</div>
     <div class="tw-hero-scrollcue">Scroll to explore</div>
   </div>
 
 </section>
+
+<section class="tw-hero-buffer"></section>
 
 <!-- =========================================
      3.4 HERO SCROLL ENGINE — CAMERA ZOOM
@@ -666,8 +682,8 @@ document.addEventListener("DOMContentLoaded", () => {
     else glow.classList.remove("pulse");
 
     /* RIPPLE */
-    if (playhead > 0.55 && playhead < 0.75) {
-      const t = (playhead - 0.55) / 0.2;
+    if (playhead > 0.55 && playhead < 0.85) {
+      const t = (playhead - 0.55) / 0.3;
       const eased = t * t * (3 - 2 * t);
       ripple.style.opacity = eased;
       ripple.style.transform = `translate(-50%, 50%) scale(${1 + eased * 3})`;
@@ -690,7 +706,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* CTA */
     cta.style.opacity = playhead > 0.75 ? (playhead - 0.75) * 4 : 0;
-    if (playhead > 0.85) cta.classList.add("breathe");
+    if (playhead > 0.92) cta.classList.add("breathe");
 
     /* SCROLL CUE */
     scrollCue.style.opacity = Math.max(1 - playhead * 3, 0);
@@ -1967,6 +1983,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <script>
   document.getElementById('tw-year').textContent = new Date().getFullYear();
 </script>
+
 
 
 
