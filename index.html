@@ -399,6 +399,16 @@
   font-weight: 600;
 }
 
+/* 2.9.2.1 NAV CTA BUTTON */
+.tw-nav-cta {
+  padding: 0.6rem 1rem;
+  background: #ff6a00;
+  color: #fff;
+  border-radius: 6px;
+  font-weight: 600;
+  margin-left: 1rem;
+}
+
 </style>
 
 <!-- =========================================
@@ -428,6 +438,9 @@
       <a href="#businesses">For Businesses</a>
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
+      
+      <!-- 2.9.2.1 NAV CTA BUTTON -->
+      <a href="#get-started" class="tw-nav-cta">Get Started</a>
     </nav>
 
   </div>
@@ -446,7 +459,7 @@
 .tw-hero {
   position: relative;
   width: 100%;
-  height: 300vh; /* scroll space for zoom-out */
+  height: 200vh; /* shortened scroll space */
   overflow: hidden;
   background: #040714;
 }
@@ -479,6 +492,23 @@
   pointer-events: none;
   color: #ffffff;
   text-align: center;
+}
+
+/* -------------------------------------------
+   3.0.1.3 HERO UI LAYER
+------------------------------------------- */
+
+/* 3.0.2.5 READ MORE CUE */
+.tw-hero-readmore {
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+
+.tw-hero-readmore.show {
+  opacity: 0.8;
 }
 
 /* -------------------------------------------
@@ -578,6 +608,9 @@
     <a href="#get-started" class="tw-hero-cta">
       Get Started
     </a>
+
+    <!-- 3.0.2.5 READ MORE CUE -->
+    <div class="tw-hero-readmore">Read more ↓</div>
 
     <!-- Scroll cue -->
     <div class="tw-hero-scrollcue">
@@ -698,6 +731,27 @@ document.addEventListener("DOMContentLoaded", () => {
       scene.style.position = "fixed";
       scene.style.top = "0";
     }
+
+    /* -------------------------------------------
+       3.0.3.12 STAMPED UI LOGIC
+    ------------------------------------------- */
+    if (playhead > 0.98) {
+      overlay1.style.position = "absolute";
+      overlay2.style.position = "absolute";
+      cta.style.position = "absolute";
+      document.querySelector(".tw-hero-readmore").style.position = "absolute";
+    } else {
+      overlay1.style.position = "fixed";
+      overlay2.style.position = "fixed";
+      cta.style.position = "fixed";
+      document.querySelector(".tw-hero-readmore").style.position = "fixed";
+    }
+
+    /* -------------------------------------------
+       3.0.3.13 READ MORE CUE ACTIVATION
+    ------------------------------------------- */
+    const readmore = document.querySelector(".tw-hero-readmore");
+    readmore.classList.toggle("show", playhead > 0.75);
 
     requestAnimationFrame(animate);
   }
@@ -1979,6 +2033,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <script>
   document.getElementById('tw-year').textContent = new Date().getFullYear();
 </script>
+
 
 
 
