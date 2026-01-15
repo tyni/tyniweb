@@ -652,6 +652,10 @@ document.addEventListener("DOMContentLoaded", () => {
      3.3 VERSION TRACKING SYSTEM
 ========================================= -->
   
+<!-- =========================================
+     VERSION TRACKING SYSTEM (CLEAN + CORRECT)
+========================================= -->
+
 <style>
 .tw-whats-new-badge {
   position: fixed;
@@ -679,16 +683,14 @@ document.addEventListener("DOMContentLoaded", () => {
 </div>
 
 <script>
-const currentVersion = "3.1.6";
-const lastSeenVersion = localStorage.getItem("tw-last-version");
+  const currentVersion = "3.1.6"; // update this each release
+  const lastSeenVersion = localStorage.getItem("tw-last-version");
 
-if (lastSeenVersion !== currentVersion) {
-  document.body.classList.add("tw-show-whats-new");
-  localStorage.setItem("tw-last-version", currentVersion);
-}
-</script>
-
-  
+  if (lastSeenVersion !== currentVersion) {
+    document.body.classList.add("tw-show-whats-new");
+    localStorage.setItem("tw-last-version", currentVersion);
+  }
+</script>  
   
 <!-- =========================================
      3.0.2 HERO HTML
@@ -2111,6 +2113,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <script>
   document.getElementById('tw-year').textContent = new Date().getFullYear();
 </script>
+
 
 
 
