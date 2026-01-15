@@ -664,11 +664,77 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("tw-last-version", currentVersion);
   }
 </script>
+
+
+/* =========================================
+   3.0.1 HERO CSS (STRIPE-STYLE)
+========================================= */
+<style>  
+  .tw-hero {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  
+  .tw-hero-scene {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1);
+    transition: transform 0.2s ease-out;
+    will-change: transform;
+  }
+  
+  .tw-hero-ui {
+    position: relative;
+    z-index: 10;
+    opacity: 1;
+    transition: opacity 0.4s ease-out;
+  }
+  
+  .tw-hero-prehook {
+    position: absolute;
+    top: 80px;
+    width: 100%;
+    text-align: center;
+    font-size: 22px;
+    opacity: 0.9;
+    z-index: 10;
+  }
+  
+  .tw-hero-scrollcue {
+    position: absolute;
+    bottom: 40px;
+    width: 100%;
+    text-align: center;
+    opacity: 1;
+    transition: opacity 0.4s ease-out;
+    z-index: 10;
+  }
+  
+  /* Spacer between hero and next section */
+  .tw-hero-spacer {
+    height: 120px;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+  
+  /* When hero releases, fade in spacer */
+  .tw-hero.released + .tw-hero-spacer {
+    opacity: 1;
+  }
+</style>
+
   
 <!-- =========================================
-     3.0.2 HERO HTML
+     3.0.2 HERO HTML (STRIPE-STYLE)
 ========================================= -->
-  
+
 <section id="tw-hero" class="tw-hero">
 
   <!-- 3.0.2.0 PRE-HOOK TEXT -->
@@ -711,184 +777,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </section>
 
+<!-- 3.0.3 HERO → NEXT SECTION SPACER -->
+<div class="tw-hero-spacer"></div>
 
   <!-- 3.0.3 HERO JS -->
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-
-  /* ELEMENT HOOKS */
-  const hero = document.getElementById("tw-hero");
+document.addEventListener("scroll", () => {
+  const hero = document.querySelector(".tw-hero");
   const scene = document.querySelector(".tw-hero-scene");
   const ui = document.querySelector(".tw-hero-ui");
-  const overlay1 = document.querySelector(".tw-overlay-1");
-  const overlay2 = document.querySelector(".tw-overlay-2");
-  const cta = document.querySelector(".tw-hero-cta");
-  const readmore = document.querySelector(".tw-hero-readmore");
   const scrollCue = document.querySelector(".tw-hero-scrollcue");
-  const prehook = document.querySelector(".tw-hero-prehook");
 
-  /* PLAYHEAD */
-  let playhead = 0;
-  let targetPlayhead = 0;
+  const maxScroll = window.innerHeight * 0.8;
+  const scrollY = window.scrollY;
+  const progress = Math.min(scrollY / maxScroll, 1);
 
-  /* SCROLL LISTENER */
-  window.addEventListener("scroll", () => {
-    const rect = hero.getBoundingClientRect();
-    const viewport = window.innerHeight;
+  // Stripe-style zoom
+  const scale = 1 + progress * 0.25;
+  scene.style.transform = `scale(${scale})`;
 
-    const progress = Math.min(
-      Math.max((viewport - rect.top) / rect.height, 0),
-      1
-    );
+  // Fade UI out
+  ui.style.opacity = 1 - progress * 1.4;
 
-    targetPlayhead = progress;
+  // Fade scroll cue out
+  scrollCue.style.opacity = 1 - progress * 2;
 
-    if (progress < 0.02 && !prehook.classList.contains("show")) {
-      prehook.classList.add("show");
-      prehook.classList.remove("hide");
-    }
-  });
-
-  /* LERP */
-  function lerp(a, b, t) {
-    return a + (b - a) * t;
+  // Release state
+  if (progress >= 1) {
+    hero.classList.add("released");
+  } else {
+    hero.classList.remove("released");
   }
-
-  /* MAIN LOOP */
-  function animate() {
-
-    const width = window.innerWidth;
-    const isMobile = width < 768;
-    const isTablet = width >= 768 && width < 1024;
-    const isDesktop = width >= 1024;
-
-    /* ============================
-       MOBILE MODE (STATIC HERO)
-       ============================ */
-    if (isMobile) {
-
-      /* AUTO FULL-BLEED VS CONTAIN */
-      const aspect = window.innerWidth / window.innerHeight;
-
-      if (aspect < 0.65) {
-        /* Tall phones → full bleed */
-        scene.style.objectFit = "cover";
-      } else {
-        /* Wide phones → contain */
-        scene.style.objectFit = "contain";
-      }
-
-      /* STATIC SETTINGS */
-      scene.style.transform = "scale(1)";
-      scene.style.position = "relative";
-      ui.style.position = "relative";
-
-      overlay1.style.opacity = 1;
-      overlay2.style.opacity = 1;
-      cta.style.opacity = 1;
-
-      scrollCue.style.opacity = 0;
-      prehook.style.opacity = 0;
-
-      hero.classList.remove("released");
-
-      requestAnimationFrame(animate);
-      return;
-    }
-
-    /* ============================
-       TABLET MODE (LIGHT ANIMATION)
-       ============================ */
-    if (isTablet) {
-
-      playhead = targetPlayhead;
-
-      const scale = lerp(2.2, 1.1, playhead);
-      scene.style.transform = `scale(${scale})`;
-
-      overlay1.style.opacity =
-        playhead < 0.04 ? 0 :
-        playhead < 0.18 ? (playhead - 0.04) * 6 :
-        1;
-
-      overlay2.style.opacity =
-        playhead < 0.20 ? 0 :
-        playhead < 0.40 ? (playhead - 0.20) * 5 :
-        1;
-
-      cta.style.opacity = playhead > 0.60 ? (playhead - 0.60) * 3 : 0;
-
-      scrollCue.style.opacity = Math.max(1 - playhead * 2.2, 0);
-
-      if (playhead >= 0.90) {
-        hero.classList.add("released");
-        scene.style.position = "absolute";
-        ui.style.position = "absolute";
-      } else if (playhead <= 0.85) {
-        hero.classList.remove("released");
-        scene.style.position = "fixed";
-        ui.style.position = "fixed";
-      }
-
-      requestAnimationFrame(animate);
-      return;
-    }
-
-    /* ============================
-       DESKTOP MODE (FULL CINEMATIC)
-       ============================ */
-    if (isDesktop) {
-
-      playhead = targetPlayhead;
-
-      const scale = lerp(2.4, 1.0, playhead);
-      scene.style.transform = `scale(${scale})`;
-
-      overlay1.style.opacity =
-        playhead < 0.05 ? 0 :
-        playhead < 0.20 ? (playhead - 0.05) * 6 :
-        playhead < 0.35 ? 1 :
-        Math.max(1 - (playhead - 0.35) * 5, 0);
-
-      overlay2.style.opacity =
-        playhead < 0.25 ? 0 :
-        playhead < 0.45 ? (playhead - 0.25) * 5 :
-        1;
-
-      cta.style.opacity = playhead > 0.70 ? (playhead - 0.70) * 3 : 0;
-
-      scrollCue.classList.toggle("float", playhead < 0.12);
-      scrollCue.style.opacity = Math.max(1 - playhead * 3, 0);
-
-      if (playhead >= 0.94) {
-        hero.classList.add("released");
-        scene.style.position = "absolute";
-        ui.style.position = "absolute";
-      } 
-      else if (playhead <= 0.90) {
-        hero.classList.remove("released");
-        scene.style.position = "fixed";
-        ui.style.position = "fixed";
-      }
-
-      readmore.classList.toggle("show", playhead > 0.70);
-
-      if (playhead < 0.18) {
-        prehook.classList.add("show");
-        prehook.classList.remove("hide");
-      } else {
-        prehook.classList.remove("show");
-        prehook.classList.add("hide");
-      }
-
-      requestAnimationFrame(animate);
-      return;
-    }
-
-    requestAnimationFrame(animate);
-  }
-
-  animate();
 });
 </script>
 
@@ -2187,6 +2106,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <script>
   document.getElementById('tw-year').textContent = new Date().getFullYear();
 </script>
+
 
 
 
