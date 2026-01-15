@@ -438,6 +438,8 @@
       <a href="#businesses">For Businesses</a>
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
+      <a href="/login" class="tw-nav-cta">Log In</a>
+      <a href="/signup" class="tw-nav-cta">Sign Up</a>
       
       <!-- 2.9.2.1 NAV CTA BUTTON -->
       <a href="#get-started" class="tw-nav-cta">Get Started</a>
@@ -447,137 +449,152 @@
 </header>
 
 <!-- =========================================
-     3.0 HERO CINEMATIC — SINGLE SVG ZOOM VERSION
+     3.0 HERO CINEMATIC — STRIPE-STYLE
 ========================================= -->
 
-<!-- 3.0.1 HERO CSS -->
 <style>
+  /* 3.0.1 HERO CONTAINER */
+  .tw-hero {
+    position: relative;
+    width: 100%;
+    height: 200vh;           /* scroll runway */
+    overflow: hidden;
+    background: #040714;
+  }
 
-/* -------------------------------------------
-   3.0.1.0 PRE-HOOK TEXT
-------------------------------------------- */
-.tw-hero-prehook {
-  position: absolute;
-  top: 80px;
-  width: 100%;
-  text-align: center;
-  font-size: 28px;
-  font-weight: 500;
-  opacity: 0.95;
-  z-index: 10;
-}
+  .tw-hero.released {
+    height: 100vh;
+  }
 
-.tw-hero-prehook.show { opacity: 1; }
-.tw-hero-prehook.hide { opacity: 0; }
+  /* 3.0.2 HERO SCENE (SVG) */
+  .tw-hero-scene {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    transform-origin: center center;
+    transform: scale(1.25);
+    background-color: #040714;
+    z-index: 1;
+    will-change: transform;
+  }
 
-/* -------------------------------------------
-   3.0.1.1 HERO CONTAINER
-------------------------------------------- */
-.tw-hero {
-  position: relative;
-  width: 100%;
-  height: 200vh;
-  overflow: hidden;
-  background: #040714;
-}
+  /* 3.0.3 HERO UI LAYER */
+  .tw-hero-ui {
+    position: fixed;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    color: #ffffff;
+    text-align: center;
+    opacity: 1;
+    transition: opacity 0.3s ease-out;
+  }
 
-.tw-hero.released {
-  height: 100vh;
-}
+  /* 3.0.4 PRE-HOOK TEXT */
+  .tw-hero-prehook {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 500;
+    opacity: 0.95;
+    z-index: 3;
+    pointer-events: none;
+  }
 
-/* -------------------------------------------
-   3.0.1.2 HERO SCENE (SINGLE SVG)
-------------------------------------------- */
-.tw-hero-scene {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  object-fit: cover;
-  transform-origin: top center;
-  background-color: #040714;
-  z-index: 1;
-  will-change: transform;
-}
+  /* 3.0.5 TEXT OVERLAYS */
+  .tw-hero-overlay {
+    font-size: 2.2rem;
+    font-weight: 600;
+    opacity: 1;
+    max-width: 80%;
+    margin: 0 auto;
+    transition: opacity 0.3s ease-out;
+  }
 
-/* -------------------------------------------
-   3.0.1.3 HERO UI LAYER
-------------------------------------------- */
-.tw-hero-ui {
-  position: fixed;
-  inset: 0;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-  color: #ffffff;
-  text-align: center;
-}
+  .tw-overlay-1 { margin-bottom: 1rem; }
+  .tw-overlay-2 { margin-top: 1rem; }
 
-/* -------------------------------------------
-   3.0.1.4 TEXT OVERLAYS
-------------------------------------------- */
-.tw-hero-overlay {
-  font-size: 2.4rem;
-  font-weight: 600;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  max-width: 80%;
-}
+  /* 3.0.6 CTA BUTTON */
+  .tw-hero-cta {
+    margin-top: 2rem;
+    padding: 0.9rem 1.8rem;
+    background: #ff6a00;
+    color: #fff;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    opacity: 1;
+    transition: opacity 0.3s ease-out;
+    pointer-events: auto;
+  }
 
-.tw-overlay-1 { margin-bottom: 1rem; }
-.tw-overlay-2 { margin-top: 1rem; }
+  .tw-hero-cta.breathe {
+    animation: tw-breathe 2.4s ease-in-out infinite;
+  }
 
-/* -------------------------------------------
-   3.0.1.5 CTA BUTTON
-------------------------------------------- */
-.tw-hero-cta {
-  margin-top: 2rem;
-  padding: 0.9rem 1.8rem;
-  background: #ff6a00;
-  color: #fff;
-  border-radius: 8px;
-  font-size: 1.2rem;
-  font-weight: 600;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  pointer-events: auto;
-}
+  @keyframes tw-breathe {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+    100% { transform: scale(1); }
+  }
 
-.tw-hero-cta.breathe {
-  animation: tw-breathe 2.4s ease-in-out infinite;
-}
+  /* 3.0.7 SCROLL CUE */
+  .tw-hero-scrollcue {
+    position: fixed;
+    bottom: 2rem;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+    opacity: 1;
+    color: #ffffff;
+    z-index: 3;
+    transition: opacity 0.3s ease-out;
+  }
 
-@keyframes tw-breathe {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.06); }
-  100% { transform: scale(1); }
-}
+  .tw-hero-scrollcue.float {
+    animation: tw-float 1.8s ease-in-out infinite;
+  }
 
-/* -------------------------------------------
-   3.0.1.6 SCROLL CUE
-------------------------------------------- */
-.tw-hero-scrollcue {
-  position: absolute;
-  bottom: 2rem;
-  font-size: 1rem;
-  opacity: 1;
-  transition: opacity 0.4s ease;
-}
+  @keyframes tw-float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+    100% { transform: translateY(0); }
+  }
 
-.tw-hero-scrollcue.float {
-  animation: tw-float 1.8s ease-in-out infinite;
-}
+  /* 3.0.8 HERO → NEXT SECTION SPACER */
+  .tw-hero-spacer {
+    height: 120px;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
 
-@keyframes tw-float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(8px); }
-  100% { transform: translateY(0); }
-}
+  .tw-hero.released + .tw-hero-spacer {
+    opacity: 1;
+  }
 
+  /* 3.0.9 RESPONSIVE TWEAKS */
+  @media (max-width: 768px) {
+    .tw-hero-overlay {
+      font-size: 1.6rem;
+      max-width: 90%;
+    }
+
+    .tw-hero-prehook {
+      font-size: 18px;
+      top: 70px;
+    }
+  }
 </style>
 
 
@@ -746,7 +763,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   <!-- 3.0.2.2 HERO UI -->
   <div class="tw-hero-ui">
-
     <div class="tw-hero-overlay tw-overlay-1">
       Get the help you need, exactly when you need it.
     </div>
@@ -755,18 +771,13 @@ document.addEventListener("DOMContentLoaded", () => {
       Tyniweb connects people and AI to move work forward.
     </div>
     
-    <a href="#get-started" class="tw-hero-cta">
+    <a href="#get-started" class="tw-hero-cta tw-btn">
       Start in seconds
     </a>
-
-    <div class="tw-hero-readmore">
-      Read more ↓
-    </div>
-
   </div>
 
-  <!-- 3.0.2.7 SCROLL CUE -->
-  <div class="tw-hero-scrollcue">
+  <!-- 3.0.2.3 SCROLL CUE -->
+  <div class="tw-hero-scrollcue float">
     Scroll ↓
   </div>
 
@@ -775,47 +786,57 @@ document.addEventListener("DOMContentLoaded", () => {
 <!-- 3.0.3 HERO → NEXT SECTION SPACER -->
 <div class="tw-hero-spacer"></div>
 
+
   <!-- 3.0.3 HERO JS -->
 <script>
-  document.addEventListener("scroll", () => {
-    const hero = document.querySelector(".tw-hero");
-    const scene = document.querySelector(".tw-hero-scene");
-    const ui = document.querySelector(".tw-hero-ui");
-    const scrollCue = document.querySelector(".tw-hero-scrollcue");
-  
+  (function() {
+    const hero      = document.getElementById('tw-hero');
+    const scene     = document.querySelector('.tw-hero-scene');
+    const ui        = document.querySelector('.tw-hero-ui');
+    const overlays  = document.querySelectorAll('.tw-hero-overlay');
+    const scrollCue = document.querySelector('.tw-hero-scrollcue');
+
+    if (!hero || !scene || !ui) return;
+
     const maxScroll = window.innerHeight * 1.2;
-    const scrollY = window.scrollY;
-    const progress = Math.min(scrollY / maxScroll, 1);
-  
-    // Stripe-style zoom
-    const scale = 2 - progress * 0.15;
-    scene.style.transform = `scale(${scale})`;
-  
-    // Fade UI out
-    ui.style.opacity = 1 - progress * 0.8;
-  
-    // Fade scroll cue out
-    scrollCue.style.opacity = 1 - progress * 2;
-  
-    // Overlay fade
-    const overlays = document.querySelectorAll(".tw-hero-overlay");
-    overlays.forEach(el => {
-      el.style.opacity = 1 - progress * 1.2;
-    });
-  
-    if (progress >= 1) {
-      hero.classList.add("released");
-    } else {
-      hero.classList.remove("released");
-    
-      // Reset hero state when scrolling back up
-      scene.style.transform = `scale(1.25)`;
-      ui.style.opacity = 1;
-      scrollCue.style.opacity = 1;
-      overlays.forEach(el => el.style.opacity = 1);
+    const minScale  = 1.0;
+    const maxScale  = 1.25;
+
+    function onScroll() {
+      const scrollY  = window.scrollY;
+      const progress = Math.min(Math.max(scrollY / maxScroll, 0), 1);
+
+      // Zoom: 1.25 → 1.0
+      const scale = maxScale - (maxScale - minScale) * progress;
+      scene.style.transform = `scale(${scale})`;
+
+      // UI fade
+      const uiOpacity = 1 - progress * 0.9;
+      ui.style.opacity = uiOpacity;
+
+      // Overlays fade
+      overlays.forEach(el => {
+        el.style.opacity = Math.max(0, 1 - progress * 1.2);
+      });
+
+      // Scroll cue fade
+      if (scrollCue) {
+        scrollCue.style.opacity = Math.max(0, 1 - progress * 2);
+      }
+
+      // Release hero
+      if (progress >= 1) {
+        hero.classList.add('released');
+      } else {
+        hero.classList.remove('released');
+      }
     }
-  });
+
+    window.addEventListener('scroll', onScroll);
+    window.addEventListener('load', onScroll);
+  })();
 </script>
+
 
 <!-- 3.0.3 HERO → NEXT SECTION SPACER -->
 <div class="tw-hero-spacer"></div>
@@ -1969,6 +1990,10 @@ document.addEventListener("DOMContentLoaded", () => {
       <a href="#pricing">Pricing</a>
       <a href="#faq">FAQ</a>
       <a href="#contact">Contact</a>
+      <a href="/terms">Terms</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/cookies">Cookies</a>
+      <a href="/beta">Beta Agreement</a>
     </div>
 
     <!-- Legal -->
@@ -1987,154 +2012,132 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 
 <!-- =========================================
-     6.0 JAVASCRIPT ENGINE
+     6.0 JAVASCRIPT ENGINE — Tyniweb v1
 ========================================= -->
-
-<!-- -----------------------------------------
-     6.1 INTERSECTION OBSERVER — ANIMATIONS
------------------------------------------- -->
 <script>
-  const animatedElements = document.querySelectorAll('.tw-animate, .tw-stagger');
+  // -----------------------------------------
+  // 6.1 INTERSECTION OBSERVER — ANIMATIONS
+  // -----------------------------------------
+  (function() {
+    const animatedElements = document.querySelectorAll('.tw-animate, .tw-stagger');
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.2 });
+    if (!('IntersectionObserver' in window) || !animatedElements.length) return;
 
-  animatedElements.forEach(el => observer.observe(el));
-</script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.2 });
 
-<!-- -----------------------------------------
-     6.2 MOBILE DRAWER LOGIC
------------------------------------------- -->
-<script>
-  // Toggle drawer open/close
-  function twToggleMenu() {
-    const body = document.body;
-    body.classList.toggle('tw-menu-open');
-    body.style.overflow = body.classList.contains('tw-menu-open') ? 'hidden' : '';
-  }
+    animatedElements.forEach(el => observer.observe(el));
+  })();
 
-  // Close drawer when overlay is clicked
-  const overlay = document.getElementById('tw-menu-overlay');
-  if (overlay) overlay.addEventListener('click', twToggleMenu);
 
-  // Close drawer when any drawer link is clicked
-  document.querySelectorAll('#tw-mobile-drawer a')
-    .forEach(link => link.addEventListener('click', () => {
+  // -----------------------------------------
+  // 6.2 MOBILE DRAWER LOGIC
+  // -----------------------------------------
+  (function() {
+    function twToggleMenu() {
+      const body = document.body;
+      body.classList.toggle('tw-menu-open');
+      body.style.overflow = body.classList.contains('tw-menu-open') ? 'hidden' : '';
+    }
+
+    // Expose globally if needed by header button
+    window.twToggleMenu = twToggleMenu;
+
+    // Close drawer when overlay is clicked
+    const overlay = document.getElementById('tw-menu-overlay');
+    if (overlay) overlay.addEventListener('click', twToggleMenu);
+
+    // Close drawer when any drawer link is clicked
+    const drawerLinks = document.querySelectorAll('#tw-mobile-drawer a');
+    drawerLinks.forEach(link => link.addEventListener('click', () => {
       if (document.body.classList.contains('tw-menu-open')) twToggleMenu();
     }));
-</script>
+  })();
 
-<!-- -----------------------------------------
-     6.3 HEADER SCROLL LOGIC
------------------------------------------- -->
-<script>
-  function twUpdateHeaderScrollState() {
-    const header = document.querySelector('.tw-header');
-    if (!header) return;
 
-    if (window.scrollY > 40) header.classList.add('scrolled');
-    else header.classList.remove('scrolled');
-  }
+  // -----------------------------------------
+  // 6.3 HEADER SCROLL LOGIC
+  // -----------------------------------------
+  (function() {
+    function twUpdateHeaderScrollState() {
+      const header = document.querySelector('.tw-header');
+      if (!header) return;
 
-  window.addEventListener('scroll', twUpdateHeaderScrollState);
-  window.addEventListener('load', twUpdateHeaderScrollState);
-</script>
-
-<!-- -----------------------------------------
-     6.4 Hero Animation Logic (Legacy — Removed v3.1.7)
------------------------------------------- -->
-<script>
-  const heroBg = document.querySelector('.tw-hero-bg');
-  const cta = document.querySelector('.tw-hero-cta');
-  const scrollCue = document.querySelector('.tw-hero-scroll-cue');
-
-  // Desktop vs mobile tuning
-  const isMobile = window.innerWidth < 768;
-  const robotIn = isMobile ? 65 : 88;
-  const humanIn = isMobile ? 70 : 92;
-
-  window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY;
-
-    // 1. Background parallax
-    const offset = scrollY * 0.2;
-    heroBg.style.transform = `translateY(${offset}px)`;
-
-    // 2. Character movement trigger
-    const triggerPoint = 200;
-
-    if (scrollY > triggerPoint) {
-      // Move characters inward
-      robot.style.transform = `translateY(-50%) translateX(${robotIn}%)`;
-      human.style.transform = `translateY(-50%) translateX(-${humanIn}%)`;
-
-      // Glow brightens + pulses
-      glow.style.opacity = '1';
-      glow.classList.add('pulse');
-
-      // CTA fades in
-      cta.style.opacity = '1';
-
-      // Hide scroll cue
-      if (scrollCue) scrollCue.classList.add('hidden');
-
-    } else {
-      // Reset characters
-      robot.style.transform = 'translateY(-50%) translateX(0)';
-      human.style.transform = 'translateY(-50%) translateX(0)';
-
-      // Glow faint
-      glow.style.opacity = '0.15';
-      glow.classList.remove('pulse');
-
-      // CTA hidden
-      cta.style.opacity = '0';
-
-      // Show scroll cue
-      if (scrollCue) scrollCue.classList.remove('hidden');
+      if (window.scrollY > 40) header.classList.add('scrolled');
+      else header.classList.remove('scrolled');
     }
-  });
+
+    window.addEventListener('scroll', twUpdateHeaderScrollState);
+    window.addEventListener('load', twUpdateHeaderScrollState);
+  })();
+
+
+  // -----------------------------------------
+  // 6.4 HERO ANIMATION ENGINE — STRIPE-STYLE
+  // -----------------------------------------
+  (function() {
+    const hero      = document.getElementById('tw-hero');
+    const scene     = document.querySelector('.tw-hero-scene');
+    const ui        = document.querySelector('.tw-hero-ui');
+    const overlays  = document.querySelectorAll('.tw-hero-overlay');
+    const scrollCue = document.querySelector('.tw-hero-scrollcue');
+
+    if (!hero || !scene || !ui) return;
+
+    const maxScroll = window.innerHeight * 1.2;
+    const minScale  = 1.0;
+    const maxScale  = 1.25;
+
+    function onScroll() {
+      const scrollY  = window.scrollY;
+      const progress = Math.min(Math.max(scrollY / maxScroll, 0), 1);
+
+      // 6.4.1 Zoom: 1.25 → 1.0
+      const scale = maxScale - (maxScale - minScale) * progress;
+      scene.style.transform = `scale(${scale})`;
+
+      // 6.4.2 UI fade
+      const uiOpacity = 1 - progress * 0.9;
+      ui.style.opacity = uiOpacity;
+
+      // 6.4.3 Overlays fade
+      overlays.forEach(el => {
+        el.style.opacity = Math.max(0, 1 - progress * 1.2);
+      });
+
+      // 6.4.4 Scroll cue fade
+      if (scrollCue) {
+        scrollCue.style.opacity = Math.max(0, 1 - progress * 2);
+      }
+
+      // 6.4.5 Release hero height
+      if (progress >= 1) {
+        hero.classList.add('released');
+      } else {
+        hero.classList.remove('released');
+      }
+    }
+
+    window.addEventListener('scroll', onScroll);
+    window.addEventListener('load', onScroll);
+  })();
+
+
+  // -----------------------------------------
+  // 6.5 FOOTER AUTO-YEAR
+  // -----------------------------------------
+  (function() {
+    const yearEl = document.getElementById('tw-year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+  })();
+
+  // -----------------------------------------
+  // 6.6 VERSION STAMP (OPTIONAL)
+  // -----------------------------------------
+  console.log('Tyniweb JS Engine v1.0.0 loaded');
 </script>
-
-<!-- -----------------------------------------
-     6.5 AUTO‑YEAR (already included in Section 5)
------------------------------------------- -->
-<script>
-  document.getElementById('tw-year').textContent = new Date().getFullYear();
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
