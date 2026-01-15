@@ -818,7 +818,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       cta.style.opacity = playhead > 0.60 ? (playhead - 0.60) * 3 : 0;
 
-      scrollCue.style.opacity = Math.max(1 - playhead * 3, 0);
+      scrollCue.style.opacity = Math.max(1 - playhead * 2.2, 0);
 
       if (playhead >= 0.90) {
         hero.classList.add("released");
@@ -892,11 +892,43 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
+<!-- 3.0.3 HERO → NEXT SECTION SPACER -->
+<div class="tw-hero-spacer"></div>
+
 <!-- =========================================
      4.0 PAGE MODULES
 ========================================= -->
 
 <style>
+
+/* -------------------------------------------
+   4.0.1 HERO → NEXT SECTION SPACER
+------------------------------------------- */
+.tw-hero-spacer {
+  height: 120px;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+/* When hero releases, fade in spacer */
+.tw-hero.released + .tw-hero-spacer {
+  opacity: 1;
+}
+
+/* -------------------------------------------
+   4.0.2 HOW IT WORKS — SLIDE-IN TRANSITION
+------------------------------------------- */
+.tw-how {
+  transform: translateY(40px);
+  opacity: 0;
+  transition: all 0.8s ease;
+}
+
+/* When hero releases, animate How It Works upward */
+.tw-hero.released + .tw-hero-spacer + .tw-how {
+  transform: translateY(0);
+  opacity: 1;
+}
 
 /* -------------------------------------------
    4.1 HOW IT WORKS — MODULE
@@ -2155,6 +2187,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <script>
   document.getElementById('tw-year').textContent = new Date().getFullYear();
 </script>
+
 
 
 
