@@ -625,33 +625,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
-  
-<!-- =========================================
-     CURRENT VERSION NUMBER
-========================================= -->
-
-  <script>
-    const currentVersion = "3.1.5"; // update this each release
-    const lastSeenVersion = localStorage.getItem("tw-last-version");
-  
-    // If first visit or version changed
-    if (lastSeenVersion !== currentVersion) {
-      document.body.classList.add("tw-show-whats-new");
-  
-      // Save new version
-      localStorage.setItem("tw-last-version", currentVersion);
-    }
-  </script>
-
-  <div class="tw-whats-new-badge">
-    New in this update!
-  </div>
-
-  
-<!-- =========================================
-     3.3 VERSION TRACKING SYSTEM
-========================================= -->
-  
 <!-- =========================================
      VERSION TRACKING SYSTEM (CLEAN + CORRECT)
 ========================================= -->
@@ -690,7 +663,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.classList.add("tw-show-whats-new");
     localStorage.setItem("tw-last-version", currentVersion);
   }
-</script>  
+</script>
   
 <!-- =========================================
      3.0.2 HERO HTML
@@ -2182,6 +2155,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <script>
   document.getElementById('tw-year').textContent = new Date().getFullYear();
 </script>
+
 
 
 
