@@ -1,463 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- =========================================
-       1.0 DOCUMENT META + GLOBAL HEAD SETUP
-  ========================================== -->
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tyniweb — AI‑Powered Work</title>
+  <title>Tyniweb — Everything grows from a small start</title>
 
-  <!-- 1.1 Favicon -->
-  <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/tyni/tyniweb/main/favicon.ico">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- 1.2 Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <!-- =========================================
-       1.3 GLOBAL CSS
-  ========================================== -->
+  <!-- Global Styles -->
   <style>
-
-  /* -------------------------------------------
-     1.3.1 BRAND VARIABLES
-  ------------------------------------------- */
-  :root {
-    --brand-primary: #1a1f36;
-    --brand-accent: #ff6a00;
-    --brand-bg: #f4f7fa;
-    --brand-text: #1a1f36;
-  }
-
-  /* -------------------------------------------
-     1.3.2 BASE STYLES
-  ------------------------------------------- */
-  body {
-    margin: 0;
-    font-family: 'Quicksand', sans-serif;
-  }
-
-  /* -------------------------------------------
-     1.3.3 GLOBAL ANIMATIONS
-  ------------------------------------------- */
-  .tw-animate {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-  }
-
-  .tw-animate.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .tw-card-hover {
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-  }
-
-  .tw-card-hover:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 24px rgba(0,0,0,0.12);
-  }
-
-  /* Hero fade‑in */
-  .tw-hero-inner {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: heroFade 1.2s ease forwards;
-    animation-delay: 0.3s;
-  }
-
-  @keyframes heroFade {
-    to {
-      opacity: 1;
-      transform: translateY(0);
+    body {
+      margin: 0;
+      font-family: 'Quicksand', sans-serif;
+      background: #ffffff;
+      color: #222;
     }
-  }
 
-  /* -------------------------------------------
-     1.3.4 STAGGER ENGINE
-  ------------------------------------------- */
-  .tw-stagger > * {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-  }
+    /* -----------------------------------------
+       1.0 HEADER (Simple + Stable)
+    ----------------------------------------- */
+    .tw-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 70px;
+      background: #040714;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 1000;
+      transition: background 0.3s ease;
+    }
 
-  .tw-stagger.visible > * {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    .tw-header.scrolled {
+      background: #02040a;
+    }
 
-  .tw-stagger.visible > *:nth-child(1) { transition-delay: 0.1s; }
-  .tw-stagger.visible > *:nth-child(2) { transition-delay: 0.2s; }
-  .tw-stagger.visible > *:nth-child(3) { transition-delay: 0.3s; }
-  .tw-stagger.visible > *:nth-child(4) { transition-delay: 0.4s; }
-  .tw-stagger.visible > *:nth-child(5) { transition-delay: 0.5s; }
-  .tw-stagger.visible > *:nth-child(6) { transition-delay: 0.6s; }
+    .tw-logo {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
 
-  /* -------------------------------------------
-     1.3.5 SMOOTH SCROLL
-  ------------------------------------------- */
-  html {
-    scroll-behavior: smooth;
-    scroll-padding-top: 80px;
-  }
+    .tw-nav {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
 
-  /* -------------------------------------------
-     1.3.6 BUTTON MICRO‑INTERACTIONS
-  ------------------------------------------- */
-  .tw-btn,
-  .tw-hero-cta,
-  .tw-contact-cta,
-  .tw-pricing-cta,
-  .tw-pricing-cta-featured {
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
+    .tw-nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+    }
 
-  .tw-btn:hover,
-  .tw-hero-cta:hover,
-  .tw-contact-cta:hover,
-  .tw-pricing-cta:hover,
-  .tw-pricing-cta-featured:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-  }
+    .tw-nav-cta {
+      padding: 8px 16px;
+      background: #ff6a00;
+      border-radius: 6px;
+      font-weight: 600;
+    }
 
-  .tw-btn:active,
-  .tw-hero-cta:active,
-  .tw-contact-cta:active,
-  .tw-pricing-cta:active,
-  .tw-pricing-cta-featured:active {
-    transform: translateY(0);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  }
+    /* -----------------------------------------
+       1.1 MOBILE MENU BUTTON
+    ----------------------------------------- */
+    .tw-menu-btn {
+      display: none;
+      font-size: 26px;
+      cursor: pointer;
+    }
 
-  .tw-btn::after,
-  .tw-hero-cta::after,
-  .tw-contact-cta::after,
-  .tw-pricing-cta::after,
-  .tw-pricing-cta-featured::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at center, rgba(255,255,255,0.25), transparent 70%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
+    @media (max-width: 768px) {
+      .tw-nav {
+        display: none;
+      }
+      .tw-menu-btn {
+        display: block;
+      }
+    }
 
-  .tw-btn:hover::after,
-  .tw-hero-cta:hover::after,
-  .tw-contact-cta:hover::after,
-  .tw-pricing-cta:hover::after,
-  .tw-pricing-cta-featured:hover::after {
-    opacity: 1;
-  }
+    /* -----------------------------------------
+       1.2 MOBILE DRAWER
+    ----------------------------------------- */
+    #tw-menu-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 900;
+    }
 
+    body.tw-menu-open #tw-menu-overlay {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #tw-mobile-drawer {
+      position: fixed;
+      top: 0;
+      right: -260px;
+      width: 260px;
+      height: 100vh;
+      background: #040714;
+      padding: 40px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      transition: right 0.3s ease;
+      z-index: 1001;
+    }
+
+    body.tw-menu-open #tw-mobile-drawer {
+      right: 0;
+    }
+
+    #tw-mobile-drawer a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .tw-drawer-cta {
+      background: #ff6a00;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-weight: 600;
+      display: inline-block;
+    }
   </style>
 </head>
 
-  <!-- =========================================
-     2.0 HEADER SYSTEM
-========================================= -->
+<body>
 
-<style>
+  <!-- -----------------------------------------
+       1.0 HEADER
+  ----------------------------------------- -->
+  <header class="tw-header">
+    <div class="tw-logo">Tyniweb</div>
 
-/* -------------------------------------------
-   2.1 BETA BANNER
-------------------------------------------- */
-.tw-beta-banner {
-  width: 100%;
-  background: var(--brand-accent);
-  color: #ffffff;
-  text-align: center;
-  padding: 10px 16px;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-  position: relative;
-  z-index: 1001;
-}
-
-@media (max-width: 480px) {
-  .tw-beta-banner {
-    font-size: 12px;
-    padding: 12px 10px;
-    white-space: normal;
-  }
-}
-
-/* -------------------------------------------
-   2.2 HEADER CONTAINER
-------------------------------------------- */
-.tw-header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  padding: 18px 24px;
-  display: flex;
-  justify-content: center;
-  z-index: 2002;
-  background: transparent;
-  transition: background 0.3s ease, box-shadow 0.3s ease;
-  margin-top: 40px; /* clears beta banner on desktop */
-}
-
-.tw-header.scrolled {
-  background: #ffffff !important;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-}
-
-.tw-header-container {
-  width: 100%;
-  max-width: 1200px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-}
-
-/* -------------------------------------------
-   2.3 BRAND LOGO
-------------------------------------------- */
-.tw-logo {
-  cursor: pointer;
-}
-
-.tw-logo-img {
-  height: 44px;
-  width: auto;
-  opacity: 1 !important;
-  transition: opacity 0.25s ease, transform 0.25s ease;
-}
-
-/* Swap to blue logo on scroll */
-.tw-header.scrolled .tw-logo-img {
-  content: url("https://raw.githubusercontent.com/tyni/tyniweb/main/tyniweb_LOGO_Nov_2025_Blue_QuicksandMed.svg");
-}
-
-/* -------------------------------------------
-   2.4 DESKTOP NAVIGATION
-------------------------------------------- */
-.tw-nav a {
-  margin-right: 24px;
-  text-decoration: none;
-  font-weight: 500;
-  color: #ffffff;
-  transition: color 0.25s ease;
-}
-
-.tw-header.scrolled .tw-nav a {
-  color: var(--brand-text);
-}
-
-@media (max-width: 1100px) {
-  .tw-nav {
-    display: none;
-  }
-}
-
-/* -------------------------------------------
-   2.5 MOBILE HEADER LAYOUT
-------------------------------------------- */
-@media (max-width: 768px) {
-
-  .tw-header {
-    margin-top: 0;
-    padding: 12px 16px;
-    background: #ffffff;
-    height: 64px;
-  }
-
-  .tw-header.scrolled {
-    height: 64px;
-  }
-
-  .tw-header-container {
-    justify-content: flex-start;
-    gap: 16px;
-  }
-
-  .tw-logo-img {
-    height: 32px;
-  }
-
-  .tw-nav {
-    display: none;
-  }
-}
-
-/* -------------------------------------------
-   2.6 MENU TRIGGER ICONS
-------------------------------------------- */
-.tw-menu-trigger {
-  position: relative;
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-}
-
-.tw-menu-icon-blue,
-.tw-menu-icon-white {
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  transition: opacity 0.35s ease;
-}
-
-/* Default state */
-.tw-menu-icon-blue { opacity: 1; }
-.tw-menu-icon-white { opacity: 0; }
-
-/* Menu open state */
-.tw-menu-open .tw-menu-icon-blue { opacity: 0 !important; }
-.tw-menu-open .tw-menu-icon-white { opacity: 1 !important; }
-
-/* Scroll state */
-.tw-header.scrolled .tw-menu-icon-blue { opacity: 0; }
-.tw-header.scrolled .tw-menu-icon-white { opacity: 1; }
-
-.tw-header:not(.scrolled) .tw-menu-icon-blue {
-  opacity: 1 !important;
-}
-
-.tw-header:not(.scrolled) .tw-menu-icon-white {
-  opacity: 0 !important;
-}
-
-/* Mobile icon sizing */
-@media (max-width: 768px) {
-  .tw-menu-icon-blue,
-  .tw-menu-icon-white {
-    width: 28px;
-    height: 28px;
-  }
-}
-
-/* -------------------------------------------
-   2.7 MOBILE DRAWER OVERLAY
-------------------------------------------- */
-#tw-menu-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.45);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-  z-index: 1999;
-}
-
-.tw-menu-open #tw-menu-overlay {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-/* -------------------------------------------
-   2.8 MOBILE DRAWER PANEL
-------------------------------------------- */
-#tw-mobile-drawer {
-  position: fixed;
-  top: 0;
-  right: -280px;
-  width: 260px;
-  height: 100vh;
-  background: #ffffff;
-  box-shadow: -4px 0 12px rgba(0,0,0,0.1);
-  padding: 100px 24px 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-  transition: right 0.3s ease, opacity 0.3s ease;
-  z-index: 2000;
-  visibility: hidden;
-  opacity: 0;
-}
-
-.tw-menu-open #tw-mobile-drawer {
-  right: 0;
-  visibility: visible;
-  opacity: 1;
-}
-
-#tw-mobile-drawer a {
-  font-size: 18px;
-  color: var(--brand-text);
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.tw-drawer-cta {
-  margin-top: 20px;
-  padding: 12px 18px;
-  background: var(--brand-accent);
-  color: #ffffff !important;
-  border-radius: 8px;
-  text-align: center;
-  font-weight: 600;
-}
-
-/* 2.9.2.1 NAV CTA BUTTON */
-.tw-nav-cta {
-  padding: 0.6rem 1rem;
-  background: #ff6a00;
-  color: #fff;
-  border-radius: 6px;
-  font-weight: 600;
-  margin-left: 1rem;
-}
-
-</style>
-
-<!-- =========================================
-     2.9 HEADER HTML
-========================================= -->
-
-<div class="tw-beta-banner tw-animate">
-  Tyniweb is currently in Beta — features are being added daily.
-</div>
-
-<header class="tw-header">
-  <div class="tw-header-container">
-
-    <!-- 2.9.1 BRAND LOGO -->
-    <div class="tw-logo" onclick="twToggleMenu()">
-      <img 
-        src="https://raw.githubusercontent.com/tyni/tyniweb/main/tyniweb_LOGO_Nov_2025_White_QuicksandMed.svg"
-        alt="Tyniweb Logo"
-        class="tw-logo-img"
-      >
-    </div>
-
-    <!-- 2.9.2 DESKTOP NAV -->
     <nav class="tw-nav">
-      <a href="#how-it-works">How It Works</a>
-      <a href="#workers">For Workers</a>
-      <a href="#businesses">For Businesses</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
+      <a href="#how">How it Works</a>
+      <a href="#workers">Workers</a>
+      <a href="#businesses">Businesses</a>
       <a href="/login" class="tw-nav-cta">Log In</a>
       <a href="/signup" class="tw-nav-cta">Sign Up</a>
-      
-      <!-- 2.9.2.1 NAV CTA BUTTON -->
-      <a href="#get-started" class="tw-nav-cta">Get Started</a>
     </nav>
 
+    <div class="tw-menu-btn" onclick="twToggleMenu()">☰</div>
+  </header>
+
+  <!-- -----------------------------------------
+       1.2 MOBILE DRAWER
+  ----------------------------------------- -->
+  <div id="tw-menu-overlay"></div>
+
+  <div id="tw-mobile-drawer">
+    <a href="#how">How it Works</a>
+    <a href="#workers">Workers</a>
+    <a href="#businesses">Businesses</a>
+    <a href="/login">Log In</a>
+    <a href="/signup" class="tw-drawer-cta">Sign Up</a>
   </div>
-</header>
 
 <!-- =========================================
-     3.0 HERO CINEMATIC — STRIPE-STYLE
+     2.0 HERO SYSTEM — STRIPE-STYLE CINEMATIC
 ========================================= -->
 
 <style>
-  /* 3.0.1 HERO CONTAINER */
+  /* 2.1 HERO CONTAINER */
   .tw-hero {
     position: relative;
     width: 100%;
-    height: 200vh;           /* scroll runway */
+    height: 200vh; /* scroll runway */
     overflow: hidden;
     background: #040714;
   }
@@ -466,7 +187,7 @@
     height: 100vh;
   }
 
-  /* 3.0.2 HERO SCENE (SVG) */
+  /* 2.2 HERO SCENE (SVG BACKGROUND) */
   .tw-hero-scene {
     position: fixed;
     top: 0;
@@ -481,7 +202,7 @@
     will-change: transform;
   }
 
-  /* 3.0.3 HERO UI LAYER */
+  /* 2.3 HERO UI LAYER */
   .tw-hero-ui {
     position: fixed;
     inset: 0;
@@ -497,7 +218,7 @@
     transition: opacity 0.3s ease-out;
   }
 
-  /* 3.0.4 PRE-HOOK TEXT */
+  /* 2.4 PRE-HOOK TEXT */
   .tw-hero-prehook {
     position: fixed;
     top: 80px;
@@ -511,7 +232,7 @@
     pointer-events: none;
   }
 
-  /* 3.0.5 TEXT OVERLAYS */
+  /* 2.5 TEXT OVERLAYS */
   .tw-hero-overlay {
     font-size: 2.2rem;
     font-weight: 600;
@@ -524,7 +245,7 @@
   .tw-overlay-1 { margin-bottom: 1rem; }
   .tw-overlay-2 { margin-top: 1rem; }
 
-  /* 3.0.6 CTA BUTTON */
+  /* 2.6 CTA BUTTON */
   .tw-hero-cta {
     margin-top: 2rem;
     padding: 0.9rem 1.8rem;
@@ -538,17 +259,7 @@
     pointer-events: auto;
   }
 
-  .tw-hero-cta.breathe {
-    animation: tw-breathe 2.4s ease-in-out infinite;
-  }
-
-  @keyframes tw-breathe {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.06); }
-    100% { transform: scale(1); }
-  }
-
-  /* 3.0.7 SCROLL CUE */
+  /* 2.7 SCROLL CUE */
   .tw-hero-scrollcue {
     position: fixed;
     bottom: 2rem;
@@ -572,7 +283,7 @@
     100% { transform: translateY(0); }
   }
 
-  /* 3.0.8 HERO → NEXT SECTION SPACER */
+  /* 2.8 SPACER */
   .tw-hero-spacer {
     height: 120px;
     opacity: 0;
@@ -583,7 +294,7 @@
     opacity: 1;
   }
 
-  /* 3.0.9 RESPONSIVE TWEAKS */
+  /* 2.9 RESPONSIVE */
   @media (max-width: 768px) {
     .tw-hero-overlay {
       font-size: 1.6rem;
@@ -597,171 +308,25 @@
   }
 </style>
 
-
 <!-- =========================================
-     3.1 VERSION POPUP
-========================================= -->
-
-<style>
-.tw-version-popup {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 9999;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
-}
-.tw-version-popup.show { opacity: 1; }
-.tw-version-box {
-  background: rgba(0,0,0,0.85);
-  color: #fff;
-  padding: 0.8rem 1.2rem;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-}
-</style>
-
-<div id="tw-version-popup" class="tw-version-popup">
-  <div class="tw-version-box">
-    <strong>Tyniweb Build v3.1.6</strong><br>
-    <span>Updated: Jan 14, 2026 – 2:53 PM MST</span>
-  </div>
-</div>
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const popup = document.getElementById("tw-version-popup");
-  popup.classList.add("show");
-  setTimeout(() => popup.classList.remove("show"), 3000);
-});
-</script>
-
-<!-- =========================================
-     VERSION TRACKING SYSTEM (CLEAN + CORRECT)
-========================================= -->
-
-<style>
-.tw-whats-new-badge {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #ff6a00;
-  color: #fff;
-  padding: 0.6rem 1rem;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all 0.4s ease;
-  pointer-events: none;
-  z-index: 9999;
-}
-.tw-show-whats-new .tw-whats-new-badge {
-  opacity: 1;
-  transform: translateY(0);
-}
-</style>
-
-<div class="tw-whats-new-badge">
-  New in this update!
-</div>
-
-<script>
-  const currentVersion = "3.1.6"; // update this each release
-  const lastSeenVersion = localStorage.getItem("tw-last-version");
-
-  if (lastSeenVersion !== currentVersion) {
-    document.body.classList.add("tw-show-whats-new");
-    localStorage.setItem("tw-last-version", currentVersion);
-  }
-</script>
-
-<style>
-/* =========================================
-   3.0.1 HERO CSS (STRIPE-STYLE)
-========================================= */
-  .tw-hero {
-    position: relative;
-    height: 100vh;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-  }
-  
-  .tw-hero-scene {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transform: scale(1);
-    transition: transform 0.2s ease-out;
-    will-change: transform;
-  }
-  
-  .tw-hero-ui {
-    position: relative;
-    z-index: 10;
-    opacity: 1;
-    transition: opacity 0.4s ease-out;
-  }
-  
-  .tw-hero-prehook {
-    position: absolute;
-    top: 80px;
-    width: 100%;
-    text-align: center;
-    font-size: 22px;
-    opacity: 0.9;
-    z-index: 10;
-  }
-  
-  .tw-hero-scrollcue {
-    position: absolute;
-    bottom: 40px;
-    width: 100%;
-    text-align: center;
-    opacity: 1;
-    transition: opacity 0.4s ease-out;
-    z-index: 10;
-  }
-  
-  /* Spacer between hero and next section */
-  .tw-hero-spacer {
-    height: 120px;
-    opacity: 0;
-    transition: opacity 0.6s ease;
-  }
-  
-  /* When hero releases, fade in spacer */
-  .tw-hero.released + .tw-hero-spacer {
-    opacity: 1;
-  }
-</style>
-
-  
-<!-- =========================================
-     3.0.2 HERO HTML (STRIPE-STYLE)
+     2.10 HERO HTML
 ========================================= -->
 
 <section id="tw-hero" class="tw-hero">
 
-  <!-- 3.0.2.0 PRE-HOOK TEXT -->
+  <!-- 2.10.1 PRE-HOOK -->
   <div class="tw-hero-prehook">
     Everything grows from a small start.
   </div>
 
-  <!-- 3.0.2.1 HERO SCENE -->
+  <!-- 2.10.2 HERO SCENE -->
   <img 
     src="https://raw.githubusercontent.com/tyni/tyniweb/main/background_with_avatars.svg"
     alt="Tyniweb Hero Scene"
     class="tw-hero-scene"
   >
 
-  <!-- 3.0.2.2 HERO UI -->
+  <!-- 2.10.3 HERO UI -->
   <div class="tw-hero-ui">
     <div class="tw-hero-overlay tw-overlay-1">
       Get the help you need, exactly when you need it.
@@ -771,806 +336,83 @@ document.addEventListener("DOMContentLoaded", () => {
       Tyniweb connects people and AI to move work forward.
     </div>
     
-    <a href="#get-started" class="tw-hero-cta tw-btn">
+    <a href="/signup" class="tw-hero-cta">
       Start in seconds
     </a>
   </div>
 
-  <!-- 3.0.2.3 SCROLL CUE -->
+  <!-- 2.10.4 SCROLL CUE -->
   <div class="tw-hero-scrollcue float">
     Scroll ↓
   </div>
 
 </section>
 
-<!-- 3.0.3 HERO → NEXT SECTION SPACER -->
-<div class="tw-hero-spacer"></div>
-
-
-  <!-- 3.0.3 HERO JS -->
-<script>
-  (function() {
-    const hero      = document.getElementById('tw-hero');
-    const scene     = document.querySelector('.tw-hero-scene');
-    const ui        = document.querySelector('.tw-hero-ui');
-    const overlays  = document.querySelectorAll('.tw-hero-overlay');
-    const scrollCue = document.querySelector('.tw-hero-scrollcue');
-
-    if (!hero || !scene || !ui) return;
-
-    const maxScroll = window.innerHeight * 1.2;
-    const minScale  = 1.0;
-    const maxScale  = 1.25;
-
-    function onScroll() {
-      const scrollY  = window.scrollY;
-      const progress = Math.min(Math.max(scrollY / maxScroll, 0), 1);
-
-      // Zoom: 1.25 → 1.0
-      const scale = maxScale - (maxScale - minScale) * progress;
-      scene.style.transform = `scale(${scale})`;
-
-      // UI fade
-      const uiOpacity = 1 - progress * 0.9;
-      ui.style.opacity = uiOpacity;
-
-      // Overlays fade
-      overlays.forEach(el => {
-        el.style.opacity = Math.max(0, 1 - progress * 1.2);
-      });
-
-      // Scroll cue fade
-      if (scrollCue) {
-        scrollCue.style.opacity = Math.max(0, 1 - progress * 2);
-      }
-
-      // Release hero
-      if (progress >= 1) {
-        hero.classList.add('released');
-      } else {
-        hero.classList.remove('released');
-      }
-    }
-
-    window.addEventListener('scroll', onScroll);
-    window.addEventListener('load', onScroll);
-  })();
-</script>
-
-
-<!-- 3.0.3 HERO → NEXT SECTION SPACER -->
+<!-- 2.10.5 SPACER -->
 <div class="tw-hero-spacer"></div>
 
 <!-- =========================================
-     4.0 PAGE MODULES
+     3.0 MAIN CONTENT SECTIONS
 ========================================= -->
 
-<style>
-
-/* -------------------------------------------
-   4.0.1 HERO → NEXT SECTION SPACER
-------------------------------------------- */
-.tw-hero-spacer {
-  height: 120px;
-  opacity: 0;
-  transition: opacity 0.6s ease;
-}
-
-/* When hero releases, fade in spacer */
-.tw-hero.released + .tw-hero-spacer {
-  opacity: 1;
-}
-
-/* -------------------------------------------
-   4.0.2 HOW IT WORKS — SLIDE-IN TRANSITION
-------------------------------------------- */
-.tw-how {
-  transform: translateY(40px);
-  opacity: 0;
-  transition: all 0.8s ease;
-}
-
-/* When hero releases, animate How It Works upward */
-.tw-hero.released + .tw-hero-spacer + .tw-how {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-/* -------------------------------------------
-   4.1 HOW IT WORKS — MODULE
-------------------------------------------- */
-.tw-how {
-  transform: translateY(40px);
-  opacity: 0;
-  transition: all 1.2s ease 0.3s;
-  padding: 120px 24px;
-  background: #ffffff;
-  color: var(--brand-text);
-  text-align: center;
-}
-
-.tw-how-inner {
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.tw-how-title {
-  font-size: 36px;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.tw-how-subtitle {
-  font-size: 18px;
-  opacity: 0.8;
-  margin-bottom: 60px;
-}
-
-.tw-how-steps {
-  display: flex;
-  justify-content: space-between;
-  gap: 40px;
-  flex-wrap: wrap;
-}
-
-.tw-how-step {
-  flex: 1;
-  min-width: 260px;
-  background: #f8f9fb;
-  padding: 30px;
-  border-radius: 14px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-  transition: transform 0.2s ease;
-}
-
-.tw-how-step:hover {
-  transform: translateY(-4px);
-}
-
-.tw-how-number {
-  width: 48px;
-  height: 48px;
-  background: var(--brand-accent);
-  color: #ffffff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  font-weight: 700;
-  margin: 0 auto 20px;
-}
-
-.tw-how-step h3 {
-  font-size: 20px;
-  margin-bottom: 12px;
-}
-
-.tw-how-step p {
-  font-size: 16px;
-  opacity: 0.85;
-}
-
-.tw-hero-sky {
-  background-position: center;
-  background-size: cover;
-  will-change: transform;
-}
-
-/* -------------------------------------------
-   4.2 FOR WORKERS — MODULE
-------------------------------------------- */
-.tw-workers {
-  padding: 120px 24px;
-  background: var(--brand-bg);
-  color: var(--brand-text);
-  text-align: center;
-}
-
-.tw-workers-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.tw-workers-title {
-  font-size: 36px;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.tw-workers-subtitle {
-  font-size: 18px;
-  opacity: 0.8;
-  margin-bottom: 60px;
-}
-
-.tw-workers-grid {
-  display: flex;
-  justify-content: space-between;
-  gap: 40px;
-  flex-wrap: wrap;
-}
-
-.tw-workers-card {
-  flex: 1;
-  min-width: 260px;
-  background: #ffffff;
-  padding: 40px 30px;
-  border-radius: 14px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.tw-workers-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
-}
-
-.tw-workers-icon {
-  font-size: 40px;
-  margin-bottom: 20px;
-}
-
-.tw-workers-card h3 {
-  font-size: 20px;
-  margin-bottom: 12px;
-}
-
-.tw-workers-card p {
-  font-size: 16px;
-  opacity: 0.85;
-}
-
-@keyframes twGlowPulse {
-  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.4; }
-  50% { transform: translate(-50%, -50%) scale(1.12); opacity: 0.55; }
-  100% { transform: translate(-50%, -50%) scale(1); opacity: 0.4; }
-}
-
-.tw-hero-glow.pulse {
-  animation: twGlowPulse 3.2s ease-in-out infinite;
-}
-
-/* -------------------------------------------
-   4.3 FOR BUSINESSES — MODULE
-------------------------------------------- */
-.tw-business {
-  padding: 120px 24px;
-  background: #ffffff;
-  color: var(--brand-text);
-  text-align: center;
-}
-
-.tw-business-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.tw-business-title {
-  font-size: 36px;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.tw-business-subtitle {
-  font-size: 18px;
-  opacity: 0.8;
-  margin-bottom: 60px;
-}
-
-.tw-business-grid {
-  display: flex;
-  justify-content: space-between;
-  gap: 40px;
-  flex-wrap: wrap;
-}
-
-.tw-business-card {
-  flex: 1;
-  min-width: 260px;
-  background: #f8f9fb;
-  padding: 40px 30px;
-  border-radius: 14px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.tw-business-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
-}
-
-.tw-business-icon {
-  font-size: 40px;
-  margin-bottom: 20px;
-}
-
-.tw-business-card h3 {
-  font-size: 20px;
-  margin-bottom: 12px;
-}
-
-.tw-business-card p {
-  font-size: 16px;
-  opacity: 0.85;
-}
-
-/* -------------------------------------------
-   4.4 ABOUT — MODULE
-------------------------------------------- */
-.tw-about {
-  padding: 120px 24px;
-  background: var(--brand-primary);
-  color: #ffffff;
-  text-align: center;
-}
-
-.tw-about-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.tw-about-title {
-  font-size: 36px;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.tw-about-subtitle {
-  font-size: 18px;
-  opacity: 0.9;
-  margin-bottom: 60px;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.tw-about-grid {
-  display: flex;
-  justify-content: space-between;
-  gap: 40px;
-  flex-wrap: wrap;
-}
-
-.tw-about-card {
-  flex: 1;
-  min-width: 260px;
-  background: rgba(255,255,255,0.08);
-  padding: 40px 30px;
-  border-radius: 14px;
-  backdrop-filter: blur(4px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.tw-about-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
-}
-
-.tw-about-card h3 {
-  font-size: 20px;
-  margin-bottom: 12px;
-}
-
-.tw-about-card p {
-  font-size: 16px;
-  opacity: 0.9;
-}
-
-/* -------------------------------------------
-   4.5 CONTACT — MODULE
-------------------------------------------- */
-.tw-contact {
-  padding: 140px 24px;
-  background: #ffffff;
-  color: var(--brand-text);
-  text-align: center;
-}
-
-.tw-contact-inner {
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.tw-contact-title {
-  font-size: 40px;
-  font-weight: 700;
-  margin-bottom: 16px;
-}
-
-.tw-contact-subtitle {
-  font-size: 18px;
-  opacity: 0.85;
-  margin-bottom: 40px;
-}
-
-.tw-contact-cta {
-  display: inline-block;
-  padding: 16px 32px;
-  background: var(--brand-accent);
-  color: #ffffff;
-  border-radius: 10px;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 20px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.tw-contact-cta:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
-}
-
-/* -------------------------------------------
-   4.6 FEATURES — MODULE
-------------------------------------------- */
-.tw-features {
-  padding: 120px 24px;
-  background: #ffffff;
-  color: var(--brand-text);
-  text-align: center;
-}
-
-.tw-features-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.tw-features-title {
-  font-size: 36px;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.tw-features-subtitle {
-  font-size: 18px;
-  opacity: 0.8;
-  margin-bottom: 60px;
-}
-
-.tw-features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 40px;
-}
-
-.tw-feature-card {
-  background: #f8f9fb;
-  padding: 40px 30px;
-  border-radius: 14px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.tw-feature-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
-}
-
-.tw-feature-icon {
-  font-size: 40px;
-  margin-bottom: 20px;
-}
-
-.tw-feature-card h3 {
-  font-size: 20px;
-  margin-bottom: 12px;
-}
-
-.tw-feature-card p {
-  font-size: 16px;
-  opacity: 0.85;
-}
-
-/* -------------------------------------------
-   4.7 TESTIMONIALS — MODULE
-------------------------------------------- */
-.tw-testimonials {
-  padding: 120px 24px;
-  background: var(--brand-bg);
-  color: var(--brand-text);
-  text-align: center;
-}
-
-.tw-testimonials-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.tw-testimonials-title {
-  font-size: 36px;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.tw-testimonials-subtitle {
-  font-size: 18px;
-  opacity: 0.8;
-  margin-bottom: 60px;
-}
-
-.tw-testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 40px;
-}
-
-.tw-testimonial-card {
-  background: #ffffff;
-  padding: 40px 30px;
-  border-radius: 14px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.tw-testimonial-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
-}
-
-.tw-testimonial-avatar {
-  width: 64px;
-  height: 64px;
-  background: var(--brand-accent);
-  color: #ffffff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 26px;
-  font-weight: 700;
-  margin: 0 auto 20px;
-}
-
-.tw-testimonial-card h3 {
-  font-size: 20px;
-  margin-bottom: 4px;
-}
-
-.tw-testimonial-role {
-  font-size: 14px;
-  opacity: 0.7;
-  margin-bottom: 16px;
-}
-
-.tw-testimonial-text {
-  font-size: 16px;
-  opacity: 0.85;
-  line-height: 1.5;
-}
-
-/* -------------------------------------------
-   4.8 FAQ — MODULE
-------------------------------------------- */
-.tw-faq {
-  padding: 120px 24px;
-  background: #ffffff;
-  color: var(--brand-text);
-  text-align: center;
-}
-
-.tw-faq-inner {
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.tw-faq-title {
-  font-size: 36px;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.tw-faq-subtitle {
-  font-size: 18px;
-  opacity: 0.8;
-  margin-bottom: 60px;
-}
-
-.tw-faq-list {
-  text-align: left;
-}
-
-.tw-faq-item {
-  margin-bottom: 20px;
-  border-radius: 10px;
-  background: #f8f9fb;
-  padding: 0 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
-
-.tw-faq-item input {
-  display: none;
-}
-
-.tw-faq-question {
-  display: block;
-  padding: 20px 0;
-  font-size: 18px;
-  font-weight: 600;
-  cursor: pointer;
-  position: relative;
-}
-
-.tw-faq-question::after {
-  content: "+";
-  position: absolute;
-  right: 0;
-  top: 20px;
-  font-size: 22px;
-  transition: transform 0.3s ease;
-}
-
-.tw-faq-item input:checked + .tw-faq-question::after {
-  transform: rotate(45deg);
-}
-
-.tw-faq-answer {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.35s ease;
-  padding-right: 10px;
-}
-
-.tw-faq-item input:checked ~ .tw-faq-answer {
-  max-height: 300px;
-  padding-bottom: 20px;
-}
-
-.tw-faq-answer p {
-  font-size: 16px;
-  opacity: 0.85;
-  line-height: 1.5;
-}
-
-/* -------------------------------------------
-   4.9 PRICING — MODULE
-------------------------------------------- */
-.tw-pricing {
-  padding: 120px 24px;
-  background: var(--brand-bg);
-  color: var(--brand-text);
-  text-align: center;
-}
-
-.tw-pricing-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.tw-pricing-title {
-  font-size: 36px;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.tw-pricing-subtitle {
-  font-size: 18px;
-  opacity: 0.8;
-  margin-bottom: 60px;
-}
-
-.tw-pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 40px;
-}
-
-.tw-pricing-card {
-  background: #ffffff;
-  padding: 40px 30px;
-  border-radius: 14px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  position: relative;
-}
-
-.tw-pricing-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
-}
-
-.tw-pricing-featured {
-  border: 2px solid var(--brand-accent);
-  transform: translateY(-6px);
-}
-
-.tw-pricing-badge {
-  position: absolute;
-  top: -14px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--brand-accent);
-  color: #ffffff;
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 14px;
-  font-weight: 700;
-}
-
-.tw-pricing-price {
-  font-size: 40px;
-  font-weight: 700;
-  margin: 10px 0 6px;
-}
-
-.tw-pricing-desc {
-  font-size: 16px;
-  opacity: 0.8;
-  margin-bottom: 20px;
-}
-
-.tw-pricing-card ul {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 30px;
-}
-
-.tw-pricing-card ul li {
-  margin-bottom: 10px;
-  font-size: 16px;
-  opacity: 0.85;
-}
-
-.tw-pricing-cta {
-  display: inline-block;
-  padding: 12px 24px;
-  background: var(--brand-accent);
-  color: #ffffff;
-  border-radius: 10px;
-  text-decoration: none;
-  font-weight: 700;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.tw-pricing-cta:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
-}
-
-.tw-pricing-cta-featured {
-  background: var(--brand-accent);
-}
-
-.tw-pricing-cta.disabled {
-  background: #cccccc;
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-</style>
-
-<!-- =========================================
-     4.10 PAGE MODULES — HTML
-========================================= -->
-
-<!-- 4.10.1 HOW IT WORKS -->
-<section id="how-it-works" class="tw-how tw-animate">
-  <div class="tw-how-inner">
-
-    <h2 class="tw-how-title tw-animate">How It Works</h2>
-    <p class="tw-how-subtitle">
-      Tyniweb connects businesses and workers through fast, modular, AI‑powered tools.
+<!-- -----------------------------------------
+     3.1 HOW IT WORKS
+------------------------------------------ -->
+<section id="how" style="padding: 120px 24px; max-width: 1100px; margin: auto;">
+  <h2 style="font-size: 36px; font-weight: 700; text-align: center; margin-bottom: 40px;">
+    How Tyniweb Works
+  </h2>
+
+  <div style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: center;">
+
+    <div style="flex: 1 1 300px; background: #fff; padding: 24px; border-radius: 14px; box-shadow: 0 4px 16px rgba(0,0,0,0.06);">
+      <h3 style="margin-top: 0; font-size: 22px; font-weight: 700;">1. Tell us what you need</h3>
+      <p>Share your task, challenge, or goal — big or small.</p>
+    </div>
+
+    <div style="flex: 1 1 300px; background: #fff; padding: 24px; border-radius: 14px; box-shadow: 0 4px 16px rgba(0,0,0,0.06);">
+      <h3 style="margin-top: 0; font-size: 22px; font-weight: 700;">2. Get matched instantly</h3>
+      <p>Tyniweb connects you with the right worker or workflow.</p>
+    </div>
+
+    <div style="flex: 1 1 300px; background: #fff; padding: 24px; border-radius: 14px; box-shadow: 0 4px 16px rgba(0,0,0,0.06);">
+      <h3 style="margin-top: 0; font-size: 22px; font-weight: 700;">3. Move forward fast</h3>
+      <p>Work gets done with clarity, guidance, and support.</p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- -----------------------------------------
+     3.2 WORKERS SECTION
+------------------------------------------ -->
+<section id="workers" style="padding: 120px 24px; background: #f4f7fa;">
+  <div style="max-width: 1100px; margin: auto;">
+
+    <h2 style="font-size: 36px; font-weight: 700; text-align: center; margin-bottom: 40px;">
+      For Workers
+    </h2>
+
+    <p style="max-width: 700px; margin: 0 auto 40px; text-align: center; font-size: 18px;">
+      Tyniweb helps you discover your strengths, grow your skills, and get matched with tasks that fit you.
     </p>
 
-    <div class="tw-how-steps">
+    <div style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: center;">
 
-      <div class="tw-how-step">
-        <div class="tw-how-number">1</div>
-        <h3>Post a Task or Need</h3>
-        <p>Businesses describe what they need — support, automation, or a specific workflow.</p>
+      <div style="flex: 1 1 300px; background: #fff; padding: 24px; border-radius: 14px; box-shadow: 0 4px 16px rgba(0,0,0,0.06);">
+        <h3 style="margin-top: 0; font-size: 22px; font-weight: 700;">Skill Recognition</h3>
+        <p>We help you uncover strengths you didn’t know you had.</p>
       </div>
 
-      <div class="tw-how-step">
-        <div class="tw-how-number">2</div>
-        <h3>AI Matches the Right Worker</h3>
-        <p>Tyniweb intelligently connects the request to a qualified worker or automated module.</p>
+      <div style="flex: 1 1 300px; background: #fff; padding: 24px; border-radius: 14px; box-shadow: 0 4px 16px rgba(0,0,0,0.06);">
+        <h3 style="margin-top: 0; font-size: 22px; font-weight: 700;">Smart Matching</h3>
+        <p>Get paired with tasks that align with your abilities.</p>
       </div>
 
-      <div class="tw-how-step">
-        <div class="tw-how-number">3</div>
-        <h3>Work Gets Done Fast</h3>
-        <p>Workers complete tasks using guided AI tools, ensuring speed, accuracy, and consistency.</p>
+      <div style="flex: 1 1 300px; background: #fff; padding: 24px; border-radius: 14px; box-shadow: 0 4px 16px rgba(0,0,0,0.06);">
+        <h3 style="margin-top: 0; font-size: 22px; font-weight: 700;">Growth Path</h3>
+        <p>See your progress and build your personal trajectory.</p>
       </div>
 
     </div>
@@ -1578,316 +420,36 @@ document.addEventListener("DOMContentLoaded", () => {
   </div>
 </section>
 
-<!-- 4.10.2 FOR WORKERS -->
-<section id="workers" class="tw-workers tw-animate">
-  <div class="tw-workers-inner">
 
-    <h2 class="tw-workers-title tw-animate">For Workers</h2>
-    <p class="tw-workers-subtitle">
-      Tyniweb empowers workers with guided AI tools, flexible opportunities, and fast task completion.
+<!-- -----------------------------------------
+     3.3 BUSINESSES SECTION
+------------------------------------------ -->
+<section id="businesses" style="padding: 120px 24px;">
+  <div style="max-width: 1100px; margin: auto;">
+
+    <h2 style="font-size: 36px; font-weight: 700; text-align: center; margin-bottom: 40px;">
+      For Businesses
+    </h2>
+
+    <p style="max-width: 700px; margin: 0 auto 40px; text-align: center; font-size: 18px;">
+      Post your needs, get matched with the right people, and move work forward with clarity.
     </p>
 
-    <div class="tw-workers-grid tw-animate tw-stagger">
+    <div style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: center;">
 
-      <div class="tw-workers-card tw-card-hover">
-        <div class="tw-workers-icon">💼</div>
-        <h3>Flexible Work</h3>
-        <p>Choose tasks that match your skills and availability. Work when you want, how you want.</p>
+      <div style="flex: 1 1 300px; background: #fff; padding: 24px; border-radius: 14px; box-shadow: 0 4px 16px rgba(0,0,0,0.06);">
+        <h3 style="margin-top: 0; font-size: 22px; font-weight: 700;">Post a Need</h3>
+        <p>Share what you need done — we’ll guide the rest.</p>
       </div>
 
-      <div class="tw-workers-card tw-card-hover">
-        <div class="tw-workers-icon">⚡</div>
-        <h3>AI‑Guided Tools</h3>
-        <p>Every task includes built‑in AI assistance, helping you work faster and with greater accuracy.</p>
+      <div style="flex: 1 1 300px; background: #fff; padding: 24px; border-radius: 14px; box-shadow: 0 4px 16px rgba(0,0,0,0.06);">
+        <h3 style="margin-top: 0; font-size: 22px; font-weight: 700;">Instant Matching</h3>
+        <p>We connect you with the right worker or workflow.</p>
       </div>
 
-      <div class="tw-workers-card tw-card-hover">
-        <div class="tw-workers-icon">🎯</div>
-        <h3>Grow Your Skills</h3>
-        <p>Learn new workflows, improve your capabilities, and build a reputation across the Tyniweb network.</p>
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
-<!-- 4.10.3 FOR BUSINESSES -->
-<section id="businesses" class="tw-business tw-animate">
-  <div class="tw-business-inner">
-
-    <h2 class="tw-business-title tw-animate">For Businesses</h2>
-    <p class="tw-business-subtitle">
-      Tyniweb helps businesses streamline operations, reduce workload, and get reliable support powered by AI.
-    </p>
-
-    <div class="tw-business-grid tw-animate tw-stagger">
-
-      <div class="tw-business-card tw-card-hover">
-        <div class="tw-business-icon">🤝</div>
-        <h3>Reliable Support</h3>
-        <p>Access a network of skilled workers and AI‑guided workflows that ensure consistent, high‑quality results.</p>
-      </div>
-
-      <div class="tw-business-card tw-card-hover">
-        <div class="tw-business-icon">📈</div>
-        <h3>Scale Without Stress</h3>
-        <p>Handle more tasks, customers, and operations without hiring overhead or complex onboarding.</p>
-      </div>
-
-      <div class="tw-business-card tw-card-hover">
-        <div class="tw-business-icon">🧠</div>
-        <h3>AI‑Driven Efficiency</h3>
-        <p>Automated tools and smart workflows reduce manual work and speed up your entire operation.</p>
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
-<!-- 4.10.4 ABOUT -->
-<section id="about" class="tw-about tw-animate">
-  <div class="tw-about-inner">
-
-    <h2 class="tw-about-title tw-animate">About Tyniweb</h2>
-    <p class="tw-about-subtitle">
-      Tyniweb is building a new kind of work platform — one where AI and people collaborate to deliver fast, reliable, and scalable results.
-    </p>
-
-    <div class="tw-about-grid tw-animate tw-stagger">
-
-      <div class="tw-about-card tw-card-hover">
-        <h3>Our Mission</h3>
-        <p>
-          To empower workers and businesses with modular, AI‑driven tools that make work faster, easier, and more accessible for everyone.
-        </p>
-      </div>
-
-      <div class="tw-about-card tw-card-hover">
-        <h3>Our Approach</h3>
-        <p>
-          We combine human skill with intelligent automation, creating workflows that adapt to real‑world needs and deliver consistent quality.
-        </p>
-      </div>
-
-      <div class="tw-about-card tw-card-hover">
-        <h3>Our Vision</h3>
-        <p>
-          A global ecosystem where anyone can contribute, collaborate, and grow — supported by transparent, trustworthy technology.
-        </p>
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
-<!-- 4.10.5 CONTACT -->
-<section id="contact" class="tw-contact tw-animate">
-  <div class="tw-contact-inner">
-
-    <h2 class="tw-contact-title tw-animate">Get Started with Tyniweb</h2>
-    <p class="tw-contact-subtitle">
-      Whether you're a worker or a business, Tyniweb helps you move faster with AI‑powered tools built for real work.
-    </p>
-
-    <a href="#get-started" class="tw-contact-cta tw-btn">Join the Beta</a>
-
-  </div>
-</section>
-
-<!-- 4.10.6 FEATURES -->
-<section id="features" class="tw-features tw-animate">
-  <div class="tw-features-inner">
-
-    <h2 class="tw-features-title tw-animate">Powerful Features Built for Real Work</h2>
-    <p class="tw-features-subtitle">
-      Tyniweb gives workers and businesses the tools they need to move faster, stay organized, and deliver consistent results.
-    </p>
-
-    <div class="tw-features-grid tw-animate tw-stagger">
-
-      <div class="tw-feature-card tw-card-hover">
-        <div class="tw-feature-icon">🧩</div>
-        <h3>Modular Workflows</h3>
-        <p>Break tasks into simple, guided steps powered by AI and human expertise.</p>
-      </div>
-
-      <div class="tw-feature-card tw-card-hover">
-        <div class="tw-feature-icon">🔍</div>
-        <h3>Smart Matching</h3>
-        <p>AI connects businesses with the right workers or automated tools instantly.</p>
-      </div>
-
-      <div class="tw-feature-card tw-card-hover">
-        <div class="tw-feature-icon">📊</div>
-        <h3>Real‑Time Tracking</h3>
-        <p>Monitor progress, updates, and results in a clean, unified dashboard.</p>
-      </div>
-
-      <div class="tw-feature-card tw-card-hover">
-        <div class="tw-feature-icon">🔒</div>
-        <h3>Secure by Design</h3>
-        <p>Your data and workflows are protected with modern security standards.</p>
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
-<!-- 4.10.7 TESTIMONIALS -->
-<section id="testimonials" class="tw-testimonials tw-animate">
-  <div class="tw-testimonials-inner">
-
-    <h2 class="tw-testimonials-title tw-animate">Trusted by Workers and Businesses</h2>
-    <p class="tw-testimonials-subtitle">
-      Early users are already seeing faster workflows, clearer communication, and more reliable results.
-    </p>
-
-    <div class="tw-testimonials-grid tw-animate tw-stagger">
-
-      <div class="tw-testimonial-card tw-card-hover">
-        <div class="tw-testimonial-avatar">A</div>
-        <h3>Alex R.</h3>
-        <p class="tw-testimonial-role">Small Business Owner</p>
-        <p class="tw-testimonial-text">
-          “Tyniweb helped me handle customer requests twice as fast. The AI tools make everything smoother.”
-        </p>
-      </div>
-
-      <div class="tw-testimonial-card tw-card-hover">
-        <div class="tw-testimonial-avatar">J</div>
-        <h3>Jordan M.</h3>
-        <p class="tw-testimonial-role">Freelance Worker</p>
-        <p class="tw-testimonial-text">
-          “The guided workflows are a game changer. I can take on more tasks without feeling overwhelmed.”
-        </p>
-      </div>
-
-      <div class="tw-testimonial-card tw-card-hover">
-        <div class="tw-testimonial-avatar">S</div>
-        <h3>Sophia L.</h3>
-        <p class="tw-testimonial-role">Operations Manager</p>
-        <p class="tw-testimonial-text">
-          “Our team became more efficient within days. Tyniweb keeps everything organized and easy to track.”
-        </p>
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
-<!-- 4.10.8 FAQ -->
-<section id="faq" class="tw-faq tw-animate">
-  <div class="tw-faq-inner">
-
-    <h2 class="tw-faq-title tw-animate">Frequently Asked Questions</h2>
-    <p class="tw-faq-subtitle">
-      Answers to the most common questions about Tyniweb.
-    </p>
-
-    <div class="tw-faq-list tw-animate">
-
-      <div class="tw-faq-item">
-        <input type="checkbox" id="faq1">
-        <label for="faq1" class="tw-faq-question">What is Tyniweb?</label>
-        <div class="tw-faq-answer">
-          <p>Tyniweb is a modular, AI‑powered work platform that connects businesses and workers through guided workflows and smart automation.</p>
-        </div>
-      </div>
-
-      <div class="tw-faq-item">
-        <input type="checkbox" id="faq2">
-        <label for="faq2" class="tw-faq-question">Who can use Tyniweb?</label>
-        <div class="tw-faq-answer">
-          <p>Workers, freelancers, small businesses, and teams looking to streamline tasks, support, and operations.</p>
-        </div>
-      </div>
-
-      <div class="tw-faq-item">
-        <input type="checkbox" id="faq3">
-        <label for="faq3" class="tw-faq-question">How does the AI help?</label>
-        <div class="tw-faq-answer">
-          <p>AI guides workers through tasks, automates repetitive steps, and ensures consistent, high‑quality results.</p>
-        </div>
-      </div>
-
-      <div class="tw-faq-item">
-        <input type="checkbox" id="faq4">
-        <label for="faq4" class="tw-faq-question">Is Tyniweb free to use?</label>
-        <div class="tw-faq-answer">
-          <p>During the beta, Tyniweb is free for both workers and businesses. Pricing will be introduced later with transparent options.</p>
-        </div>
-      </div>
-
-      <div class="tw-faq-item">
-        <input type="checkbox" id="faq5">
-        <label for="faq5" class="tw-faq-question">How do I get started?</label>
-        <div class="tw-faq-answer">
-          <p>Click “Join the Beta” to sign up. You’ll get early access to tools, workflows, and new features as they roll out.</p>
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
-<!-- 4.10.9 PRICING -->
-<section id="pricing" class="tw-pricing tw-animate">
-  <div class="tw-pricing-inner">
-
-    <h2 class="tw-pricing-title tw-animate">Simple, Transparent Pricing</h2>
-    <p class="tw-pricing-subtitle">
-      Tyniweb is free during the beta. Paid plans will be introduced later with clear, flexible options.
-    </p>
-
-    <div class="tw-pricing-grid tw-animate tw-stagger">
-
-      <!-- Free Tier -->
-      <div class="tw-pricing-card tw-card-hover">
-        <h3>Free</h3>
-        <p class="tw-pricing-price">$0</p>
-        <p class="tw-pricing-desc">Perfect for individuals exploring Tyniweb.</p>
-        <ul>
-          <li>Access to core tools</li>
-          <li>AI‑guided workflows</li>
-          <li>Basic task matching</li>
-          <li>Email support</li>
-        </ul>
-        <a href="#get-started" class="tw-pricing-cta tw-btn">Get Started</a>
-      </div>
-
-      <!-- Beta Tier -->
-      <div class="tw-pricing-card tw-pricing-featured tw-card-hover">
-        <div class="tw-pricing-badge">Beta</div>
-        <h3>Beta Access</h3>
-        <p class="tw-pricing-price">$0</p>
-        <p class="tw-pricing-desc">Full access while we build the future of work.</p>
-        <ul>
-          <li>All current features</li>
-          <li>Priority task matching</li>
-          <li>Early access to new tools</li>
-          <li>Direct feedback channel</li>
-        </ul>
-        <a href="#get-started" class="tw-pricing-cta tw-pricing-cta-featured tw-btn">Join the Beta</a>
-      </div>
-
-      <!-- Coming Soon Tier -->
-      <div class="tw-pricing-card tw-card-hover">
-        <h3>Pro (Coming Soon)</h3>
-        <p class="tw-pricing-price">—</p>
-        <p class="tw-pricing-desc">Advanced tools for teams and businesses.</p>
-        <ul>
-          <li>Team dashboards</li>
-          <li>Advanced automation</li>
-          <li>Custom workflows</li>
-          <li>Premium support</li>
-        </ul>
-        <a class="tw-pricing-cta disabled">Coming Soon</a>
+      <div style="flex: 1 1 300px; background: #fff; padding: 24px; border-radius: 14px; box-shadow: 0 4px 16px rgba(0,0,0,0.06);">
+        <h3 style="margin-top: 0; font-size: 22px; font-weight: 700;">Clear Progress</h3>
+        <p>Track work, get updates, and stay aligned.</p>
       </div>
 
     </div>
@@ -1896,120 +458,32 @@ document.addEventListener("DOMContentLoaded", () => {
 </section>
 
 <!-- =========================================
-     5.0 FOOTER SYSTEM
+     4.0 FOOTER — SIMPLE + STABLE
 ========================================= -->
 
-<style>
+<footer style="background: #040714; color: #fff; padding: 40px 24px; margin-top: 120px;">
+  <div style="max-width: 1100px; margin: auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px;">
 
-/* -------------------------------------------
-   5.1 FOOTER CONTAINER
-------------------------------------------- */
-.tw-footer {
-  background: var(--brand-primary);
-  color: #ffffff;
-  padding: 60px 24px;
-  text-align: center;
-}
-
-.tw-footer-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-/* -------------------------------------------
-   5.2 BRAND BLOCK
-------------------------------------------- */
-.tw-footer-brand {
-  margin-bottom: 30px;
-}
-
-.tw-footer-logo {
-  font-size: 26px;
-  font-weight: 700;
-  margin-bottom: 6px;
-}
-
-.tw-footer-tagline {
-  font-size: 14px;
-  opacity: 0.8;
-}
-
-/* -------------------------------------------
-   5.3 FOOTER LINKS
-------------------------------------------- */
-.tw-footer-links {
-  margin: 30px 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 18px;
-}
-
-.tw-footer-links a {
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 15px;
-  opacity: 0.85;
-  transition: opacity 0.2s ease;
-}
-
-.tw-footer-links a:hover {
-  opacity: 1;
-}
-
-/* -------------------------------------------
-   5.4 LEGAL TEXT
-------------------------------------------- */
-.tw-footer-legal {
-  font-size: 14px;
-  opacity: 0.7;
-  margin-top: 20px;
-}
-
-</style>
-
-<!-- =========================================
-     5.5 FOOTER HTML
-========================================= -->
-
-<footer class="tw-footer">
-  <div class="tw-footer-inner">
-
-    <!-- Brand -->
-    <div class="tw-footer-brand">
-      <div class="tw-footer-logo">Tyniweb</div>
-      <p class="tw-footer-tagline">AI‑Powered Work for Everyone.</p>
+    <!-- 4.1 BRAND -->
+    <div style="font-size: 20px; font-weight: 700;">
+      Tyniweb
     </div>
 
-    <!-- Links -->
-    <div class="tw-footer-links">
-      <a href="#how-it-works">How It Works</a>
-      <a href="#workers">For Workers</a>
-      <a href="#businesses">For Businesses</a>
-      <a href="#about">About</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#faq">FAQ</a>
-      <a href="#contact">Contact</a>
-      <a href="/terms">Terms</a>
-      <a href="/privacy">Privacy</a>
-      <a href="/cookies">Cookies</a>
-      <a href="/beta">Beta Agreement</a>
+    <!-- 4.2 LEGAL LINKS -->
+    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+      <a href="/terms" style="color: #fff; text-decoration: none;">Terms</a>
+      <a href="/privacy" style="color: #fff; text-decoration: none;">Privacy</a>
+      <a href="/cookies" style="color: #fff; text-decoration: none;">Cookies</a>
+      <a href="/beta" style="color: #fff; text-decoration: none;">Beta Agreement</a>
     </div>
 
-    <!-- Legal -->
-    <div class="tw-footer-legal">
-      <p>© <span id="tw-year"></span> Tyniweb. All rights reserved.</p>
+    <!-- 4.3 COPYRIGHT -->
+    <div style="opacity: 0.7; font-size: 14px;">
+      © <span id="tw-year"></span> Tyniweb. All rights reserved.
     </div>
 
   </div>
 </footer>
-
-<!-- =========================================
-     5.6 FOOTER JS — AUTO YEAR
-========================================= -->
-<script>
-  document.getElementById('tw-year').textContent = new Date().getFullYear();
-</script>
 
 <!-- =========================================
      6.0 JAVASCRIPT ENGINE — Tyniweb v1
@@ -2045,7 +519,7 @@ document.addEventListener("DOMContentLoaded", () => {
       body.style.overflow = body.classList.contains('tw-menu-open') ? 'hidden' : '';
     }
 
-    // Expose globally if needed by header button
+    // Expose globally for header button
     window.twToggleMenu = twToggleMenu;
 
     // Close drawer when overlay is clicked
@@ -2137,7 +611,7 @@ document.addEventListener("DOMContentLoaded", () => {
   })();
 
   // -----------------------------------------
-  // 6.6 VERSION STAMP (OPTIONAL)
+  // 6.6 VERSION STAMP
   // -----------------------------------------
   console.log('Tyniweb JS Engine v1.0.0 loaded');
 </script>
