@@ -698,7 +698,7 @@ if (lastSeenVersion !== currentVersion) {
 
   <!-- 3.0.2.0 PRE-HOOK TEXT -->
   <div class="tw-hero-prehook">
-    Welcome to Tyniweb — where small starts lead to big things.
+    Everything grows from a small start.
   </div>
 
   <!-- 3.0.2.1 HERO SCENE -->
@@ -712,15 +712,15 @@ if (lastSeenVersion !== currentVersion) {
   <div class="tw-hero-ui">
 
     <div class="tw-hero-overlay tw-overlay-1">
-      Collaboration begins with connection.
+      Get the help you need, exactly when you need it.
     </div>
-
+    
     <div class="tw-hero-overlay tw-overlay-2">
-      AI‑powered tools that help people work together.
+      Tyniweb connects people and AI to move work forward.
     </div>
-
+    
     <a href="#get-started" class="tw-hero-cta">
-      Get Started
+      Start in seconds
     </a>
 
     <div class="tw-hero-readmore">
@@ -755,8 +755,6 @@ document.addEventListener("DOMContentLoaded", () => {
   /* PLAYHEAD */
   let playhead = 0;
   let targetPlayhead = 0;
-  const smooth = 0.08;
-  const maxSpeed = 0.04;
 
   /* SCROLL LISTENER */
   window.addEventListener("scroll", () => {
@@ -784,9 +782,7 @@ document.addEventListener("DOMContentLoaded", () => {
   /* MAIN LOOP */
   function animate() {
 
-    let delta = targetPlayhead - playhead;
-    if (Math.abs(delta) > maxSpeed) delta = maxSpeed * Math.sign(delta);
-    playhead += delta * smooth;
+    playhead = targetPlayhead;
 
     const scale = lerp(2.4, 1.0, playhead);
     scene.style.transform = `scale(${scale})`;
@@ -807,17 +803,21 @@ document.addEventListener("DOMContentLoaded", () => {
     if (playhead > 0.92) cta.classList.add("breathe");
     else cta.classList.remove("breathe");
 
-    scrollCue.style.opacity = Math.max(1 - playhead * 3, 0);
     scrollCue.classList.toggle("float", playhead < 0.1);
+    scrollCue.style.opacity = Math.max(1 - playhead * 3, 0);
 
     if (playhead >= 0.98) {
+      hero.classList.add("released");
       scene.style.position = "absolute";
       ui.style.position = "absolute";
-      hero.classList.add("released");
+      scene.style.top = "0";
+      ui.style.top = "0";
     } else {
+      hero.classList.remove("released");
       scene.style.position = "fixed";
       ui.style.position = "fixed";
-      hero.classList.remove("released");
+      scene.style.top = "0";
+      ui.style.top = "0";
     }
 
     readmore.classList.toggle("show", playhead > 0.75);
@@ -2111,6 +2111,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <script>
   document.getElementById('tw-year').textContent = new Date().getFullYear();
 </script>
+
 
 
 
