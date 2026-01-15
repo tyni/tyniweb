@@ -170,186 +170,73 @@
   </div>
 
 <!-- =========================================
-     2.0 HERO SYSTEM — STRIPE-STYLE CINEMATIC
+     2.0 HERO SYSTEM — SIMPLE + STABLE
 ========================================= -->
 
 <style>
-  /* 2.1 HERO CONTAINER */
+  /* 2.1 HERO (CSS-ONLY PARALLAX) */
   .tw-hero {
     position: relative;
     width: 100%;
-    height: 200vh; /* scroll runway */
-    overflow: hidden;
-    background: #040714;
-  }
-
-  .tw-hero.released {
     height: 100vh;
-  }
-
-  /* 2.2 HERO SCENE (SVG BACKGROUND) */
-  .tw-hero-scene {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    object-fit: cover;
-    transform-origin: center center;
-    transform: scale(1.25);
-    background-color: #040714;
-    z-index: 1;
-    will-change: transform;
-  }
-
-  /* 2.3 HERO UI LAYER */
-  .tw-hero-ui {
-    position: fixed;
-    inset: 0;
-    z-index: 2;
+    background: #040714 url('https://raw.githubusercontent.com/tyni/tyniweb/main/background_with_avatars.svg')
+      center/cover no-repeat fixed;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    pointer-events: none;
+    align-items: center;
+    text-align: center;
     color: #ffffff;
-    text-align: center;
-    opacity: 1;
-    transition: opacity 0.3s ease-out;
+    padding: 0 24px;
   }
 
-  /* 2.4 PRE-HOOK TEXT */
-  .tw-hero-prehook {
-    position: fixed;
-    top: 80px;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    font-size: 22px;
-    font-weight: 500;
-    opacity: 0.95;
-    z-index: 3;
-    pointer-events: none;
+  /* 2.2 HERO HEADLINE */
+  .tw-hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    max-width: 800px;
+    margin-bottom: 1rem;
   }
 
-  /* 2.5 TEXT OVERLAYS */
-  .tw-hero-overlay {
-    font-size: 2.2rem;
-    font-weight: 600;
-    opacity: 1;
-    max-width: 80%;
-    margin: 0 auto;
-    transition: opacity 0.3s ease-out;
+  /* 2.3 HERO SUBHEAD */
+  .tw-hero p {
+    font-size: 1.4rem;
+    max-width: 700px;
+    opacity: 0.9;
+    margin-bottom: 2rem;
   }
 
-  .tw-overlay-1 { margin-bottom: 1rem; }
-  .tw-overlay-2 { margin-top: 1rem; }
-
-  /* 2.6 CTA BUTTON */
+  /* 2.4 CTA BUTTON */
   .tw-hero-cta {
-    margin-top: 2rem;
-    padding: 0.9rem 1.8rem;
+    padding: 14px 28px;
     background: #ff6a00;
     color: #fff;
     border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    opacity: 1;
-    transition: opacity 0.3s ease-out;
-    pointer-events: auto;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-decoration: none;
   }
 
-  /* 2.7 SCROLL CUE */
-  .tw-hero-scrollcue {
-    position: fixed;
-    bottom: 2rem;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    font-size: 1rem;
-    opacity: 1;
-    color: #ffffff;
-    z-index: 3;
-    transition: opacity 0.3s ease-out;
-  }
-
-  .tw-hero-scrollcue.float {
-    animation: tw-float 1.8s ease-in-out infinite;
-  }
-
-  @keyframes tw-float {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(8px); }
-    100% { transform: translateY(0); }
-  }
-
-  /* 2.8 SPACER */
-  .tw-hero-spacer {
-    height: 120px;
-    opacity: 0;
-    transition: opacity 0.6s ease;
-  }
-
-  .tw-hero.released + .tw-hero-spacer {
-    opacity: 1;
-  }
-
-  /* 2.9 RESPONSIVE */
+  /* 2.5 RESPONSIVE */
   @media (max-width: 768px) {
-    .tw-hero-overlay {
-      font-size: 1.6rem;
-      max-width: 90%;
+    .tw-hero h1 {
+      font-size: 2.2rem;
     }
-
-    .tw-hero-prehook {
-      font-size: 18px;
-      top: 70px;
+    .tw-hero p {
+      font-size: 1.2rem;
     }
   }
 </style>
 
 <!-- =========================================
-     2.10 HERO HTML
+     2.10 HERO HTML — SIMPLE + STABLE
 ========================================= -->
 
-<section id="tw-hero" class="tw-hero">
-
-  <!-- 2.10.1 PRE-HOOK -->
-  <div class="tw-hero-prehook">
-    Everything grows from a small start.
-  </div>
-
-  <!-- 2.10.2 HERO SCENE -->
-  <img 
-    src="https://raw.githubusercontent.com/tyni/tyniweb/main/background_with_avatars.svg"
-    alt="Tyniweb Hero Scene"
-    class="tw-hero-scene"
-  >
-
-  <!-- 2.10.3 HERO UI -->
-  <div class="tw-hero-ui">
-    <div class="tw-hero-overlay tw-overlay-1">
-      Get the help you need, exactly when you need it.
-    </div>
-    
-    <div class="tw-hero-overlay tw-overlay-2">
-      Tyniweb connects people and AI to move work forward.
-    </div>
-    
-    <a href="/signup" class="tw-hero-cta">
-      Start in seconds
-    </a>
-  </div>
-
-  <!-- 2.10.4 SCROLL CUE -->
-  <div class="tw-hero-scrollcue float">
-    Scroll ↓
-  </div>
-
+<section class="tw-hero">
+  <h1>Get the help you need, exactly when you need it.</h1>
+  <p>Tyniweb connects people and AI to move work forward.</p>
+  <a href="/signup" class="tw-hero-cta">Start in seconds</a>
 </section>
-
-<!-- 2.10.5 SPACER -->
-<div class="tw-hero-spacer"></div>
 
 <!-- =========================================
      3.0 MAIN CONTENT SECTIONS
@@ -615,3 +502,4 @@
   // -----------------------------------------
   console.log('Tyniweb JS Engine v1.0.0 loaded');
 </script>
+
