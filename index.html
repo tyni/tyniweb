@@ -2046,13 +2046,10 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 
 <!-- -----------------------------------------
-     6.4 HERO ANIMATION LOGIC
+     6.4 Hero Animation Logic (Legacy — Removed v3.1.7)
 ------------------------------------------ -->
 <script>
   const heroBg = document.querySelector('.tw-hero-bg');
-  const robot = document.querySelector('.tw-hero-robot');
-  const human = document.querySelector('.tw-hero-human');
-  const glow = document.querySelector('.tw-hero-glow');
   const cta = document.querySelector('.tw-hero-cta');
   const scrollCue = document.querySelector('.tw-hero-scroll-cue');
 
@@ -2060,11 +2057,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const isMobile = window.innerWidth < 768;
   const robotIn = isMobile ? 65 : 88;
   const humanIn = isMobile ? 70 : 92;
-
-  // Initial positions (hands apart)
-  robot.style.transform = 'translateY(-50%) translateX(0)';
-  human.style.transform = 'translateY(-50%) translateX(0)';
-  glow.style.opacity = '0.15';
 
   window.addEventListener('scroll', () => {
     const scrollY = window.scrollY;
@@ -2115,6 +2107,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <script>
   document.getElementById('tw-year').textContent = new Date().getFullYear();
 </script>
+
 
 
 
