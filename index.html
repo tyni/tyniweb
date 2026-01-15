@@ -793,11 +793,11 @@ document.addEventListener("scroll", () => {
   const progress = Math.min(scrollY / maxScroll, 1);
 
   // Stripe-style zoom
-  const scale = 1 + progress * 0.25;
+  const scale = 1.25 - progress * 0.25;
   scene.style.transform = `scale(${scale})`;
 
   // Fade UI out
-  ui.style.opacity = 1 - progress * 1.4;
+  ui.style.opacity = 1 - progress * 0.8;
 
   // Fade scroll cue out
   scrollCue.style.opacity = 1 - progress * 2;
@@ -2106,6 +2106,7 @@ document.addEventListener("scroll", () => {
 <script>
   document.getElementById('tw-year').textContent = new Date().getFullYear();
 </script>
+
 
 
 
