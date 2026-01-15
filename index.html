@@ -480,7 +480,7 @@
 .tw-hero {
   position: relative;
   width: 100%;
-  height: 140vh;
+  height: 200vh;
   overflow: hidden;
   background: #040714;
 }
@@ -768,13 +768,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     targetPlayhead = progress;
 
+    /* Re-show prehook when scrolling back to top */
     if (progress < 0.02 && !prehook.classList.contains("show")) {
       prehook.classList.add("show");
       prehook.classList.remove("hide");
     }
   });
 
-  /* LERP */
+  /* LERP UTILITY */
   function lerp(a, b, t) {
     return a + (b - a) * t;
   }
@@ -782,37 +783,44 @@ document.addEventListener("DOMContentLoaded", () => {
   /* MAIN LOOP */
   function animate() {
 
+    /* CHAIN-LINK SCROLL (no smoothing) */
     playhead = targetPlayhead;
 
+    /* ZOOM */
     const scale = lerp(2.4, 1.0, playhead);
     scene.style.transform = `scale(${scale})`;
 
+    /* OVERLAY 1 — earlier, smoother */
     overlay1.style.opacity =
-      playhead < 0.10 ? 0 :
-      playhead < 0.25 ? (playhead - 0.10) * 6 :
-      playhead < 0.40 ? 1 :
-      Math.max(1 - (playhead - 0.40) * 5, 0);
+      playhead < 0.05 ? 0 :
+      playhead < 0.20 ? (playhead - 0.05) * 6 :
+      playhead < 0.35 ? 1 :
+      Math.max(1 - (playhead - 0.35) * 5, 0);
 
+    /* OVERLAY 2 — earlier, smoother */
     overlay2.style.opacity =
-      playhead < 0.50 ? 0 :
-      playhead < 0.70 ? (playhead - 0.50) * 5 :
+      playhead < 0.25 ? 0 :
+      playhead < 0.45 ? (playhead - 0.25) * 5 :
       1;
 
-    cta.style.opacity = playhead > 0.75 ? (playhead - 0.75) * 4 : 0;
-
-    if (playhead > 0.92) cta.classList.add("breathe");
+    /* CTA */
+    cta.style.opacity = playhead > 0.70 ? (playhead - 0.70) * 3 : 0;
+    if (playhead > 0.90) cta.classList.add("breathe");
     else cta.classList.remove("breathe");
 
-    scrollCue.classList.toggle("float", playhead < 0.1);
+    /* SCROLL CUE */
+    scrollCue.classList.toggle("float", playhead < 0.12);
     scrollCue.style.opacity = Math.max(1 - playhead * 3, 0);
 
-    if (playhead >= 0.98) {
+    /* RELEASE WITH HYSTERESIS */
+    if (playhead >= 0.94) {
       hero.classList.add("released");
       scene.style.position = "absolute";
       ui.style.position = "absolute";
       scene.style.top = "0";
       ui.style.top = "0";
-    } else {
+    } 
+    else if (playhead <= 0.90) {
       hero.classList.remove("released");
       scene.style.position = "fixed";
       ui.style.position = "fixed";
@@ -820,10 +828,11 @@ document.addEventListener("DOMContentLoaded", () => {
       ui.style.top = "0";
     }
 
-    readmore.classList.toggle("show", playhead > 0.75);
+    /* READ MORE */
+    readmore.classList.toggle("show", playhead > 0.70);
 
-    /* PREHOOK FADE */
-    if (playhead < 0.08) {
+    /* PREHOOK — extended visibility */
+    if (playhead < 0.18) {
       prehook.classList.add("show");
       prehook.classList.remove("hide");
     } else {
@@ -837,15 +846,6 @@ document.addEventListener("DOMContentLoaded", () => {
   animate();
 });
 </script>
-
-<div class="tw-hero-buffer"></div>
-
-<style>
-  .tw-hero-buffer {
-    height: 40vh;
-    background: #040714;
-  }
-</style>
 
 
 <!-- =========================================
@@ -2111,6 +2111,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <script>
   document.getElementById('tw-year').textContent = new Date().getFullYear();
 </script>
+
 
 
 
