@@ -1,886 +1,1947 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>tyniweb — everything grows from a small start</title>
+  <meta charset="UTF-8" />
+  <title>tyniweb</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font: Quicksand Medium -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
 
-  <!-- Global Styles -->
+   <!-- =========================
+   SEO + OPEN GRAPH META TAGS
+   ========================= -->
+
+  <!-- Primary Meta -->
+  <title>Tyniweb — Build smarter, faster, together</title>
+  <meta name="title" content="Tyniweb — Build smarter, faster, together">
+  <meta name="description" content="Tyniweb helps you design, automate, and scale your workflows with clarity and confidence. Start small, grow fast, and bring your ideas to life.">
+  
+  <!-- Mobile -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#4f46e5">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tyniweb.com/">
+  <meta property="og:title" content="Tyniweb — Build smarter, faster, together">
+  <meta property="og:description" content="Create workflows, pages, and automations using intuitive building blocks that grow with you.">
+  <meta property="og:image" content="https://tyniweb.com/og-image.png">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://tyniweb.com/">
+  <meta property="twitter:title" content="Tyniweb — Build smarter, faster, together">
+  <meta property="twitter:description" content="Start small, grow fast, and bring your ideas to life with Tyniweb.">
+  <meta property="twitter:image" content="https://tyniweb.com/og-image.png">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/favicon.png">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://tyniweb.com/">
+  
+  <!-- Keywords (optional but safe) -->
+  <meta name="keywords" content="workflow builder, automation, SaaS, modular systems, AI workflows, productivity tools">
+  
+  <!-- Robots -->
+  <meta name="robots" content="index, follow">
+
+  <!-- Performance: hint to browsers -->
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="//raw.githubusercontent.com">
+  <link rel="preconnect" href="https://raw.githubusercontent.com">
+
+  <!-- Privacy-friendly analytics (Plausible) -->
+  <script defer data-domain="tyniweb.com" src="https://plausible.io/js/script.js"></script>
+
+  
+
+
+
+
+  
+
   <style>
-    body {
-      margin: 0;
-      font-family: 'Quicksand', sans-serif;
-      background: #ffffff;
-      color: #222;
-      overflow-x: hidden;
+    /* ================================
+       1. ROOT VARIABLES / BRAND SYSTEM
+       ================================ */
+    :root {
+      /* Brand colors */
+      --color-bg: #f4f7fa;
+      --color-text: #1a1f36;
+      --color-accent: #ff6a00;
+      --color-header-bg: rgba(244, 247, 250, 0.9);
+      --color-border-subtle: rgba(26, 31, 54, 0.08);
+
+      /* Typography */
+      --font-sans: "Quicksand", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+
+      /* Layout / spacing */
+      --max-width: 1120px;
+      --header-height: 72px;
+      --radius-soft: 999px;
+      --radius-card: 16px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      --space-8: 32px;
+
+      /* Motion */
+      --transition-fast: 150ms ease-out;
+      --transition-med: 220ms cubic-bezier(0.22, 0.61, 0.36, 1);
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.12);
     }
 
-    /* =========================================
-       1.0 GLOBAL LAYOUT
-    ========================================= */
-    section {
-      width: 100%;
-      padding: 80px 20px;
+    /* ================================
+       2. GLOBAL RESET / BASE
+       ================================ */
+    *,
+    *::before,
+    *::after {
       box-sizing: border-box;
     }
 
-    h1, h2, h3, p {
+    html,
+    body {
       margin: 0;
       padding: 0;
     }
 
-    .center {
-      text-align: center;
+    html {
+      scroll-behavior: smooth;
+      text-size-adjust: 100%;
     }
 
-    .cta-button {
-      display: inline-block;
-      padding: 14px 28px;
-      background: #222;
-      color: #fff;
-      border-radius: 8px;
+    body {
+      min-height: 100vh;
+      margin: 0;
+      font-family: var(--font-sans);
+      color: var(--color-text);
+      background-color: var(--color-bg);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+
+      /* Background SVG */
+      background-image: url("https://raw.githubusercontent.com/tyni/tyniweb/main/background_with_avatars.svg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center top;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
       text-decoration: none;
-      font-weight: 600;
-      margin-top: 20px;
-      transition: 0.2s ease;
     }
 
-    .cta-button:hover {
-      background: #444;
+    button {
+      font-family: inherit;
     }
-    /* =========================================
-       2.0 HERO SECTION
-    ========================================= */
-    #hero {
-      position: relative;
+
+    /* ================================
+       3. LAYOUT WRAPPER
+       ================================ */
+    .page-shell {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page-inner {
       width: 100%;
-      height: 100vh;
-      overflow: hidden;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--space-4);
+    }
+
+    @media (min-width: 960px) {
+      .page-inner {
+        padding: 0;
+      }
+    }
+
+    /* ================================
+       4. HEADER / NAV
+       ================================ */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(14px);
+      background: var(--color-header-bg);
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+
+    .site-header-inner {
+      height: var(--header-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+    }
+
+    /* Logo */
+    .logo-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .logo-mark {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 10px;
+      border-radius: var(--radius-soft);
+      border: 1px solid rgba(26, 31, 54, 0.12);
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: lowercase;
+      color: var(--color-text);
+    }
+
+    .logo-mark-symbol {
+      margin-right: 6px;
+      font-size: 16px;
+      line-height: 1;
+    }
+
+    .logo-mark-text {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .logo-mark-text span {
+      position: relative;
+    }
+
+    /* Orange dot above the “i” */
+    .logo-mark-text span.dot-i {
+      position: relative;
+      padding-right: 1px;
+    }
+
+    .logo-mark-text span.dot-i::after {
+      content: "";
+      position: absolute;
+      left: 52%;
+      top: -6px;
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--color-accent);
+      transform: translateX(-50%);
+    }
+
+    .logo-word {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: lowercase;
+      color: var(--color-text);
+    }
+
+    /* Nav container (empty for now) */
+    .nav-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: var(--space-4);
+      min-width: 120px;
+    }
+
+    /* Placeholder nav style (we’ll fill later) */
+    .nav-placeholder {
+      font-size: 13px;
+      opacity: 0.5;
+      font-weight: 500;
+    }
+
+    /* ================================
+       5. MAIN CONTENT STUB
+       ================================ */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero-stub {
+      padding: var(--space-8) 0 var(--space-8);
+    }
+
+    .hero-stub-inner {
+      min-height: 220px;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-direction: column;
       text-align: center;
-      background: #f7f7f7;
-    }
-
-    .hero-prehook {
-      font-size: 1.2rem;
+      color: rgba(26, 31, 54, 0.5);
+      font-size: 14px;
       font-weight: 500;
-      opacity: 0.8;
-      margin-bottom: 20px;
-      animation: fadeIn 1.2s ease forwards;
     }
 
-    .hero-headline {
-      font-size: 2.4rem;
+    /* ================================
+       6. SMALL MOTION TOUCHES
+       ================================ */
+    .logo-mark {
+      transition: transform var(--transition-med), box-shadow var(--transition-med),
+        border-color var(--transition-med), background var(--transition-med);
+    }
+
+    .logo-mark:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-soft);
+      border-color: rgba(26, 31, 54, 0.18);
+      background: #ffffff;
+    }
+
+    /* ================================
+       HERO SECTION
+       ================================ */
+    .hero {
+      padding: 120px 0 140px;
+      position: relative;
+    }
+    
+    .hero-inner {
+      position: relative;
+      text-align: center;
+      z-index: 2;
+    }
+    
+    .hero-title {
+      font-size: 48px;
       font-weight: 700;
-      max-width: 700px;
-      margin: 0 auto 10px auto;
-      line-height: 1.2;
-      animation: fadeInUp 1.2s ease forwards;
+      line-height: 1.15;
+      margin: 0 0 16px;
+      color: var(--color-text);
     }
-
-    .hero-subheadline {
-      font-size: 1.2rem;
-      max-width: 600px;
-      margin: 0 auto 20px auto;
-      opacity: 0.85;
-      animation: fadeInUp 1.4s ease forwards;
+    
+    .hero-subtitle {
+      font-size: 18px;
+      font-weight: 500;
+      max-width: 640px;
+      margin: 0 auto 32px;
+      color: rgba(26, 31, 54, 0.75);
     }
-
+    
     .hero-cta {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 8px;
+    }
+    
+    .btn-primary {
+      padding: 14px 28px;
+      background: var(--color-accent);
+      color: white;
+      border-radius: var(--radius-soft);
+      font-weight: 600;
+      transition: var(--transition-med);
+    }
+    
+    .btn-primary:hover {
+      opacity: 0.9;
+    }
+    
+    .btn-secondary {
+      padding: 14px 28px;
+      background: white;
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-soft);
+      font-weight: 600;
+      transition: var(--transition-med);
+    }
+    
+    .btn-secondary:hover {
+      background: #fff;
+      box-shadow: var(--shadow-soft);
+    }
+    
+    /* ================================
+       FLOATING ELEMENTS
+       ================================ */
+    .hero-float-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+    
+    .float-item {
+      position: absolute;
+      animation: float 8s cubic-bezier(0.22, 0.61, 0.36, 1) infinite alternate;
+      opacity: 0.95;
+    }
+    
+    /* Offsets */
+    .float-delay-1 { animation-delay: 0s; }
+    .float-delay-2 { animation-delay: 1.2s; }
+    .float-delay-3 { animation-delay: 2.4s; }
+    .float-delay-4 { animation-delay: 3.6s; }
+    
+    /* Character placement */
+    .float-delay-1 {
+      top: 12%;
+      left: 18%;
+      width: 140px;
+    }
+    
+    .float-delay-2 {
+      top: 18%;
+      right: 16%;
+      width: 140px;
+    }
+    
+    /* Abstract UI blocks */
+    .ui-block {
+      width: 160px;
+      height: 100px;
+      border-radius: var(--radius-card);
+      background: white;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--color-border-subtle);
+    }
+    
+    .ui-block-1 {
+      bottom: 18%;
+      left: 22%;
+    }
+    
+    .ui-block-2 {
+      bottom: 14%;
+      right: 20%;
+    }
+    
+    /* Float animation */
+    @keyframes float {
+      0%   { transform: translateY(0); }
+      100% { transform: translateY(-8px); }
+    }
+
+    /* ================================
+       HOW IT WORKS
+       ================================ */
+    .how-it-works {
+      padding: 140px 0;
+      background: #ffffff;
+      position: relative;
+      z-index: 3;
+    }
+    
+    .how-inner {
+      text-align: center;
+    }
+    
+    .how-title {
+      font-size: 36px;
+      font-weight: 700;
+      margin: 0 0 12px;
+      color: var(--color-text);
+    }
+    
+    .how-subtitle {
+      font-size: 18px;
+      font-weight: 500;
+      color: rgba(26, 31, 54, 0.65);
+      max-width: 560px;
+      margin: 0 auto 60px;
+    }
+    
+    .how-grid {
+      display: grid;
+      gap: 32px;
+      grid-template-columns: 1fr;
+    }
+    
+    @media (min-width: 900px) {
+      .how-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    
+    .how-card {
+      background: #ffffff;
+      border-radius: var(--radius-card);
+      padding: 32px 28px;
+      border: 1px solid var(--color-border-subtle);
+      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);
+      transition: var(--transition-med);
+    }
+    
+    .how-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-soft);
+    }
+    
+    .how-number {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-soft);
+      background: var(--color-accent);
+      color: white;
+      font-weight: 700;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+    
+    .how-step-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 0 0 10px;
+    }
+    
+    .how-step-text {
+      font-size: 15px;
+      line-height: 1.55;
+      color: rgba(26, 31, 54, 0.75);
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    /* ================================
+       FEATURES
+       ================================ */
+    .features {
+      padding: 140px 0;
+      background: var(--color-bg);
+      position: relative;
+      z-index: 3;
+    }
+    
+    .features-inner {
+      text-align: center;
+    }
+    
+    .features-title {
+      font-size: 36px;
+      font-weight: 700;
+      margin: 0 0 12px;
+      color: var(--color-text);
+    }
+    
+    .features-subtitle {
+      font-size: 18px;
+      font-weight: 500;
+      color: rgba(26, 31, 54, 0.65);
+      max-width: 620px;
+      margin: 0 auto 60px;
+    }
+    
+    .features-grid {
+      display: grid;
+      gap: 32px;
+      grid-template-columns: 1fr;
+    }
+    
+    @media (min-width: 900px) {
+      .features-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    
+    .feature-card {
+      background: #ffffff;
+      border-radius: var(--radius-card);
+      padding: 36px 28px;
+      border: 1px solid var(--color-border-subtle);
+      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);
+      transition: var(--transition-med);
+      text-align: center;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-soft);
+    }
+    
+    .feature-icon {
+      font-size: 34px;
+      margin-bottom: 20px;
+    }
+    
+    .feature-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 0 0 10px;
+    }
+    
+    .feature-text {
+      font-size: 15px;
+      line-height: 1.55;
+      color: rgba(26, 31, 54, 0.75);
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    /* ================================
+       TESTIMONIALS
+       ================================ */
+    .testimonials {
+      padding: 140px 0;
+      background: #ffffff;
+      position: relative;
+      z-index: 3;
+    }
+    
+    .testimonials-inner {
+      text-align: center;
+    }
+    
+    .testimonials-title {
+      font-size: 36px;
+      font-weight: 700;
+      margin: 0 0 12px;
+      color: var(--color-text);
+    }
+    
+    .testimonials-subtitle {
+      font-size: 18px;
+      font-weight: 500;
+      color: rgba(26, 31, 54, 0.65);
+      max-width: 620px;
+      margin: 0 auto 60px;
+    }
+    
+    .testimonials-grid {
+      display: grid;
+      gap: 32px;
+      grid-template-columns: 1fr;
+    }
+    
+    @media (min-width: 900px) {
+      .testimonials-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    
+    .testimonial-card {
+      background: #ffffff;
+      border-radius: var(--radius-card);
+      padding: 36px 28px;
+      border: 1px solid var(--color-border-subtle);
+      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);
+      transition: var(--transition-med);
+      text-align: center;
+    }
+    
+    .testimonial-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-soft);
+    }
+    
+    .testimonial-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #dfe6ee, #cfd8e3);
+      margin: 0 auto 20px;
+    }
+    
+    .testimonial-text {
+      font-size: 16px;
+      line-height: 1.55;
+      color: rgba(26, 31, 54, 0.85);
+      margin: 0 0 20px;
+      min-height: 80px;
+    }
+    
+    .testimonial-author {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--color-text);
+    }
+    
+    .testimonial-role {
+      font-size: 14px;
+      color: rgba(26, 31, 54, 0.6);
+    }
+
+    /* ================================
+       PRICING
+       ================================ */
+    .pricing {
+      padding: 140px 0;
+      background: var(--color-bg);
+      position: relative;
+      z-index: 3;
+    }
+    
+    .pricing-inner {
+      text-align: center;
+    }
+    
+    .pricing-title {
+      font-size: 36px;
+      font-weight: 700;
+      margin: 0 0 12px;
+      color: var(--color-text);
+    }
+    
+    .pricing-subtitle {
+      font-size: 18px;
+      font-weight: 500;
+      color: rgba(26, 31, 54, 0.65);
+      max-width: 620px;
+      margin: 0 auto 60px;
+    }
+    
+    .pricing-grid {
+      display: grid;
+      gap: 32px;
+      grid-template-columns: 1fr;
+    }
+    
+    @media (min-width: 900px) {
+      .pricing-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    
+    .pricing-card {
+      background: #ffffff;
+      border-radius: var(--radius-card);
+      padding: 40px 32px;
+      border: 1px solid var(--color-border-subtle);
+      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);
+      transition: var(--transition-med);
+      position: relative;
+    }
+    
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-soft);
+    }
+    
+    .pricing-featured {
+      border: 2px solid var(--color-accent);
+      transform: scale(1.02);
+    }
+    
+    .pricing-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--color-accent);
+      color: white;
+      padding: 6px 14px;
+      border-radius: var(--radius-soft);
+      font-size: 13px;
+      font-weight: 600;
+    }
+    
+    .pricing-tier {
+      font-size: 22px;
+      font-weight: 700;
+      margin: 0 0 12px;
+    }
+    
+    .pricing-amount {
+      font-size: 40px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    
+    .pricing-amount span {
+      font-size: 18px;
+      font-weight: 500;
+      color: rgba(26, 31, 54, 0.6);
+    }
+    
+    .pricing-desc {
+      font-size: 15px;
+      color: rgba(26, 31, 54, 0.7);
+      margin-bottom: 24px;
+    }
+    
+    .pricing-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 32px;
+      text-align: left;
+    }
+    
+    .pricing-features li {
+      margin-bottom: 10px;
+      font-size: 15px;
+      color: rgba(26, 31, 54, 0.8);
+      padding-left: 18px;
+      position: relative;
+    }
+    
+    .pricing-features li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--color-accent);
+      font-size: 20px;
+      line-height: 1;
+    }
+    
+    .pricing-btn {
       display: inline-block;
       padding: 14px 28px;
-      background: #222;
-      color: #fff;
-      border-radius: 8px;
-      text-decoration: none;
+      border-radius: var(--radius-soft);
+      border: 1px solid var(--color-border-subtle);
+      background: white;
       font-weight: 600;
-      margin-top: 20px;
-      transition: 0.2s ease;
-      animation: fadeInUp 1.6s ease forwards;
+      transition: var(--transition-med);
+    }
+    
+    .pricing-btn:hover {
+      background: #fff;
+      box-shadow: var(--shadow-soft);
+    }
+    
+    .pricing-btn.primary {
+      background: var(--color-accent);
+      color: white;
+      border: none;
+    }
+    
+    .pricing-btn.primary:hover {
+      opacity: 0.9;
     }
 
-    .hero-cta:hover {
-      background: #444;
-    }
-
-    .hero-insight-bubble {
-      position: absolute;
-      bottom: 120px;
-      right: 40px;
+    /* ================================
+       FINAL CTA
+       ================================ */
+    .final-cta {
+      padding: 160px 0;
       background: #ffffff;
-      padding: 14px 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.1);
-      font-size: 0.95rem;
-      max-width: 260px;
-      opacity: 0;
-      animation: fadeIn 2.2s ease forwards;
+      text-align: center;
+      position: relative;
+      z-index: 3;
+    }
+    
+    .final-cta-title {
+      font-size: 40px;
+      font-weight: 700;
+      margin: 0 0 16px;
+      color: var(--color-text);
+    }
+    
+    .final-cta-subtitle {
+      font-size: 18px;
+      font-weight: 500;
+      color: rgba(26, 31, 54, 0.65);
+      max-width: 620px;
+      margin: 0 auto 40px;
+    }
+    
+    .final-cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    
+    .cta-btn-primary {
+      padding: 16px 32px;
+      background: var(--color-accent);
+      color: white;
+      border-radius: var(--radius-soft);
+      font-weight: 600;
+      transition: var(--transition-med);
+    }
+    
+    .cta-btn-primary:hover {
+      opacity: 0.9;
+    }
+    
+    .cta-btn-secondary {
+      padding: 16px 32px;
+      background: white;
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-soft);
+      font-weight: 600;
+      transition: var(--transition-med);
+    }
+    
+    .cta-btn-secondary:hover {
+      background: #fff;
+      box-shadow: var(--shadow-soft);
     }
 
-    .scroll-cue {
-      position: absolute;
-      bottom: 40px;
-      font-size: 0.9rem;
+    /* ================================
+       FOOTER
+       ================================ */
+    .site-footer {
+      background: #ffffff;
+      padding: 80px 0 60px;
+      border-top: 1px solid var(--color-border-subtle);
+      position: relative;
+      z-index: 3;
+    }
+    
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+    }
+    
+    .footer-top {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+    
+    @media (min-width: 900px) {
+      .footer-top {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+    }
+    
+    .footer-brand {
+      max-width: 300px;
+    }
+    
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 20px;
+      color: var(--color-text);
+    }
+    
+    .footer-logo-symbol {
+      font-size: 20px;
+    }
+    
+    .footer-tagline {
+      margin-top: 12px;
+      font-size: 15px;
+      color: rgba(26, 31, 54, 0.65);
+    }
+    
+    .footer-links {
+      display: grid;
+      gap: 32px;
+      grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .footer-column h4 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 14px;
+      color: var(--color-text);
+    }
+    
+    .footer-column a {
+      display: block;
+      font-size: 14px;
+      color: rgba(26, 31, 54, 0.7);
+      margin-bottom: 10px;
+      transition: var(--transition-fast);
+    }
+    
+    .footer-column a:hover {
+      color: var(--color-accent);
+    }
+    
+    .footer-bottom {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      text-align: center;
+      font-size: 14px;
+      color: rgba(26, 31, 54, 0.6);
+    }
+    
+    @media (min-width: 900px) {
+      .footer-bottom {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+      }
+    }
+    
+    .footer-legal a {
+      margin-left: 20px;
+      color: rgba(26, 31, 54, 0.6);
+      transition: var(--transition-fast);
+    }
+    
+    .footer-legal a:hover {
+      color: var(--color-accent);
+    }
+
+    /* ================================
+       MOBILE POLISH PASS (CHUNK 9)
+       ================================ */
+    
+    /* Global spacing adjustments */
+    @media (max-width: 600px) {
+      :root {
+        --space-8: 24px;
+        --header-height: 64px;
+      }
+    
+      body {
+        background-size: 180%;
+        background-position: center top;
+      }
+    
+      .page-inner {
+        padding: 0 20px;
+      }
+    }
+    
+    /* Header */
+    @media (max-width: 600px) {
+      .site-header-inner {
+        gap: 12px;
+      }
+    
+      .logo-word {
+        display: none;
+      }
+    
+      .nav-placeholder {
+        font-size: 12px;
+      }
+    }
+    
+    /* Hero */
+    @media (max-width: 600px) {
+      .hero {
+        padding: 80px 0 100px;
+      }
+    
+      .hero-title {
+        font-size: 32px;
+        line-height: 1.2;
+      }
+    
+      .hero-subtitle {
+        font-size: 16px;
+        margin-bottom: 24px;
+      }
+    
+      .hero-cta {
+        flex-direction: column;
+        gap: 12px;
+      }
+    
+      /* Floating elements reposition */
+      .float-delay-1 {
+        top: 6%;
+        left: 4%;
+        width: 90px;
+      }
+    
+      .float-delay-2 {
+        top: 10%;
+        right: 4%;
+        width: 90px;
+      }
+    
+      .ui-block {
+        width: 120px;
+        height: 80px;
+      }
+    
+      .ui-block-1 {
+        bottom: 10%;
+        left: 6%;
+      }
+    
+      .ui-block-2 {
+        bottom: 8%;
+        right: 6%;
+      }
+    }
+    
+    /* How it works */
+    @media (max-width: 600px) {
+      .how-it-works {
+        padding: 100px 0;
+      }
+    
+      .how-title {
+        font-size: 28px;
+      }
+    
+      .how-subtitle {
+        font-size: 16px;
+        margin-bottom: 40px;
+      }
+    
+      .how-card {
+        padding: 28px 20px;
+      }
+    }
+    
+    /* Features */
+    @media (max-width: 600px) {
+      .features {
+        padding: 100px 0;
+      }
+    
+      .features-title {
+        font-size: 28px;
+      }
+    
+      .features-subtitle {
+        font-size: 16px;
+        margin-bottom: 40px;
+      }
+    
+      .feature-card {
+        padding: 28px 20px;
+      }
+    }
+    
+    /* Testimonials */
+    @media (max-width: 600px) {
+      .testimonials {
+        padding: 100px 0;
+      }
+    
+      .testimonial-card {
+        padding: 28px 20px;
+      }
+    
+      .testimonial-text {
+        font-size: 15px;
+        min-height: auto;
+      }
+    }
+    
+    /* Pricing */
+    @media (max-width: 600px) {
+      .pricing {
+        padding: 100px 0;
+      }
+    
+      .pricing-title {
+        font-size: 28px;
+      }
+    
+      .pricing-subtitle {
+        font-size: 16px;
+        margin-bottom: 40px;
+      }
+    
+      .pricing-card {
+        padding: 32px 24px;
+      }
+    
+      .pricing-amount {
+        font-size: 32px;
+      }
+    }
+    
+    /* Final CTA */
+    @media (max-width: 600px) {
+      .final-cta {
+        padding: 120px 0;
+      }
+    
+      .final-cta-title {
+        font-size: 32px;
+      }
+    
+      .final-cta-subtitle {
+        font-size: 16px;
+        margin-bottom: 32px;
+      }
+    
+      .final-cta-buttons {
+        flex-direction: column;
+        gap: 12px;
+      }
+    }
+    
+    /* Footer */
+    @media (max-width: 600px) {
+      .footer-top {
+        gap: 32px;
+      }
+    
+      .footer-links {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+    
+      .footer-bottom {
+        gap: 12px;
+      }
+    }
+
+    /* ================================
+       ANIMATION REFINEMENT (CHUNK 10)
+       ================================ */
+    
+    /* Enhanced float animation with micro-parallax */
+    @keyframes float-refined {
+      0% {
+        transform: translate(0px, 0px);
+      }
+      25% {
+        transform: translate(2px, -4px);
+      }
+      50% {
+        transform: translate(0px, -8px);
+      }
+      75% {
+        transform: translate(-2px, -4px);
+      }
+      100% {
+        transform: translate(0px, 0px);
+      }
+    }
+    
+    /* Apply refined animation to all float items */
+    .float-item {
+      animation: float-refined 10s cubic-bezier(0.25, 0.55, 0.35, 1) infinite;
+      will-change: transform;
+      opacity: 0.95;
+    }
+    
+    /* Staggered timing for realism */
+    .float-delay-1 {
+      animation-duration: 11s;
+      animation-delay: 0s;
+    }
+    
+    .float-delay-2 {
+      animation-duration: 13s;
+      animation-delay: 1.4s;
+    }
+    
+    .float-delay-3 {
+      animation-duration: 12s;
+      animation-delay: 2.1s;
+    }
+    
+    .float-delay-4 {
+      animation-duration: 14s;
+      animation-delay: 3.2s;
+    }
+    
+    /* Slight scale breathing for abstract UI blocks */
+    @keyframes ui-breath {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.015);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    
+    .ui-block {
+      animation: ui-breath 8s ease-in-out infinite;
+      will-change: transform;
+    }
+    
+    /* Mobile refinement */
+    @media (max-width: 600px) {
+      .float-item {
+        animation-duration: 9s;
+      }
+    
+      .ui-block {
+        animation-duration: 7s;
+      }
+    }
+
+    /* ================================
+       ACCESSIBILITY FOCUS STATES
+       ================================ */
+    
+    :focus-visible {
+      outline: 3px solid var(--color-accent);
+      outline-offset: 3px;
+      border-radius: 6px;
+    }
+    
+    /* Buttons */
+    button:focus-visible,
+    a:focus-visible {
+      outline: 3px solid var(--color-accent);
+      outline-offset: 3px;
+    }
+    
+    /* Remove default outline only when replaced */
+    :focus {
+      outline: none;
+    }
+
+    /* Improve subtle text contrast */
+    .hero-subtitle,
+    .how-subtitle,
+    .features-subtitle,
+    .testimonials-subtitle,
+    .pricing-subtitle,
+    .final-cta-subtitle {
+      color: rgba(26, 31, 54, 0.75);
+    }
+    
+    /* Improve footer link contrast */
+    .footer-column a {
+      color: rgba(26, 31, 54, 0.8);
+    }
+
+    /* ================================
+       REDUCED MOTION SUPPORT
+       ================================ */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+
+    /* ================================
+       GLOBAL TYPOGRAPHY + SPACING
+       ================================ */
+    
+    :root {
+      --h1: 48px;
+      --h2: 36px;
+      --h3: 22px;
+      --body-lg: 18px;
+      --body: 15px;
+    
+      --section-padding: 140px;
+      --section-padding-mobile: 100px;
+    }
+    
+    h1, h2, h3 {
+      color: var(--color-text);
+      margin: 0;
+      line-height: 1.2;
+    }
+    
+    p {
+      margin: 0;
+      line-height: 1.55;
+      color: rgba(26, 31, 54, 0.75);
+    }
+    
+    section {
+      padding: var(--section-padding) 0;
+    }
+    
+    @media (max-width: 600px) {
+      section {
+        padding: var(--section-padding-mobile) 0;
+      }
+    }
+
+    /* ================================
+       CARD BASE STYLE
+       ================================ */
+    
+    .card {
+      background: #ffffff;
+      border-radius: var(--radius-card);
+      border: 1px solid var(--color-border-subtle);
+      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);
+      padding: 32px 28px;
+      transition: var(--transition-med);
+      box-shadow: var(--shadow-card);
+    }
+
+    .card,
+    .btn {
+      will-change: transform;
+    }
+    
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-soft);
+    }
+    
+    @media (max-width: 600px) {
+      .card {
+        padding: 28px 20px;
+      }
+    }
+
+    /* ================================
+       GRID SYSTEM
+       ================================ */
+    
+    .grid-3 {
+      display: grid;
+      gap: 32px;
+      grid-template-columns: 1fr;
+    }
+    
+    @media (min-width: 900px) {
+      .grid-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* ================================
+       SECTION TITLES
+       ================================ */
+    
+    .section-title {
+      font-size: var(--h2);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    
+    .section-subtitle {
+      font-size: var(--body-lg);
+      font-weight: 500;
+      max-width: 620px;
+      margin: 0 auto 60px;
+    }
+
+    /* GPU acceleration for smoother animations */
+    .float-item,
+    .ui-block {
+      transform: translateZ(0);
+      backface-visibility: hidden;
+      will-change: transform;
+    }
+
+    :root {
+      --shadow-card: 0 12px 32px rgba(15, 23, 42, 0.06);
+    }
+
+    /* ================================
+       DARK MODE VARIABLES
+       ================================ */
+    
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --color-bg: #0f1117;
+        --color-text: #f5f7fa;
+        --color-border-subtle: rgba(255, 255, 255, 0.12);
+        --color-accent: #6366f1;
+    
+        --shadow-soft: 0 12px 32px rgba(0, 0, 0, 0.45);
+      }
+    }
+    
+    /* ================================
+     DARK MODE COMPONENT POLISH
+     ================================ */
+    
+    @media (prefers-color-scheme: dark) {
+    
+      body {
+        background: var(--color-bg);
+        color: var(--color-text);
+      }
+    
+      .card {
+        background: #1a1d24;
+        border-color: var(--color-border-subtle);
+      }
+    
+      .btn-secondary {
+        background: #1a1d24;
+        border-color: var(--color-border-subtle);
+        color: var(--color-text);
+      }
+    
+      .btn-secondary:hover {
+        background: #222630;
+      }
+    
+      .site-footer {
+        background: #0f1117;
+        border-top-color: var(--color-border-subtle);
+      }
+    
+      .footer-column a {
+        color: rgba(255, 255, 255, 0.75);
+      }
+    
+      .footer-column a:hover {
+        color: var(--color-accent);
+      }
+    
+      .testimonial-avatar {
+        background: linear-gradient(135deg, #2a2f3a, #1f232c);
+      }
+    }
+    
+    /* ================================
+     DARK MODE TOGGLE
+     ================================ */
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: var(--color-text);
+      transition: opacity 0.2s ease;
+    }
+    
+    .theme-toggle:hover {
       opacity: 0.7;
-      animation: fadeIn 2.4s ease forwards;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    /* Manual dark mode override */
+    .dark-mode {
+      --color-bg: #0f1117;
+      --color-text: #f5f7fa;
+      --color-border-subtle: rgba(255, 255, 255, 0.12);
+      --color-accent: #6366f1;
+      --shadow-soft: 0 12px 32px rgba(0, 0, 0, 0.45);
     }
+    
 
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+
+
+
+
+
+
+
+    
+
   </style>
 </head>
 
 <body>
+  <div class="page-shell">
+    <!-- =========================
+         HEADER
+         ========================= -->
+    <header class="site-header" role="banner">
+      <div class="page-inner site-header-inner">
+        <!-- Logo -->
+        <a href="#" class="logo-wrap" aria-label="tyniweb home">
+          <div class="logo-mark">
+            <span class="logo-mark-symbol">≡</span>
+            <span class="logo-mark-text">
+              <span>t</span>
+              <span class="dot-i">y</span>
+              <span>n</span>
+              <span>i</span>
+              <span>w</span>
+              <span>e</span>
+              <span>b</span>
+            </span>
+          </div>
+          <span class="logo-word">tyniweb</span>
+        </a>
 
-  <!-- =========================================
-       HERO SECTION
-  ========================================= -->
-  <section id="hero">
-    <div class="hero-prehook">Everything grows from a small start.</div>
-
-    <h1 class="hero-headline">Get the help you need, exactly when you need it.</h1>
-
-    <p class="hero-subheadline">
-      Tyniweb connects people and AI to move work forward.
-    </p>
-
-    <a href="#start" class="hero-cta">Start in seconds</a>
-
-    <div class="hero-insight-bubble">
-      <ul>
-        <li>Get work done faster with AI that understands your needs.</li>
-        <li>Stop searching. Start matching.</li>
-        <li>Build more. Stress less.</li>
-        <li>You’re closer than you think.</li>
-        <li>Small starts lead to big progress.</li>
-      </ul>
-    </div>
-
-    <div class="scroll-cue">Scroll to explore</div>
-  </section>
-  <!-- =========================================
-       3.0 HOW IT WORKS
-  ========================================= -->
-  <style>
-    #how-it-works {
-      background: #ffffff;
-      padding: 100px 20px;
-      text-align: center;
-    }
-
-    #how-it-works h2 {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 40px;
-    }
-
-    .hiw-steps {
-      display: flex;
-      flex-direction: column;
-      gap: 40px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .hiw-step {
-      background: #f7f7f7;
-      padding: 30px;
-      border-radius: 14px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.05);
-    }
-
-    .hiw-step h3 {
-      font-size: 1.4rem;
-      font-weight: 600;
-      margin-bottom: 10px;
-    }
-
-    .hiw-step p {
-      font-size: 1rem;
-      opacity: 0.85;
-      line-height: 1.5;
-    }
-
-    @media (min-width: 800px) {
-      .hiw-steps {
-        flex-direction: row;
-      }
-      .hiw-step {
-        flex: 1;
-      }
-    }
-  </style>
-
-  <section id="how-it-works">
-    <h2>How it works</h2>
-
-    <div class="hiw-steps">
-
-      <div class="hiw-step">
-        <h3>1. Start where you are</h3>
-        <p>
-          Tell us what you need or what you're trying to do.  
-          No perfect wording required — just start.
-        </p>
+        <!-- Nav container (to be filled in later chunks) -->
+       <nav class="nav-wrap" aria-label="Primary navigation">
+          <span class="nav-placeholder">nav coming in Chunk 2…</span>
+          <button id="theme-toggle" aria-label="Toggle dark mode" class="theme-toggle">🌙</button>
+        </nav>
       </div>
+    </header>
 
-      <div class="hiw-step">
-        <h3>2. See what's already there</h3>
-        <p>
-          Tyniweb analyzes your request and surfaces the skills,  
-          strengths, or opportunities already in motion.
+    <!-- =========================
+         HERO SECTION (CHUNK 2)
+         ========================= -->
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="page-inner hero-inner">
+    
+          <!-- Text block -->
+          <div class="hero-content">
+            <h1 id="hero-title" class="hero-title">
+              Build smarter, faster, together.
+            </h1>
+    
+            <p class="hero-subtitle">
+              Tyniweb helps you design, automate, and scale your workflows with clarity and confidence.
+            </p>
+    
+            <div class="hero-cta">
+              <a href="#" class="btn-primary onclick="plausible('Get Started Click')">Get Started</a>
+              <a href="#" class="btn-secondary">Learn More</a>
+            </div>
+          </div>
+    
+          <!-- Floating elements container -->
+          <div class="hero-float-layer">
+    
+            <!-- Character 1 -->
+            <img src="https://raw.githubusercontent.com/tyni/tyniweb/main/human.png"
+                 width="140" height="140"
+                 alt="Human character"
+                 loading="lazy"
+                 class="float-item float-delay-1">
+    
+            <!-- Character 2 -->
+            <img src="https://raw.githubusercontent.com/tyni/tyniweb/main/ai.png"
+                 width="140" height="140"
+                 alt="AI character"
+                 loading="lazy"
+                 class="float-item float-delay-2">
+    
+            <!-- Abstract UI block 1 -->
+            <div class="ui-block ui-block-1 float-item float-delay-3"></div>
+    
+            <!-- Abstract UI block 2 -->
+            <div class="ui-block ui-block-2 float-item float-delay-4"></div>
+    
+          </div>
+    
+        </div>
+      </section>
+
+      <!-- =========================
+         HOW IT WORKS (CHUNK 3)
+         ========================= -->
+    <section class="how-it-works" aria-labelledby="how-title">
+      <div class="page-inner how-inner">
+    
+        <h2 id="section-title" class="section-title">
+        <p class="section-subtitle">
+          Three simple steps to turn ideas into working systems.
         </p>
+    
+        <div class="grid-3">
+    
+          <!-- Step 1 -->
+          <div class="how-card">
+            <div class="how-number">1</div>
+            <h3 class="how-step-title">Start with a clear goal</h3>
+            <p class="how-step-text">
+              Define what you want to build. Tyniweb helps you break it down into simple, modular pieces.
+            </p>
+          </div>
+    
+          <!-- Step 2 -->
+          <div class="how-card">
+            <div class="how-number">2</div>
+            <h3 class="how-step-title">Build in small blocks</h3>
+            <p class="how-step-text">
+              Create workflows, pages, and automations using intuitive building blocks that grow with you.
+            </p>
+          </div>
+    
+          <!-- Step 3 -->
+          <div class="how-card">
+            <div class="how-number">3</div>
+            <h3 class="how-step-title">Launch & iterate</h3>
+            <p class="how-step-text">
+              Ship confidently. Improve quickly. Tyniweb adapts as your ideas evolve.
+            </p>
+          </div>
+    
+        </div>
+    
       </div>
+    </section>
 
-      <div class="hiw-step">
-        <h3>3. Move forward with intention</h3>
-        <p>
-          Get matched with the right help — whether it's a person,  
-          a tool, or an AI‑powered workflow.
+      <!-- =========================
+         FEATURES (CHUNK 4)
+         ========================= -->
+    <section class="features" aria-labelledby="features-title">
+      <div class="page-inner features-inner">
+    
+        <h2 id="section-title" class="section-title">Powerful features, simple to use</h2>
+        <p class="section-subtitle">
+          Everything you need to build, automate, and scale — without the complexity.
         </p>
+    
+        <div class="grid-3">
+    
+          <!-- Feature 1 -->
+          <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3 class="feature-title">Fast modular building</h3>
+            <p class="feature-text">
+              Create workflows and pages using intuitive blocks that snap together effortlessly.
+            </p>
+          </div>
+    
+          <!-- Feature 2 -->
+          <div class="feature-card">
+            <div class="feature-icon">🔗</div>
+            <h3 class="feature-title">Smart integrations</h3>
+            <p class="feature-text">
+              Connect your tools and automate tasks with clean, reliable integrations.
+            </p>
+          </div>
+    
+          <!-- Feature 3 -->
+          <div class="feature-card">
+            <div class="feature-icon">🧠</div>
+            <h3 class="feature-title">AI‑assisted workflows</h3>
+            <p class="feature-text">
+              Let AI help you plan, refine, and optimize your systems as you build.
+            </p>
+          </div>
+    
+          <!-- Feature 4 -->
+          <div class="feature-card">
+            <div class="feature-icon">📈</div>
+            <h3 class="feature-title">Scales with your team</h3>
+            <p class="feature-text">
+              From solo builders to full teams, Tyniweb adapts to your growth.
+            </p>
+          </div>
+    
+          <!-- Feature 5 -->
+          <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <h3 class="feature-title">Secure by design</h3>
+            <p class="feature-text">
+              Built with modern security standards to keep your data safe and trusted.
+            </p>
+          </div>
+    
+          <!-- Feature 6 -->
+          <div class="feature-card">
+            <div class="feature-icon">🎨</div>
+            <h3 class="feature-title">Beautifully customizable</h3>
+            <p class="feature-text">
+              Make it yours with flexible layouts, themes, and brand‑ready components.
+            </p>
+          </div>
+    
+        </div>
+    
       </div>
+    </section>
 
-    </div>
-  </section>
-  <!-- =========================================
-       4.0 FOR WORKERS
-  ========================================= -->
-  <style>
-    #for-workers {
-      background: #f7f7f7;
-      padding: 100px 20px;
-      text-align: center;
-    }
-
-    #for-workers h2 {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 20px;
-    }
-
-    #for-workers p.section-intro {
-      font-size: 1.1rem;
-      max-width: 700px;
-      margin: 0 auto 50px auto;
-      opacity: 0.85;
-      line-height: 1.6;
-    }
-
-    .worker-benefits {
-      display: flex;
-      flex-direction: column;
-      gap: 40px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .worker-benefit {
-      background: #ffffff;
-      padding: 30px;
-      border-radius: 14px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.05);
-    }
-
-    .worker-benefit h3 {
-      font-size: 1.4rem;
-      font-weight: 600;
-      margin-bottom: 10px;
-    }
-
-    .worker-benefit p {
-      font-size: 1rem;
-      opacity: 0.85;
-      line-height: 1.5;
-    }
-
-    @media (min-width: 800px) {
-      .worker-benefits {
-        flex-direction: row;
-      }
-      .worker-benefit {
-        flex: 1;
-      }
-    }
-  </style>
-
-  <section id="for-workers">
-    <h2>For workers</h2>
-
-    <p class="section-intro">
-      Whether you're starting fresh, switching paths, or leveling up,  
-      Tyniweb helps you see your strengths and move forward with confidence.
-    </p>
-
-    <div class="worker-benefits">
-
-      <div class="worker-benefit">
-        <h3>Discover your hidden strengths</h3>
-        <p>
-          Tyniweb reveals the skills you already have — even the ones  
-          you didn’t realize were valuable.
+      <!-- =========================
+         TESTIMONIALS (CHUNK 5)
+         ========================= -->
+    <section class="testimonials" aria-labelledby="testimonials-title">
+      <div class="page-inner testimonials-inner">
+    
+        <h2 id="section-title" class="section-title">Loved by builders everywhere</h2>
+        <p class="section-subtitle">
+          Real people using Tyniweb to create, automate, and scale their ideas.
         </p>
+    
+        <div class="grid-3">
+    
+          <!-- Testimonial 1 -->
+          <div class="testimonial-card">
+            <div class="testimonial-avatar"></div>
+            <p class="testimonial-text">
+              “Tyniweb helped me turn a messy workflow into a clean, automated system in a single weekend.”
+            </p>
+            <div class="testimonial-author">Alex R.</div>
+            <div class="testimonial-role">Product Designer</div>
+          </div>
+    
+          <!-- Testimonial 2 -->
+          <div class="testimonial-card">
+            <div class="testimonial-avatar"></div>
+            <p class="testimonial-text">
+              “The modular approach is brilliant. I can build fast, test fast, and iterate without breaking anything.”
+            </p>
+            <div class="testimonial-author">Jordan M.</div>
+            <div class="testimonial-role">Startup Founder</div>
+          </div>
+    
+          <!-- Testimonial 3 -->
+          <div class="testimonial-card">
+            <div class="testimonial-avatar"></div>
+            <p class="testimonial-text">
+              “It feels like having a co‑builder. The clarity and speed it gives me is unreal.”
+            </p>
+            <div class="testimonial-author">Sofia L.</div>
+            <div class="testimonial-role">Automation Specialist</div>
+          </div>
+    
+        </div>
+    
       </div>
+    </section>
 
-      <div class="worker-benefit">
-        <h3>Grow at your own pace</h3>
-        <p>
-          Get personalized guidance and small, achievable steps  
-          that build momentum over time.
+      <!-- =========================
+         PRICING (CHUNK 6)
+         ========================= -->
+    <section class="pricing" aria-labelledby="pricing-title">
+      <div class="page-inner pricing-inner">
+    
+        <h2 id="section-title" class="section-title">Simple, transparent pricing</h2>
+        <p class="section-subtitle">
+          Start free. Upgrade when you’re ready to scale.
         </p>
+    
+        <div class="grid-3">
+    
+          <!-- Tier 1: Free -->
+          <div class="pricing-card">
+            <h3 class="pricing-tier">Free</h3>
+            <div class="pricing-amount">$0</div>
+            <p class="pricing-desc">For individuals exploring ideas.</p>
+    
+            <ul class="pricing-features">
+              <li>Unlimited pages</li>
+              <li>Basic workflow builder</li>
+              <li>Community support</li>
+            </ul>
+    
+            <a href="#" class="pricing-btn">Get Started</a>
+          </div>
+    
+          <!-- Tier 2: Pro -->
+          <div class="pricing-card pricing-featured">
+            <div class="pricing-badge">Most Popular</div>
+            <h3 class="pricing-tier">Pro</h3>
+            <div class="pricing-amount">$19<span>/mo</span></div>
+            <p class="pricing-desc">For creators building real systems.</p>
+    
+            <ul class="pricing-features">
+              <li>Everything in Free</li>
+              <li>Advanced automations</li>
+              <li>AI‑assisted workflows</li>
+              <li>Integrations</li>
+              <li>Email support</li>
+            </ul>
+    
+            <a href="#" class="pricing-btn primary">Upgrade</a>
+          </div>
+    
+          <!-- Tier 3: Team -->
+          <div class="pricing-card">
+            <h3 class="pricing-tier">Team</h3>
+            <div class="pricing-amount">$49<span>/mo</span></div>
+            <p class="pricing-desc">For teams that need to collaborate.</p>
+    
+            <ul class="pricing-features">
+              <li>Everything in Pro</li>
+              <li>Team workspaces</li>
+              <li>Role permissions</li>
+              <li>Priority support</li>
+            </ul>
+    
+            <a href="#" class="pricing-btn">Contact Sales</a>
+          </div>
+    
+        </div>
+    
       </div>
+    </section>
 
-      <div class="worker-benefit">
-        <h3>Find the right opportunities</h3>
-        <p>
-          Match with tasks, tools, and workflows that fit your strengths  
-          and help you move toward your goals.
+      <!-- =========================
+         FINAL CTA (CHUNK 7)
+         ========================= -->
+    <section class="final-cta" aria-labelledby="final-cta-title">
+      <div class="page-inner final-cta-inner">
+    
+        <h2 class="section-title">Ready to build something great?</h2>
+        <p class="section-subtitle">
+          Start small, grow fast, and bring your ideas to life with Tyniweb.
         </p>
+    
+        <div class="final-cta-buttons">
+          <a href="#" class="cta-btn-primary onclick="plausible('Get Started Click')">Get Started Free</a>
+          <a href="#" class="cta-btn-secondary onclick="plausible('Get Started Click')">Book a Demo</a>
+        </div>
+    
       </div>
+    </section>
 
-    </div>
-  </section>
-  <!-- =========================================
-       5.0 FOR BUSINESSES
-  ========================================= -->
-  <style>
-    #for-businesses {
-      background: #ffffff;
-      padding: 100px 20px;
-      text-align: center;
-    }
-
-    #for-businesses h2 {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 20px;
-    }
-
-    #for-businesses p.section-intro {
-      font-size: 1.1rem;
-      max-width: 700px;
-      margin: 0 auto 50px auto;
-      opacity: 0.85;
-      line-height: 1.6;
-    }
-
-    .business-benefits {
-      display: flex;
-      flex-direction: column;
-      gap: 40px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .business-benefit {
-      background: #f7f7f7;
-      padding: 30px;
-      border-radius: 14px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.05);
-    }
-
-    .business-benefit h3 {
-      font-size: 1.4rem;
-      font-weight: 600;
-      margin-bottom: 10px;
-    }
-
-    .business-benefit p {
-      font-size: 1rem;
-      opacity: 0.85;
-      line-height: 1.5;
-    }
-
-    @media (min-width: 800px) {
-      .business-benefits {
-        flex-direction: row;
-      }
-      .business-benefit {
-        flex: 1;
-      }
-    }
-  </style>
-
-  <section id="for-businesses">
-    <h2>For businesses</h2>
-
-    <p class="section-intro">
-      Tyniweb helps teams work smarter by revealing strengths,  
-      reducing friction, and connecting people to the right support  
-      at the right moment.
-    </p>
-
-    <div class="business-benefits">
-
-      <div class="business-benefit">
-        <h3>See your team's strengths clearly</h3>
-        <p>
-          Understand the real capabilities within your organization —  
-          not just job titles or assumptions.
-        </p>
+      <!-- =========================
+         FOOTER (CHUNK 8)
+         ========================= -->
+    <footer class="site-footer" role="contentinfo">
+      <div class="page-inner footer-inner">
+    
+        <div class="footer-top">
+          <div class="footer-brand">
+            <div class="footer-logo">
+              <span class="footer-logo-symbol">≡</span>
+              <span class="footer-logo-text">tyniweb</span>
+            </div>
+            <p class="footer-tagline">
+              Everything grows from a small start.
+            </p>
+          </div>
+    
+          <div class="footer-links">
+            <div class="footer-column">
+              <h4>Product</h4>
+              <a href="#">Features</a>
+              <a href="#">Pricing</a>
+              <a href="#">Templates</a>
+              <a href="#">Updates</a>
+            </div>
+    
+            <div class="footer-column">
+              <h4>Company</h4>
+              <a href="#">About</a>
+              <a href="#">Careers</a>
+              <a href="#">Blog</a>
+              <a href="#">Contact</a>
+            </div>
+    
+            <div class="footer-column">
+              <h4>Resources</h4>
+              <a href="#">Docs</a>
+              <a href="#">Community</a>
+              <a href="#">Guides</a>
+              <a href="#">Support</a>
+            </div>
+          </div>
+        </div>
+    
+        <div class="footer-bottom">
+          <div class="footer-copy">© 2026 Tyniweb. All rights reserved.</div>
+          <div class="footer-legal">
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+          </div>
+        </div>
+    
       </div>
+    </footer>
 
-      <div class="business-benefit">
-        <h3>Reduce bottlenecks and burnout</h3>
-        <p>
-          Match people with tasks that fit their strengths,  
-          and let AI handle the repetitive or heavy lifting.
-        </p>
-      </div>
 
-      <div class="business-benefit">
-        <h3>Build a culture of growth</h3>
-        <p>
-          Give your team personalized guidance, recognition,  
-          and clear paths to develop their skills.
-        </p>
-      </div>
 
-    </div>
-  </section>
-  <!-- =========================================
-       6.0 RECOGNITION SYSTEM PREVIEW
-  ========================================= -->
-  <style>
-    #recognition-preview {
-      background: #f7f7f7;
-      padding: 100px 20px;
-      text-align: center;
-    }
 
-    #recognition-preview h2 {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 20px;
-    }
 
-    #recognition-preview p.section-intro {
-      font-size: 1.1rem;
-      max-width: 700px;
-      margin: 0 auto 50px auto;
-      opacity: 0.85;
-      line-height: 1.6;
-    }
 
-    .recognition-cards {
-      display: flex;
-      flex-direction: column;
-      gap: 40px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
 
-    .recognition-card {
-      background: #ffffff;
-      padding: 30px;
-      border-radius: 14px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.05);
-      text-align: left;
-    }
 
-    .recognition-card h3 {
-      font-size: 1.4rem;
-      font-weight: 600;
-      margin-bottom: 10px;
-    }
 
-    .recognition-card p {
-      font-size: 1rem;
-      opacity: 0.85;
-      line-height: 1.5;
-    }
 
-    @media (min-width: 800px) {
-      .recognition-cards {
-        flex-direction: row;
-      }
-      .recognition-card {
-        flex: 1;
-      }
-    }
-  </style>
 
-  <section id="recognition-preview">
-    <h2>Recognition that actually means something</h2>
-
-    <p class="section-intro">
-      Tyniweb doesn’t hand out empty badges.  
-      It recognizes real strengths, real progress, and real contributions —  
-      even the ones that usually go unnoticed.
-    </p>
-
-    <div class="recognition-cards">
-
-      <div class="recognition-card">
-        <h3>See your real strengths</h3>
-        <p>
-          Tyniweb identifies patterns in your work and highlights  
-          the abilities you naturally excel at.
-        </p>
-      </div>
-
-      <div class="recognition-card">
-        <h3>Celebrate meaningful progress</h3>
-        <p>
-          Every step forward — big or small — is tracked and  
-          acknowledged in a way that builds confidence.
-        </p>
-      </div>
-
-      <div class="recognition-card">
-        <h3>Get recognized for what matters</h3>
-        <p>
-          Your contributions are surfaced and celebrated,  
-          helping you feel seen, valued, and motivated.
-        </p>
-      </div>
-
-    </div>
-  </section>
-  <!-- =========================================
-       7.0 PROGRESSION SYSTEM PREVIEW
-  ========================================= -->
-  <style>
-    #progression-preview {
-      background: #ffffff;
-      padding: 100px 20px;
-      text-align: center;
-    }
-
-    #progression-preview h2 {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 20px;
-    }
-
-    #progression-preview p.section-intro {
-      font-size: 1.1rem;
-      max-width: 700px;
-      margin: 0 auto 50px auto;
-      opacity: 0.85;
-      line-height: 1.6;
-    }
-
-    .progression-cards {
-      display: flex;
-      flex-direction: column;
-      gap: 40px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .progression-card {
-      background: #f7f7f7;
-      padding: 30px;
-      border-radius: 14px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.05);
-      text-align: left;
-    }
-
-    .progression-card h3 {
-      font-size: 1.4rem;
-      font-weight: 600;
-      margin-bottom: 10px;
-    }
-
-    .progression-card p {
-      font-size: 1rem;
-      opacity: 0.85;
-      line-height: 1.5;
-    }
-
-    @media (min-width: 800px) {
-      .progression-cards {
-        flex-direction: row;
-      }
-      .progression-card {
-        flex: 1;
-      }
-    }
-  </style>
-
-  <section id="progression-preview">
-    <h2>Progress that builds on itself</h2>
-
-    <p class="section-intro">
-      Growth isn’t a straight line.  
-      Tyniweb helps you build momentum through small, meaningful steps  
-      that add up to real transformation over time.
-    </p>
-
-    <div class="progression-cards">
-
-      <div class="progression-card">
-        <h3>Start small, grow steadily</h3>
-        <p>
-          Every action you take — even tiny ones — contributes to  
-          your long‑term development.
-        </p>
-      </div>
-
-      <div class="progression-card">
-        <h3>See your journey clearly</h3>
-        <p>
-          Track your progress in a way that feels encouraging,  
-          not overwhelming or judgmental.
-        </p>
-      </div>
-
-      <div class="progression-card">
-        <h3>Unlock new opportunities</h3>
-        <p>
-          As your strengths grow, Tyniweb surfaces new paths,  
-          challenges, and possibilities.
-        </p>
-      </div>
-
-    </div>
-  </section>
-  <!-- =========================================
-       8.0 ADAPTIVE ENVIRONMENT PREVIEW
-  ========================================= -->
-  <style>
-    #adaptive-environment {
-      background: #f7f7f7;
-      padding: 100px 20px;
-      text-align: center;
-    }
-
-    #adaptive-environment h2 {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 20px;
-    }
-
-    #adaptive-environment p.section-intro {
-      font-size: 1.1rem;
-      max-width: 700px;
-      margin: 0 auto 50px auto;
-      opacity: 0.85;
-      line-height: 1.6;
-    }
-
-    .adaptive-features {
-      display: flex;
-      flex-direction: column;
-      gap: 40px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .adaptive-feature {
-      background: #ffffff;
-      padding: 30px;
-      border-radius: 14px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.05);
-      text-align: left;
-    }
-
-    .adaptive-feature h3 {
-      font-size: 1.4rem;
-      font-weight: 600;
-      margin-bottom: 10px;
-    }
-
-    .adaptive-feature p {
-      font-size: 1rem;
-      opacity: 0.85;
-      line-height: 1.5;
-    }
-
-    @media (min-width: 800px) {
-      .adaptive-features {
-        flex-direction: row;
-      }
-      .adaptive-feature {
-        flex: 1;
-      }
-    }
-  </style>
-
-  <section id="adaptive-environment">
-    <h2>A workspace that adapts to you</h2>
-
-    <p class="section-intro">
-      Tyniweb evolves with your momentum.  
-      It adjusts based on your pace, your progress, your energy,  
-      and the context of what you're trying to do.
-    </p>
-
-    <div class="adaptive-features">
-
-      <div class="adaptive-feature">
-        <h3>Responsive to your flow</h3>
-        <p>
-          Whether you're moving fast or taking things slow,  
-          Tyniweb adapts to match your rhythm.
-        </p>
-      </div>
-
-      <div class="adaptive-feature">
-        <h3>Guidance when you need it</h3>
-        <p>
-          Get nudges, suggestions, or clarity at the right moment —  
-          never overwhelming, always supportive.
-        </p>
-      </div>
-
-      <div class="adaptive-feature">
-        <h3>A workspace that feels alive</h3>
-        <p>
-          Themes, tone, and interactions shift based on time of day,  
-          progress, and your personal style of working.
-        </p>
-      </div>
-
-    </div>
-  </section>
-  <!-- =========================================
-       9.0 FOOTER
-  ========================================= -->
-  <style>
-    footer {
-      background: #222;
-      color: #fff;
-      padding: 60px 20px;
-      text-align: center;
-    }
-
-    footer h3 {
-      font-size: 1.4rem;
-      font-weight: 600;
-      margin-bottom: 10px;
-    }
-
-    footer p {
-      font-size: 0.95rem;
-      opacity: 0.8;
-      max-width: 600px;
-      margin: 0 auto 20px auto;
-      line-height: 1.5;
-    }
-
-    footer .footer-links {
-      margin-top: 20px;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    footer .footer-links a {
-      color: #fff;
-      text-decoration: none;
-      opacity: 0.8;
-      transition: 0.2s ease;
-      font-size: 0.95rem;
-    }
-
-    footer .footer-links a:hover {
-      opacity: 1;
-    }
-
-    footer .footer-bottom {
-      margin-top: 40px;
-      font-size: 0.85rem;
-      opacity: 0.6;
-    }
-  </style>
-
-  <footer>
-    <h3>tyniweb</h3>
-    <p>
-      Everything grows from a small start.  
-      Tyniweb helps people and teams move forward with clarity,  
-      confidence, and meaningful support.
-    </p>
-
-    <div class="footer-links">
-      <a href="#how-it-works">How it works</a>
-      <a href="#for-workers">For workers</a>
-      <a href="#for-businesses">For businesses</a>
-      <a href="#recognition-preview">Recognition</a>
-      <a href="#progression-preview">Progression</a>
-      <a href="#adaptive-environment">Adaptive environment</a>
-    </div>
-
-    <div class="footer-bottom">
-      © 2026 tyniweb — everything grows from a small start
-    </div>
-  </footer>
-  <!-- =========================================
-       10.0 JAVASCRIPT INTERACTIONS
-  ========================================= -->
+      
+    </main>
+  </div>
   <script>
-    // -----------------------------------------
-    // 10.1 MICRO‑DELIGHT ROTATION
-    // -----------------------------------------
-    const microMessages = [
-      "Get work done faster with AI that understands your needs.",
-      "Stop searching. Start matching.",
-      "Build more. Stress less.",
-      "You’re closer than you think.",
-      "Small starts lead to big progress."
-    ];
-
-    const insightBubble = document.querySelector(".hero-insight-bubble");
-    let msgIndex = 0;
-
-    function rotateMessages() {
-      if (!insightBubble) return;
-      insightBubble.style.opacity = 0;
-
-      setTimeout(() => {
-        insightBubble.innerHTML = "<ul><li>" + microMessages[msgIndex] + "</li></ul>";
-        insightBubble.style.opacity = 1;
-        msgIndex = (msgIndex + 1) % microMessages.length;
-      }, 300);
-    }
-
-    setInterval(rotateMessages, 4000);
-
-
-    // -----------------------------------------
-    // 10.2 SCROLL CUE FADE ON SCROLL
-    // -----------------------------------------
-    const scrollCue = document.querySelector(".scroll-cue");
-
-    window.addEventListener("scroll", () => {
-      if (!scrollCue) return;
-      const fadePoint = 120;
-      scrollCue.style.opacity = window.scrollY > fadePoint ? 0 : 1;
+    const toggle = document.getElementById('theme-toggle');
+    toggle.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark-mode');
     });
-
-
-    // -----------------------------------------
-    // 10.3 SMOOTH SCROLLING FOR INTERNAL LINKS
-    // -----------------------------------------
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener("click", function (e) {
-        const target = document.querySelector(this.getAttribute("href"));
-        if (!target) return;
-        e.preventDefault();
-        target.scrollIntoView({ behavior: "smooth" });
-      });
-    });
-
-
-    // -----------------------------------------
-    // 10.4 VERSION STAMP
-    // -----------------------------------------
-    console.log("tyniweb v2 — Full Rebuild Edition loaded");
   </script>
 </body>
 </html>
