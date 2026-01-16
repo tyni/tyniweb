@@ -19,830 +19,868 @@
     }
 
     /* =========================================
-       1.0 HEADER
+       1.0 GLOBAL LAYOUT
     ========================================= */
-    .tw-header {
-      position: fixed;
-      top: 0;
-      left: 0;
+    section {
       width: 100%;
-      height: 70px;
-      background: #040714;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 24px;
-      z-index: 1000;
-      transition: background 0.3s ease;
+      padding: 80px 20px;
+      box-sizing: border-box;
     }
 
-    .tw-header.scrolled {
-      background: #02040a;
+    h1, h2, h3, p {
+      margin: 0;
+      padding: 0;
     }
 
-    .tw-logo {
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      text-transform: lowercase;
+    .center {
+      text-align: center;
     }
 
-    .tw-nav {
-      display: flex;
-      gap: 24px;
-      align-items: center;
-    }
-
-    .tw-nav a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    .tw-nav-cta {
-      padding: 8px 16px;
-      background: #ff6a00;
-      border-radius: 6px;
-      font-weight: 600;
-    }
-
-    .tw-menu-btn {
-      display: none;
-      font-size: 26px;
-      cursor: pointer;
-    }
-
-    @media (max-width: 900px) {
-      .tw-nav {
-        display: none;
-      }
-      .tw-menu-btn {
-        display: block;
-      }
-    }
-
-    /* 1.2 MOBILE DRAWER */
-    #tw-menu-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.5);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      z-index: 900;
-    }
-
-    body.tw-menu-open #tw-menu-overlay {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    #tw-mobile-drawer {
-      position: fixed;
-      top: 0;
-      right: -100%;
-      width: 260px;
-      height: 100vh;
-      background: #040714;
-      padding: 40px 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      transition: right 0.3s ease;
-      z-index: 1001;
-    }
-
-    body.tw-menu-open #tw-mobile-drawer {
-      right: 0;
-    }
-
-    #tw-mobile-drawer a {
-      color: #fff;
-      text-decoration: none;
-      font-size: 18px;
-      font-weight: 500;
-    }
-
-    .tw-drawer-cta {
-      background: #ff6a00;
-      padding: 10px 16px;
-      border-radius: 6px;
-      font-weight: 600;
+    .cta-button {
       display: inline-block;
+      padding: 14px 28px;
+      background: #222;
+      color: #fff;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 20px;
+      transition: 0.2s ease;
     }
 
+    .cta-button:hover {
+      background: #444;
+    }
     /* =========================================
-       2.0 HERO — HUMAN + VISIONARY
+       2.0 HERO SECTION
     ========================================= */
-    .tw-hero {
+    #hero {
       position: relative;
       width: 100%;
       height: 100vh;
-      background: #040714 url('https://raw.githubusercontent.com/tyni/tyniweb/main/background_with_avatars.svg')
-        center/cover no-repeat fixed;
+      overflow: hidden;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
+      flex-direction: column;
       text-align: center;
-      color: #ffffff;
-      padding: 0 24px;
+      background: #f7f7f7;
     }
 
-    .tw-hero h1 {
-      font-size: 3rem;
+    .hero-prehook {
+      font-size: 1.2rem;
+      font-weight: 500;
+      opacity: 0.8;
+      margin-bottom: 20px;
+      animation: fadeIn 1.2s ease forwards;
+    }
+
+    .hero-headline {
+      font-size: 2.4rem;
       font-weight: 700;
-      max-width: 800px;
-      margin-bottom: 1rem;
-      line-height: 1.2;
-    }
-
-    .tw-hero p {
-      font-size: 1.4rem;
       max-width: 700px;
-      opacity: 0.9;
-      margin-bottom: 2rem;
+      margin: 0 auto 10px auto;
+      line-height: 1.2;
+      animation: fadeInUp 1.2s ease forwards;
     }
 
-    .tw-hero-cta {
+    .hero-subheadline {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto 20px auto;
+      opacity: 0.85;
+      animation: fadeInUp 1.4s ease forwards;
+    }
+
+    .hero-cta {
+      display: inline-block;
       padding: 14px 28px;
-      background: #ff6a00;
+      background: #222;
       color: #fff;
       border-radius: 8px;
-      font-size: 1.2rem;
-      font-weight: 700;
       text-decoration: none;
-      transition: background 0.2s ease;
+      font-weight: 600;
+      margin-top: 20px;
+      transition: 0.2s ease;
+      animation: fadeInUp 1.6s ease forwards;
     }
 
-    .tw-hero-cta:hover {
-      background: #e55f00;
+    .hero-cta:hover {
+      background: #444;
     }
 
-    @media (max-width: 768px) {
-      .tw-hero h1 {
-        font-size: 2.2rem;
-      }
-      .tw-hero p {
-        font-size: 1.2rem;
-      }
+    .hero-insight-bubble {
+      position: absolute;
+      bottom: 120px;
+      right: 40px;
+      background: #ffffff;
+      padding: 14px 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+      font-size: 0.95rem;
+      max-width: 260px;
+      opacity: 0;
+      animation: fadeIn 2.2s ease forwards;
     }
 
-    /* =========================================
-       3.0 MAIN CONTENT — SHARED
-    ========================================= */
-    .tw-section {
-      padding: 120px 24px;
+    .scroll-cue {
+      position: absolute;
+      bottom: 40px;
+      font-size: 0.9rem;
+      opacity: 0.7;
+      animation: fadeIn 2.4s ease forwards;
     }
 
-    .tw-section-inner {
-      max-width: 1100px;
-      margin: auto;
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
-    .tw-section-title {
-      font-size: 36px;
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 40px;
-      text-transform: none;
-    }
-
-    .tw-section-subtitle {
-      max-width: 700px;
-      margin: 0 auto 40px;
-      text-align: center;
-      font-size: 18px;
-      opacity: 0.9;
-    }
-
-    .tw-card-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 24px;
-      justify-content: center;
-    }
-
-    .tw-card {
-      flex: 1 1 300px;
-      background: #fff;
-      padding: 24px;
-      border-radius: 14px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
-    }
-
-    .tw-card h3 {
-      margin-top: 0;
-      font-size: 22px;
-      font-weight: 700;
-      margin-bottom: 8px;
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
+
 <body>
 
   <!-- =========================================
-       1.0 HEADER — quiet, steady, supportive
+       HERO SECTION
   ========================================= -->
-  <header class="tw-header">
-    <div class="tw-logo">tyniweb</div>
+  <section id="hero">
+    <div class="hero-prehook">Everything grows from a small start.</div>
 
-    <nav class="tw-nav">
-      <a href="#how">How it works</a>
-      <a href="#workers">For workers</a>
-      <a href="#businesses">For businesses</a>
-      <a href="/login" class="tw-nav-cta">Log in</a>
-      <a href="/signup" class="tw-nav-cta">Get started</a>
-    </nav>
+    <h1 class="hero-headline">Get the help you need, exactly when you need it.</h1>
 
-    <div class="tw-menu-btn" onclick="twToggleMenu()">☰</div>
-  </header>
-
-  <!-- 1.2 MOBILE DRAWER -->
-  <div id="tw-menu-overlay"></div>
-
-  <div id="tw-mobile-drawer">
-    <a href="#how">How it works</a>
-    <a href="#workers">For workers</a>
-    <a href="#businesses">For businesses</a>
-    <a href="/login">Log in</a>
-    <a href="/signup" class="tw-drawer-cta">Get started</a>
-  </div>
-
-  <!-- =========================================
-       2.0 HERO — human + visionary
-  ========================================= -->
-  <section class="tw-hero">
-    <h1 id="tw-hero-headline">
-      You carry potential that’s waiting to be recognized.
-    </h1>
-
-    <p>
-      tyniweb gives you space to understand your strengths, follow your energy, and move toward the future you want.
+    <p class="hero-subheadline">
+      Tyniweb connects people and AI to move work forward.
     </p>
 
-    <a id="tw-hero-cta" href="/signup" class="tw-hero-cta">
-      <!-- CTA will be replaced by session-based randomizer -->
-      Begin your path
-    </a>
-  </section>
-  <!-- =========================================
-       3.1 HOW IT WORKS — your path begins here
-  ========================================= -->
-  <section id="how" class="tw-section">
-    <div class="tw-section-inner">
+    <a href="#start" class="hero-cta">Start in seconds</a>
 
-      <h2 class="tw-section-title">How it works</h2>
-      <p class="tw-section-subtitle">
-        Every path begins with a small step. Here, you start by noticing what’s already within you — and move forward with clarity.
-      </p>
-
-      <div class="tw-card-grid">
-
-        <div class="tw-card">
-          <h3>Start where you are</h3>
-          <p>
-            Share a little about what you’re working toward, or what feels unclear right now. There’s no wrong place to begin.
-          </p>
-        </div>
-
-        <div class="tw-card">
-          <h3>See what’s already there</h3>
-          <p>
-            As you answer simple questions, your strengths begin to take shape — often in ways you haven’t noticed before.
-          </p>
-        </div>
-
-        <div class="tw-card">
-          <h3>Move forward with intention</h3>
-          <p>
-            With a clearer picture of yourself, your next steps become easier to see — and easier to take.
-          </p>
-        </div>
-
-      </div>
+    <div class="hero-insight-bubble">
+      <ul>
+        <li>Get work done faster with AI that understands your needs.</li>
+        <li>Stop searching. Start matching.</li>
+        <li>Build more. Stress less.</li>
+        <li>You’re closer than you think.</li>
+        <li>Small starts lead to big progress.</li>
+      </ul>
     </div>
-  </section>
 
-
-  <!-- =========================================
-       3.2 FOR WORKERS — clarity, strengths, growth
-  ========================================= -->
-  <section id="workers" class="tw-section" style="background:#f4f7fa;">
-    <div class="tw-section-inner">
-
-      <h2 class="tw-section-title">For workers</h2>
-      <p class="tw-section-subtitle">
-        You carry strengths that deserve to be seen. tyniweb helps you understand them, grow them, and use them in ways that feel meaningful.
-      </p>
-
-      <div class="tw-card-grid">
-
-        <div class="tw-card">
-          <h3>See your strengths clearly</h3>
-          <p>
-            You’ll begin to recognize patterns in how you think, work, and support others — the things that make you uniquely valuable.
-          </p>
-        </div>
-
-        <div class="tw-card">
-          <h3>Find work that fits</h3>
-          <p>
-            As your strengths become clearer, the work that aligns with your energy and abilities becomes easier to recognize.
-          </p>
-        </div>
-
-        <div class="tw-card">
-          <h3>Grow with purpose</h3>
-          <p>
-            Your path isn’t about perfection — it’s about momentum. Small steps build confidence, and confidence builds opportunity.
-          </p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-
-  <!-- =========================================
-       3.3 FOR BUSINESSES — clarity creates alignment
-  ========================================= -->
-  <section id="businesses" class="tw-section">
-    <div class="tw-section-inner">
-
-      <h2 class="tw-section-title">For businesses</h2>
-      <p class="tw-section-subtitle">
-        When your needs are clear, the right people can step forward. tyniweb helps you shape your challenges into meaningful, human‑centered requests.
-      </p>
-
-      <div class="tw-card-grid">
-
-        <div class="tw-card">
-          <h3>Shape what you need</h3>
-          <p>
-            Describe your challenge in simple language. Clarity helps others understand where they can contribute.
-          </p>
-        </div>
-
-        <div class="tw-card">
-          <h3>Find natural alignment</h3>
-          <p>
-            As people understand their strengths, they gravitate toward work that fits — creating better matches and smoother progress.
-          </p>
-        </div>
-
-        <div class="tw-card">
-          <h3>Move forward together</h3>
-          <p>
-            When strengths and needs align, momentum follows. Work becomes clearer, lighter, and more collaborative.
-          </p>
-        </div>
-
-      </div>
-    </div>
+    <div class="scroll-cue">Scroll to explore</div>
   </section>
   <!-- =========================================
-       4.0 RECOGNITION SYSTEM — notice your strengths
+       3.0 HOW IT WORKS
   ========================================= -->
-  <section id="recognition" class="tw-recognition-section">
-    <div class="tw-recognition-inner">
+  <style>
+    #how-it-works {
+      background: #ffffff;
+      padding: 100px 20px;
+      text-align: center;
+    }
 
-      <h2 class="tw-section-title">Discover your strengths</h2>
-      <p class="tw-section-subtitle">
-        Sometimes the things you do naturally are the things you overlook. These simple questions help you notice the patterns that have been with you all along.
-      </p>
+    #how-it-works h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 40px;
+    }
 
-      <!-- 4.1 RECOGNITION FORM -->
-      <form id="tw-recognition-form" class="tw-recognition-form">
+    .hiw-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
 
-        <!-- Question 1 -->
-        <div class="tw-form-group">
-          <label>When people appreciate you, what do they tend to notice?</label>
-          <select name="q1" required>
-            <option value="">Select one...</option>
-            <option value="clarity">Explaining things clearly</option>
-            <option value="speed">Getting things done quickly</option>
-            <option value="support">Being supportive and patient</option>
-            <option value="ideas">Offering creative ideas</option>
-            <option value="organization">Keeping things organized</option>
-          </select>
-        </div>
+    .hiw-step {
+      background: #f7f7f7;
+      padding: 30px;
+      border-radius: 14px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+    }
 
-        <!-- Question 2 -->
-        <div class="tw-form-group">
-          <label>Which type of task feels most natural to you?</label>
-          <select name="q2" required>
-            <option value="">Select one...</option>
-            <option value="technical">Technical or problem‑solving tasks</option>
-            <option value="creative">Creative or design tasks</option>
-            <option value="people">Helping or guiding people</option>
-            <option value="planning">Planning and structuring work</option>
-            <option value="hands-on">Hands‑on or practical tasks</option>
-          </select>
-        </div>
+    .hiw-step h3 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
 
-        <!-- Question 3 -->
-        <div class="tw-form-group">
-          <label>When you begin something new, what’s your natural instinct?</label>
-          <select name="q3" required>
-            <option value="">Select one...</option>
-            <option value="research">Research everything first</option>
-            <option value="jump-in">Jump in and figure it out</option>
-            <option value="ask">Ask someone for guidance</option>
-            <option value="map">Map out a plan</option>
-            <option value="experiment">Try different approaches</option>
-          </select>
-        </div>
+    .hiw-step p {
+      font-size: 1rem;
+      opacity: 0.85;
+      line-height: 1.5;
+    }
 
-        <button type="submit" class="tw-recognition-submit">See my strengths</button>
-      </form>
+    @media (min-width: 800px) {
+      .hiw-steps {
+        flex-direction: row;
+      }
+      .hiw-step {
+        flex: 1;
+      }
+    }
+  </style>
 
-      <!-- 4.4 OUTPUT SLOT -->
-      <div id="tw-recognition-output-slot"></div>
+  <section id="how-it-works">
+    <h2>How it works</h2>
 
-    </div>
-  </section>
+    <div class="hiw-steps">
 
-
-  <!-- =========================================
-       5.0 WORKER PROFILE SYSTEM — who you’re becoming
-  ========================================= -->
-  <section id="worker-profile" class="tw-profile-section">
-    <div class="tw-profile-inner">
-
-      <!-- 5.1 PROFILE HEADER -->
-      <div class="tw-profile-header">
-        <div class="tw-profile-avatar"></div>
-        <div>
-          <h2 class="tw-profile-name">Your profile</h2>
-          <p class="tw-profile-tagline">
-            A clearer picture of who you are — and who you’re becoming.
-          </p>
-        </div>
+      <div class="hiw-step">
+        <h3>1. Start where you are</h3>
+        <p>
+          Tell us what you need or what you're trying to do.  
+          No perfect wording required — just start.
+        </p>
       </div>
 
-      <!-- 5.2 PROFILE GRID -->
-      <div class="tw-profile-grid">
+      <div class="hiw-step">
+        <h3>2. See what's already there</h3>
+        <p>
+          Tyniweb analyzes your request and surfaces the skills,  
+          strengths, or opportunities already in motion.
+        </p>
+      </div>
 
-        <!-- Strengths -->
-        <div class="tw-profile-card">
-          <h3>Your strengths</h3>
-          <div id="tw-profile-strengths-slot">
-            <p class="tw-placeholder">
-              Your strengths will appear here after you answer the questions above.
-            </p>
-          </div>
-        </div>
-
-        <!-- Growth Path -->
-        <div class="tw-profile-card">
-          <h3>Your growth path</h3>
-          <p class="tw-placeholder">
-            As you learn more about yourself, your path will begin to take shape — one step at a time.
-          </p>
-        </div>
-
+      <div class="hiw-step">
+        <h3>3. Move forward with intention</h3>
+        <p>
+          Get matched with the right help — whether it's a person,  
+          a tool, or an AI‑powered workflow.
+        </p>
       </div>
 
     </div>
   </section>
   <!-- =========================================
-       6.0 BUSINESS SYSTEM — clarity creates momentum
+       4.0 FOR WORKERS
   ========================================= -->
-  <section id="business-system" class="tw-business-section">
-    <div class="tw-section-inner">
+  <style>
+    #for-workers {
+      background: #f7f7f7;
+      padding: 100px 20px;
+      text-align: center;
+    }
 
-      <h2 class="tw-section-title">Post a need</h2>
-      <p class="tw-section-subtitle">
-        When you describe what you’re trying to move forward, others can understand where their strengths fit. Clear needs create natural alignment.
-      </p>
+    #for-workers h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
 
-      <div class="tw-business-layout">
+    #for-workers p.section-intro {
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto 50px auto;
+      opacity: 0.85;
+      line-height: 1.6;
+    }
 
-        <!-- 6.1 BUSINESS FORM -->
-        <div class="tw-business-card">
-          <h3 style="margin-top:0;">Describe your need</h3>
+    .worker-benefits {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
 
-          <div class="tw-business-form-group">
-            <label>Title</label>
-            <input type="text" placeholder="e.g., Help organizing a project">
-          </div>
+    .worker-benefit {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 14px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+    }
 
-          <div class="tw-business-form-group">
-            <label>Category</label>
-            <select>
-              <option value="">Select one...</option>
-              <option>Planning & organization</option>
-              <option>Creative work</option>
-              <option>Technical support</option>
-              <option>Research & analysis</option>
-              <option>Hands‑on tasks</option>
-            </select>
-          </div>
+    .worker-benefit h3 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
 
-          <div class="tw-business-form-group">
-            <label>Details</label>
-            <textarea rows="5" placeholder="Describe what you need, what success looks like, and any constraints."></textarea>
-          </div>
+    .worker-benefit p {
+      font-size: 1rem;
+      opacity: 0.85;
+      line-height: 1.5;
+    }
 
-          <button class="tw-business-submit">Submit need</button>
+    @media (min-width: 800px) {
+      .worker-benefits {
+        flex-direction: row;
+      }
+      .worker-benefit {
+        flex: 1;
+      }
+    }
+  </style>
 
-          <p class="tw-account-note">
-            You’ll need an account to submit this.
-          </p>
-        </div>
+  <section id="for-workers">
+    <h2>For workers</h2>
 
-        <!-- 6.2 INSIGHT BUBBLES -->
-        <div>
-          <h3 style="margin-top:0;">Helpful insights</h3>
-          <div class="tw-insight-bubbles">
-            <div class="tw-insight-bubble">Clarity invites the right strengths.</div>
-            <div class="tw-insight-bubble">Small tasks often reveal big opportunities.</div>
-            <div class="tw-insight-bubble">The more specific the outcome, the easier the path.</div>
-            <div class="tw-insight-bubble">Constraints can guide creativity, not limit it.</div>
-          </div>
-        </div>
+    <p class="section-intro">
+      Whether you're starting fresh, switching paths, or leveling up,  
+      Tyniweb helps you see your strengths and move forward with confidence.
+    </p>
 
+    <div class="worker-benefits">
+
+      <div class="worker-benefit">
+        <h3>Discover your hidden strengths</h3>
+        <p>
+          Tyniweb reveals the skills you already have — even the ones  
+          you didn’t realize were valuable.
+        </p>
       </div>
-    </div>
-  </section>
 
+      <div class="worker-benefit">
+        <h3>Grow at your own pace</h3>
+        <p>
+          Get personalized guidance and small, achievable steps  
+          that build momentum over time.
+        </p>
+      </div>
 
-  <!-- =========================================
-       7.0 PROGRESSION SYSTEM — growth is not linear
-  ========================================= -->
-  <section id="progression" class="tw-progression-section">
-    <div class="tw-section-inner">
-
-      <h2 class="tw-section-title">Your progression</h2>
-      <p class="tw-section-subtitle">
-        Growth doesn’t happen all at once. It unfolds in moments of clarity, small steps, and the confidence that builds along the way.
-      </p>
-
-      <div class="tw-progression-grid">
-
-        <div class="tw-progression-card">
-          <div class="tw-progression-level">Level 1</div>
-          <h3>Awareness</h3>
-          <p>You begin noticing the strengths and patterns that have always been part of you.</p>
-        </div>
-
-        <div class="tw-progression-card">
-          <div class="tw-progression-level">Level 2</div>
-          <h3>Clarity</h3>
-          <p>Your strengths become clearer, and you start using them with intention.</p>
-        </div>
-
-        <div class="tw-progression-card">
-          <div class="tw-progression-level">Level 3</div>
-          <h3>Momentum</h3>
-          <p>You take on work that aligns with your energy, creating steady forward motion.</p>
-        </div>
-
-        <div class="tw-progression-card">
-          <div class="tw-progression-level">Level 4</div>
-          <h3>Mastery</h3>
-          <p>You refine your strengths and begin shaping your own path with confidence.</p>
-        </div>
-
+      <div class="worker-benefit">
+        <h3>Find the right opportunities</h3>
+        <p>
+          Match with tasks, tools, and workflows that fit your strengths  
+          and help you move toward your goals.
+        </p>
       </div>
 
     </div>
   </section>
   <!-- =========================================
-       8.0 FOOTER — quiet, steady, grounded
+       5.0 FOR BUSINESSES
   ========================================= -->
-  <footer class="tw-footer">
-    <div class="tw-footer-inner">
+  <style>
+    #for-businesses {
+      background: #ffffff;
+      padding: 100px 20px;
+      text-align: center;
+    }
 
-      <!-- Brand -->
-      <div style="font-size:20px; font-weight:700;">tyniweb</div>
+    #for-businesses h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
 
-      <!-- Links -->
-      <div class="tw-footer-links">
-        <a href="/terms">Terms</a>
-        <a href="/privacy">Privacy</a>
-        <a href="/cookies">Cookies</a>
-        <a href="/beta">Beta agreement</a>
+    #for-businesses p.section-intro {
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto 50px auto;
+      opacity: 0.85;
+      line-height: 1.6;
+    }
+
+    .business-benefits {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .business-benefit {
+      background: #f7f7f7;
+      padding: 30px;
+      border-radius: 14px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+    }
+
+    .business-benefit h3 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .business-benefit p {
+      font-size: 1rem;
+      opacity: 0.85;
+      line-height: 1.5;
+    }
+
+    @media (min-width: 800px) {
+      .business-benefits {
+        flex-direction: row;
+      }
+      .business-benefit {
+        flex: 1;
+      }
+    }
+  </style>
+
+  <section id="for-businesses">
+    <h2>For businesses</h2>
+
+    <p class="section-intro">
+      Tyniweb helps teams work smarter by revealing strengths,  
+      reducing friction, and connecting people to the right support  
+      at the right moment.
+    </p>
+
+    <div class="business-benefits">
+
+      <div class="business-benefit">
+        <h3>See your team's strengths clearly</h3>
+        <p>
+          Understand the real capabilities within your organization —  
+          not just job titles or assumptions.
+        </p>
       </div>
 
-      <!-- Copyright -->
-      <div class="tw-footer-copy">
-        © <span id="tw-year"></span> tyniweb. All rights reserved.
+      <div class="business-benefit">
+        <h3>Reduce bottlenecks and burnout</h3>
+        <p>
+          Match people with tasks that fit their strengths,  
+          and let AI handle the repetitive or heavy lifting.
+        </p>
       </div>
 
+      <div class="business-benefit">
+        <h3>Build a culture of growth</h3>
+        <p>
+          Give your team personalized guidance, recognition,  
+          and clear paths to develop their skills.
+        </p>
+      </div>
+
+    </div>
+  </section>
+  <!-- =========================================
+       6.0 RECOGNITION SYSTEM PREVIEW
+  ========================================= -->
+  <style>
+    #recognition-preview {
+      background: #f7f7f7;
+      padding: 100px 20px;
+      text-align: center;
+    }
+
+    #recognition-preview h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    #recognition-preview p.section-intro {
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto 50px auto;
+      opacity: 0.85;
+      line-height: 1.6;
+    }
+
+    .recognition-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .recognition-card {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 14px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+      text-align: left;
+    }
+
+    .recognition-card h3 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .recognition-card p {
+      font-size: 1rem;
+      opacity: 0.85;
+      line-height: 1.5;
+    }
+
+    @media (min-width: 800px) {
+      .recognition-cards {
+        flex-direction: row;
+      }
+      .recognition-card {
+        flex: 1;
+      }
+    }
+  </style>
+
+  <section id="recognition-preview">
+    <h2>Recognition that actually means something</h2>
+
+    <p class="section-intro">
+      Tyniweb doesn’t hand out empty badges.  
+      It recognizes real strengths, real progress, and real contributions —  
+      even the ones that usually go unnoticed.
+    </p>
+
+    <div class="recognition-cards">
+
+      <div class="recognition-card">
+        <h3>See your real strengths</h3>
+        <p>
+          Tyniweb identifies patterns in your work and highlights  
+          the abilities you naturally excel at.
+        </p>
+      </div>
+
+      <div class="recognition-card">
+        <h3>Celebrate meaningful progress</h3>
+        <p>
+          Every step forward — big or small — is tracked and  
+          acknowledged in a way that builds confidence.
+        </p>
+      </div>
+
+      <div class="recognition-card">
+        <h3>Get recognized for what matters</h3>
+        <p>
+          Your contributions are surfaced and celebrated,  
+          helping you feel seen, valued, and motivated.
+        </p>
+      </div>
+
+    </div>
+  </section>
+  <!-- =========================================
+       7.0 PROGRESSION SYSTEM PREVIEW
+  ========================================= -->
+  <style>
+    #progression-preview {
+      background: #ffffff;
+      padding: 100px 20px;
+      text-align: center;
+    }
+
+    #progression-preview h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    #progression-preview p.section-intro {
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto 50px auto;
+      opacity: 0.85;
+      line-height: 1.6;
+    }
+
+    .progression-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .progression-card {
+      background: #f7f7f7;
+      padding: 30px;
+      border-radius: 14px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+      text-align: left;
+    }
+
+    .progression-card h3 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .progression-card p {
+      font-size: 1rem;
+      opacity: 0.85;
+      line-height: 1.5;
+    }
+
+    @media (min-width: 800px) {
+      .progression-cards {
+        flex-direction: row;
+      }
+      .progression-card {
+        flex: 1;
+      }
+    }
+  </style>
+
+  <section id="progression-preview">
+    <h2>Progress that builds on itself</h2>
+
+    <p class="section-intro">
+      Growth isn’t a straight line.  
+      Tyniweb helps you build momentum through small, meaningful steps  
+      that add up to real transformation over time.
+    </p>
+
+    <div class="progression-cards">
+
+      <div class="progression-card">
+        <h3>Start small, grow steadily</h3>
+        <p>
+          Every action you take — even tiny ones — contributes to  
+          your long‑term development.
+        </p>
+      </div>
+
+      <div class="progression-card">
+        <h3>See your journey clearly</h3>
+        <p>
+          Track your progress in a way that feels encouraging,  
+          not overwhelming or judgmental.
+        </p>
+      </div>
+
+      <div class="progression-card">
+        <h3>Unlock new opportunities</h3>
+        <p>
+          As your strengths grow, Tyniweb surfaces new paths,  
+          challenges, and possibilities.
+        </p>
+      </div>
+
+    </div>
+  </section>
+  <!-- =========================================
+       8.0 ADAPTIVE ENVIRONMENT PREVIEW
+  ========================================= -->
+  <style>
+    #adaptive-environment {
+      background: #f7f7f7;
+      padding: 100px 20px;
+      text-align: center;
+    }
+
+    #adaptive-environment h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    #adaptive-environment p.section-intro {
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto 50px auto;
+      opacity: 0.85;
+      line-height: 1.6;
+    }
+
+    .adaptive-features {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .adaptive-feature {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 14px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+      text-align: left;
+    }
+
+    .adaptive-feature h3 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .adaptive-feature p {
+      font-size: 1rem;
+      opacity: 0.85;
+      line-height: 1.5;
+    }
+
+    @media (min-width: 800px) {
+      .adaptive-features {
+        flex-direction: row;
+      }
+      .adaptive-feature {
+        flex: 1;
+      }
+    }
+  </style>
+
+  <section id="adaptive-environment">
+    <h2>A workspace that adapts to you</h2>
+
+    <p class="section-intro">
+      Tyniweb evolves with your momentum.  
+      It adjusts based on your pace, your progress, your energy,  
+      and the context of what you're trying to do.
+    </p>
+
+    <div class="adaptive-features">
+
+      <div class="adaptive-feature">
+        <h3>Responsive to your flow</h3>
+        <p>
+          Whether you're moving fast or taking things slow,  
+          Tyniweb adapts to match your rhythm.
+        </p>
+      </div>
+
+      <div class="adaptive-feature">
+        <h3>Guidance when you need it</h3>
+        <p>
+          Get nudges, suggestions, or clarity at the right moment —  
+          never overwhelming, always supportive.
+        </p>
+      </div>
+
+      <div class="adaptive-feature">
+        <h3>A workspace that feels alive</h3>
+        <p>
+          Themes, tone, and interactions shift based on time of day,  
+          progress, and your personal style of working.
+        </p>
+      </div>
+
+    </div>
+  </section>
+  <!-- =========================================
+       9.0 FOOTER
+  ========================================= -->
+  <style>
+    footer {
+      background: #222;
+      color: #fff;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    footer h3 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    footer p {
+      font-size: 0.95rem;
+      opacity: 0.8;
+      max-width: 600px;
+      margin: 0 auto 20px auto;
+      line-height: 1.5;
+    }
+
+    footer .footer-links {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    footer .footer-links a {
+      color: #fff;
+      text-decoration: none;
+      opacity: 0.8;
+      transition: 0.2s ease;
+      font-size: 0.95rem;
+    }
+
+    footer .footer-links a:hover {
+      opacity: 1;
+    }
+
+    footer .footer-bottom {
+      margin-top: 40px;
+      font-size: 0.85rem;
+      opacity: 0.6;
+    }
+  </style>
+
+  <footer>
+    <h3>tyniweb</h3>
+    <p>
+      Everything grows from a small start.  
+      Tyniweb helps people and teams move forward with clarity,  
+      confidence, and meaningful support.
+    </p>
+
+    <div class="footer-links">
+      <a href="#how-it-works">How it works</a>
+      <a href="#for-workers">For workers</a>
+      <a href="#for-businesses">For businesses</a>
+      <a href="#recognition-preview">Recognition</a>
+      <a href="#progression-preview">Progression</a>
+      <a href="#adaptive-environment">Adaptive environment</a>
+    </div>
+
+    <div class="footer-bottom">
+      © 2026 tyniweb — everything grows from a small start
     </div>
   </footer>
-
-
   <!-- =========================================
-       9.0 JAVASCRIPT ENGINE — unified + clean
+       10.0 JAVASCRIPT INTERACTIONS
   ========================================= -->
   <script>
     // -----------------------------------------
-    // 9.1 MOBILE DRAWER LOGIC
+    // 10.1 MICRO‑DELIGHT ROTATION
     // -----------------------------------------
-    (function() {
-      function twToggleMenu() {
-        const body = document.body;
-        body.classList.toggle('tw-menu-open');
-        body.style.overflow = body.classList.contains('tw-menu-open') ? 'hidden' : '';
-      }
+    const microMessages = [
+      "Get work done faster with AI that understands your needs.",
+      "Stop searching. Start matching.",
+      "Build more. Stress less.",
+      "You’re closer than you think.",
+      "Small starts lead to big progress."
+    ];
 
-      window.twToggleMenu = twToggleMenu;
+    const insightBubble = document.querySelector(".hero-insight-bubble");
+    let msgIndex = 0;
 
-      const overlay = document.getElementById('tw-menu-overlay');
-      if (overlay) overlay.addEventListener('click', twToggleMenu);
+    function rotateMessages() {
+      if (!insightBubble) return;
+      insightBubble.style.opacity = 0;
 
-      const drawerLinks = document.querySelectorAll('#tw-mobile-drawer a');
-      drawerLinks.forEach(link => link.addEventListener('click', () => {
-        if (document.body.classList.contains('tw-menu-open')) twToggleMenu();
-      }));
-    })();
+      setTimeout(() => {
+        insightBubble.innerHTML = "<ul><li>" + microMessages[msgIndex] + "</li></ul>";
+        insightBubble.style.opacity = 1;
+        msgIndex = (msgIndex + 1) % microMessages.length;
+      }, 300);
+    }
 
-
-    // -----------------------------------------
-    // 9.2 HEADER SCROLL LOGIC
-    // -----------------------------------------
-    (function() {
-      function twUpdateHeaderScrollState() {
-        const header = document.querySelector('.tw-header');
-        if (!header) return;
-
-        if (window.scrollY > 40) header.classList.add('scrolled');
-        else header.classList.remove('scrolled');
-      }
-
-      window.addEventListener('scroll', twUpdateHeaderScrollState);
-      window.addEventListener('load', twUpdateHeaderScrollState);
-    })();
+    setInterval(rotateMessages, 4000);
 
 
     // -----------------------------------------
-    // 9.3 FOOTER AUTO-YEAR
+    // 10.2 SCROLL CUE FADE ON SCROLL
     // -----------------------------------------
-    (function() {
-      const yearEl = document.getElementById('tw-year');
-      if (yearEl) yearEl.textContent = new Date().getFullYear();
-    })();
+    const scrollCue = document.querySelector(".scroll-cue");
+
+    window.addEventListener("scroll", () => {
+      if (!scrollCue) return;
+      const fadePoint = 120;
+      scrollCue.style.opacity = window.scrollY > fadePoint ? 0 : 1;
+    });
 
 
     // -----------------------------------------
-    // 9.4 RECOGNITION ENGINE — simple inference
+    // 10.3 SMOOTH SCROLLING FOR INTERNAL LINKS
     // -----------------------------------------
-    (function() {
-      const form = document.getElementById('tw-recognition-form');
-      const outputSlot = document.getElementById('tw-recognition-output-slot');
-      const profileSlot = document.getElementById('tw-profile-strengths-slot');
-
-      if (!form || !outputSlot) return;
-
-      form.addEventListener('submit', function(e) {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener("click", function (e) {
+        const target = document.querySelector(this.getAttribute("href"));
+        if (!target) return;
         e.preventDefault();
-
-        const data = new FormData(form);
-        const q1 = data.get('q1');
-        const q2 = data.get('q2');
-        const q3 = data.get('q3');
-
-        const strengths = [];
-
-        // Q1 mapping
-        if (q1 === 'clarity') strengths.push('Clear communicator');
-        if (q1 === 'speed') strengths.push('Fast executor');
-        if (q1 === 'support') strengths.push('Supportive helper');
-        if (q1 === 'ideas') strengths.push('Creative thinker');
-        if (q1 === 'organization') strengths.push('Organized planner');
-
-        // Q2 mapping
-        if (q2 === 'technical') strengths.push('Problem solver');
-        if (q2 === 'creative') strengths.push('Creative builder');
-        if (q2 === 'people') strengths.push('People‑oriented');
-        if (q2 === 'planning') strengths.push('Strategic thinker');
-        if (q2 === 'hands-on') strengths.push('Practical doer');
-
-        // Q3 mapping
-        if (q3 === 'research') strengths.push('Research‑oriented');
-        if (q3 === 'jump-in') strengths.push('Action‑oriented');
-        if (q3 === 'ask') strengths.push('Collaborative');
-        if (q3 === 'map') strengths.push('Structured thinker');
-        if (q3 === 'experiment') strengths.push('Adaptive explorer');
-
-        // Build output card
-        const html = `
-          <div class="tw-recognition-output-card">
-            <h3>Your strengths</h3>
-            <ul>
-              ${strengths.map(s => `<li>${s}</li>`).join('')}
-            </ul>
-          </div>
-        `;
-
-        outputSlot.innerHTML = html;
-
-        // Inject into profile
-        if (profileSlot) {
-          profileSlot.innerHTML = `
-            <ul>
-              ${strengths.map(s => `<li>${s}</li>`).join('')}
-            </ul>
-          `;
-        }
-
-        outputSlot.scrollIntoView({ behavior: 'smooth' });
+        target.scrollIntoView({ behavior: "smooth" });
       });
-    })();
+    });
 
 
     // -----------------------------------------
-    // 9.5 RECOGNITION OUTPUT — polish
+    // 10.4 VERSION STAMP
     // -----------------------------------------
-    (function() {
-      const outputSlot = document.getElementById('tw-recognition-output-slot');
-      const form = document.getElementById('tw-recognition-form');
-
-      if (!outputSlot || !form) return;
-
-      const observer = new MutationObserver(() => {
-        const card = outputSlot.querySelector('.tw-recognition-output-card');
-        if (!card) return;
-
-        const success = document.createElement('div');
-        success.className = 'tw-recognition-success';
-        success.textContent = 'Your strengths are ready.';
-        card.prepend(success);
-
-        const reset = document.createElement('div');
-        reset.className = 'tw-recognition-reset';
-        reset.textContent = 'Try again';
-        card.appendChild(reset);
-
-        reset.addEventListener('click', () => {
-          form.reset();
-          outputSlot.innerHTML = '';
-          form.scrollIntoView({ behavior: 'smooth' });
-        });
-      });
-
-      observer.observe(outputSlot, { childList: true });
-    })();
-
-
-    // -----------------------------------------
-    // 9.6 CTA RANDOMIZER — session-based
-    // -----------------------------------------
-    (function() {
-      const ctaEl = document.getElementById('tw-hero-cta');
-      const headlineEl = document.getElementById('tw-hero-headline');
-      if (!ctaEl || !headlineEl) return;
-
-      // CTA pool (10–12 options)
-      const ctas = [
-        'Begin your path',
-        'Take your next step',
-        'See your strengths',
-        'Move forward with clarity',
-        'Start where you are',
-        'Grow from here',
-        'Follow what energizes you',
-        'Let your strengths lead you',
-        'Step into your momentum',
-        'Your next step is waiting'
-      ];
-
-      // Headline pool (optional variation)
-      const headlines = [
-        'You carry potential that’s waiting to be recognized.',
-        'Every strength begins as something you barely notice.',
-        'Clarity grows when you give yourself space to see it.',
-        'Your next step becomes clearer when you understand yourself.',
-        'You’re closer to your strengths than you think.'
-      ];
-
-      // Use sessionStorage to keep CTA consistent for the session
-      let chosenCTA = sessionStorage.getItem('tw-cta');
-      let chosenHeadline = sessionStorage.getItem('tw-headline');
-
-      if (!chosenCTA) {
-        chosenCTA = ctas[Math.floor(Math.random() * ctas.length)];
-        sessionStorage.setItem('tw-cta', chosenCTA);
-      }
-
-      if (!chosenHeadline) {
-        chosenHeadline = headlines[Math.floor(Math.random() * headlines.length)];
-        sessionStorage.setItem('tw-headline', chosenHeadline);
-      }
-
-      ctaEl.textContent = chosenCTA;
-      headlineEl.textContent = chosenHeadline;
-    })();
-
-
-    // -----------------------------------------
-    // 9.7 VERSION STAMP
-    // -----------------------------------------
-    console.log('tyniweb v1 — Full Vision Edition loaded');
+    console.log("tyniweb v2 — Full Rebuild Edition loaded");
   </script>
 </body>
 </html>
