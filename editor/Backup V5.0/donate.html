@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Support Tyniweb — Donate</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="marketing.css" />
+</head>
+<body>
+  <header>
+    <div class="nav-inner">
+      <div class="nav-left">
+        <div class="nav-logo"></div>
+        <div class="nav-title">Tyniweb</div>
+      </div>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="templates.html">Templates</a>
+        <a href="docs.html">Docs</a>
+        <a href="donate.html">Support</a>
+      </nav>
+      <div class="nav-cta">
+        <a href="pricing.html" class="btn btn-outline">Start Free</a>
+        <a href="editor.html" class="btn btn-primary">Open Editor</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="section-header">
+        <h1 class="section-title">Support the Tyniweb project</h1>
+        <p class="section-subtitle">
+          If this platform helps you think, build, or breathe easier — you can help keep it alive.
+        </p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>Supporter</h3>
+          <div class="price-tag">$3 <span>/ month</span></div>
+          <p>Help cover hosting and ongoing development.</p>
+          <ul style="margin-top:10px; padding-left:18px; font-size:12px; color:var(--muted);">
+            <li>Supporter badge (coming soon)</li>
+            <li>Priority feedback consideration</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Builder</h3>
+          <div class="price-tag">$9 <span>/ month</span></div>
+          <p>Support new features, templates, and training tracks.</p>
+          <ul style="margin-top:10px; padding-left:18px; font-size:12px; color:var(--muted);">
+            <li>Everything in Supporter</li>
+            <li>Early access to new experiments</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Patron</h3>
+          <div class="price-tag">$25 <span>/ month</span></div>
+          <p>Back the long‑term vision of Tyniweb as a living platform.</p>
+          <ul style="margin-top:10px; padding-left:18px; font-size:12px; color:var(--muted);">
+            <li>Everything in Builder</li>
+            <li>Name in the “Thank you” wall (optional)</li>
+          </ul>
+        </article>
+      </div>
+
+      <article class="card" style="margin-top:20px;">
+        <h3>How to support (for now)</h3>
+        <p>
+          Payment integration isn’t wired yet — this page is the design and emotional anchor.
+          When you’re ready, you can connect Stripe, Patreon, or any other system behind these tiers.
+        </p>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div>© <span id="year"></span> Tyniweb.</div>
+      <div class="footer-links">
+        <a href="docs.html">Docs</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="donate.html">Support</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

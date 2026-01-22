@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tyniweb Editor</title>
+  <link rel="stylesheet" href="editor.css" />
+</head>
+<body>
+
+<header id="tw-command-deck">
+  <div class="tw-command-left">
+    <div id="tw-logo">tyniweb</div>
+
+    <nav class="tw-menu">
+      <button class="tw-menu-item" data-menu="file">File</button>
+      <button class="tw-menu-item" data-menu="edit">Edit</button>
+      <button class="tw-menu-item" data-menu="view">View</button>
+      <button class="tw-menu-item" data-menu="pages">Pages</button>
+      <button class="tw-menu-item" data-menu="portal">Portal</button>
+	  <button id="tw-new-portal-template">New Portal from Template</button>
+	  <button id="tw-generate-page">Generate Page</button>
+	  <button id="tw-save-theme-preset">Save Theme Preset</button>
+	  <button id="tw-identity-wizard">Identity Wizard</button>
+	  <button id="tw-start-architect-exam">Take Certification Exam</button>
+	  <button id="tw-show-tutorial">Show Me How</button>
+    </nav>
+  </div>
+
+  <div class="tw-command-right">
+    <button id="tw-extensions-btn">Extensions</button>
+    <button id="tw-custom-modules-btn">Custom Modules</button>
+    <button id="tw-settings-btn">Settings</button>
+    <button id="tw-help-btn">Help</button>
+	<button id="tw-start-training">Training</button>
+	<button id="tw-open-training-portal">Architect Training</button>
+	<button id="tw-start-architect-training">Architect Training Path</button>
+	<button id="tw-open-architect-dashboard">Architect Dashboard</button>
+	<button id="tw-open-member-dashboard">Member Dashboard</button>
+    <button id="tw-account-btn">👤</button>
+  </div>
+</header>
+
+  <div class="tw-editor">
+
+    <!-- LEFT: COMPONENT LIBRARY -->
+    <aside class="tw-panel tw-panel-left">
+      <h2>Pages</h2>
+      <div class="tw-page-list">
+        <div class="tw-page-item" data-page="Home">
+		  <span class="tw-page-name">Home</span>
+		  <button class="tw-page-menu">⋮</button>
+		</div>
+        <button id="tw-add-page">+ Add Page</button>
+      </div>
+
+      <h2>Components</h2>
+      <div class="tw-component-list">
+        <button class="tw-component-item">Hero</button>
+        <button class="tw-component-item">Feature Row</button>
+        <button class="tw-component-item">Card</button>
+        <button class="tw-component-item">Grid</button>
+        <button class="tw-component-item">Section</button>
+        <button class="tw-component-item">Navbar</button>
+        <button class="tw-component-item">Footer</button>
+        <button class="tw-component-item">Form</button>
+        <button class="tw-component-item">Button</button>
+        <button class="tw-component-item">Media Block</button>
+        <button class="tw-component-item">Text Block</button>
+        <button class="tw-component-item">Callout</button>
+        <button class="tw-component-item">Testimonial</button>
+        <button class="tw-component-item">Pricing Table</button>
+      </div>
+    </aside>
+
+    <!-- CENTER: CANVAS -->
+    <main class="tw-canvas">
+      <div class="tw-canvas-header">
+        <h1>Page Canvas</h1>
+        <p>Drag components here to build your page.</p>
+		<div class="tw-zoom-controls">
+		  <button id="tw-zoom-out">−</button>
+		  <span id="tw-zoom-level">100%</span>
+		  <button id="tw-zoom-in">+</button>
+		</div>
+      </div>
+
+      <div class="tw-canvas-body">
+        <div class="tw-canvas-empty">
+          <p>No components yet. Start by adding a Hero or Section.</p>
+        </div>
+      </div>
+    </main>
+
+    <!-- RIGHT: INSPECTOR -->
+    <aside class="tw-panel tw-panel-right">
+      <h2>Inspector</h2>
+	  
+	  <!-- ARCHETYPE -->
+	  <section class="tw-inspector-section">
+		  <h3 class="tw-collapsible">Identity</h3>
+
+		  <label>
+			Archetype
+			<select id="tw-identity-archetype">
+			  <option value="Guided Creator (Sage-infused)">Guided Creator (Sage-infused)</option>
+			  <option value="Guide">Guide</option>
+			  <option value="Creator">Creator</option>
+			  <option value="Sage">Sage</option>
+			  <option value="Visionary">Visionary</option>
+			  <option value="Rebel">Rebel</option>
+			</select>
+		  </label>
+
+		  <label>
+			Voice Tone
+			<input type="text" id="tw-identity-voice" placeholder="Warm, encouraging…" />
+		  </label>
+
+		  <label>
+			Promise
+			<input type="text" id="tw-identity-promise" placeholder="Transformation promise…" />
+		  </label>
+		</section>
+
+      <!-- CONTENT -->
+      <section class="tw-inspector-section">
+        <h3 class="tw-collapsible">Content</h3>
+        <label>
+          Title
+          <input type="text" name="title" placeholder="Edit title…" />
+        </label>
+        <label>
+          Subtitle
+          <textarea name="subtitle" placeholder="Edit subtitle…"></textarea>
+        </label>
+        <label>
+          Button Label
+          <input type="text" name="cta" placeholder="Edit button label…" />
+        </label>
+      </section>
+
+      <!-- DESIGN -->
+      <section class="tw-inspector-section">
+        <h3 class="tw-collapsible">Design</h3>
+        <label>
+          Theme
+          <select name="theme">
+            <option>Default</option>
+            <option>Dark</option>
+            <option>Light</option>
+            <option>Playful</option>
+          </select>
+        </label>
+        <label>
+          Accent Color
+          <input type="color" name="accent" value="#00ff99" />
+        </label>
+      </section>
+
+      <!-- CONTENT PACKAGES -->
+      <section class="tw-inspector-section">
+        <h3 class="tw-collapsible">Content Packages</h3>
+        <label>
+          Package
+          <select name="package">
+            <option>None</option>
+            <option>AI Transition Messaging</option>
+            <option>Robot & AI Intro</option>
+            <option>Tyniweb Philosophy</option>
+            <option>Onboarding: New User</option>
+          </select>
+        </label>
+      </section>
+
+      <!-- VARIANT SELECTOR -->
+      <section class="tw-inspector-section">
+        <h3 class="tw-collapsible">Variant</h3>
+        <label>
+          Style
+          <select name="variant">
+            <option value="v1">Default</option>
+            <option value="v2">Alternate</option>
+          </select>
+        </label>
+      </section>
+	  
+		<!-- COMPONENT PRESET -->
+		<section class="tw-inspector-section">
+		  <h3 class="tw-collapsible">Presets</h3>
+		  <label>
+			Component Preset
+			<select name="component-preset">
+			  <option value="">None</option>
+			  <!-- Options will be populated dynamically -->
+			</select>
+		  </label>
+		</section>
+		
+		<!-- GENERATE AI CONTENT -->
+		<section class="tw-inspector-section">
+		  <h3 class="tw-collapsible">AI Tools</h3>
+
+		  <button class="tw-ai-button" id="tw-ai-generate-content">
+			Generate AI Content
+		  </button>
+
+		  <button class="tw-ai-button" id="tw-ai-generate-layout">
+			Generate AI Layout
+		  </button>
+		</section>
+
+
+      <!-- GLOBAL STYLES (PHASE 16) -->
+      <section class="tw-inspector-section">
+        <h3 class="tw-collapsible">Global Styles</h3>
+		
+		<label>
+		  Theme Preset
+		  <select name="global-theme-preset">
+			<option value="">None</option>
+			<option value="Default">Default</option>
+			<option value="Light">Light</option>
+			<option value="Dark">Dark</option>
+			<option value="Playful">Playful</option>
+		  </select>
+		</label>
+
+        <label>
+          Font Family
+          <select name="global-font">
+            <option value="system-ui">System UI</option>
+            <option value="serif">Serif</option>
+            <option value="sans-serif">Sans Serif</option>
+            <option value="monospace">Monospace</option>
+          </select>
+        </label>
+
+        <label>
+          Base Text Color
+          <input type="color" name="global-base-color" value="#f5f5f5" />
+        </label>
+
+        <label>
+          Accent Color
+          <input type="color" name="global-accent-color" value="#00cc88" />
+        </label>
+
+        <label>
+          Background Color
+          <input type="color" name="global-bg-color" value="#0b0c10" />
+        </label>
+
+        <label>
+          Base Spacing (px)
+          <input type="number" name="global-spacing" value="20" min="4" max="80" />
+        </label>
+      </section>
+
+      <!-- JSON SAVE / LOAD -->
+      <section class="tw-inspector-section">
+        <h3 class="tw-collapsible">Canvas</h3>
+        <button id="tw-save-json">Save JSON</button>
+        <button id="tw-load-json">Load JSON</button>
+        <textarea id="tw-json-area" placeholder="JSON will appear here"></textarea>
+      </section>
+
+      <!-- EXPORT HTML -->
+      <section class="tw-inspector-section">
+        <h3 class="tw-collapsible">Export</h3>
+        <button id="tw-export-html">Export HTML</button>
+        <textarea id="tw-html-area" placeholder="Exported HTML will appear here"></textarea>
+      </section>
+
+      <!-- EXPORT CSS -->
+      <section class="tw-inspector-section">
+        <h3 class="tw-collapsible">Export CSS</h3>
+        <button id="tw-export-css">Export CSS</button>
+        <textarea id="tw-css-area" placeholder="Exported CSS will appear here"></textarea>
+      </section>
+	  
+	  <button id="tw-import-html">Import HTML</button>
+		<input type="file" id="tw-import-html-file" accept=".html" style="display:none;">
+		
+		<button id="tw-export-site">Export Site</button>
+		<button id="tw-publish-site">Publish</button>
+
+    </aside>
+
+  </div>
+
+  <script src="editor.js"></script>
+  
+	<div id="tw-export-modal" class="tw-modal" style="display:none;">
+  <div class="tw-modal-content">
+    <h2>Site Export Bundle</h2>
+    <textarea id="tw-export-output" readonly></textarea>
+    <button id="tw-export-close">Close</button>
+  </div>
+</div>
+
+<div id="tw-publish-modal" class="tw-modal" style="display:none;">
+  <div class="tw-modal-content">
+    <h2>Publish Site</h2>
+    <button id="tw-toggle-preview">Preview</button>
+    <button id="tw-toggle-outlines">Outlines</button>
+    <p>This simulates a publish and shows the bundle that would be sent.</p>
+    <textarea id="tw-publish-output" readonly></textarea>
+    <button id="tw-publish-close">Close</button>
+  </div>
+</div>
+
+<aside id="tw-history-panel" class="tw-history-panel" style="display:none;">
+  <div class="tw-history-header">
+    <span>History</span>
+    <button id="tw-history-close">×</button>
+  </div>
+  <ul id="tw-history-list"></ul>
+</aside>
+
+<button id="tw-history-toggle" class="tw-history-toggle">History</button>
+
+<!-- SETTINGS PANEL (single correct version) -->
+<div id="tw-settings-panel" class="tw-modal" style="display:none;">
+  <div class="tw-modal-content" style="max-width:480px;">
+    <h2>Settings</h2>
+
+    <section class="tw-settings-section">
+      <h3>Role Mode</h3>
+
+      <label style="display:block;margin-bottom:8px;">
+        <input type="checkbox" id="tw-role-require-password" />
+        Require password for Architect
+      </label>
+
+      <label style="display:block;margin-bottom:8px;">
+        <input type="checkbox" id="tw-role-allow-switch" checked />
+        Allow free role switching (local testing)
+      </label>
+
+      <label style="display:block;margin-bottom:8px;">
+        Architect Password:
+        <input type="password" id="tw-role-architect-password" placeholder="TYNI-ARCH-2025" />
+      </label>
+
+      <label style="display:block;margin-bottom:8px;">
+        Current Role:
+        <select id="tw-role-current-role">
+          <option value="architect">Architect</option>
+          <option value="member">Member</option>
+          <option value="guest">Guest</option>
+        </select>
+      </label>
+    </section>
+
+    <button id="tw-settings-close">Close</button>
+  </div>
+</div>
+
+<!-- Learning Controls (single correct version) -->
+<div id="tw-learning-architect-controls" style="display:none; padding:12px;">
+  <h3>Architect Controls</h3>
+  <div id="tw-reset-steps"></div>
+</div>
+
+<div id="tw-learning-member-controls" style="display:none; padding:12px;">
+  <h3>Member Controls</h3>
+  <button id="tw-replay-tutorial">Replay Tutorial</button>
+</div>
+
+<!-- WELCOME MODAL (Warp 21) -->
+<div id="tw-welcome-modal" style="display:none;"></div>
+
+<!-- ARCHITECT QUICK-START GUIDE -->
+<div id="tw-architect-guide" class="tw-modal" style="display:none;">
+  <div class="tw-modal-content" style="max-width:520px;">
+    <h2>Architect Quick‑Start Guide</h2>
+
+    <p>You are now operating as a <strong>Tyniweb Architect</strong>. This guide gives you the first 10 minutes of mastery.</p>
+
+    <h3>The Architect Mindset</h3>
+    <ul>
+      <li>Architects design <strong>systems</strong>, not just pages.</li>
+      <li>You shape identity, theme, structure, and publishing.</li>
+      <li>Members edit content — you build the world they work in.</li>
+    </ul>
+
+    <h3>The Core Model</h3>
+    <p><strong>Universe → Projects → Portals → Pages → Blocks</strong></p>
+
+    <h3>Your First 10 Minutes</h3>
+    <ol>
+      <li>Set identity (archetype, voice, promise)</li>
+      <li>Create a portal</li>
+      <li>Add pages</li>
+      <li>Add smart components</li>
+      <li>Generate AI content</li>
+      <li>Apply a theme preset</li>
+      <li>Run the publish checklist</li>
+      <li>Simulate a publish</li>
+    </ol>
+
+    <button id="tw-architect-guide-close">Close</button>
+  </div>
+</div>
+
+<!-- ARCHITECT DASHBOARD -->
+<div id="tw-architect-dashboard" class="tw-modal" style="display:none;">
+  <div class="tw-modal-content" style="max-width:600px;">
+    <h2>Architect Dashboard</h2>
+
+    <section>
+      <h3>Training Progress</h3>
+      <p id="tw-architect-progress"></p>
+    </section>
+
+    <section>
+      <h3>Your Badges</h3>
+      <div id="tw-architect-badges"></div>
+    </section>
+
+    <section>
+      <h3>Actions</h3>
+      <button id="tw-open-training">Open Training Portal</button>
+      <button id="tw-start-architect-track">Start Architect Training</button>
+      <button id="tw-view-certification">View Certification Exam</button>
+    </section>
+
+    <button id="tw-architect-dashboard-close">Close</button>
+  </div>
+</div>
+
+<!-- ARCHITECT GRADUATION CEREMONY -->
+<div id="tw-architect-graduation" class="tw-modal" style="display:none;">
+  <div class="tw-modal-content" style="max-width:520px; text-align:center;">
+    <h2>🎉 Congratulations, Architect!</h2>
+    <p>You have completed the Architect Training Path and passed the Certification Exam.</p>
+    <p>You are now officially <strong>Architect Verified</strong>.</p>
+
+    <div style="margin:20px 0;">
+      <span class="tw-badge">Certified Architect</span>
+    </div>
+
+    <button id="tw-graduation-close">Continue</button>
+  </div>
+</div>
+
+<!-- MEMBER DASHBOARD -->
+<div id="tw-member-dashboard" class="tw-modal" style="display:none;">
+  <div class="tw-modal-content" style="max-width:520px;">
+    <h2>Member Dashboard</h2>
+
+    <section>
+      <h3>Your Progress</h3>
+      <p id="tw-member-progress"></p>
+    </section>
+
+    <section>
+      <h3>Your Badges</h3>
+      <div id="tw-member-badges"></div>
+    </section>
+
+    <section>
+      <h3>Actions</h3>
+      <button id="tw-start-member-training">Start Member Training</button>
+      <button id="tw-open-member-help">Member Help</button>
+    </section>
+
+    <button id="tw-member-dashboard-close">Close</button>
+  </div>
+</div>
+
+<!-- MEMBER CELEBRATION -->
+<div id="tw-member-celebration" class="tw-modal" style="display:none;">
+  <div class="tw-modal-content" style="max-width:480px; text-align:center;">
+    <h2>🎉 You're Ready!</h2>
+    <p>You’ve completed the Member Onboarding Path.</p>
+    <p>You now know how to edit, add blocks, and preview your work.</p>
+
+    <div style="margin:20px 0;">
+      <span class="tw-badge">Member Training Complete</span>
+    </div>
+
+    <button id="tw-member-celebration-close">Continue</button>
+  </div>
+</div>
+
+<!-- TRAINING & DASHBOARDS BUTTONS (put these in your header/help area as needed) -->
+<button id="tw-start-training">Training</button>
+<button id="tw-open-architect-dashboard">Architect Dashboard</button>
+<button id="tw-open-member-dashboard">Member Dashboard</button>
+
+<!-- INTELLIGENCE / GENERATION BUTTONS (place where they make sense in your UI) -->
+<button id="tw-new-portal-template">New Portal from Template</button>
+<button id="tw-generate-page">Generate Page</button>
+<button id="tw-save-theme-preset">Save Theme Preset</button>
+<button id="tw-identity-wizard">Identity Wizard</button>
+
+<!-- ARCHITECT DASHBOARD -->
+<div id="tw-architect-dashboard" class="tw-modal" style="display:none;">
+  <div class="tw-modal-content" style="max-width:600px;">
+    <h2>Architect Dashboard</h2>
+
+    <section>
+      <h3>Training Progress</h3>
+      <p id="tw-architect-progress"></p>
+    </section>
+
+    <section>
+      <h3>Your Badges</h3>
+      <div id="tw-architect-badges"></div>
+    </section>
+
+    <section>
+      <h3>Actions</h3>
+      <button id="tw-open-training">Open Training Portal</button>
+      <button id="tw-start-architect-track">Start Architect Training</button>
+      <button id="tw-view-certification">View Certification Exam</button>
+    </section>
+
+    <button id="tw-architect-dashboard-close">Close</button>
+  </div>
+</div>
+
+<!-- ARCHITECT GRADUATION CEREMONY -->
+<div id="tw-architect-graduation" class="tw-modal" style="display:none;">
+  <div class="tw-modal-content" style="max-width:520px; text-align:center;">
+    <h2>🎉 Congratulations, Architect!</h2>
+    <p>You have completed the Architect Training Path and passed the Certification Exam.</p>
+    <p>You are now officially <strong>Architect Verified</strong>.</p>
+
+    <div style="margin:20px 0;">
+      <span class="tw-badge">Certified Architect</span>
+    </div>
+
+    <button id="tw-graduation-close">Continue</button>
+  </div>
+</div>
+
+<!-- MEMBER DASHBOARD -->
+<div id="tw-member-dashboard" class="tw-modal" style="display:none;">
+  <div class="tw-modal-content" style="max-width:520px;">
+    <h2>Member Dashboard</h2>
+
+    <section>
+      <h3>Your Progress</h3>
+      <p id="tw-member-progress"></p>
+    </section>
+
+    <section>
+      <h3>Your Badges</h3>
+      <div id="tw-member-badges"></div>
+    </section>
+
+    <section>
+      <h3>Actions</h3>
+      <button id="tw-start-member-training">Start Member Training</button>
+      <button id="tw-open-member-help">Member Help</button>
+    </section>
+
+    <button id="tw-member-dashboard-close">Close</button>
+  </div>
+</div>
+
+<!-- MEMBER CELEBRATION -->
+<div id="tw-member-celebration" class="tw-modal" style="display:none;">
+  <div class="tw-modal-content" style="max-width:480px; text-align:center;">
+    <h2>🎉 You're Ready!</h2>
+    <p>You’ve completed the Member Onboarding Path.</p>
+    <p>You now know how to edit, add blocks, and preview your work.</p>
+
+    <div style="margin:20px 0;">
+      <span class="tw-badge">Member Training Complete</span>
+    </div>
+
+    <button id="tw-member-celebration-close">Continue</button>
+  </div>
+</div>
+
+
+
+</body>
+</html>
+

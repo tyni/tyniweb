@@ -1,0 +1,625 @@
+/* =========================================================
+   Tyniweb Editor — V3 Consolidated CSS
+   Clean, conflict-free, production-ready
+   ========================================================= */
+
+/* ---------- ROOT VARIABLES ---------- */
+:root {
+  --tw-font: "Inter", system-ui, sans-serif;
+  --tw-base-color: #ffffff;
+  --tw-accent-color: #00cc88;
+  --tw-bg-color: #05070a;
+  --tw-panel-bg: rgba(10, 12, 16, 0.96);
+  --tw-border: rgba(255, 255, 255, 0.08);
+  --tw-border-light: rgba(255, 255, 255, 0.04);
+  --tw-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  --tw-spacing: 16px;
+}
+
+/* ---------- RESET ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: var(--tw-font);
+  background: var(--tw-bg-color);
+  color: var(--tw-base-color);
+}
+
+/* =========================================================
+   TOP BAR (Unified V3)
+   ========================================================= */
+
+#tw-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 18px;
+  background: #111827;
+  border-bottom: 1px solid #1f2937;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+}
+
+.tw-topbar-left,
+.tw-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tw-logo {
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: 0.01em;
+  text-transform: lowercase;
+  color: #ffffff;
+}
+
+.tw-topbar-divider {
+  opacity: 0.4;
+}
+
+/* =========================================================
+   ROLE BUTTONS
+   ========================================================= */
+
+.tw-role-btn {
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: none;
+  background: #1f2937;
+  color: #9ca3af;
+  cursor: pointer;
+  font-size: 14px;
+  display: none; /* JS controls visibility */
+}
+
+.tw-role-btn.active-role {
+  background: #f97316; /* ORANGE for Architect/Member active */
+  color: #ffffff;
+}
+
+/* =========================================================
+   TRAINING BUTTONS
+   ========================================================= */
+
+#tw-training-toggle {
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: none;
+  background: #1f2937;
+  color: #9ca3af;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+#tw-training-toggle.training-on {
+  background: #16a34a;
+  color: #ffffff;
+}
+
+#tw-training-portal-btn {
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: none;
+  background: #1f2937;
+  color: #e5e7eb;
+  cursor: pointer;
+  font-size: 14px;
+  display: none;
+}
+
+/* =========================================================
+   SIGN IN / SIGN OUT
+   ========================================================= */
+
+#tw-signin-btn,
+#tw-signout-btn {
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: none;
+  background: #374151;
+  color: #e5e7eb;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* =========================================================
+   PUBLISH / EXPORT
+   ========================================================= */
+
+.tw-primary {
+  background: #2563eb;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.tw-secondary {
+  background: #1f2937;
+  color: #e5e7eb;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* =========================================================
+   GUEST BANNER
+   ========================================================= */
+
+#tw-guest-banner {
+  background: #1f2937;
+  color: #e5e7eb;
+  padding: 12px 16px;
+  text-align: center;
+  border-bottom: 1px solid #374151;
+  display: none;
+}
+
+/* =========================================================
+   LAYOUT GRID
+   ========================================================= */
+
+#tw-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr 300px;
+  height: calc(100vh - 60px);
+  overflow: hidden;
+}
+
+/* =========================================================
+   SIDEBARS
+   ========================================================= */
+
+#tw-sidebar-left,
+#tw-sidebar-right {
+  background: #05070a;
+  border-right: 1px solid var(--tw-border);
+  overflow-y: auto;
+  padding-bottom: 40px;
+}
+
+#tw-sidebar-right {
+  border-right: none;
+  border-left: 1px solid var(--tw-border);
+}
+
+/* =========================================================
+   PANELS
+   ========================================================= */
+
+.tw-panel {
+  padding: 18px 16px;
+  background: rgba(255, 255, 255, 0.015);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(4px);
+}
+
+.tw-panel h3 {
+  margin: 0 0 12px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+
+.tw-panel label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+  font-size: 12px;
+}
+
+.tw-panel input,
+.tw-panel select,
+.tw-panel textarea {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 8px 10px;
+  color: var(--tw-base-color);
+  font-size: 13px;
+}
+
+/* =========================================================
+   CANVAS
+   ========================================================= */
+
+#tw-canvas {
+  overflow: auto;
+  padding: 32px;
+  background: radial-gradient(circle at 20% 0%, #0f1118, #05070a 70%);
+}
+
+#tw-canvas-body {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* =========================================================
+   BLOCKS
+   ========================================================= */
+
+.tw-block {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 14px;
+  padding: 32px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(6px);
+  transition: 0.2s ease;
+  cursor: pointer;
+}
+
+.tw-block:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.tw-block.selected {
+  border-color: var(--tw-accent-color);
+  box-shadow: 0 0 0 1px rgba(0, 204, 136, 0.6);
+}
+
+/* =========================================================
+   TRAINING PORTAL / HUD / CHECKLIST / ARROW
+   ========================================================= */
+
+.tw-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.tw-modal-content {
+  background: var(--tw-panel-bg);
+  border-radius: 12px;
+  border: 1px solid var(--tw-border);
+  padding: 20px;
+  max-height: 80vh;
+  overflow: auto;
+  width: 600px;
+}
+
+.tw-training-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.tw-training-track {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--tw-border);
+  font-size: 12px;
+}
+
+/* HUD */
+#tw-training-hud {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  width: 260px;
+  background: rgba(20, 22, 28, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 14px;
+  z-index: 1500;
+  font-size: 12px;
+}
+
+/* Checklist */
+#tw-training-checklist {
+  position: fixed;
+  bottom: 16px;
+  left: 16px;
+  width: 260px;
+  background: rgba(20, 22, 28, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 12px;
+  z-index: 1500;
+}
+
+/* Arrow */
+#tw-training-arrow {
+  position: absolute;
+  z-index: 2000;
+  pointer-events: none;
+}
+
+.tw-training-arrow-icon {
+  font-size: 32px;
+  color: var(--tw-accent-color);
+  animation: tw-arrow-pulse 1.2s infinite ease-in-out;
+}
+
+/* Tooltip */
+#tw-training-tooltip {
+  position: absolute;
+  z-index: 2000;
+  background: rgba(20, 22, 28, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 12px;
+  max-width: 260px;
+  color: var(--tw-base-color);
+  pointer-events: none;
+}
+
+/* =========================================================
+   ROLE OVERLAY
+   ========================================================= */
+
+#tw-role-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.tw-role-overlay-inner {
+  background: #111827;
+  color: #f9fafb;
+  padding: 24px 32px;
+  border-radius: 12px;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+}
+
+.tw-role-overlay-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.tw-role-overlay-buttons button {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  background: #1f2937;
+  color: #e5e7eb;
+}
+
+.tw-role-overlay-buttons button:hover {
+  background: #2563eb;
+  color: white;
+}
+
+/* =========================================================
+   TESTING DASHBOARD (V4)
+   ========================================================= */
+
+.tw-test-open-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 54px;
+  height: 54px;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 3000;
+  box-shadow: var(--tw-shadow);
+}
+
+#tw-test-dashboard {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 280px;
+  background: rgba(20, 22, 28, 0.96);
+  border: 1px solid var(--tw-border);
+  border-radius: 12px;
+  padding: 14px;
+  z-index: 3000;
+  box-shadow: var(--tw-shadow);
+  font-size: 13px;
+}
+
+.tw-test-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.tw-test-header button {
+  background: none;
+  border: none;
+  color: #aaa;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.tw-test-section h4 {
+  margin: 0 0 6px;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+#tw-test-status-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px;
+}
+
+#tw-test-status-list li {
+  padding: 4px 0;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.tw-test-actions button {
+  width: 100%;
+  margin-bottom: 6px;
+}
+
+/* =========================================================
+   TESTING DASHBOARD — Chunk 3 (Logs + Colors)
+   ========================================================= */
+
+#tw-test-log {
+  max-height: 160px;
+  overflow-y: auto;
+  background: rgba(0,0,0,0.25);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 11px;
+  margin-top: 10px;
+}
+
+.tw-log-entry {
+  margin-bottom: 4px;
+  opacity: 0.85;
+}
+
+.tw-log-pass {
+  color: #22c55e; /* green */
+}
+
+.tw-log-fail {
+  color: #ef4444; /* red */
+}
+
+.tw-log-info {
+  color: #60a5fa; /* blue */
+}
+
+#tw-test-status-list li span:last-child {
+  font-weight: bold;
+}
+
+#tw-test-status-list li span.pass {
+  color: #22c55e;
+}
+
+#tw-test-status-list li span.fail {
+  color: #ef4444;
+}
+
+/* =========================================================
+   SETTINGS PANEL
+   ========================================================= */
+
+#tw-settings-panel {
+  position: fixed;
+  top: 80px;
+  left: 20px;
+  width: 300px;
+  background: rgba(20, 22, 28, 0.96);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 16px;
+  z-index: 3000;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+}
+
+#tw-settings-panel {
+  position: fixed;
+  top: 80px;
+  left: 20px;
+  width: 320px;
+  background: rgba(20, 22, 28, 0.96);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 16px;
+  z-index: 3000;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+}
+
+#tw-settings-panel h3 {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+#tw-settings-panel label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+#tw-settings-panel label span {
+  display: block;
+  font-size: 12px;
+  opacity: 0.8;
+  margin-bottom: 4px;
+}
+
+#tw-settings-panel input,
+#tw-settings-panel textarea {
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(10, 12, 18, 0.9);
+  color: #fff;
+  padding: 6px 8px;
+  font-size: 13px;
+}
+
+.tw-settings-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.tw-settings-tabs button {
+  flex: 1;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(10, 12, 18, 0.9);
+  color: #fff;
+  font-size: 11px;
+  padding: 4px 6px;
+  cursor: pointer;
+}
+
+.tw-settings-tabs button.active {
+  background: #4f46e5;
+  border-color: #4f46e5;
+}
+
+.tw-settings-tab-content {
+  margin-bottom: 10px;
+}
+
+.tw-settings-note {
+  font-size: 11px;
+  opacity: 0.7;
+  margin-bottom: 8px;
+}

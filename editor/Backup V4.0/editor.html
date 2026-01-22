@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tyniweb Editor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="editor.css" />
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <header id="tw-topbar">
+    <div class="tw-topbar-left">
+      <span class="tw-logo">Tyniweb</span>
+      <span class="tw-topbar-divider">|</span>
+
+      <!-- Role buttons (only one visible at a time) -->
+      <button class="tw-role-btn" data-role="architect">Architect</button>
+      <button class="tw-role-btn" data-role="member">Member</button>
+      <button class="tw-role-btn" data-role="guest">Guest</button>
+    </div>
+
+    <div class="tw-topbar-right">
+      <!-- Training toggle -->
+      <button id="tw-training-toggle">Training: OFF</button>
+
+      <!-- Training Portal -->
+      <button id="tw-training-portal-btn" style="display:none;">Training Portal</button>
+
+      <!-- Publish / Export -->
+      <button id="tw-publish-site" class="tw-primary">Publish</button>
+      <button id="tw-export-site" class="tw-secondary">Export</button>
+
+      <!-- Sign in/out -->
+      <button id="tw-signin-btn">Sign in</button>
+      <button id="tw-signout-btn" style="display:none;">Sign out</button>
+    </div>
+  </header>
+
+  <!-- MAIN LAYOUT -->
+  <div id="tw-layout">
+
+    <!-- LEFT SIDEBAR -->
+    <aside id="tw-sidebar-left">
+      <section class="tw-panel">
+        <h3>Pages</h3>
+        <div id="tw-page-list"></div>
+        <button id="tw-add-page" class="tw-secondary small">+ Add Page</button>
+      </section>
+
+      <section class="tw-panel">
+        <h3>Components</h3>
+        <div id="tw-components-panel" class="tw-component-list">
+          <button class="tw-component-item" data-add-block="hero">Hero</button>
+          <button class="tw-component-item" data-add-block="section">Section</button>
+          <button class="tw-component-item" data-add-block="feature-row">Feature Row</button>
+          <button class="tw-component-item" data-add-block="testimonial-row">Testimonials</button>
+          <button class="tw-component-item" data-add-block="grid">Grid</button>
+          <button class="tw-component-item" data-add-block="cta">CTA</button>
+          <button class="tw-component-item" data-add-block="footer">Footer</button>
+        </div>
+      </section>
+
+      <section class="tw-panel">
+        <h3>AI Tools</h3>
+        <button id="tw-ai-generate-content" class="tw-secondary small">AI: Content</button>
+        <button id="tw-ai-layout" class="tw-secondary small">AI: Layout</button>
+      </section>
+    </aside>
+
+    <!-- CANVAS -->
+    <main id="tw-canvas">
+      <div id="tw-canvas-body"></div>
+    </main>
+
+    <!-- RIGHT SIDEBAR -->
+    <aside id="tw-sidebar-right">
+
+      <section id="tw-inspector" class="tw-panel">
+        <h3>Inspector</h3>
+        <label>
+          <span>Title</span>
+          <input type="text" name="title" />
+        </label>
+        <label>
+          <span>Subtitle</span>
+          <textarea name="subtitle" rows="3"></textarea>
+        </label>
+        <label>
+          <span>Button Label</span>
+          <input type="text" name="cta" />
+        </label>
+      </section>
+
+      <section id="tw-global-styles" class="tw-panel">
+        <h3>Global Styles</h3>
+        <label>
+          <span>Theme</span>
+          <select id="tw-theme-select"></select>
+        </label>
+        <label>
+          <span>Font</span>
+          <select name="global-font">
+            <option value="system-ui">System</option>
+            <option value="Inter, system-ui">Inter</option>
+            <option value="Georgia, serif">Serif</option>
+          </select>
+        </label>
+        <label>
+          <span>Base Color</span>
+          <input type="color" name="global-base-color" />
+        </label>
+        <label>
+          <span>Accent Color</span>
+          <input type="color" name="global-accent-color" />
+        </label>
+        <label>
+          <span>Background</span>
+          <input type="color" name="global-bg-color" />
+        </label>
+        <label>
+          <span>Spacing</span>
+          <input type="range" name="global-spacing" min="8" max="40" />
+        </label>
+      </section>
+
+      <section id="tw-identity-panel" class="tw-panel">
+        <h3>Identity Core</h3>
+        <label>
+          <span>Archetype</span>
+          <select name="identity-archetype">
+            <option value="guide">Guide</option>
+            <option value="explorer">Explorer</option>
+            <option value="visionary">Visionary</option>
+            <option value="builder">Builder</option>
+          </select>
+        </label>
+        <label>
+          <span>Voice Tone</span>
+          <input type="text" name="identity-voice" placeholder="warm and encouraging" />
+        </label>
+        <label>
+          <span>Promise</span>
+          <textarea name="identity-promise" rows="2" placeholder="Help you build worlds that feel alive."></textarea>
+        </label>
+        <button id="tw-new-portal-template" class="tw-secondary small">New Portal from Template</button>
+      </section>
+
+    </aside>
+  </div>
+
+  <!-- TRAINING PORTAL -->
+  <div id="tw-training-portal" class="tw-modal">
+    <div class="tw-modal-content tw-training-modal">
+      <div class="tw-modal-header">
+        <h2>Training Portal</h2>
+        <button id="tw-training-close" class="tw-icon-btn">✕</button>
+      </div>
+
+      <div class="tw-training-columns">
+        <section>
+          <h3>Architect Tracks</h3>
+          <div id="tw-training-architect-list"></div>
+        </section>
+        <section>
+          <h3>Member Tracks</h3>
+          <div id="tw-training-member-list"></div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRAINING CHECKLIST -->
+  <aside id="tw-training-checklist" style="display:none;">
+    <h3>Training Checklist</h3>
+    <ul id="tw-training-checklist-list"></ul>
+    <button id="tw-training-next-step" class="tw-secondary small">Next Step</button>
+  </aside>
+
+  <!-- TRAINING HUD -->
+  <div id="tw-training-hud" style="display:none;">
+    <div id="tw-training-hud-track"></div>
+    <div id="tw-training-hud-step"></div>
+    <div id="tw-training-hud-title"></div>
+    <div id="tw-training-hud-progress">
+      <div id="tw-training-hud-progress-bar"></div>
+    </div>
+  </div>
+
+  <!-- TRAINING ARROW -->
+  <div id="tw-training-arrow" style="display:none;">
+    <div class="tw-training-arrow-icon">➤</div>
+  </div>
+
+  <!-- ROLE OVERLAY -->
+  <div id="tw-role-overlay">
+    <div class="tw-role-overlay-inner">
+      <h2>Choose your role</h2>
+      <p>Select how you want to enter Tyniweb.</p>
+      <div class="tw-role-overlay-buttons">
+        <button onclick="chooseRole('architect')">Architect</button>
+        <button onclick="chooseRole('member')">Member</button>
+        <button onclick="chooseRole('guest')">Continue as Guest</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================
+       Tyniweb V4 Testing Dashboard
+       ============================ -->
+  <div id="tw-test-dashboard" class="tw-test-dashboard" style="display:none;">
+    <div class="tw-test-header">
+      <strong>Tyniweb V4 — Test Dashboard</strong>
+      <button id="tw-test-close">✕</button>
+    </div>
+
+    <div class="tw-test-section">
+      <h4>Subsystem Status</h4>
+      <ul id="tw-test-status-list"></ul>
+    </div>
+
+    <div class="tw-test-section">
+      <h4>Event Log</h4>
+      <div id="tw-test-log"></div>
+    </div>
+
+    <div class="tw-test-actions">
+      <button id="tw-test-run" class="tw-primary small">Run Full Test Suite</button>
+      <button id="tw-test-reset" class="tw-secondary small">Reset</button>
+    </div>
+  </div>
+
+  <!-- Floating button to open dashboard -->
+  <button id="tw-test-open" class="tw-test-open-btn">QA</button>
+
+  <script src="editor.js" defer></script>
+</body>
+</html>
