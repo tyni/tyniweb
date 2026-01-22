@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Docs — Tyniweb</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="marketing.css" />
+</head>
+<body>
+  <header>
+    <div class="nav-inner">
+      <div class="nav-left">
+        <div class="nav-logo"></div>
+        <div class="nav-title">Tyniweb</div>
+      </div>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="templates.html">Templates</a>
+        <a href="docs.html">Docs</a>
+        <a href="donate.html">Support</a>
+      </nav>
+      <div class="nav-cta">
+        <a href="pricing.html" class="btn btn-outline">Start Free</a>
+        <a href="editor.html" class="btn btn-primary">Open Editor</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="section-header">
+        <h1 class="section-title">Documentation</h1>
+        <p class="section-subtitle">
+          A living guide to the editor, roles, extensions, and the Tyniweb way of building.
+        </p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>Getting started</h3>
+          <p>How to open the editor, choose a role, and build your first page.</p>
+        </article>
+        <article class="card">
+          <h3>Roles & permissions</h3>
+          <p>Guest, Member, Architect — what each can see, change, and control.</p>
+        </article>
+        <article class="card">
+          <h3>Extensions & Control Center</h3>
+          <p>How to enable, disable, and configure extensions from the Control Center.</p>
+        </article>
+      </div>
+
+      <article class="card" style="margin-top:20px;">
+        <h3>Auto‑Tester & Simulation Engine</h3>
+        <p>
+          Learn how to run the Auto‑Tester, stress tests, and Full Power Mode to validate your worlds before launch.
+        </p>
+      </article>
+
+      <article class="card" style="margin-top:16px;">
+        <h3>Roadmap</h3>
+        <p>
+          Tyniweb is a living platform. Docs will grow as the system grows — just like your worlds.
+        </p>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div>© <span id="year"></span> Tyniweb.</div>
+      <div class="footer-links">
+        <a href="docs.html">Docs</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="donate.html">Support</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
