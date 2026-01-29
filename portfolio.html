@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tyniweb portfolio</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Rounded modern font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&display=swap" rel="stylesheet">
+
+    <!-- AOS (Animate On Scroll) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+	<script src="https://cdn.auth0.com/js/auth0-spa-js/2.5/auth0-spa-js.production.js"></script>
+</head>
+
+<body>
+
+<header>
+    <h1 class="logo">tyniweb</h1>
+    <p class="subheader">private portfolio access</p>
+</header>
+
+<p style="text-align:center; margin-top:10px;">
+    <a href="index.html" style="opacity:0.6; text-decoration:none;">← back to home</a>
+</p>
+
+<section class="hero" data-aos="fade-up">
+    <h2>portfolio examples</h2>
+    <p>curated demonstrations of my workflow, technical range, and ai‑assisted capabilities</p>
+</section>
+
+<!-- Example Container 1 -->
+<section class="portfolio-block" data-aos="fade-up">
+    <h3>example 01 — ai‑assisted workflow</h3>
+    <p class="desc">A demonstration of how I use the AHI loop to transform raw input into polished output.</p>
+
+    <div class="portfolio-container">
+        <img src="assets/images/example1.png" alt="example 1">
+        <div class="portfolio-text">
+            <h4>process</h4>
+            <ul>
+                <li>Human Input → AI Draft</li>
+                <li>AI Draft → Human Refinement</li>
+                <li>Refinement → AHI Output</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- Example Container 2 -->
+<section class="portfolio-block" data-aos="fade-up">
+    <h3>example 02 — 3d model viewer</h3>
+    <p class="desc">A simple 3D model demonstration using a web‑native viewer.</p>
+
+    <div class="portfolio-container">
+        <model-viewer src="assets/models/demo.glb" auto-rotate camera-controls></model-viewer>
+    </div>
+</section>
+
+<!-- Example Container 3 -->
+<section class="portfolio-block" data-aos="fade-up">
+    <h3>example 03 — video demonstration</h3>
+    <p class="desc">A short clip showing a workflow, animation, or UI concept.</p>
+
+    <div class="portfolio-container">
+        <video controls>
+            <source src="assets/videos/demo.mp4" type="video/mp4">
+        </video>
+    </div>
+</section>
+
+<!-- Duplicate-ready container -->
+<section class="portfolio-block" data-aos="fade-up">
+    <h3>example 04 — placeholder</h3>
+    <p class="desc">duplicate this block to add more examples.</p>
+
+    <div class="portfolio-container placeholder">
+        <p>drop your content here</p>
+    </div>
+</section>
+
+<button onclick="logout()">logout</button>
+
+<footer>
+    <p>© tyniweb — private access</p>
+</footer>
+
+<!-- AOS JS -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="script.js"></script>
+
+<!-- 3D model viewer -->
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+<script src="protect.js"></script>
+
+</body>
+</html>
+a
