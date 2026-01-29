@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>tyniweb login</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.5/auth0-spa-js.production.js"></script>
 </head>
 
 <body>
@@ -19,10 +20,7 @@
     <h3>email verification</h3>
     <p>enter your email to request access to the private portfolio.</p>
 
-    <form>
-        <input type="email" placeholder="your email">
-        <button type="submit">send access link</button>
-    </form>
+    <button type="button" onclick="login()">request access</button>
 
     <p class="note">*this is a protected area for employers and recruiters only.</p>
 </section>
@@ -30,6 +28,8 @@
 <footer>
     <p>© tyniweb</p>
 </footer>
+
+<script src="auth.js"></script>
 
 </body>
 </html>
