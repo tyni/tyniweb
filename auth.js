@@ -1,3 +1,5 @@
+console.log("auth.js loaded");
+
 let auth0Client = null;
 
 async function initAuth() {
