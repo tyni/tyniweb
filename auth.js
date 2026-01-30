@@ -23,9 +23,7 @@ async function initAuth() {
 
 async function tyniLogin() {
   await auth0Client.loginWithRedirect({
-    authorizationParams: {
-      redirect_uri: "https://tyni.github.io/tyniweb/portfolio.html"
-    }
+    redirect_uri: "https://tyni.github.io/tyniweb/portfolio.html"
   });
 }
 
