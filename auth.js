@@ -1,5 +1,3 @@
-// auth.js — login flow for tyniweb private portfolio
-
 console.log("auth.js loaded");
 
 let auth0Client = null;
@@ -8,8 +6,7 @@ async function initAuth() {
   const redirectUri = "https://tyniweb.com/portfolio.html";
   console.log("Redirect URI:", redirectUri);
 
-  // Use the ES module version of Auth0
-  auth0Client = await window.createAuth0Client({
+  auth0Client = await createAuth0Client({
     domain: "dev-fht8kl3tzpgoptkw.us.auth0.com",
     client_id: "jzSlLP3cpq6AVAcWTf6YiLWySaGnNHgR",
     authorizationParams: {
@@ -25,7 +22,6 @@ async function initAuth() {
       console.error("Auth0 redirect error on login page:", err);
     }
 
-    // Clean URL after Auth0 callback
     window.history.replaceState({}, document.title, "/login.html");
   }
 }
