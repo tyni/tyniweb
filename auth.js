@@ -1,3 +1,5 @@
+// auth.js — login flow for tyniweb private portfolio
+
 console.log("auth.js loaded");
 
 let auth0Client = null;
