@@ -3,12 +3,14 @@ console.log("auth.js loaded");
 let auth0Client = null;
 
 async function initAuth() {
-  console.log("Redirect URI:", window.location.origin + "/tyniweb/portfolio.html");
+  const redirectUri = "https://tyni.github.io/tyniweb/portfolio.html";
+  console.log("Redirect URI:", redirectUri);
+
   auth0Client = await createAuth0Client({
-    domain: "dev-fht8kl3tzpgoptkw.us.auth0.com", // e.g. dev-abc123.us.auth0.com
-    client_id: "jzSlLP3cpq6AVAcWTf6YiLWySaGnNHgR", // e.g. jzS1LP3cpq64VAcWTf6YiLWySaGnNHgR
+    domain: "dev-fht8kl3tzpgoptkw.us.auth0.com",
+    client_id: "jzS1LP3cpq64VAcWTf6YiLWySaGnNHgR",
     authorizationParams: {
-      console.log("Redirect URI:", window.location.origin + "/tyniweb/portfolio.html");
+      redirect_uri: redirectUri
     }
   });
 
