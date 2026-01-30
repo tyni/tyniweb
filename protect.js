@@ -21,4 +21,19 @@ async function logout() {
   });
 }
 
+async function logVisit() {
+  const user = await auth0Client.getUser();
+
+  fetch("https://script.google.com/macros/s/AKfycbx_GM5iIAY1xaLJsKaArGUm6q98PL5UWWOwHn_8E2SN-203qFvI-EICZasfQMsDmfvS/exec", {
+    method: "POST",
+    body: JSON.stringify({
+      email: user.email,
+      userAgent: navigator.userAgent,
+      page: "portfolio"
+    })
+  });
+}
+
+logVisit();
+
 protectPage();
