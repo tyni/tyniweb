@@ -19,6 +19,10 @@ window.tyniLogin = async function () {
 };
 
 async function initAuth() {
+  if (typeof createAuth0Client !== "function") {
+	  console.error("Auth0 library not loaded");
+	  return;
+	}
   const redirectUri = "https://tyniweb.com/portfolio.html";
   console.log("Redirect URI:", redirectUri);
 
