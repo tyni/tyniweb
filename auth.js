@@ -3,7 +3,7 @@ console.log("auth.js loaded");
 let auth0Client = null;
 
 async function initAuth() {
-  const redirect_uri: "https://tyniweb.com/portfolio.html"
+  const redirectUri = "https://tyniweb.com/portfolio.html";
   console.log("Redirect URI:", redirectUri);
 
   auth0Client = await createAuth0Client({
