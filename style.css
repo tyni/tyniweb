@@ -128,3 +128,13 @@ model-viewer {
     opacity: 0.5;
     border: 2px dashed #ccc;
 }
+
+.auth-loading {
+  opacity: 0;
+  pointer-events: none;
+}
+.auth-ready {
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 0.3s ease;
+}
