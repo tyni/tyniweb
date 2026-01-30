@@ -3,6 +3,12 @@
 let auth0Client = null;
 
 async function initAuth() {
+  // Ensure Auth0 library is loaded
+  if (typeof createAuth0Client !== "function") {
+    console.error("Auth0 library not loaded");
+    return;
+  }
+
   auth0Client = await createAuth0Client({
     domain: "dev-fht8kl3tzpgoptkw.us.auth0.com",
     client_id: "jzSlLP3cpq6AVAcWTf6YiLWySaGnNHgR",
@@ -44,6 +50,7 @@ async function logVisit() {
       "https://script.google.com/macros/s/AKfycbx_GM5iIAY1xaLJsKaArGUm6q98PL5UWWOwHn_8E2SN-203qFvI-EICZasfQMsDmfvS/exec",
       {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           type: "visit",
           email: user.email,
@@ -70,5 +77,8 @@ function setupLogout() {
   };
 }
 
-initAuth();
-setupLogout();
+// Run after DOM is ready
+document.addEventListener("DOMContentLoaded", () => {
+  setupLogout();
+  initAuth();
+});
