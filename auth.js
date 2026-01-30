@@ -8,7 +8,7 @@ async function initAuth() {
 
   auth0Client = await createAuth0Client({
     domain: "dev-fht8kl3tzpgoptkw.us.auth0.com",
-    client_id: "jzSlLP3cpq6AVAcWTf6YiLWySaGnNHgR",
+    client_id: "jzS1LP3cpq6AVAcWTf6YiLWySaGnNHgR",
     authorizationParams: {
       redirect_uri: redirectUri
     }
@@ -22,7 +22,11 @@ async function initAuth() {
 }
 
 async function tyniLogin() {
-  await auth0Client.loginWithRedirect();
+  await auth0Client.loginWithRedirect({
+    authorizationParams: {
+      redirect_uri: "https://tyni.github.io/tyniweb/portfolio.html"
+    }
+  });
 }
 
 initAuth();
