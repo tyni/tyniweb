@@ -5,16 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>tyniweb portfolio</title>
     <link rel="stylesheet" href="style.css">
-
-    <!-- Rounded modern font -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&display=swap" rel="stylesheet">
-
-    <!-- AOS (Animate On Scroll) -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-	
 </head>
 
-<body>
+<body class="auth-loading">
 
 <header>
     <h1 class="logo">tyniweb</h1>
@@ -30,7 +25,6 @@
     <p>curated demonstrations of my workflow, technical range, and ai‑assisted capabilities</p>
 </section>
 
-<!-- Example Container 1 -->
 <section class="portfolio-block" data-aos="fade-up">
     <h3>example 01 — ai‑assisted workflow</h3>
     <p class="desc">A demonstration of how I use the AHI loop to transform raw input into polished output.</p>
@@ -48,7 +42,6 @@
     </div>
 </section>
 
-<!-- Example Container 2 -->
 <section class="portfolio-block" data-aos="fade-up">
     <h3>example 02 — 3d model viewer</h3>
     <p class="desc">A simple 3D model demonstration using a web‑native viewer.</p>
@@ -58,7 +51,6 @@
     </div>
 </section>
 
-<!-- Example Container 3 -->
 <section class="portfolio-block" data-aos="fade-up">
     <h3>example 03 — video demonstration</h3>
     <p class="desc">A short clip showing a workflow, animation, or UI concept.</p>
@@ -70,7 +62,6 @@
     </div>
 </section>
 
-<!-- Duplicate-ready container -->
 <section class="portfolio-block" data-aos="fade-up">
     <h3>example 04 — placeholder</h3>
     <p class="desc">duplicate this block to add more examples.</p>
@@ -86,15 +77,17 @@
     <p>© tyniweb — private access</p>
 </footer>
 
-<!-- AOS JS -->
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="script.js"></script>
-
-<!-- 3D model viewer -->
 <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
-<script src="https://cdn.auth0.com/js/auth0-spa-js/2.5/auth0-spa-js.production.js"></script>
-<script src="protect.js?v=2"></script>
+<!-- Auth0 ES Module -->
+<script type="module">
+  import createAuth0Client from "https://cdn.auth0.com/js/auth0-spa-js/2.5/auth0-spa-js.production.esm.js";
+  window.createAuth0Client = createAuth0Client;
+</script>
+
+<script src="protect.js?v=3"></script>
 
 </body>
 </html>
