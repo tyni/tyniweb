@@ -8,7 +8,7 @@ async function initAuth() {
 
   auth0Client = await createAuth0Client({
     domain: "dev-fht8kl3tzpgoptkw.us.auth0.com",
-    client_id: "jzS1LP3cpq6AVAcWTf6YiLWySaGnNHgR",
+    client_id: "jzSlLP3cpq6AVAcWTf6YiLWySaGnNHgR",
     redirect_uri: redirectUri
   });
 
