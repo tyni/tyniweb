@@ -3,7 +3,7 @@ console.log("auth.js loaded");
 let auth0Client = null;
 
 async function initAuth() {
-  const redirectUri = "https://tyni.github.io/tyniweb/portfolio.html";
+  const redirect_uri: "https://tyniweb.com/portfolio.html"
   console.log("Redirect URI:", redirectUri);
 
   auth0Client = await createAuth0Client({
@@ -15,13 +15,13 @@ async function initAuth() {
   const query = window.location.search;
   if (query.includes("code=") && query.includes("state=")) {
     await auth0Client.handleRedirectCallback();
-    window.history.replaceState({}, document.title, "/tyniweb/portfolio.html");
+    window.history.replaceState({}, document.title, "/portfolio.html");
   }
 }
 
 async function tyniLogin() {
   await auth0Client.loginWithRedirect({
-    redirect_uri: "https://tyni.github.io/tyniweb/portfolio.html"
+    redirect_uri: "https://tyniweb.com/portfolio.html"
   });
 }
 
