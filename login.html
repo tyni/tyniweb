@@ -19,7 +19,7 @@
     <h3>email verification</h3>
     <p>enter your email to request access to the private portfolio.</p>
 
-    <button type="button" onclick="window.tyniLogin()">request access</button>
+    <button id="loginBtn" type="button">request access</button>
 
     <p class="note">*this is a protected area for employers and recruiters only.</p>
 </section>
@@ -28,11 +28,11 @@
     <p>© tyniweb</p>
 </footer>
 
-<!-- Auth0 stable UMD build -->
-<script src="https://cdn.auth0.com/js/auth0-spa-js/2.5/auth0-spa-js.production.js"
-referrerpolicy="no-referrer"> </script>
-
+<!-- ⭐ Self‑hosted Auth0 script (the stable fix) -->
 <script src="assets/js/auth0.js"></script>
+
+<!-- ⭐ Your actual login logic -->
+<script src="auth.js?v=4"></script>
 
 </body>
 </html>
