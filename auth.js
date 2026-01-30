@@ -8,7 +8,7 @@ async function initAuth() {
     domain: "dev-fht8kl3tzpgoptkw.us.auth0.com", // e.g. dev-abc123.us.auth0.com
     client_id: "jzSlLP3cpq6AVAcWTf6YiLWySaGnNHgR", // e.g. jzS1LP3cpq64VAcWTf6YiLWySaGnNHgR
     authorizationParams: {
-      redirect_uri: window.location.origin + "/tyniweb/portfolio.html"
+      console.log("Redirect URI:", window.location.origin + "/tyniweb/portfolio.html");
     }
   });
 
