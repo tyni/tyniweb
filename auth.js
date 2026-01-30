@@ -1,8 +1,20 @@
-// auth.js — login flow for tyniweb private portfolio
-
 console.log("auth.js loaded");
 
 let auth0Client = null;
+
+// Define tyniLogin early to avoid undefined errors
+window.tyniLogin = async function () {
+  if (!auth0Client) {
+    console.error("Auth0 client not initialized yet.");
+    return;
+  }
+
+  await auth0Client.loginWithRedirect({
+    authorizationParams: {
+      redirect_uri: "https://tyniweb.com/portfolio.html"
+    }
+  });
+};
 
 async function initAuth() {
   const redirectUri = "https://tyniweb.com/portfolio.html";
@@ -28,18 +40,4 @@ async function initAuth() {
   }
 }
 
-async function tyniLogin() {
-  if (!auth0Client) {
-    console.error("Auth0 client not initialized yet.");
-    return;
-  }
-
-  await auth0Client.loginWithRedirect({
-    authorizationParams: {
-      redirect_uri: "https://tyniweb.com/portfolio.html"
-    }
-  });
-}
-
 initAuth();
-window.tyniLogin = tyniLogin;
