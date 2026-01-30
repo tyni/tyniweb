@@ -8,7 +8,8 @@ async function initAuth() {
   const redirectUri = "https://tyniweb.com/portfolio.html";
   console.log("Redirect URI:", redirectUri);
 
-  auth0Client = await createAuth0Client({
+  // Use the ES module version of Auth0
+  auth0Client = await window.createAuth0Client({
     domain: "dev-fht8kl3tzpgoptkw.us.auth0.com",
     client_id: "jzSlLP3cpq6AVAcWTf6YiLWySaGnNHgR",
     authorizationParams: {
