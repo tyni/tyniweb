@@ -1,3 +1,5 @@
+// auth.js — login flow for tyniweb private portfolio
+
 console.log("auth.js loaded");
 
 let auth0Client = null;
@@ -9,20 +11,36 @@ async function initAuth() {
   auth0Client = await createAuth0Client({
     domain: "dev-fht8kl3tzpgoptkw.us.auth0.com",
     client_id: "jzSlLP3cpq6AVAcWTf6YiLWySaGnNHgR",
-    redirect_uri: redirectUri
+    authorizationParams: {
+      redirect_uri: redirectUri
+    }
   });
 
   const query = window.location.search;
   if (query.includes("code=") && query.includes("state=")) {
-    await auth0Client.handleRedirectCallback();
-    window.history.replaceState({}, document.title, "/portfolio.html");
+    try {
+      await auth0Client.handleRedirectCallback();
+    } catch (err) {
+      console.error("Auth0 redirect error on login page:", err);
+    }
+
+    // Clean URL after Auth0 callback
+    window.history.replaceState({}, document.title, "/login.html");
   }
 }
 
 async function tyniLogin() {
+  if (!auth0Client) {
+    console.error("Auth0 client not initialized yet.");
+    return;
+  }
+
   await auth0Client.loginWithRedirect({
-    redirect_uri: "https://tyniweb.com/portfolio.html"
+    authorizationParams: {
+      redirect_uri: "https://tyniweb.com/portfolio.html"
+    }
   });
 }
 
 initAuth();
+window.tyniLogin = tyniLogin;
