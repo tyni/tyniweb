@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta-name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>tyniweb login</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&display=swap" rel="stylesheet">
@@ -28,12 +28,13 @@
     <p>© tyniweb</p>
 </footer>
 
-<script 
-  src="https://cdn.auth0.com/js/auth0-spa-js/2.5/auth0-spa-js.production.js"
-  type="text/javascript"
-  crossorigin="anonymous">
+<!-- Auth0 ES Module -->
+<script type="module">
+  import createAuth0Client from "https://cdn.auth0.com/js/auth0-spa-js/2.5/auth0-spa-js.production.esm.js";
+  window.createAuth0Client = createAuth0Client;
 </script>
 
-<script src="auth.js?v=1" type="text/javascript"></script>
+<script src="auth.js?v=2"></script>
+
 </body>
 </html>
