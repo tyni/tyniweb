@@ -21,7 +21,7 @@ async function initAuth() {
   }
 }
 
-async function login() {
+async function tyniLogin() {
   await auth0Client.loginWithRedirect();
 }
 
