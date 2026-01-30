@@ -1,9 +1,9 @@
-// protect.js — ES module compatible version
+// protect.js — production‑ready Auth0 gate for tyniweb portfolio
 
 let auth0Client = null;
 
 async function initAuth() {
-  auth0Client = await window.createAuth0Client({
+  auth0Client = await createAuth0Client({
     domain: "dev-fht8kl3tzpgoptkw.us.auth0.com",
     client_id: "jzSlLP3cpq6AVAcWTf6YiLWySaGnNHgR",
     authorizationParams: {
@@ -18,10 +18,12 @@ async function initAuth() {
     } catch (err) {
       console.error("Auth0 redirect error:", err);
     }
+
     window.history.replaceState({}, document.title, "/portfolio.html");
   }
 
   const isAuthenticated = await auth0Client.isAuthenticated();
+
   if (!isAuthenticated) {
     window.location.href = "login.html";
     return;
