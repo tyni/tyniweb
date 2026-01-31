@@ -23,7 +23,8 @@ async function initAuth() {
     console.log("Auth0 client initialized.");
 
     const query = window.location.search;
-    if (query.includes("code=") && query.includes("state=")) {
+    const hash = window.location.hash;
+    if (query.includes("code=") && query.includes("state=") || hash.includes("code=") && hash.includes("state=")) {
       try {
         console.log("Handling Auth0 redirect callback...");
         await auth0Client.handleRedirectCallback();
