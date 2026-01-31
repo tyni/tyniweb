@@ -2,19 +2,28 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Request Access | tyniweb</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tyniweb login</title>
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&display=swap" rel="stylesheet" />
 </head>
 <body>
   <main class="container">
-    <h1>Request Access</h1>
+    <header>
+      <h1 class="logo">tyniweb</h1>
+      <p class="subheader">secure access</p>
+    </header>
 
-    <form id="accessForm">
-      <input type="text" name="name" placeholder="Your name" required />
-      <input type="email" name="email" placeholder="Your email" required />
-      <button type="submit">Request Access</button>
-    </form>
+    <section class="block">
+      <h3>email verification</h3>
+      <p>enter your email to request login access to the private portfolio.</p>
+      
+      <form id="accessForm">
+        <input type="text" name="name" placeholder="Your name" required />
+        <input type="email" name="email" placeholder="Your email" required />
+        <button id="loginBtn" type="submit">Request Access</button>
+      </form>
+    </section>
 
     <div id="accessCodeSection" style="display:none;">
       <p>Your access code is: <strong id="accessCode"></strong></p>
@@ -22,6 +31,10 @@
       <button id="verifyCodeBtn">Enter</button>
     </div>
   </main>
+
+  <footer>
+    <p>© tyniweb</p>
+  </footer>
 
   <script src="access.js"></script>
 </body>
