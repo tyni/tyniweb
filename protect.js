@@ -19,12 +19,15 @@ async function initAuth() {
         scope: "openid profile email"
       }
     });
-
+    
     console.log("Auth0 client initialized.");
 
-    const query = window.location.search;
-    const hash = window.location.hash;
-    if (query.includes("code=") && query.includes("state=") || hash.includes("code=") && hash.includes("state=")) {
+    // Check for Auth0 redirect response in URL (query or hash)
+    const hasAuthParams =
+      window.location.search.includes("code=") && window.location.search.includes("state=") ||
+      window.location.hash.includes("code=") && window.location.hash.includes("state=");
+    
+    if (hasAuthParams) {
       try {
         console.log("Handling Auth0 redirect callback...");
         await auth0Client.handleRedirectCallback();
@@ -34,9 +37,11 @@ async function initAuth() {
         console.error("Auth0 redirect error:", err);
       }
     }
-
+    
+    // Check authentication state
     const isAuthenticated = await auth0Client.isAuthenticated();
     console.log("Authenticated:", isAuthenticated);
+
 
     if (!isAuthenticated) {
       console.warn("User is NOT authenticated — skipping redirect for debugging.");
