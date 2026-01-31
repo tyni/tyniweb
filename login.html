@@ -18,8 +18,12 @@
     <h3>email verification</h3>
     <p>enter your email to request access to the private portfolio.</p>
 
-    <input type="email" id="emailInput" placeholder="your@email.com" required />
     <button id="loginBtn" type="button">request access</button>
+
+    <div id="emailPrompt" style="display: none; margin-top: 1em;">
+      <input type="email" id="emailInput" placeholder="your@email.com" required />
+      <button id="submitEmailBtn" type="button">continue</button>
+    </div>
 
     <p class="note">*this is a protected area for employers and recruiters only.</p>
   </section>
@@ -28,9 +32,6 @@
     <p>© tyniweb</p>
   </footer>
 
-  <script>
-    console.log("Before Auth0 script:", typeof auth0?.createAuth0Client);
-  </script>
   <script src="https://cdn.auth0.com/js/auth0-spa-js/2.5/auth0-spa-js.production.js"></script>
   <script src="auth.js?v=4"></script>
 </body>
