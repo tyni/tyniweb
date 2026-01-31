@@ -1,68 +1,64 @@
-// auth.js — stable login flow for tyniweb
+// auth.js — popup login flow for tyniweb
 
 console.log("auth.js loaded");
 
 let auth0Client = null;
 
-// Define tyniLogin immediately so the button never calls an undefined function
+async function initAuth() {
+  try {
+    auth0Client = await auth0.createAuth0Client({
+      domain: "dev-fht8kl3tzpgoptkw.us.auth0.com",
+      client_id: "jzSlLP3cpq6AVAcWTf6YiLWySaGnNHgR",
+      audience: "https://tyniweb.com/api",
+      scope: "openid profile email"
+    });
+
+    console.log("Auth0 client initialized:", auth0Client);
+
+    const isAuthenticated = await auth0Client.isAuthenticated();
+    console.log("User is authenticated:", isAuthenticated);
+
+    if (isAuthenticated) {
+      const user = await auth0Client.getUser();
+      console.log("Already logged in as:", user.email);
+      window.location.href = "/portfolio.html";
+    }
+  } catch (err) {
+    console.error("Error initializing Auth0 client:", err);
+  }
+}
+
+// Define tyniLogin for popup login
 window.tyniLogin = async function () {
-  if (!auth0Client || typeof auth0Client.loginWithRedirect !== "function") {
+  if (!auth0Client || typeof auth0Client.loginWithPopup !== "function") {
     console.error("Auth0 client not ready or invalid.");
     alert("Login system not ready. Please refresh the page and try again.");
     return;
   }
 
+  const loginBtn = document.getElementById("loginBtn");
+  loginBtn.disabled = true;
+  loginBtn.textContent = "Opening secure login...";
+
   try {
-    console.log("Calling loginWithRedirect with client_id:", auth0Client.options.client_id);
-    await auth0Client.loginWithRedirect({
-      authorizationParams: {
-        client_id: "jzSlLP3cpq6AVAcWTf6YiLWySaGnNHgR",
-        redirect_uri: "https://tyniweb.com/portfolio.html",
-        audience: "https://tyniweb.com/api",
-        scope: "openid profile email"
-      }
-    });
+    await auth0Client.loginWithPopup();
+
+    const user = await auth0Client.getUser();
+    console.log("Logged in as:", user.email);
+
+    // Optional: store or log email
+    sessionStorage.setItem("userEmail", user.email);
+
+    // Redirect to portfolio
+    window.location.href = "/portfolio.html";
   } catch (err) {
-    console.error("Login redirect failed:", err);
-    alert("Login failed. Please try again.");
+    console.error("Popup login failed:", err);
+    alert("Login popup was blocked or failed. Please allow popups and try again.");
+  } finally {
+    loginBtn.disabled = false;
+    loginBtn.textContent = "request access";
   }
 };
-
-async function initAuth() {
-  const redirectUri = "https://tyniweb.com/portfolio.html";
-  console.log("Redirect URI:", redirectUri);
-
-  try {
-    auth0Client = await auth0.createAuth0Client({
-      domain: "dev-fht8kl3tzpgoptkw.us.auth0.com",
-      client_id: "jzSlLP3cpq6AVAcWTf6YiLWySaGnNHgR",
-      authorizationParams: {
-        redirect_uri: redirectUri
-      }
-    });
-
-    console.log("Auth0 client initialized:", auth0Client);
-
-    // Handle Auth0 redirect callback
-    const query = window.location.search;
-    if (query.includes("code=") && query.includes("state=")) {
-      try {
-        await auth0Client.handleRedirectCallback();
-        console.log("Handled redirect callback");
-      } catch (err) {
-        console.error("Auth0 redirect error on login page:", err);
-      }
-
-      window.history.replaceState({}, document.title, "/login.html");
-    }
-
-    const isAuthenticated = await auth0Client.isAuthenticated();
-    console.log("User is authenticated:", isAuthenticated);
-
-  } catch (err) {
-    console.error("Error initializing Auth0 client:", err);
-  }
-}
 
 window.addEventListener("DOMContentLoaded", () => {
   const loginBtn = document.getElementById("loginBtn");
