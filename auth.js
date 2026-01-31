@@ -16,8 +16,10 @@ window.tyniLogin = async function () {
     console.log("Calling loginWithRedirect with client_id:", auth0Client.options.client_id);
     await auth0Client.loginWithRedirect({
       authorizationParams: {
-        client_id: "jzSlLP3cpq6AVAcWTf6YiLWySaGnNHgR", // explicitly included
-        redirect_uri: "https://tyniweb.com/portfolio.html"
+        client_id: "jzSlLP3cpq6AVAcWTf6YiLWySaGnNHgR",
+        redirect_uri: "https://tyniweb.com/portfolio.html",
+        audience: "https://tyniweb.com/api", // ← replace with your actual API identifier
+        scope: "openid profile email"
       }
     });
   } catch (err) {
