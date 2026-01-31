@@ -4,7 +4,6 @@ let auth0Client = null;
 
 async function initAuth() {
   try {
-    // Ensure Auth0 SDK is available
     if (typeof auth0?.createAuth0Client !== "function") {
       console.error("Auth0 SDK not loaded.");
       return;
@@ -13,44 +12,18 @@ async function initAuth() {
     auth0Client = await auth0.createAuth0Client({
       domain: "dev-fht8kl3tzpgoptkw.us.auth0.com",
       client_id: "jzSlLP3cpq6AVAcWTf6YiLWySaGnNHgR",
-      authorizationParams: {
-        redirect_uri: "https://tyniweb.com/portfolio.html",
-        audience: "https://tyniweb.com/api",
-        scope: "openid profile email"
-      }
+      audience: "https://tyniweb.com/api",
+      scope: "openid profile email"
     });
-    
+
     console.log("Auth0 client initialized.");
 
-    // Check for Auth0 redirect response in URL (query or hash)
-    const hasAuthParams =
-      window.location.search.includes("code=") && window.location.search.includes("state=") ||
-      window.location.hash.includes("code=") && window.location.hash.includes("state=");
-    
-    const urlParams = new URLSearchParams(window.location.search);
-    const hashParams = new URLSearchParams(window.location.hash.slice(1));
-    
-    const hasCode = urlParams.has("code") && urlParams.has("state") || hashParams.has("code") && hashParams.has("state");
-    
-    if (hasCode) {
-      try {
-        console.log("Handling Auth0 redirect callback...");
-        await auth0Client.handleRedirectCallback();
-        console.log("Redirect callback handled.");
-        window.history.replaceState({}, document.title, "/portfolio.html");
-      } catch (err) {
-        console.error("Auth0 redirect error:", err);
-      }
-    }
-    
-    // Check authentication state
     const isAuthenticated = await auth0Client.isAuthenticated();
     console.log("Authenticated:", isAuthenticated);
 
-
     if (!isAuthenticated) {
-      console.warn("User is NOT authenticated — skipping redirect for debugging.");
-      // window.location.href = "login.html"; // TEMPORARILY DISABLED
+      console.warn("User is NOT authenticated — redirecting to login.");
+      window.location.href = "login.html";
       return;
     }
 
@@ -65,10 +38,6 @@ async function initAuth() {
     window.location.href = "login.html";
   }
 }
-
-console.log("Full URL:", window.location.href);
-console.log("Search:", window.location.search);
-console.log("Hash:", window.location.hash);
 
 async function logVisit() {
   try {
