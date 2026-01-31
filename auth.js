@@ -60,9 +60,14 @@ window.tyniLogin = async function () {
   }
 };
 
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("DOMContentLoaded", async () => {
   const loginBtn = document.getElementById("loginBtn");
-  if (loginBtn) loginBtn.onclick = window.tyniLogin;
+  loginBtn.disabled = true; // disable until ready
 
-  initAuth();
+  await initAuth(); // wait for Auth0 client to be ready
+
+  if (loginBtn) {
+    loginBtn.disabled = false;
+    loginBtn.onclick = window.tyniLogin;
+  }
 });
