@@ -57,8 +57,20 @@ async function initAuth() {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
-  const btn = document.getElementById("loginBtn");
-  if (btn) btn.onclick = window.tyniLogin;
+  const loginBtn = document.getElementById("loginBtn");
+  const emailPrompt = document.getElementById("emailPrompt");
+  const submitEmailBtn = document.getElementById("submitEmailBtn");
+
+  if (loginBtn) {
+    loginBtn.onclick = () => {
+      emailPrompt.style.display = "block";
+      loginBtn.style.display = "none";
+    };
+  }
+
+  if (submitEmailBtn) {
+    submitEmailBtn.onclick = window.tyniLogin;
+  }
 
   initAuth();
 });
