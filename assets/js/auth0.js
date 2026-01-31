@@ -4656,36 +4656,4 @@ function Zd(e) {
 function $d(e) {
   return e && "object" == typeof e && "default" in e ? e : { default: e };
 }
-export {
-  ki as default,
-  Ti as something1,
-  Ci as something2,
-  Ri as something3,
-  Pi as something4,
-  _i as something5,
-  Mi as something6,
-  Ni as something7,
-  Li as something8,
-  Di as something9,
-  Fi as something10,
-  Ui as something11,
-  Bi as something12,
-  zi as something13,
-  Gi as something14,
-  Hi as something15,
-  Ji as something16,
-  Ki as something17,
-  Qi as something18,
-  Vi as something19,
-  Wi as something20,
-  Xi as something21,
-  Yi as something22,
-  Zi as something23,
-  $i as something24,
-  en as something25,
-  tn as something26,
-  nn as something27,
-  rn as something28,
-  on as something29,
-  an as something30
-};
+window.createAuth0Client = ki;
