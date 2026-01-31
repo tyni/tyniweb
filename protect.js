@@ -27,7 +27,12 @@ async function initAuth() {
       window.location.search.includes("code=") && window.location.search.includes("state=") ||
       window.location.hash.includes("code=") && window.location.hash.includes("state=");
     
-    if (hasAuthParams) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const hashParams = new URLSearchParams(window.location.hash.slice(1));
+    
+    const hasCode = urlParams.has("code") && urlParams.has("state") || hashParams.has("code") && hashParams.has("state");
+    
+    if (hasCode) {
       try {
         console.log("Handling Auth0 redirect callback...");
         await auth0Client.handleRedirectCallback();
@@ -60,6 +65,10 @@ async function initAuth() {
     window.location.href = "login.html";
   }
 }
+
+console.log("Full URL:", window.location.href);
+console.log("Search:", window.location.search);
+console.log("Hash:", window.location.hash);
 
 async function logVisit() {
   try {
