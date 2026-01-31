@@ -4656,4 +4656,8 @@ function Zd(e) {
 function $d(e) {
   return e && "object" == typeof e && "default" in e ? e : { default: e };
 }
-window.createAuth0Client = ki;
+if (typeof ki === "function") {
+  window.createAuth0Client = ki;
+} else {
+  console.error("Auth0 SDK: 'ki' is not defined. Check if the file is complete.");
+}
