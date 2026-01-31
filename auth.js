@@ -1,4 +1,4 @@
-// auth.js — stable login flow for tyniweb (ES module version)
+// auth.js — stable login flow for tyniweb
 
 console.log("auth.js loaded");
 
@@ -48,7 +48,6 @@ async function initAuth() {
       window.history.replaceState({}, document.title, "/login.html");
     }
 
-    // Optional: Check login state
     const isAuthenticated = await auth0Client.isAuthenticated();
     console.log("User is authenticated:", isAuthenticated);
 
@@ -57,7 +56,6 @@ async function initAuth() {
   }
 }
 
-// Ensure everything runs after DOM is ready
 window.addEventListener("DOMContentLoaded", () => {
   const btn = document.getElementById("loginBtn");
   if (btn) btn.onclick = window.tyniLogin;
