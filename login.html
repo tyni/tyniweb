@@ -2,32 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>tyniweb login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Request Access | tyniweb</title>
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&display=swap" rel="stylesheet" />
 </head>
-
 <body>
-  <header>
-    <h1 class="logo">tyniweb</h1>
-    <p class="subheader">secure access</p>
-  </header>
+  <main class="container">
+    <h1>Request Access</h1>
 
-  <section class="block">
-    <h3>email verification</h3>
-    <p>enter your email to request access to the private portfolio.</p>
+    <form id="accessForm">
+      <input type="text" name="name" placeholder="Your name" required />
+      <input type="email" name="email" placeholder="Your email" required />
+      <button type="submit">Request Access</button>
+    </form>
 
-    <button id="loginBtn" type="button">request access</button>
+    <div id="accessCodeSection" style="display:none;">
+      <p>Your access code is: <strong id="accessCode"></strong></p>
+      <input type="text" id="codeInput" placeholder="Enter access code" />
+      <button id="verifyCodeBtn">Enter</button>
+    </div>
+  </main>
 
-    <p class="note">*this is a protected area for employers and recruiters only.</p>
-  </section>
-
-  <footer>
-    <p>© tyniweb</p>
-  </footer>
-
-  <script src="https://cdn.auth0.com/js/auth0-spa-js/2.5/auth0-spa-js.production.js"></script>
-  <script src="auth.js?v=4"></script>
+  <script src="access.js"></script>
 </body>
 </html>
