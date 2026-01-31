@@ -27,7 +27,7 @@ async function initAuth() {
   console.log("Redirect URI:", redirectUri);
 
   try {
-    auth0Client = await createAuth0Client({
+    auth0Client = await auth0.createAuth0Client({
       domain: "dev-fht8kl3tzpgoptkw.us.auth0.com",
       client_id: "jzSlLP3cpq6AVAcWTf6YiLWySaGnNHgR",
       authorizationParams: {
