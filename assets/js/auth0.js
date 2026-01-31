@@ -4662,4 +4662,4 @@ if (typeof ki === "function") {
   console.error("Auth0 SDK: 'ki' is not defined. Check if the file is complete.");
 }
 Object.defineProperty(e, "__esModule", { value: !0 });
-}));
+});
