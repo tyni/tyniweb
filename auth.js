@@ -1,7 +1,5 @@
 // auth.js — stable login flow for tyniweb (ES module version)
 
-import createAuth0Client from './assets/js/auth0.js';
-
 console.log("auth.js loaded");
 
 let auth0Client = null;
