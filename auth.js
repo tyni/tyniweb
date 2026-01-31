@@ -1,4 +1,6 @@
-// auth.js — stable login flow for tyniweb
+// auth.js — stable login flow for tyniweb (ES module version)
+
+import createAuth0Client from './assets/js/auth0.js';
 
 console.log("auth.js loaded");
 
@@ -23,11 +25,6 @@ window.tyniLogin = async function () {
 };
 
 async function initAuth() {
-  if (typeof createAuth0Client !== "function") {
-    console.error("Auth0 library not loaded");
-    return;
-  }
-
   const redirectUri = "https://tyniweb.com/portfolio.html";
   console.log("Redirect URI:", redirectUri);
 
@@ -62,22 +59,10 @@ async function initAuth() {
   }
 }
 
-// Ensure everything runs after DOM and SDK are ready
+// Ensure everything runs after DOM is ready
 window.addEventListener("DOMContentLoaded", () => {
   const btn = document.getElementById("loginBtn");
   if (btn) btn.onclick = window.tyniLogin;
 
-  // Delay initAuth to ensure SDK is loaded
-  if (typeof createAuth0Client === "function") {
-    initAuth();
-  } else {
-    const interval = setInterval(() => {
-      if (typeof createAuth0Client === "function") {
-        clearInterval(interval);
-        initAuth();
-      }
-    }, 100);
-    // Optional timeout to stop trying after 5 seconds
-    setTimeout(() => clearInterval(interval), 5000);
-  }
+  initAuth();
 });
