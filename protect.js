@@ -3,62 +3,76 @@
 let auth0Client = null;
 
 async function initAuth() {
-  // Ensure Auth0 library is loaded
-  if (typeof auth0?.createAuth0Client !== "function") {
-    console.error("Auth0 library not loaded");
-    return;
-  }
-
-  auth0Client = await auth0.createAuth0Client({
-    domain: "dev-fht8kl3tzpgoptkw.us.auth0.com",
-    client_id: "jzSlLP3cpq6AVAcWTf6YiLWySaGnNHgR",
-    authorizationParams: {
-      redirect_uri: "https://tyniweb.com/portfolio.html"
-    }
-  });
-
-  const query = window.location.search;
-  if (query.includes("code=") && query.includes("state=")) {
-    try {
-      await auth0Client.handleRedirectCallback();
-    } catch (err) {
-      console.error("Auth0 redirect error:", err);
+  try {
+    // Ensure Auth0 SDK is available
+    if (typeof auth0?.createAuth0Client !== "function") {
+      console.error("Auth0 SDK not loaded.");
+      return;
     }
 
-    window.history.replaceState({}, document.title, "/portfolio.html");
-  }
+    auth0Client = await auth0.createAuth0Client({
+      domain: "dev-fht8kl3tzpgoptkw.us.auth0.com",
+      client_id: "jzSlLP3cpq6AVAcWTf6YiLWySaGnNHgR",
+      authorizationParams: {
+        redirect_uri: "https://tyniweb.com/portfolio.html"
+      }
+    });
 
-  const isAuthenticated = await auth0Client.isAuthenticated();
+    console.log("Auth0 client initialized.");
 
-  if (!isAuthenticated) {
+    const query = window.location.search;
+    if (query.includes("code=") && query.includes("state=")) {
+      try {
+        console.log("Handling Auth0 redirect callback...");
+        await auth0Client.handleRedirectCallback();
+        console.log("Redirect callback handled.");
+        window.history.replaceState({}, document.title, "/portfolio.html");
+      } catch (err) {
+        console.error("Auth0 redirect error:", err);
+      }
+    }
+
+    const isAuthenticated = await auth0Client.isAuthenticated();
+    console.log("Authenticated:", isAuthenticated);
+
+    if (!isAuthenticated) {
+      console.warn("User not authenticated — redirecting to login.");
+      window.location.href = "login.html";
+      return;
+    }
+
+    document.body.classList.remove("auth-loading");
+    document.body.classList.add("auth-ready");
+
+    setupLogout();
+    logVisit();
+
+  } catch (err) {
+    console.error("initAuth failed:", err);
     window.location.href = "login.html";
-    return;
   }
-
-  document.body.classList.remove("auth-loading");
-  document.body.classList.add("auth-ready");
-
-  logVisit();
 }
 
 async function logVisit() {
   try {
     const user = await auth0Client.getUser();
-    if (!user || !user.email) return;
+    if (!user?.email) {
+      console.warn("User email not found — skipping visit log.");
+      return;
+    }
 
-    await fetch(
-      "https://script.google.com/macros/s/AKfycbx_GM5iIAY1xaLJsKaArGUm6q98PL5UWWOwHn_8E2SN-203qFvI-EICZasfQMsDmfvS/exec",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          type: "visit",
-          email: user.email,
-          userAgent: navigator.userAgent,
-          page: "portfolio"
-        })
-      }
-    );
+    await fetch("https://script.google.com/macros/s/AKfycbx_GM5iIAY1xaLJsKaArGUm6q98PL5UWWOwHn_8E2SN-203qFvI-EICZasfQMsDmfvS/exec", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        type: "visit",
+        email: user.email,
+        userAgent: navigator.userAgent,
+        page: "portfolio"
+      })
+    });
+
+    console.log("Visit logged for:", user.email);
   } catch (err) {
     console.warn("Visit logging failed:", err);
   }
@@ -66,7 +80,10 @@ async function logVisit() {
 
 function setupLogout() {
   const logoutBtn = document.getElementById("logoutBtn");
-  if (!logoutBtn) return;
+  if (!logoutBtn) {
+    console.warn("Logout button not found.");
+    return;
+  }
 
   logoutBtn.onclick = () => {
     auth0Client.logout({
@@ -77,8 +94,4 @@ function setupLogout() {
   };
 }
 
-// Run after DOM is ready
-document.addEventListener("DOMContentLoaded", () => {
-  setupLogout();
-  initAuth();
-});
+document.addEventListener("DOMContentLoaded", initAuth);
