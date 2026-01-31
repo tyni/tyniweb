@@ -28,15 +28,15 @@ async function initAuth() {
   }
 }
 
-// Define tyniLogin for popup login
 window.tyniLogin = async function () {
+  const loginBtn = document.getElementById("loginBtn");
+
   if (!auth0Client || typeof auth0Client.loginWithPopup !== "function") {
     console.error("Auth0 client not ready or invalid.");
     alert("Login system not ready. Please refresh the page and try again.");
     return;
   }
 
-  const loginBtn = document.getElementById("loginBtn");
   loginBtn.disabled = true;
   loginBtn.textContent = "Opening secure login...";
 
@@ -46,10 +46,8 @@ window.tyniLogin = async function () {
     const user = await auth0Client.getUser();
     console.log("Logged in as:", user.email);
 
-    // Optional: store or log email
     sessionStorage.setItem("userEmail", user.email);
 
-    // Redirect to portfolio
     window.location.href = "/portfolio.html";
   } catch (err) {
     console.error("Popup login failed:", err);
@@ -62,9 +60,9 @@ window.tyniLogin = async function () {
 
 window.addEventListener("DOMContentLoaded", async () => {
   const loginBtn = document.getElementById("loginBtn");
-  loginBtn.disabled = true; // disable until ready
+  if (loginBtn) loginBtn.disabled = true;
 
-  await initAuth(); // wait for Auth0 client to be ready
+  await initAuth();
 
   if (loginBtn) {
     loginBtn.disabled = false;
