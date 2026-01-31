@@ -4,12 +4,12 @@ let auth0Client = null;
 
 async function initAuth() {
   // Ensure Auth0 library is loaded
-  if (typeof createAuth0Client !== "function") {
+  if (typeof auth0?.createAuth0Client !== "function") {
     console.error("Auth0 library not loaded");
     return;
   }
 
-  auth0Client = await createAuth0Client({
+  auth0Client = await auth0.createAuth0Client({
     domain: "dev-fht8kl3tzpgoptkw.us.auth0.com",
     client_id: "jzSlLP3cpq6AVAcWTf6YiLWySaGnNHgR",
     authorizationParams: {
