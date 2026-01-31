@@ -36,8 +36,8 @@ async function initAuth() {
     console.log("Authenticated:", isAuthenticated);
 
     if (!isAuthenticated) {
-      console.warn("User not authenticated — redirecting to login.");
-      window.location.href = "login.html";
+      console.warn("User is NOT authenticated — skipping redirect for debugging.");
+      // window.location.href = "login.html"; // TEMPORARILY DISABLED
       return;
     }
 
