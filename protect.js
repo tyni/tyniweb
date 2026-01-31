@@ -15,7 +15,7 @@ async function initAuth() {
       client_id: "jzSlLP3cpq6AVAcWTf6YiLWySaGnNHgR",
       authorizationParams: {
         redirect_uri: "https://tyniweb.com/portfolio.html",
-        audience: "https://tyniweb.com/api", // ← same as above
+        audience: "https://tyniweb.com/api",
         scope: "openid profile email"
       }
     });
