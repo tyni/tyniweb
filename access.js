@@ -2,9 +2,13 @@
 
 let generatedCode = null;
 
-// Handle access request form submission
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("accessForm");
+  const verifyBtn = document.getElementById("verifyCodeBtn");
+  const becomeBtn = document.getElementById("becomeMemberBtn");
+  const logoutBtn = document.getElementById("logoutBtn");
+
+  // Handle access request form
   if (form) {
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -21,25 +25,25 @@ document.addEventListener("DOMContentLoaded", () => {
       sessionStorage.setItem("accessCode", generatedCode);
 
       // Send to Google Apps Script
-      await fetch("https://your-google-apps-script-url", {
+      await fetch("https://script.google.com/macros/s/AKfycbx_GM5iIAY1xaLJsKaArGUm6q98PL5UWWOwHn_8E2SN-203qFvI-EICZasfQMsDmfvS/exec", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          type: "contact",
+          type: "access",
           name,
           email,
-          message: `Requested access. Code: ${generatedCode}`
+          code: generatedCode
         })
       });
 
-      // Show code and prompt for entry
+      // Show code and prompt
       document.getElementById("accessCode").textContent = generatedCode;
-      document.getElementById("accessForm").style.display = "none";
+      form.style.display = "none";
       document.getElementById("accessCodeSection").style.display = "block";
     });
   }
 
-  const verifyBtn = document.getElementById("verifyCodeBtn");
+  // Verify access code
   if (verifyBtn) {
     verifyBtn.addEventListener("click", () => {
       const input = document.getElementById("codeInput").value.trim().toUpperCase();
@@ -53,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  const becomeBtn = document.getElementById("becomeMemberBtn");
+  // Become a member
   if (becomeBtn) {
     becomeBtn.addEventListener("click", () => {
       const email = prompt("Enter your email to become a member:");
@@ -68,5 +72,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // Auto-login for members
   if (localStorage.getItem("memberEmail")) {
     sessionStorage.setItem("accessGranted", "true");
+  }
+
+  // Logout clears session
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+      sessionStorage.clear();
+      window.location.href = "/login.html";
+    });
   }
 });
