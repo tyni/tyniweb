@@ -6,19 +6,23 @@ let auth0Client = null;
 
 // Define tyniLogin immediately so the button never calls an undefined function
 window.tyniLogin = async function () {
-  if (!auth0Client) {
-    console.error("Auth0 client not initialized yet.");
+  if (!auth0Client || typeof auth0Client.loginWithRedirect !== "function") {
+    console.error("Auth0 client not ready or invalid.");
+    alert("Login system not ready. Please refresh the page and try again.");
     return;
   }
 
   try {
+    console.log("Calling loginWithRedirect with client_id:", auth0Client.options.client_id);
     await auth0Client.loginWithRedirect({
       authorizationParams: {
+        client_id: "jzSlLP3cpq6AVAcWTf6YiLWySaGnNHgR", // explicitly included
         redirect_uri: "https://tyniweb.com/portfolio.html"
       }
     });
   } catch (err) {
     console.error("Login redirect failed:", err);
+    alert("Login failed. Please try again.");
   }
 };
 
@@ -34,6 +38,8 @@ async function initAuth() {
         redirect_uri: redirectUri
       }
     });
+
+    console.log("Auth0 client initialized:", auth0Client);
 
     // Handle Auth0 redirect callback
     const query = window.location.search;
