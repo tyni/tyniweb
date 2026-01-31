@@ -58,19 +58,7 @@ async function initAuth() {
 
 window.addEventListener("DOMContentLoaded", () => {
   const loginBtn = document.getElementById("loginBtn");
-  const emailPrompt = document.getElementById("emailPrompt");
-  const submitEmailBtn = document.getElementById("submitEmailBtn");
-
-  if (loginBtn) {
-    loginBtn.onclick = () => {
-      emailPrompt.style.display = "block";
-      loginBtn.style.display = "none";
-    };
-  }
-
-  if (submitEmailBtn) {
-    submitEmailBtn.onclick = window.tyniLogin;
-  }
+  if (loginBtn) loginBtn.onclick = window.tyniLogin;
 
   initAuth();
 });
