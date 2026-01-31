@@ -1,3 +1,144 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Nunito', sans-serif;
+    background: #f8f8f8;
+    color: #222;
+}
+
+header {
+    padding: 20px;
+    text-align: center;
+}
+
+.logo {
+    font-size: 40px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.hero {
+    padding: 120px 20px;
+    text-align: center;
+}
+
+.hero h2 {
+    font-size: 42px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 20px;
+    opacity: 0.7;
+}
+
+.block {
+    max-width: 700px;
+    margin: 120px auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.block h3 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.block p, .block ul {
+    font-size: 18px;
+    line-height: 1.6;
+    opacity: 0.85;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+input, textarea {
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+button {
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: #222;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+footer {
+    text-align: center;
+    padding: 40px;
+    opacity: 0.6;
+}
+
+.portfolio-block {
+    max-width: 900px;
+    margin: 120px auto;
+    padding: 0 20px;
+}
+
+.portfolio-block h3 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.portfolio-block .desc {
+    font-size: 18px;
+    opacity: 0.7;
+    margin-bottom: 30px;
+}
+
+.portfolio-container {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.portfolio-container img,
+.portfolio-container video,
+model-viewer {
+    width: 100%;
+    border-radius: 15px;
+}
+
+.portfolio-text h4 {
+    margin-bottom: 10px;
+}
+
+.placeholder {
+    text-align: center;
+    opacity: 0.5;
+    border: 2px dashed #ccc;
+}
+
+.auth-loading {
+  opacity: 0;
+  pointer-events: none;
+}
+.auth-ready {
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 0.3s ease;
+}
+
 /* Access Form Styles */
 #accessForm {
   display: flex;
