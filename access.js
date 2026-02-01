@@ -27,17 +27,17 @@ document.addEventListener("DOMContentLoaded", () => {
       try {
         // Send to Google Apps Script
         await fetch("https://script.google.com/macros/s/AKfycbx_GM5iIAY1xaLJsKaArGUm6q98PL5UWWOwHn_8E2SN-203qFvI-EICZasfQMsDmfvS/exec", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-          },
-          body: new URLSearchParams({
-            type: "access",
-            name,
-            email,
-            code: generatedCode
-          })
-        });
+    		  method: "POST",
+    		  headers: {
+    			"Content-Type": "application/x-www-form-urlencoded"
+    		  },
+    		  body: new URLSearchParams({
+    			type: "access",
+    			name,
+    			email,
+    			code: generatedCode
+    		  })
+    		});
 
         // Show code and prompt
         document.getElementById("accessCode").textContent = generatedCode;
