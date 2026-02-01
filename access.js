@@ -24,22 +24,27 @@ document.addEventListener("DOMContentLoaded", () => {
       generatedCode = Math.random().toString(36).substring(2, 8).toUpperCase();
       sessionStorage.setItem("accessCode", generatedCode);
 
-      // Send to Google Apps Script
-      await fetch("https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbx_GM5iIAY1xaLJsKaArGUm6q98PL5UWWOwHn_8E2SN-203qFvI-EICZasfQMsDmfvS/exec", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          type: "access",
-          name,
-          email,
-          code: generatedCode
-        })
-      });
+      try {
+        // Send to Google Apps Script
+        await fetch("https://script.google.com/macros/s/AKfycbx_GM5iIAY1xaLJsKaArGUm6q98PL5UWWOwHn_8E2SN-203qFvI-EICZasfQMsDmfvS/exec", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            type: "access",
+            name,
+            email,
+            code: generatedCode
+          })
+        });
 
-      // Show code and prompt
-      document.getElementById("accessCode").textContent = generatedCode;
-      form.style.display = "none";
-      document.getElementById("accessCodeSection").style.display = "block";
+        // Show code and prompt
+        document.getElementById("accessCode").textContent = generatedCode;
+        form.style.display = "none";
+        document.getElementById("accessCodeSection").style.display = "block";
+      } catch (error) {
+        console.error("Access request failed:", error);
+        alert("There was a problem submitting your request. Please try again.");
+      }
     });
   }
 
