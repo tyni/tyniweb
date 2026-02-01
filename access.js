@@ -26,8 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       try {
         // Send to Google Apps Script
-        await fetch("https://script.google.com/macros/s/AKfycbx_GM5iIAY1xaLJsKaArGUm6q98PL5UWWOwHn_8E2SN-203qFvI-EICZasfQMsDmfvS/exec", {
-          method: "POST",
+        await fetch("https://script.google.com/macros/s/AKfycbx_GM5iIAY1xaLJsKaArGUm6q98PL5UWWOwHn_8E2SN-203qFvI-EICZasfQMsDmfvS/exec?method=OPTIONS", { 
+          method: "OPTIONS",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             type: "access",
