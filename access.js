@@ -1,18 +1,14 @@
-// access.js
-
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("accessForm");
-  const verifyBtn = document.getElementById("verifyCodeBtn");
   const becomeBtn = document.getElementById("becomeMemberBtn");
   const logoutBtn = document.getElementById("logoutBtn");
 
   // Generate a daily access code based on date
   function generateDailyCode() {
     const now = new Date();
-    const code = `${now.getFullYear().toString().slice(-2)}${(now.getMonth() + 1)
+    return `${now.getFullYear().toString().slice(-2)}${(now.getMonth() + 1)
       .toString()
       .padStart(2, "0")}${now.getDate().toString().padStart(2, "0")}`;
-    return code;
   }
 
   // Handle access request form
@@ -29,7 +25,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const code = generateDailyCode();
       sessionStorage.setItem("accessCode", code);
-      sessionStorage.setItem("accessGranted", "false");
+      sessionStorage.setItem("accessGranted", "true");
+      sessionStorage.setItem("userEmail", email);
+      sessionStorage.setItem("userName", name);
 
       try {
         await fetch("https://tynisigns.com/proxy.php", {
@@ -45,26 +43,10 @@ document.addEventListener("DOMContentLoaded", () => {
           })
         });
 
-        document.getElementById("accessCode").textContent = code;
-        form.style.display = "none";
-        document.getElementById("accessCodeSection").style.display = "block";
+        window.location.href = "/portfolio.html";
       } catch (error) {
         console.error("Access request failed:", error);
         alert("There was a problem submitting your request. Please try again.");
-      }
-    });
-  }
-
-  // Verify access code
-  if (verifyBtn) {
-    verifyBtn.addEventListener("click", () => {
-      const input = document.getElementById("codeInput").value.trim();
-      const expected = generateDailyCode();
-      if (input === expected) {
-        sessionStorage.setItem("accessGranted", "true");
-        window.location.href = "/portfolio.html";
-      } else {
-        alert("Incorrect code. Please try again.");
       }
     });
   }
