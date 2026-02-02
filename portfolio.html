@@ -11,6 +11,11 @@
 
 <body class="auth-loading">
 
+<!-- ✅ Access Granted Banner -->
+<div id="accessBanner" style="background:#e0ffe0; padding:10px; text-align:center; display:none;">
+  <p>✅ Access granted for today</p>
+</div>
+
 <!-- 🔓 Become a Member Banner -->
 <div id="memberBanner" style="background:#fffae6; padding:10px; text-align:center; display:none;">
   <p>Enjoying your access? <button id="becomeMemberBtn">Become a Member</button></p>
@@ -89,9 +94,31 @@
     window.location.href = "/login.html";
   }
 
-  // Show banner if not a member
+  // Show access granted banner
+  const accessBanner = document.getElementById("accessBanner");
+  if (accessBanner) {
+    accessBanner.style.display = "block";
+  }
+
+  // Show member banner if not already a member
   if (!localStorage.getItem("memberEmail")) {
     document.getElementById("memberBanner").style.display = "block";
+  }
+
+  // Log visit
+  const email = sessionStorage.getItem("userEmail");
+  const name = sessionStorage.getItem("userName");
+  if (email && name) {
+    fetch("https://tynisigns.com/proxy.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({
+        type: "visit",
+        email,
+        userAgent: navigator.userAgent,
+        page: "portfolio"
+      })
+    }).catch(err => console.error("Visit logging failed:", err));
   }
 
   // Logout clears session
