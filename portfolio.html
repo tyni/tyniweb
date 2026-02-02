@@ -78,6 +78,13 @@
   </div>
 </section>
 
+<section class="block" data-aos="fade-up">
+  <h3>send a message</h3>
+  <form id="messageForm">
+    <textarea id="message" placeholder="your message"></textarea>
+    <button type="submit">send</button>
+  </form>
+</section>
 <button id="logoutBtn" class="logout">logout</button>
 
 <footer>
@@ -110,17 +117,18 @@
   // Track visits per device per day
   const email = sessionStorage.getItem("userEmail");
   const name = sessionStorage.getItem("userName");
-  const todayKey = new Date().toISOString().split("T")[0]; // e.g., "2026-02-02"
+  const todayKey = new Date().toISOString().split("T")[0];
   const visitKey = `visits_${email}_${todayKey}`;
   let visitCount = parseInt(localStorage.getItem(visitKey) || "0", 10);
   visitCount += 1;
   localStorage.setItem(visitKey, visitCount);
 
   // Show visit count message
-  const visitText = document.getElementById("visitCountText");
-  if (visitText) {
-    visitText.textContent = `You've viewed this portfolio ${visitCount} time${visitCount > 1 ? "s" : ""} today on this device. Access resets daily and is device-specific.`;
-  }
+  const visitText = document.createElement("p");
+  visitText.style.fontSize = "0.9em";
+  visitText.style.marginTop = "5px";
+  visitText.textContent = `You've viewed this portfolio ${visitCount} time${visitCount > 1 ? "s" : ""} today on this device. Access resets daily and is device-specific.`;
+  accessBanner?.appendChild(visitText);
 
   // Log visit to Google Sheet
   if (email && name) {
