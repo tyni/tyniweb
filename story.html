@@ -1509,16 +1509,23 @@ if (savedCustom) {
   syncPickersToTheme();
 }
 
-function syncPickersToTheme() {
-  const styles = getComputedStyle(document.documentElement);
+function syncPickersToTheme(name) {
+  const themes = {
+    cosmic:  { bg:"#0f0f15", text:"#fffffe", accent:"#7f5af0", highlight:"#ffca3a", soft:"#94a1b2" },
+    warm:    { bg:"#1a0e0a", text:"#fff3e0", accent:"#ff7b54", highlight:"#ffb703", soft:"#e9c46a" },
+    cool:    { bg:"#0a1a2f", text:"#e0f7ff", accent:"#4cc9f0", highlight:"#72efdd", soft:"#90e0ef" },
+    pastel:  { bg:"#f7f1ff", text:"#2a2a2a", accent:"#c77dff", highlight:"#ffafcc", soft:"#bde0fe" },
+    neon:    { bg:"#000000", text:"#39ff14", accent:"#39ff14", highlight:"#ff00ff", soft:"#00eaff" }
+  };
 
-  pickers["--bg"].value        = rgbToHex(styles.getPropertyValue("--bg").trim());
-  pickers["--text"].value      = rgbToHex(styles.getPropertyValue("--text").trim());
-  pickers["--accent"].value    = rgbToHex(styles.getPropertyValue("--accent").trim());
-  pickers["--highlight"].value = rgbToHex(styles.getPropertyValue("--highlight").trim());
-  pickers["--soft"].value      = rgbToHex(styles.getPropertyValue("--soft").trim());
+  const t = themes[name];
+
+  pickers["--bg"].value        = t.bg;
+  pickers["--text"].value      = t.text;
+  pickers["--accent"].value    = t.accent;
+  pickers["--highlight"].value = t.highlight;
+  pickers["--soft"].value      = t.soft;
 }
-
 
 function rgbToHex(rgb) {
   if (!rgb) return "#000000";
@@ -1571,23 +1578,13 @@ function applyTheme(name) {
   const t = themes[name];
 
   for (let key in t) {
-    const value = t[key];
-
-    // Validate hex format (#rrggbb)
-    if (!/^#([0-9A-F]{6})$/i.test(value)) {
-      console.warn("Invalid theme color:", key, value);
-      continue;
-    }
-
-    root.style.setProperty(`--${key}`, value);
+    root.style.setProperty(`--${key}`, t[key]);
   }
 
   localStorage.setItem("tyni-theme", name);
 
-  // Now safe because pickers exist and rgbToHex is sanitized
-  requestAnimationFrame(() => {
-  requestAnimationFrame(() => syncPickersToTheme());
-});
+  // Direct sync — no computed styles needed
+  syncPickersToTheme(name);
 }
 
 // Load saved theme
@@ -1602,5 +1599,6 @@ if (saved) applyTheme(saved);
 
 </body>
 </html>
+
 
 
