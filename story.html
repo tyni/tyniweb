@@ -1388,31 +1388,6 @@ document.querySelectorAll(".theme-option").forEach(btn => {
   });
 });
 
-// Apply theme by swapping CSS variables
-function applyTheme(name) {
-  const root = document.documentElement;
-
-  const themes = {
-    cosmic:  { bg:"#0f0f15", text:"#fffffe", accent:"#7f5af0", highlight:"#ffca3a", soft:"#94a1b2" },
-    warm:    { bg:"#1a0e0a", text:"#fff3e0", accent:"#ff7b54", highlight:"#ffb703", soft:"#e9c46a" },
-    cool:    { bg:"#0a1a2f", text:"#e0f7ff", accent:"#4cc9f0", highlight:"#72efdd", soft:"#90e0ef" },
-    pastel:  { bg:"#f7f1ff", text:"#2a2a2a", accent:"#c77dff", highlight:"#ffafcc", soft:"#bde0fe" },
-    neon:    { bg:"#000000", text:"#39ff14", accent:"#39ff14", highlight:"#ff00ff", soft:"#00eaff" }
-  };
-
-  const t = themes[name];
-  for (let key in t) {
-    root.style.setProperty(`--${key}`, t[key]);
-  }
-
-  localStorage.setItem("tyni-theme", name);
-  syncPickersToTheme();
-}
-
-// Load saved theme
-const saved = localStorage.getItem("tyni-theme");
-if (saved) applyTheme(saved);
-
 // Smooth scroll behavior
 document.querySelectorAll('.nav-link').forEach(link => {
   link.addEventListener('click', e => {
@@ -1572,6 +1547,31 @@ loadDefaultCheckbox.addEventListener("change", () => {
     applyTheme("cosmic");
   }
 });
+
+// Apply theme by swapping CSS variables
+function applyTheme(name) {
+  const root = document.documentElement;
+
+  const themes = {
+    cosmic:  { bg:"#0f0f15", text:"#fffffe", accent:"#7f5af0", highlight:"#ffca3a", soft:"#94a1b2" },
+    warm:    { bg:"#1a0e0a", text:"#fff3e0", accent:"#ff7b54", highlight:"#ffb703", soft:"#e9c46a" },
+    cool:    { bg:"#0a1a2f", text:"#e0f7ff", accent:"#4cc9f0", highlight:"#72efdd", soft:"#90e0ef" },
+    pastel:  { bg:"#f7f1ff", text:"#2a2a2a", accent:"#c77dff", highlight:"#ffafcc", soft:"#bde0fe" },
+    neon:    { bg:"#000000", text:"#39ff14", accent:"#39ff14", highlight:"#ff00ff", soft:"#00eaff" }
+  };
+
+  const t = themes[name];
+  for (let key in t) {
+    root.style.setProperty(`--${key}`, t[key]);
+  }
+
+  localStorage.setItem("tyni-theme", name);
+  syncPickersToTheme();
+}
+
+// Load saved theme
+const saved = localStorage.getItem("tyni-theme");
+if (saved) applyTheme(saved);
 
 </script>
 
