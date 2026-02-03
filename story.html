@@ -468,7 +468,7 @@ body {
 		<label>Highlight Color<input type="color" id="custom-highlight"></label>
 		<label>Soft Color<input type="color" id="custom-soft"></label>
 		<button id="applyCustomTheme" class="custom-btn">Apply Custom Theme</button>
-		<button id="resetTheme" class="custom-btn">Reset to Theme Defaults</button>
+		<button id="resetTheme" class="reset-btn">Reset to Theme Defaults</button>
 	  </div>
 	</div>
 </div>
@@ -1506,6 +1506,15 @@ document.getElementById("resetTheme").addEventListener("click", () => {
   localStorage.removeItem("tyni-custom-theme");
 });
 
+// Style custom theme button
+function styleCustomThemeButton() {
+  const btn = document.getElementById("applyCustomTheme");
+  const styles = getComputedStyle(document.documentElement);
+
+  btn.style.background = styles.getPropertyValue("--accent").trim();
+  btn.style.color = styles.getPropertyValue("--bg").trim();
+}
+
 // Load custom theme if saved
 if (savedCustom) {
   const custom = JSON.parse(savedCustom);
@@ -1619,7 +1628,6 @@ function applyTheme(name) {
 
   // Direct sync — no computed styles needed
   syncPickersToTheme(name);
-  styleCustomThemeButton();
 }
 
 // Load saved theme
