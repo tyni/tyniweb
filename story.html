@@ -285,6 +285,61 @@ h1, h2, h3 {
   font-weight: 700;
 }
 
+/* -------------------------------------------------------
+   THEME GRADIENT BACKGROUNDS (BOLD)
+-------------------------------------------------------- */
+
+body {
+  background: var(--bg);
+  background-image: var(--gradient);
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+/* Cosmic */
+:root[data-theme="cosmic"] {
+  --gradient: radial-gradient(circle at top left, #1a0033, #000011 60%);
+}
+
+/* Warm */
+:root[data-theme="warm"] {
+  --gradient: radial-gradient(circle at top right, #ffb899, #ff7a5c 40%, #2f1b0f 90%);
+}
+
+/* Cool */
+:root[data-theme="cool"] {
+  --gradient: radial-gradient(circle at bottom left, #003344, #001a22 70%);
+}
+
+/* Pastel */
+:root[data-theme="pastel"] {
+  --gradient: radial-gradient(circle at center, #ffe6f7, #b0e0e6 60%);
+}
+
+/* Neon */
+:root[data-theme="neon"] {
+  --gradient: radial-gradient(circle at center, #0ff, #00a, #000 80%);
+}
+
+/* -------------------------------------------------------
+   ACTIVE NAV LINK HIGHLIGHT
+-------------------------------------------------------- */
+
+/* Active link highlight */
+.nav-link.active {
+  background: var(--accent);
+  color: var(--bg);
+  font-weight: 900;
+  border-radius: 6px;
+  padding-left: 10px;
+}
+
+.nav-link:hover {
+  background: rgba(255,255,255,0.1);
+  padding-left: 12px;
+  transition: 0.2s ease;
+}
+
 </style>
 
 </head>
@@ -315,14 +370,16 @@ h1, h2, h3 {
 -------------------------------------------------------- -->
 <div class="sidebar">
   <h2>Phases</h2>
-  <a class="nav-link" href="#phase1">Phase 1 — Awakening</a>
-  <a class="nav-link" href="#phase2">Phase 2 — Expansion</a>
-  <a class="nav-link" href="#phase3">Phase 3 — Convergence</a>
-  <a class="nav-link" href="#phase4">Phase 4 — Alignment</a>
-  <a class="nav-link" href="#phase5">Phase 5 — Integration</a>
-  <a class="nav-link" href="#phase6">Phase 6 — Expression</a>
-  <a class="nav-link" href="#phase7">Phase 7 — Mastery</a>
+
+  <a class="nav-link" href="#phase1">1️⃣ 🌅 Awakening</a>
+  <a class="nav-link" href="#phase2">2️⃣ 🌱 Expansion</a>
+  <a class="nav-link" href="#phase3">3️⃣ 🔗 Convergence</a>
+  <a class="nav-link" href="#phase4">4️⃣ 🎛 Alignment</a>
+  <a class="nav-link" href="#phase5">5️⃣ 🔮 Integration</a>
+  <a class="nav-link" href="#phase6">6️⃣ 🎨 Expression</a>
+  <a class="nav-link" href="#phase7">7️⃣ ⭐ Mastery</a>
 </div>
+
 
 <!-- -------------------------------------------------------
      MAIN CONTENT (placeholder for now)
@@ -1274,6 +1331,29 @@ document.querySelectorAll('.chapter-toggle').forEach(btn => {
   btn.addEventListener('click', () => {
     const chapter = btn.parentElement;
     chapter.classList.toggle('open');
+  });
+});
+
+// Scroll-spy active link highlighting
+const sections = document.querySelectorAll("section");
+const navLinks = document.querySelectorAll(".nav-link");
+
+window.addEventListener("scroll", () => {
+  let current = "";
+
+  sections.forEach(sec => {
+    const top = sec.offsetTop - 120;
+    const bottom = top + sec.offsetHeight;
+    if (pageYOffset >= top && pageYOffset < bottom) {
+      current = sec.getAttribute("id");
+    }
+  });
+
+  navLinks.forEach(link => {
+    link.classList.remove("active");
+    if (link.getAttribute("href") === `#${current}`) {
+      link.classList.add("active");
+    }
   });
 });
 
