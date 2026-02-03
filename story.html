@@ -1585,7 +1585,7 @@ function applyTheme(name) {
   localStorage.setItem("tyni-theme", name);
 
   // Now safe because pickers exist and rgbToHex is sanitized
-  syncPickersToTheme();
+  requestAnimationFrame(() => syncPickersToTheme());
 }
 
 // Load saved theme
@@ -1600,3 +1600,4 @@ if (saved) applyTheme(saved);
 
 </body>
 </html>
+
