@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>tyniweb — The TyNi Saga</title>
+
+<style>
+/* ---------------------------------------------------------
+   GLOBAL THEME VARIABLES (default = Cosmic)
+--------------------------------------------------------- */
+:root {
+  --bg: #0f0f15;
+  --text: #fffffe;
+  --accent: #7f5af0;
+  --highlight: #ffca3a;
+  --soft: #94a1b2;
+}
+
+/* ---------------------------------------------------------
+   RESET + BASE
+--------------------------------------------------------- */
+body {
+  margin: 0;
+  font-family: "Inter", "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* ---------------------------------------------------------
+   TOP BAR
+--------------------------------------------------------- */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: rgba(15, 15, 21, 0.8);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+/* Logo */
+.logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: lowercase;
+  color: var(--accent);
+  font-family: "Nunito", sans-serif;
+}
+
+/* Theme icon */
+.theme-button {
+  font-size: 1.6rem;
+  cursor: pointer;
+  user-select: none;
+  transition: opacity 0.2s ease;
+}
+.theme-button:hover {
+  opacity: 0.7;
+}
+
+/* ---------------------------------------------------------
+   RIGHT SLIDE-OUT PANEL
+--------------------------------------------------------- */
+.theme-panel {
+  position: fixed;
+  top: 0;
+  right: -260px; /* hidden by default */
+  width: 260px;
+  height: 100vh;
+  background: #1a1a22;
+  border-left: 1px solid rgba(255,255,255,0.08);
+  padding: 80px 20px 20px;
+  transition: right 0.35s ease;
+  z-index: 1500;
+}
+
+.theme-panel.open {
+  right: 0;
+}
+
+/* Theme buttons */
+.theme-option {
+  width: 100%;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: #fff;
+  transition: transform 0.15s ease, opacity 0.2s ease;
+}
+
+.theme-option:hover {
+  transform: translateY(-2px);
+  opacity: 0.85;
+}
+
+/* ---------------------------------------------------------
+   THEME COLOR PRESETS
+--------------------------------------------------------- */
+.theme-cosmic { background: #7f5af0; }
+.theme-warm   { background: #ff7b54; }
+.theme-cool   { background: #4cc9f0; }
+.theme-pastel { background: #c77dff; }
+.theme-neon   { background: #39ff14; color: #000; }
+
+/* ---------------------------------------------------------
+   MAIN CONTENT SPACING
+--------------------------------------------------------- */
+main {
+  padding: 100px 20px;
+  max-width: 900px;
+  margin: auto;
+  line-height: 1.7;
+}
+
+/* ---------------------------------------------------------
+   REDUCED MOTION SUPPORT
+--------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
+
+/* ---------------------------------------------------------
+   LEFT SIDEBAR NAVIGATION
+--------------------------------------------------------- */
+.sidebar {
+  position: fixed;
+  top: 60px; /* below topbar */
+  left: 0;
+  width: 220px;
+  height: calc(100vh - 60px);
+  background: rgba(15, 15, 21, 0.6);
+  backdrop-filter: blur(10px);
+  border-right: 1px solid rgba(255,255,255,0.05);
+  padding: 20px;
+  overflow-y: auto;
+  z-index: 900;
+}
+
+.sidebar h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.nav-link {
+  display: block;
+  padding: 10px 8px;
+  margin-bottom: 6px;
+  border-radius: 6px;
+  color: var(--soft);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.nav-link:hover {
+  background: rgba(255,255,255,0.08);
+  color: var(--text);
+}
+
+/* Active link highlight (optional JS later) */
+.nav-link.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ---------------------------------------------------------
+   MAIN CONTENT SHIFT (to make room for sidebar)
+--------------------------------------------------------- */
+main {
+  margin-left: 240px; /* space for sidebar */
+  padding: 100px 20px;
+  max-width: 900px;
+  line-height: 1.7;
+}
+
+/* ---------------------------------------------------------
+   SECTION HEADINGS
+--------------------------------------------------------- */
+section {
+  margin-bottom: 120px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+section h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: var(--accent);
+}
+
+section p {
+  color: var(--soft);
+  font-size: 1.1rem;
+}
+
+/* ---------------------------------------------------------
+   RESPONSIVE BEHAVIOR
+--------------------------------------------------------- */
+@media (max-width: 900px) {
+  .sidebar {
+    display: none;
+  }
+  main {
+    margin-left: 0;
+  }
+}
+</style>
+
+<!-- -------------------------------------------------------
+     SIDEBAR NAVIGATION
+-------------------------------------------------------- -->
+<div class="sidebar">
+  <h2>Phases</h2>
+  <a class="nav-link" href="#phase1">Phase 1 — Awakening</a>
+  <a class="nav-link" href="#phase2">Phase 2 — Expansion</a>
+  <a class="nav-link" href="#phase3">Phase 3 — Convergence</a>
+  <a class="nav-link" href="#phase4">Phase 4 — Alignment</a>
+  <a class="nav-link" href="#phase5">Phase 5 — Integration</a>
+  <a class="nav-link" href="#phase6">Phase 6 — Expression</a>
+  <a class="nav-link" href="#phase7">Phase 7 — Mastery</a>
+</div>
+
+<!-- -------------------------------------------------------
+     PAGE SECTIONS (empty placeholders for now)
+-------------------------------------------------------- -->
+<main>
+
+  <section id="phase1">
+    <h1>Phase 1 — Awakening</h1>
+    <p>Content will be added in the next chunks.</p>
+  </section>
+
+  <section id="phase2">
+    <h1>Phase 2 — Expansion</h1>
+    <p>Content will be added in the next chunks.</p>
+  </section>
+
+  <section id="phase3">
+    <h1>Phase 3 — Convergence</h1>
+    <p>Content will be added in the next chunks.</p>
+  </section>
+
+  <section id="phase4">
+    <h1>Phase 4 — Alignment</h1>
+    <p>Content will be added in the next chunks.</p>
+  </section>
+
+  <section id="phase5">
+    <h1>Phase 5 — Integration</h1>
+    <p>Content will be added in the next chunks.</p>
+  </section>
+
+  <section id="phase6">
+    <h1>Phase 6 — Expression</h1>
+    <p>Content will be added in the next chunks.</p>
+  </section>
+
+  <section id="phase7">
+    <h1>Phase 7 — Mastery</h1>
+    <p>Content will be added in the next chunks.</p>
+  </section>
+
+</main>
+
+<!-- -------------------------------------------------------
+     SMOOTH SCROLL + FADE-IN ON SCROLL
+-------------------------------------------------------- -->
+<script>
+// Smooth scroll behavior
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+// Fade-in sections on scroll
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.2 });
+
+document.querySelectorAll('section').forEach(sec => {
+  observer.observe(sec);
+});
+</script>
+
+</head>
+
+<body>
+
+<!-- -------------------------------------------------------
+     TOP BAR
+-------------------------------------------------------- -->
+<div class="topbar">
+  <div class="logo">tyniweb</div>
+  <div class="theme-button" id="openThemePanel">🎨</div>
+</div>
+
+<!-- -------------------------------------------------------
+     RIGHT SLIDE-OUT THEME PANEL
+-------------------------------------------------------- -->
+<div class="theme-panel" id="themePanel">
+
+  <button class="theme-option theme-cosmic" data-theme="cosmic">
+    Cosmic
+  </button>
+
+  <button class="theme-option theme-warm" data-theme="warm">
+    Warm
+  </button>
+
+  <button class="theme-option theme-cool" data-theme="cool">
+    Cool
+  </button>
+
+  <button class="theme-option theme-pastel" data-theme="pastel">
+    Pastel
+  </button>
+
+  <button class="theme-option theme-neon" data-theme="neon">
+    Neon
+  </button>
+
+</div>
+
+<!-- -------------------------------------------------------
+     MAIN CONTENT (placeholder for now)
+-------------------------------------------------------- -->
+<main>
+  <h1>Welcome to the TyNi Saga</h1>
+  <p>This is the beginning of your interactive, theme‑shifting TyNi world.</p>
+</main>
+
+<!-- -------------------------------------------------------
+     JAVASCRIPT — PANEL + THEME SWITCHING
+-------------------------------------------------------- -->
+<script>
+const panel = document.getElementById("themePanel");
+const openBtn = document.getElementById("openThemePanel");
+
+// Open panel
+openBtn.addEventListener("click", () => {
+  panel.classList.add("open");
+});
+
+// Close panel when clicking a theme
+document.querySelectorAll(".theme-option").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const theme = btn.dataset.theme;
+    applyTheme(theme);
+    panel.classList.remove("open");
+  });
+});
+
+// Apply theme by swapping CSS variables
+function applyTheme(name) {
+  const root = document.documentElement;
+
+  const themes = {
+    cosmic:  { bg:"#0f0f15", text:"#fffffe", accent:"#7f5af0", highlight:"#ffca3a", soft:"#94a1b2" },
+    warm:    { bg:"#1a0e0a", text:"#fff3e0", accent:"#ff7b54", highlight:"#ffb703", soft:"#e9c46a" },
+    cool:    { bg:"#0a1a2f", text:"#e0f7ff", accent:"#4cc9f0", highlight:"#72efdd", soft:"#90e0ef" },
+    pastel:  { bg:"#f7f1ff", text:"#2a2a2a", accent:"#c77dff", highlight:"#ffafcc", soft:"#bde0fe" },
+    neon:    { bg:"#000000", text:"#39ff14", accent:"#39ff14", highlight:"#ff00ff", soft:"#00eaff" }
+  };
+
+  const t = themes[name];
+  for (let key in t) {
+    root.style.setProperty(`--${key}`, t[key]);
+  }
+
+  localStorage.setItem("tyni-theme", name);
+}
+
+// Load saved theme
+const saved = localStorage.getItem("tyni-theme");
+if (saved) applyTheme(saved);
+</script>
+
+
+
+</body>
+</html>
