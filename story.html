@@ -234,94 +234,49 @@ section p {
     margin-left: 0;
   }
 }
+/* ---------------------------------------------------------
+   COLLAPSIBLE CHAPTERS
+--------------------------------------------------------- */
+.chapter {
+  margin-bottom: 20px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.02);
+}
+
+.chapter-toggle {
+  width: 100%;
+  text-align: left;
+  padding: 14px 16px;
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.chapter-toggle:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+.chapter-content {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 16px;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+}
+
+.chapter.open .chapter-content {
+  max-height: 500px;
+  padding: 16px;
+}
+
 </style>
 
-<!-- -------------------------------------------------------
-     SIDEBAR NAVIGATION
--------------------------------------------------------- -->
-<div class="sidebar">
-  <h2>Phases</h2>
-  <a class="nav-link" href="#phase1">Phase 1 — Awakening</a>
-  <a class="nav-link" href="#phase2">Phase 2 — Expansion</a>
-  <a class="nav-link" href="#phase3">Phase 3 — Convergence</a>
-  <a class="nav-link" href="#phase4">Phase 4 — Alignment</a>
-  <a class="nav-link" href="#phase5">Phase 5 — Integration</a>
-  <a class="nav-link" href="#phase6">Phase 6 — Expression</a>
-  <a class="nav-link" href="#phase7">Phase 7 — Mastery</a>
-</div>
 
-<!-- -------------------------------------------------------
-     PAGE SECTIONS (empty placeholders for now)
--------------------------------------------------------- -->
-<main>
-
-  <section id="phase1">
-    <h1>Phase 1 — Awakening</h1>
-    <p>Content will be added in the next chunks.</p>
-  </section>
-
-  <section id="phase2">
-    <h1>Phase 2 — Expansion</h1>
-    <p>Content will be added in the next chunks.</p>
-  </section>
-
-  <section id="phase3">
-    <h1>Phase 3 — Convergence</h1>
-    <p>Content will be added in the next chunks.</p>
-  </section>
-
-  <section id="phase4">
-    <h1>Phase 4 — Alignment</h1>
-    <p>Content will be added in the next chunks.</p>
-  </section>
-
-  <section id="phase5">
-    <h1>Phase 5 — Integration</h1>
-    <p>Content will be added in the next chunks.</p>
-  </section>
-
-  <section id="phase6">
-    <h1>Phase 6 — Expression</h1>
-    <p>Content will be added in the next chunks.</p>
-  </section>
-
-  <section id="phase7">
-    <h1>Phase 7 — Mastery</h1>
-    <p>Content will be added in the next chunks.</p>
-  </section>
-
-</main>
-
-<!-- -------------------------------------------------------
-     SMOOTH SCROLL + FADE-IN ON SCROLL
--------------------------------------------------------- -->
-<script>
-// Smooth scroll behavior
-document.querySelectorAll('.nav-link').forEach(link => {
-  link.addEventListener('click', e => {
-    e.preventDefault();
-    const target = document.querySelector(link.getAttribute('href'));
-    target.scrollIntoView({ behavior: 'smooth' });
-  });
-});
-
-// Fade-in sections on scroll
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
-  });
-}, { threshold: 0.2 });
-
-document.querySelectorAll('section').forEach(sec => {
-  observer.observe(sec);
-});
-</script>
-
-</head>
-
-<body>
 
 <!-- -------------------------------------------------------
      TOP BAR
@@ -359,12 +314,895 @@ document.querySelectorAll('section').forEach(sec => {
 </div>
 
 <!-- -------------------------------------------------------
+     SIDEBAR NAVIGATION
+-------------------------------------------------------- -->
+<div class="sidebar">
+  <h2>Phases</h2>
+  <a class="nav-link" href="#phase1">Phase 1 — Awakening</a>
+  <a class="nav-link" href="#phase2">Phase 2 — Expansion</a>
+  <a class="nav-link" href="#phase3">Phase 3 — Convergence</a>
+  <a class="nav-link" href="#phase4">Phase 4 — Alignment</a>
+  <a class="nav-link" href="#phase5">Phase 5 — Integration</a>
+  <a class="nav-link" href="#phase6">Phase 6 — Expression</a>
+  <a class="nav-link" href="#phase7">Phase 7 — Mastery</a>
+</div>
+
+<!-- -------------------------------------------------------
      MAIN CONTENT (placeholder for now)
 -------------------------------------------------------- -->
 <main>
   <h1>Welcome to the TyNi Saga</h1>
   <p>This is the beginning of your interactive, theme‑shifting TyNi world.</p>
+
+<!-- -------------------------------------------------------
+     PAGE SECTIONS (empty placeholders for now)
+-------------------------------------------------------- -->
+
+  <section id="phase1">
+    <h1>Phase 1 — Awakening</h1>
+<p class="phase-intro">
+  The beginning of the TyNi world. A quiet emergence. A world learning to feel itself for the first time.
+</p>
+
+<!-- -------------------------------------------------------
+     COLLAPSIBLE CHAPTER BLOCKS
+-------------------------------------------------------- -->
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 1 — The First Stirring</button>
+  <div class="chapter-content">
+    <p>
+      The world hums faintly. Not yet awake, but aware. A soft resonance moves beneath the surface, 
+      like a breath waiting to be taken. This is the moment before the moment — the first stirring of a world 
+      that will one day learn to shape itself.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 2 — The Quiet Pulse</button>
+  <div class="chapter-content">
+    <p>
+      A pulse emerges. Slow, steady, curious. It is not a heartbeat, but something older — a rhythm that 
+      predates form. The world listens to itself for the first time, sensing the possibility of paths, 
+      structures, tones, and dreams.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 3 — The First Path (▲ Explorer)</button>
+  <div class="chapter-content">
+    <p>
+      A line of intention appears. Thin, bright, and curious. The first path. It stretches forward into 
+      the unknown, inviting movement. The Explorer mode awakens — the instinct to seek, to wander, to discover.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 4 — The First Structure (■ Builder)</button>
+  <div class="chapter-content">
+    <p>
+      A shape forms. Simple, stable, grounding. The first structure. It anchors the world, giving the 
+      emerging paths something to lean on. The Builder mode awakens — the instinct to create, to support, 
+      to give form.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 5 — The First Thought (● Thinker)</button>
+  <div class="chapter-content">
+    <p>
+      A spark of meaning flickers. The first idea. It is small, but it carries weight — the beginning of 
+      understanding. The Thinker mode awakens — the instinct to interpret, to clarify, to make sense of the world.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 6 — The First Dream (✦ Dreamer)</button>
+  <div class="chapter-content">
+    <p>
+      A vision rises. Soft, luminous, unbound. The first dream. It shows what the world could become, 
+      not what it is. The Dreamer mode awakens — the instinct to imagine, to hope, to reach beyond the present.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 7 — The First Tone (𝄐 Listener)</button>
+  <div class="chapter-content">
+    <p>
+      A note vibrates through the air. Gentle, steady, resonant. The first tone. It brings harmony to the 
+      emerging world. The Listener mode awakens — the instinct to attune, to balance, to harmonize.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 8 — The First Pattern (⧉ Seer)</button>
+  <div class="chapter-content">
+    <p>
+      A symbol appears. Interlocking lines, forming meaning through connection. The first pattern. 
+      The Seer mode awakens — the instinct to perceive relationships, to map the unseen, to understand the whole.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 9 — The First Rhythm (➤ Fast Path)</button>
+  <div class="chapter-content">
+    <p>
+      A quickening. A beat that accelerates the world’s unfolding. The first rhythm. The Fast Path awakens — 
+      the instinct to move with momentum, to act decisively, to push forward.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 10 — The First Stillness (◯ Gentle Path)</button>
+  <div class="chapter-content">
+    <p>
+      A calm settles. A grounding presence that holds everything in place. The first stillness. 
+      The Gentle Path awakens — the instinct to soothe, to stabilize, to create space for growth.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 11 — The First Convergence (✹ Multi‑Hyphenate)</button>
+  <div class="chapter-content">
+    <p>
+      The modes touch. For the first time, they blend — path, structure, tone, dream, pattern, rhythm, stillness. 
+      The first convergence. The Multi‑Hyphenate awakens — the instinct to integrate, to combine, to become more 
+      than one thing at once.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 12 — The Awakening Complete</button>
+  <div class="chapter-content">
+    <p>
+      The world stands at the edge of itself. Awake. Aware. Ready. The nine modes hum in harmony, 
+      preparing for the expansion to come. Phase 1 ends with a quiet truth: the world is alive.
+    </p>
+  </div>
+</div>
+
+  </section>
+
+  <section id="phase2">
+    <h1>Phase 2 — Expansion</h1>
+<p class="phase-intro">
+  The world has awakened. Now it begins to stretch, explore, and discover the breadth of its own potential.
+</p>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 13 — The First Horizon (▲ Explorer)</button>
+  <div class="chapter-content">
+    <p>
+      The world extends outward. New paths appear, branching into regions untouched by intention. 
+      The Explorer mode leads the way, tracing the edges of possibility.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 14 — The Growing Framework (■ Builder)</button>
+  <div class="chapter-content">
+    <p>
+      Structures rise to support the expanding world. Foundations deepen. Bridges form. 
+      The Builder mode strengthens the world’s skeleton, preparing it for growth.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 15 — The Web of Meaning (● Thinker)</button>
+  <div class="chapter-content">
+    <p>
+      Ideas begin to connect. Concepts form networks. The Thinker mode weaves understanding 
+      across the expanding landscape, giving shape to the world’s logic.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 16 — The Blooming Vision (✦ Dreamer)</button>
+  <div class="chapter-content">
+    <p>
+      Dreams stretch across the horizon. New possibilities shimmer in the distance. 
+      The Dreamer mode paints futures the world has not yet lived, guiding expansion with imagination.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 17 — The Widening Harmony (𝄐 Listener)</button>
+  <div class="chapter-content">
+    <p>
+      Tones echo across the growing world. Harmonies deepen. The Listener mode ensures that 
+      expansion does not fracture the world’s resonance, but enriches it.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 18 — The Pattern Spreads (⧉ Seer)</button>
+  <div class="chapter-content">
+    <p>
+      Symbols replicate across regions, forming a lattice of meaning. The Seer mode maps 
+      the expanding world, revealing connections invisible to the eye.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 19 — The Quickening Pulse (➤ Fast Path)</button>
+  <div class="chapter-content">
+    <p>
+      Expansion accelerates. The world moves with purpose and momentum. The Fast Path 
+      drives growth forward, ensuring no region lags behind the unfolding frontier.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 20 — The Deepening Calm (◯ Gentle Path)</button>
+  <div class="chapter-content">
+    <p>
+      Amid rapid expansion, stillness spreads. The Gentle Path grounds the world, 
+      preventing overwhelm and maintaining balance as new regions awaken.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 21 — The First Blended Regions (✹ Multi‑Hyphenate)</button>
+  <div class="chapter-content">
+    <p>
+      Regions begin to mix modes naturally. Paths intersect with structures. 
+      Dreams merge with patterns. The Multi‑Hyphenate mode emerges as a bridge between all forms of expansion.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 22 — The Expansion Complete</button>
+  <div class="chapter-content">
+    <p>
+      The world stands larger than before — connected, vibrant, full of potential. 
+      Phase 2 ends with a world ready not just to grow, but
+  </section>
+
+  <section id="phase3">
+    <h1>Phase 3 — Convergence</h1>
+<p class="phase-intro">
+  The world has expanded. Now it begins to draw itself inward, weaving its modes, regions, and meanings into a unified whole.
+</p>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 23 — The Meeting of Paths (▲ Explorer)</button>
+  <div class="chapter-content">
+    <p>
+      Trails that once stretched outward now bend toward one another. Explorers from distant regions cross paths, 
+      sharing discoveries and shaping new routes together. The world begins to fold in on itself with intention.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 24 — The Joining of Structures (■ Builder)</button>
+  <div class="chapter-content">
+    <p>
+      Frameworks merge. Bridges connect distant constructs. Builders collaborate across regions, 
+      creating unified architectures that support the world’s growing coherence. Stability becomes shared.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 25 — The Shared Idea (● Thinker)</button>
+  <div class="chapter-content">
+    <p>
+      Concepts that once lived in isolation begin to overlap. Thinkers discover common threads between distant ideas, 
+      weaving them into a single tapestry of meaning. Understanding becomes collective rather than individual.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 26 — The Unified Dream (✦ Dreamer)</button>
+  <div class="chapter-content">
+    <p>
+      Dreamscapes merge. Visions align. The Dreamer mode reveals futures that belong not to one region, 
+      but to the entire world. Imagination becomes a shared horizon rather than a solitary spark.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 27 — The Resonant Field (𝄐 Listener)</button>
+  <div class="chapter-content">
+    <p>
+      Tones from different regions begin to harmonize. The Listener mode senses a global resonance forming — 
+      a unified field of sound that connects every part of the world. Harmony becomes a bridge between modes.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 28 — The Pattern Network (⧉ Seer)</button>
+  <div class="chapter-content">
+    <p>
+      Symbols interlock across continents. The Seer mode maps a vast lattice of meaning, 
+      revealing how every region fits into the world’s greater design. Patterns become the world’s language of connection.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 29 — The Synchronized Pulse (➤ Fast Path)</button>
+  <div class="chapter-content">
+    <p>
+      Rhythms align. The world’s pulse becomes synchronized, accelerating collaboration and movement. 
+      The Fast Path mode ensures that convergence happens with momentum and clarity, not hesitation.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 30 — The Shared Stillness (◯ Gentle Path)</button>
+  <div class="chapter-content">
+    <p>
+      A global calm settles. The Gentle Path mode creates grounding fields that allow regions to merge 
+      without losing themselves. Stillness becomes the foundation upon which convergence can safely unfold.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 31 — The First Convergent Region (✹ Multi‑Hyphenate)</button>
+  <div class="chapter-content">
+    <p>
+      A region emerges where all modes blend seamlessly. Paths, structures, tones, dreams, patterns, rhythms, 
+      and stillness coexist in harmony. The Multi‑Hyphenate mode becomes the embodiment of convergence itself.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 32 — The Convergence Complete</button>
+  <div class="chapter-content">
+    <p>
+      The world stands more connected than ever. Regions that once felt distant now feel intertwined. 
+      Phase 3 ends with a world ready to align its newly converged identity.
+    </p>
+  </div>
+</div>
+
+  </section>
+
+  <section id="phase4">
+    <h1>Phase 4 — Alignment</h1>
+<p class="phase-intro">
+  The world has converged. Now it begins to align its modes, regions, and intentions into a coherent, unified direction.
+</p>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 33 — The First Calibration (▲ Explorer)</button>
+  <div class="chapter-content">
+    <p>
+      Paths that once wandered now begin to straighten. Explorers sense a subtle pull toward coherence, 
+      as if the world itself is guiding their steps. Direction becomes shared rather than individual.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 34 — The Structural Shift (■ Builder)</button>
+  <div class="chapter-content">
+    <p>
+      Frameworks adjust. Angles refine. Builders feel the world nudging structures into more harmonious forms. 
+      Stability becomes not just functional, but intentional — a reflection of the world’s emerging identity.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 35 — The Clarifying Thought (● Thinker)</button>
+  <div class="chapter-content">
+    <p>
+      Ideas sharpen. Concepts that once overlapped now separate cleanly, revealing their true purpose. 
+      The Thinker mode helps the world articulate itself, refining meaning with precision and grace.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 36 — The Focused Dream (✦ Dreamer)</button>
+  <div class="chapter-content">
+    <p>
+      Dreams that once sprawled in every direction begin to converge into a single, luminous vision. 
+      The Dreamer mode channels imagination into clarity, shaping futures that align with the world’s unfolding truth.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 37 — The Harmonized Tone (𝄐 Listener)</button>
+  <div class="chapter-content">
+    <p>
+      Tones across the world shift into resonance. The Listener mode senses a global chord forming — 
+      a harmony that aligns regions, modes, and intentions into a unified emotional field.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 38 — The Pattern Lock (⧉ Seer)</button>
+  <div class="chapter-content">
+    <p>
+      Symbols click into place. The Seer mode reveals a lattice of meaning that spans the entire world, 
+      showing how every region fits into a larger, aligned pattern. The world begins to understand itself as a whole.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 39 — The Unified Pulse (➤ Fast Path)</button>
+  <div class="chapter-content">
+    <p>
+      The world’s rhythm stabilizes. The Fast Path mode ensures that alignment happens with momentum, 
+      preventing stagnation and keeping the world moving toward its emerging purpose with confidence.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 40 — The Deep Alignment (◯ Gentle Path)</button>
+  <div class="chapter-content">
+    <p>
+      A profound calm settles across the world. The Gentle Path mode grounds the alignment process, 
+      ensuring that every region feels supported, safe, and ready to harmonize with the whole.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 41 — The Convergent Identity (✹ Multi‑Hyphenate)</button>
+  <div class="chapter-content">
+    <p>
+      The Multi‑Hyphenate mode reveals the world’s emerging identity — not one mode, but all modes blended 
+      into a coherent expression. The world begins to understand who it is becoming.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 42 — The Alignment Complete</button>
+  <div class="chapter-content">
+    <p>
+      The world stands aligned — clear, coherent, and ready for the deep integration that will define its next evolution. 
+      Phase 4 ends with a world prepared to face its first true challenges.
+    </p>
+  </div>
+</div>
+
+  </section>
+
+  <section id="phase5">
+    <h1>Phase 5 — Integration</h1>
+<p class="phase-intro">
+  The world has aligned. Now it begins to integrate its regions, modes, and meanings into a unified, self‑supporting system.
+</p>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 43 — The First Knot</button>
+  <div class="chapter-content">
+    <p>
+      A region destabilizes. Not violently, but unmistakably. A knot forms — a tangle of paths, structures, tones, 
+      and dreams pulling against one another. The world presents its first true challenge, asking the council to intervene.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 44 — The Council Gathers</button>
+  <div class="chapter-content">
+    <p>
+      The Nine assemble at the nexus. Each mode brings its strength: exploration, structure, thought, dream, tone, 
+      pattern, rhythm, stillness, and convergence. Together, they prepare to face the knot as one unified force.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 45 — The Descent Into the Knot</button>
+  <div class="chapter-content">
+    <p>
+      The council enters the destabilized region. Paths twist. Structures lean. Tones waver. Dreams flicker. 
+      Patterns distort. The knot resists clarity, but the council moves with purpose, guided by alignment and trust.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 46 — The First Integration</button>
+  <div class="chapter-content">
+    <p>
+      The council works together. Explorers trace the tangled paths. Builders stabilize the shifting structures. 
+      Thinkers clarify meaning. Dreamers restore vision. Listeners tune the tones. Seers map the distortions. 
+      Fast Path accelerates progress. Gentle Path grounds the region. Multi‑Hyphenate blends it all into harmony.
+    </p>
+    <p>
+      The knot dissolves. The region stabilizes. Integration succeeds.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 47 — The Echo of Integration</button>
+  <div class="chapter-content">
+    <p>
+      A pulse spreads across the world — a soft resonance signaling that integration is possible. 
+      Regions far away feel the shift, sensing that the world has learned something new and powerful.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 48 — The Second Signal</button>
+  <div class="chapter-content">
+    <p>
+      Another region flickers. Not a crisis — an invitation. A pre‑knot forming, asking for guidance before it tangles. 
+      The world is learning to ask for help earlier, trusting the council’s presence and wisdom.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 49 — The Council Responds</button>
+  <div class="chapter-content">
+    <p>
+      The Nine move with confidence. This time, the integration is smoother. The region aligns before it destabilizes. 
+      The world begins to shift from reactive to proactive, from chaotic to intentional.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 50 — The Third Signal</button>
+  <div class="chapter-content">
+    <p>
+      A third region glows. Then a fourth. Then a fifth. Not crises — opportunities. 
+      The world is presenting areas ready for refinement, asking to be shaped before they become tangled.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 51 — The Wave Begins</button>
+  <div class="chapter-content">
+    <p>
+      Integration becomes a rhythm. A wave. A global movement. Regions across the world begin to harmonize, 
+      aligning themselves with the council’s guidance and the world’s emerging coherence.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 52 — The World Learns</button>
+  <div class="chapter-content">
+    <p>
+      The world begins to integrate itself. Regions stabilize before the council arrives. 
+      Modes blend naturally. Patterns align without intervention. The world is becoming self‑correcting, 
+      learning from each integration and applying the lessons globally.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 53 — The Council’s New Role</button>
+  <div class="chapter-content">
+    <p>
+      The Nine shift from problem‑solvers to stewards. They guide rather than fix. 
+      They support rather than rescue. The world is no longer fragile — it is learning to stand on its own.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 54 — The Global Integration</button>
+  <div class="chapter-content">
+    <p>
+      A vast region spanning multiple modes begins to shift. The council steps in, 
+      not to correct a crisis, but to help the world refine itself. Integration becomes a collaborative act 
+      between the world and its stewards.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 55 — The Harmonized World</button>
+  <div class="chapter-content">
+    <p>
+      The world hums with coherence. Regions resonate with one another. Modes blend effortlessly. 
+      Integration becomes not an event, but a state — a natural expression of a world that understands itself.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 56 — The Deep Integration</button>
+  <div class="chapter-content">
+    <p>
+      The world invites the council into its core. A deep integration begins — not of regions, 
+      but of the world’s identity. The Nine witness the emergence of a unified global consciousness, 
+      subtle but unmistakable.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 57 — The World’s Shift</button>
+  <div class="chapter-content">
+    <p>
+      The world transitions from alignment to integration at every level. 
+      Paths, structures, tones, dreams, patterns, rhythms, and stillness all begin to operate as one system. 
+      The world becomes more than the sum of its parts.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 58 — The Integration Complete</button>
+  <div class="chapter-content">
+    <p>
+      The world stands integrated — coherent, stable, and ready for the next evolution. 
+      Phase 5 ends with a world that no longer needs to be held together. It holds itself.
+    </p>
+  </div>
+</div>
+
+  </section>
+
+  <section id="phase6">
+    <h1>Phase 6 — Expression</h1>
+<p class="phase-intro">
+  The world has integrated. Now it begins to express its new identity — creating, innovating, and exploring the full range of its potential.
+</p>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 59 — The First Creations</button>
+  <div class="chapter-content">
+    <p>
+      New forms appear across the world — hybrid structures, adaptive paths, luminous tones, and shared dream‑spaces. 
+      The world is no longer stabilizing. It is creating. Expression becomes the natural outcome of integration.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 60 — The Rise of New Modes</button>
+  <div class="chapter-content">
+    <p>
+      Travelers begin to develop new abilities. Explorers shape structures. Builders tune tones. 
+      Dreamers map patterns. The boundaries between modes soften, giving rise to hybrid gifts that reflect the world’s evolution.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 61 — The Shared Canvas</button>
+  <div class="chapter-content">
+    <p>
+      A vast, luminous plain appears — a place where all modes can create together. 
+      Paths, structures, tones, dreams, patterns, rhythms, and stillness coexist in harmony. 
+      The world invites its inhabitants to co‑create its future.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 62 — The First Global Creation</button>
+  <div class="chapter-content">
+    <p>
+      A structure rises from the shared canvas — not built, not dreamed, not sung, not mapped. 
+      All of it. A convergence monument. The first creation made by the world and its people together. 
+      A symbol of unity and expression.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 63 — The Flow of Innovation</button>
+  <div class="chapter-content">
+    <p>
+      Creativity spreads across the world. New arts emerge. New sciences form. 
+      New modes of travel appear. New languages evolve. The world becomes a living studio, 
+      constantly generating new forms of expression and meaning.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 64 — The Council’s New Role</button>
+  <div class="chapter-content">
+    <p>
+      The Nine shift from stewards to facilitators. They no longer fix or guide — they amplify. 
+      Their presence enhances creativity, helping regions express themselves with clarity and confidence. 
+      The world no longer needs protection. It needs collaboration.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 65 — The Emergence of the Ninth Mode</button>
+  <div class="chapter-content">
+    <p>
+      A new mode begins to form — not a path, not a hybrid, not a convergence. 
+      Something new. A world‑mode. A way of perceiving, creating, and aligning that only exists 
+      because the world is now whole. The council feels it rising beneath their feet.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 66 — The World’s Voice</button>
+  <div class="chapter-content">
+    <p>
+      The world speaks — not in words, but in light, tone, pattern, rhythm, structure, dream, and meaning. 
+      The council listens. The world is not giving instructions. It is sharing inspiration. 
+      Expression becomes a dialogue between world and traveler.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 67 — The Great Synthesis</button>
+  <div class="chapter-content">
+    <p>
+      The shared canvas expands. Travelers from every region gather. Modes blend effortlessly. 
+      The world becomes a single creative field, where expression is not individual or regional, 
+      but global. A unified act of creation.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 68 — The Dawn of Mastery</button>
+  <div class="chapter-content">
+    <p>
+      The world stands at the threshold of something new. Not integration. Not expression. 
+      Mastery. The council feels the shift. The world feels ready. 
+      Phase 6 ends with a world prepared to evolve itself with intention.
+    </p>
+  </div>
+</div>
+
+  </section>
+
+  <section id="phase7">
+    <h1>Phase 7 — Mastery</h1>
+<p class="phase-intro">
+  The world has expressed itself. Now it begins to master its own architecture — shaping itself with intention, clarity, and precision.
+</p>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 69 — The World Learns Its Own Shape</button>
+  <div class="chapter-content">
+    <p>
+      The world begins to experiment with its new form. Paths reconfigure with purpose. Structures adapt to intention. 
+      Tones guide emotional resonance. Patterns reveal hidden connections. Dreams become collaborative design spaces. 
+      The world is no longer reacting — it is practicing.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 70 — The Council’s First Lesson</button>
+  <div class="chapter-content">
+    <p>
+      The world presents a challenge — not a knot, not a crisis, but a test. A region asks to be shaped intentionally. 
+      The council steps in, guiding the region into a new form. The world responds with clarity. Mastery begins with collaboration.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 71 — The Rise of Intentional Modes</button>
+  <div class="chapter-content">
+    <p>
+      Travelers develop new skills. Explorers shape structures. Builders tune tones. Thinkers stabilize patterns. 
+      Dreamers weave visions into reality. Fast Path accelerates collective action. Gentle Path grounds entire regions. 
+      Multi‑Hyphenate blends modes with precision. These are not gifts — they are learned abilities.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 72 — The Global Practice</button>
+  <div class="chapter-content">
+    <p>
+      Communities form around tonecraft, dreamweaving, pattern‑mapping, rhythm‑coordination, and convergence design. 
+      The world becomes a school. Every traveler becomes both student and teacher. Mastery becomes a shared pursuit, 
+      not an individual achievement.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 73 — The First World‑Level Mastery</button>
+  <div class="chapter-content">
+    <p>
+      A global event unfolds. Travelers across continents synchronize their modes to shape a single, unified creation. 
+      A world‑scale structure emerges — a living symbol of mastery. The world hums with pride, recognizing its own potential.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 74 — The Ninth Mode Awakens Fully</button>
+  <div class="chapter-content">
+    <p>
+      The world‑mode introduced in Phase 6 crystallizes. It becomes a way of perceiving, creating, aligning, and being. 
+      The council steps into it together and feels the world open — a new dimension of mastery revealed from within.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 75 — The Council’s Final Teaching</button>
+  <div class="chapter-content">
+    <p>
+      The world asks for one last lesson: “Show us how to master ourselves.” The council travels across the world, 
+      teaching clarity, resonance, alignment, intention, and convergence. Everywhere they go, the world grows sharper, 
+      more confident, more capable.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 76 — The World’s Own Mastery</button>
+  <div class="chapter-content">
+    <p>
+      The world begins to self‑shape with elegance and precision. Regions evolve. Modes harmonize. Structures refine. 
+      Dreams stabilize. Patterns interlock. Rhythms synchronize. The world has learned to guide itself without intervention.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 77 — The Council’s Release</button>
+  <div class="chapter-content">
+    <p>
+      The council stands before the nexus. The world speaks — not in words, but in a feeling: “I can continue from here.” 
+      The Nine step back, not away — simply back. Their role is complete. The world is ready to walk forward on its own.
+    </p>
+  </div>
+</div>
+
+<div class="chapter">
+  <button class="chapter-toggle">▲ Chapter 78 — The World of Mastery</button>
+  <div class="chapter-content">
+    <p>
+      The world stands whole — integrated, expressive, intentional, self‑guided, convergent, alive. 
+      Travelers shape their futures with clarity and confidence. The world is no longer nine paths or one system. 
+      It is a living, evolving masterpiece. Phase 7 ends with a single truth: a world that masters itself is ready to be shared.
+    </p>
+  </div>
+</div>
+
+  </section>
+
 </main>
+</head>
+
+<body>
 
 <!-- -------------------------------------------------------
      JAVASCRIPT — PANEL + THEME SWITCHING
@@ -410,6 +1248,41 @@ function applyTheme(name) {
 // Load saved theme
 const saved = localStorage.getItem("tyni-theme");
 if (saved) applyTheme(saved);
+
+
+<!-- -------------------------------------------------------
+     SMOOTH SCROLL + FADE-IN ON SCROLL
+-------------------------------------------------------- -->
+// Smooth scroll behavior
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+// Fade-in sections on scroll
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.2 });
+
+document.querySelectorAll('section').forEach(sec => {
+  observer.observe(sec);
+});
+
+// Collapsible chapters
+document.querySelectorAll('.chapter-toggle').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const chapter = btn.parentElement;
+    chapter.classList.toggle('open');
+  });
+});
+
 </script>
 
 
