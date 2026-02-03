@@ -1506,7 +1506,7 @@ if (savedCustom) {
   Object.entries(custom).forEach(([variable, value]) => {
     applyCustomColor(variable, value);
   });
-  syncPickersToTheme();
+  syncPickersToTheme(localStorage.getItem("tyni-theme"));
 }
 
 function syncPickersToTheme(name) {
@@ -1599,6 +1599,3 @@ if (saved) applyTheme(saved);
 
 </body>
 </html>
-
-
-
