@@ -467,7 +467,7 @@ body {
 		<label>Accent Color<input type="color" id="custom-accent"></label>
 		<label>Highlight Color<input type="color" id="custom-highlight"></label>
 		<label>Soft Color<input type="color" id="custom-soft"></label>
-		<button id="saveCustomTheme" class="custom-btn">Save Custom Theme</button>
+		<button id="applyCustomTheme" class="custom-btn">Apply Custom Theme</button>
 		<button id="resetTheme" class="custom-btn">Reset to Theme Defaults</button>
 	  </div>
 	</div>
@@ -1470,18 +1470,32 @@ Object.entries(pickers).forEach(([variable, input]) => {
   });
 });
 
-// Save custom theme
-document.getElementById("saveCustomTheme").addEventListener("click", () => {
+// Apply custom theme
+document.getElementById("applyCustomTheme").addEventListener("click", () => {
   const customTheme = {};
+
   Object.entries(pickers).forEach(([variable, input]) => {
     customTheme[variable] = input.value;
+    applyCustomColor(variable, input.value);
   });
+
   localStorage.setItem("tyni-custom-theme", JSON.stringify(customTheme));
+
+  // Recolor the button itself
+  styleCustomThemeButton();
 });
+
+function styleCustomThemeButton() {
+  const btn = document.getElementById("applyCustomTheme");
+  const styles = getComputedStyle(document.documentElement);
+
+  btn.style.background = styles.getPropertyValue("--accent").trim();
+  btn.style.color = styles.getPropertyValue("--bg").trim();
+}
 
 // Reset to theme defaults
 document.getElementById("resetTheme").addEventListener("click", () => {
-  const savedTheme = localStorage.getItem("tyhi-theme");
+  const savedTheme = localStorage.getItem("tyni-theme");
   if (savedTheme) applyTheme(savedTheme);
 
   // Clear custom theme overrides
@@ -1493,14 +1507,6 @@ document.getElementById("resetTheme").addEventListener("click", () => {
 });
 
 // Load custom theme if saved
-const savedCustom = localStorage.getItem("tyni-custom-theme");
-if (savedCustom) {
-  const custom = JSON.parse(savedCustom);
-  Object.entries(custom).forEach(([variable, value]) => {
-    applyCustomColor(variable, value);
-  });
-}
-
 if (savedCustom) {
   const custom = JSON.parse(savedCustom);
   Object.entries(custom).forEach(([variable, value]) => {
@@ -1553,13 +1559,41 @@ if (savedDefaultPref === "true") {
 // Apply default theme on load if enabled
 if (loadDefaultCheckbox.checked) {
   applyTheme("cosmic");
+} else {
+  // Load last used theme or custom theme
+  const savedTheme = localStorage.getItem("tyni-theme");
+  const savedCustom = localStorage.getItem("tyni-custom-theme");
+
+  if (savedCustom) {
+    const custom = JSON.parse(savedCustom);
+    Object.entries(custom).forEach(([variable, value]) => {
+      applyCustomColor(variable, value);
+    });
+  } else if (savedTheme) {
+    applyTheme(savedTheme);
+  }
 }
 
 // Save checkbox state when toggled
 loadDefaultCheckbox.addEventListener("change", () => {
   localStorage.setItem("tyni-load-default", loadDefaultCheckbox.checked);
+
   if (loadDefaultCheckbox.checked) {
+    // User wants Cosmic always
     applyTheme("cosmic");
+  } else {
+    // User wants their last theme restored
+    const savedTheme = localStorage.getItem("tyni-theme");
+    const savedCustom = localStorage.getItem("tyni-custom-theme");
+
+    if (savedCustom) {
+      const custom = JSON.parse(savedCustom);
+      Object.entries(custom).forEach(([variable, value]) => {
+        applyCustomColor(variable, value);
+      });
+    } else if (savedTheme) {
+      applyTheme(savedTheme);
+    }
   }
 });
 
@@ -1585,6 +1619,7 @@ function applyTheme(name) {
 
   // Direct sync — no computed styles needed
   syncPickersToTheme(name);
+  styleCustomThemeButton();
 }
 
 // Load saved theme
