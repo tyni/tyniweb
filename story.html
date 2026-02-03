@@ -413,6 +413,24 @@ body {
   opacity: 0.8;
 }
 
+/* -------------------------------------------------------
+   THEME TOGGLE
+-------------------------------------------------------- */
+
+.default-theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.default-theme-toggle input {
+  transform: scale(1.2);
+  cursor: pointer;
+}
 
 </style>
 
@@ -432,6 +450,9 @@ body {
      RIGHT SLIDE-OUT THEME PANEL
 -------------------------------------------------------- -->
 <div class="theme-panel" id="themePanel">
+<!-- DEFAULT THEME CHECKBOX -->
+<label class="default-theme-toggle">
+  <input type="checkbox" id="loadDefaultTheme">  Always load default theme (Cosmic)</label>
 <button class="theme-option theme-cosmic" data-theme="cosmic">Cosmic</button>
 <button class="theme-option theme-warm" data-theme="warm">Warm</button>
 <button class="theme-option theme-cool" data-theme="cool">Cool</button>
@@ -1385,6 +1406,7 @@ function applyTheme(name) {
   }
 
   localStorage.setItem("tyni-theme", name);
+  syncPickersToTheme();
 }
 
 // Load saved theme
@@ -1503,6 +1525,53 @@ if (savedCustom) {
     applyCustomColor(variable, value);
   });
 }
+
+if (savedCustom) {
+  const custom = JSON.parse(savedCustom);
+  Object.entries(custom).forEach(([variable, value]) => {
+    applyCustomColor(variable, value);
+  });
+  syncPickersToTheme();
+}
+
+function syncPickersToTheme() {
+  pickers["--bg"].value = rgbToHex(getComputedStyle(document.documentElement).getPropertyValue("--bg"));
+  pickers["--text"].value = rgbToHex(getComputedStyle(document.documentElement).getPropertyValue("--text"));
+  pickers["--accent"].value = rgbToHex(getComputedStyle(document.documentElement).getPropertyValue("--accent"));
+  pickers["--highlight"].value = rgbToHex(getComputedStyle(document.documentElement).getPropertyValue("--highlight"));
+  pickers["--soft"].value = rgbToHex(getComputedStyle(document.documentElement).getPropertyValue("--soft"));
+}
+
+function rgbToHex(rgb) {
+  const result = rgb.match(/\d+/g);
+  if (!result) return "#000000";
+  return "#" + result.map(x => {
+    const hex = parseInt(x).toString(16);
+    return hex.length === 1 ? "0" + hex : hex;
+  }).join("");
+}
+
+// Checkbox element
+const loadDefaultCheckbox = document.getElementById("loadDefaultTheme");
+
+// Load saved checkbox state
+const savedDefaultPref = localStorage.getItem("tyni-load-default");
+if (savedDefaultPref === "true") {
+  loadDefaultCheckbox.checked = true;
+}
+
+// Apply default theme on load if enabled
+if (loadDefaultCheckbox.checked) {
+  applyTheme("cosmic");
+}
+
+// Save checkbox state when toggled
+loadDefaultCheckbox.addEventListener("change", () => {
+  localStorage.setItem("tyni-load-default", loadDefaultCheckbox.checked);
+  if (loadDefaultCheckbox.checked) {
+    applyTheme("cosmic");
+  }
+});
 
 </script>
 
