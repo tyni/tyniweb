@@ -340,6 +340,80 @@ body {
   transition: 0.2s ease;
 }
 
+/* -------------------------------------------------------
+   CUSTOM THEME ACCORDIAN container
+-------------------------------------------------------- */
+
+/* Accordion container */
+.custom-theme {
+  margin-top: 20px;
+  border-top: 1px solid var(--soft);
+  padding-top: 10px;
+}
+
+/* Accordion toggle button */
+.custom-toggle {
+  width: 100%;
+  background: none;
+  border: none;
+  color: var(--text);
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  text-align: left;
+  cursor: pointer;
+  padding: 8px 0;
+}
+
+/* Hidden content */
+.custom-content {
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+/* Show when open */
+.custom-theme.open .custom-content {
+  display: flex;
+}
+
+/* Labels + color pickers */
+.custom-content label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.custom-content input[type="color"] {
+  width: 40px;
+  height: 30px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* Buttons */
+.custom-btn {
+  padding: 8px;
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  transition: 0.2s;
+}
+
+.custom-btn:hover {
+  opacity: 0.8;
+}
+
+
 </style>
 
 </head>
@@ -363,6 +437,19 @@ body {
 <button class="theme-option theme-cool" data-theme="cool">Cool</button>
 <button class="theme-option theme-pastel" data-theme="pastel">Pastel</button>
 <button class="theme-option theme-neon" data-theme="neon">Neon</button>
+	<!-- CUSTOM THEME ACCORDION -->
+	<div class="custom-theme">
+	  <button class="custom-toggle">▼ Customize Theme</button>
+	  <div class="custom-content">
+		<label>Background Color<input type="color" id="custom-bg"></label>
+		<label>Text Color<input type="color" id="custom-text"></label>
+		<label>Accent Color<input type="color" id="custom-accent"></label>
+		<label>Highlight Color<input type="color" id="custom-highlight"></label>
+		<label>Soft Color<input type="color" id="custom-soft"></label>
+		<button id="saveCustomTheme" class="custom-btn">Save Custom Theme</button>
+		<button id="resetTheme" class="custom-btn">Reset to Theme Defaults</button>
+	  </div>
+	</div>
 </div>
 
 <!-- -------------------------------------------------------
@@ -1356,6 +1443,66 @@ window.addEventListener("scroll", () => {
     }
   });
 });
+
+// Accordion toggle
+const customTheme = document.querySelector(".custom-theme");
+const customToggle = document.querySelector(".custom-toggle");
+
+customToggle.addEventListener("click", () => {
+  customTheme.classList.toggle("open");
+});
+
+// Apply custom colors live
+function applyCustomColor(variable, value) {
+  document.documentElement.style.setProperty(variable, value);
+}
+
+// Color pickers
+const pickers = {
+  "--bg": document.getElementById("custom-bg"),
+  "--text": document.getElementById("custom-text"),
+  "--accent": document.getElementById("custom-accent"),
+  "--highlight": document.getElementById("custom-highlight"),
+  "--soft": document.getElementById("custom-soft")
+};
+
+// Live update on input
+Object.entries(pickers).forEach(([variable, input]) => {
+  input.addEventListener("input", () => {
+    applyCustomColor(variable, input.value);
+  });
+});
+
+// Save custom theme
+document.getElementById("saveCustomTheme").addEventListener("click", () => {
+  const customTheme = {};
+  Object.entries(pickers).forEach(([variable, input]) => {
+    customTheme[variable] = input.value;
+  });
+  localStorage.setItem("tyni-custom-theme", JSON.stringify(customTheme));
+});
+
+// Reset to theme defaults
+document.getElementById("resetTheme").addEventListener("click", () => {
+  const savedTheme = localStorage.getItem("tyhi-theme");
+  if (savedTheme) applyTheme(savedTheme);
+
+  // Clear custom theme overrides
+  Object.keys(pickers).forEach(variable => {
+    document.documentElement.style.removeProperty(variable);
+  });
+
+  localStorage.removeItem("tyni-custom-theme");
+});
+
+// Load custom theme if saved
+const savedCustom = localStorage.getItem("tyni-custom-theme");
+if (savedCustom) {
+  const custom = JSON.parse(savedCustom);
+  Object.entries(custom).forEach(([variable, value]) => {
+    applyCustomColor(variable, value);
+  });
+}
 
 </script>
 
