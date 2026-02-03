@@ -1510,18 +1510,26 @@ if (savedCustom) {
 }
 
 function syncPickersToTheme() {
-  pickers["--bg"].value = rgbToHex(getComputedStyle(document.documentElement).getPropertyValue("--bg"));
-  pickers["--text"].value = rgbToHex(getComputedStyle(document.documentElement).getPropertyValue("--text"));
-  pickers["--accent"].value = rgbToHex(getComputedStyle(document.documentElement).getPropertyValue("--accent"));
-  pickers["--highlight"].value = rgbToHex(getComputedStyle(document.documentElement).getPropertyValue("--highlight"));
-  pickers["--soft"].value = rgbToHex(getComputedStyle(document.documentElement).getPropertyValue("--soft"));
+  const styles = getComputedStyle(document.documentElement);
+
+  pickers["--bg"].value        = rgbToHex(styles.getPropertyValue("--bg").trim());
+  pickers["--text"].value      = rgbToHex(styles.getPropertyValue("--text").trim());
+  pickers["--accent"].value    = rgbToHex(styles.getPropertyValue("--accent").trim());
+  pickers["--highlight"].value = rgbToHex(styles.getPropertyValue("--highlight").trim());
+  pickers["--soft"].value      = rgbToHex(styles.getPropertyValue("--soft").trim());
 }
 
+
 function rgbToHex(rgb) {
+  if (!rgb) return "#000000";
+
+  // Extract numbers safely
   const result = rgb.match(/\d+/g);
-  if (!result) return "#000000";
-  return "#" + result.map(x => {
-    const hex = parseInt(x).toString(16);
+  if (!result || result.length < 3) return "#000000";
+
+  // Convert each channel to 2‑digit hex
+  return "#" + result.slice(0, 3).map(x => {
+    const hex = parseInt(x, 10).toString(16);
     return hex.length === 1 ? "0" + hex : hex;
   }).join("");
 }
@@ -1561,11 +1569,22 @@ function applyTheme(name) {
   };
 
   const t = themes[name];
+
   for (let key in t) {
-    root.style.setProperty(`--${key}`, t[key]);
+    const value = t[key];
+
+    // Validate hex format (#rrggbb)
+    if (!/^#([0-9A-F]{6})$/i.test(value)) {
+      console.warn("Invalid theme color:", key, value);
+      continue;
+    }
+
+    root.style.setProperty(`--${key}`, value);
   }
 
   localStorage.setItem("tyni-theme", name);
+
+  // Now safe because pickers exist and rgbToHex is sanitized
   syncPickersToTheme();
 }
 
