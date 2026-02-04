@@ -25,6 +25,9 @@ body {
   margin: 0;
   font-family: "Inter", "Segoe UI", sans-serif;
   background: var(--bg);
+  background-image: var(--gradient);
+  background-attachment: fixed;
+  background-size: cover;
   color: var(--text);
   transition: background-color 0.4s ease, color 0.4s ease;
 }
@@ -288,13 +291,6 @@ h1, h2, h3 {
 /* -------------------------------------------------------
    THEME GRADIENT BACKGROUNDS (BOLD)
 -------------------------------------------------------- */
-
-body {
-  background: var(--bg);
-  background-image: var(--gradient);
-  background-attachment: fixed;
-  background-size: cover;
-}
 
 /* Cosmic */
 :root[data-theme="cosmic"] {
@@ -1789,6 +1785,7 @@ window.addEventListener("scroll", () => {
 
 </body>
 </html>
+
 
 
 
