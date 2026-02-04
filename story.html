@@ -1492,6 +1492,15 @@ openBtn.addEventListener("click", () => {
   panel.classList.add("open");
 });
 
+document.querySelectorAll(".theme-option").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const theme = btn.dataset.theme;
+    applyTheme(theme);
+
+    // close panel
+    themePanel.classList.remove("open");
+  });
+});
 
 /* -------------------------------------------------------
    CUSTOM THEME ACCORDION TOGGLE
@@ -1785,6 +1794,7 @@ window.addEventListener("scroll", () => {
 
 </body>
 </html>
+
 
 
 
