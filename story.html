@@ -1447,26 +1447,29 @@ body {
 -------------------------------------------------------- -->
 <script>
 
-
 /* =======================================================
-   STATE + DOM REFERENCES
+   STATE, DOM + PANEL CONTROLS
 ======================================================= */
+
 let customThemeActive = false;
 let customThemeDirty  = false;
 
-const panel              = document.getElementById("themePanel");
-const openBtn            = document.getElementById("openThemePanel");
-const applyCustomBtn     = document.getElementById("applyCustomTheme");
-const loadCustomBtn      = document.getElementById("loadSavedCustomTheme");
-const resetThemeBtn      = document.getElementById("resetTheme");
+const panel               = document.getElementById("themePanel");
+const openBtn             = document.getElementById("openThemePanel");
+const applyCustomBtn      = document.getElementById("applyCustomTheme");
+const loadCustomBtn       = document.getElementById("loadSavedCustomTheme");
+const resetThemeBtn       = document.getElementById("resetTheme");
 const loadDefaultCheckbox = document.getElementById("loadDefaultTheme");
 
-const customThemeSection = document.querySelector(".custom-theme");
-const customToggle       = document.querySelector(".custom-toggle");
+const customThemeSection  = document.querySelector(".custom-theme");
+const customToggle        = document.querySelector(".custom-toggle");
 
-const sections           = document.querySelectorAll("section");
-const navLinks           = document.querySelectorAll(".nav-link");
+const sections            = document.querySelectorAll("section");
+const navLinks            = document.querySelectorAll(".nav-link");
 
+/* -------------------------------------------------------
+   COLOR PICKERS
+-------------------------------------------------------- */
 const pickers = {
   "--bg":        document.getElementById("custom-bg"),
   "--text":      document.getElementById("custom-text"),
@@ -1474,27 +1477,35 @@ const pickers = {
   "--highlight": document.getElementById("custom-highlight"),
   "--soft":      document.getElementById("custom-soft")
 };
-/* =======================================================
-   APPLY CSS VARIABLE
-======================================================= */
+
+
+/* -------------------------------------------------------
+   APPLY CUSTOM COLOR TO CSS VARIABLE
+-------------------------------------------------------- */
 function applyCustomColor(variable, value) {
   document.documentElement.style.setProperty(variable, value);
 }
-/* =======================================================
-   OPEN PANEL
-======================================================= */
+
+
+/* -------------------------------------------------------
+   OPEN THEME PANEL
+-------------------------------------------------------- */
 openBtn.addEventListener("click", () => {
   panel.classList.add("open");
 });
-/* =======================================================
-   CUSTOM THEME ACCORDION
-======================================================= */
+
+
+/* -------------------------------------------------------
+   CUSTOM THEME ACCORDION TOGGLE
+-------------------------------------------------------- */
 customToggle.addEventListener("click", () => {
   customThemeSection.classList.toggle("open");
 });
-/* =======================================================
-   PICKER INPUT → LIVE PREVIEW + GLOW
-======================================================= */
+
+
+/* -------------------------------------------------------
+   LIVE PICKER UPDATES → CSS + GLOW (NO BUTTON RECOLOR)
+-------------------------------------------------------- */
 Object.entries(pickers).forEach(([variable, input]) => {
   input.addEventListener("input", () => {
     applyCustomColor(variable, input.value);
@@ -1505,25 +1516,23 @@ Object.entries(pickers).forEach(([variable, input]) => {
 });
 
 
-/* =======================================================
+/* -------------------------------------------------------
    APPLY CUSTOM THEME (SAVE + APPLY + UPDATE LOAD BUTTON)
-======================================================= */
+-------------------------------------------------------- */
 applyCustomBtn.addEventListener("click", () => {
   const customTheme = {};
 
-  // Save picker values + apply them
   Object.entries(pickers).forEach(([variable, input]) => {
     customTheme[variable] = input.value;
     applyCustomColor(variable, input.value);
   });
 
-  // Store custom theme
   localStorage.setItem("tyni-custom-theme", JSON.stringify(customTheme));
 
-  // Load button gets custom theme colors ONLY here
-  loadCustomBtn.style.background   = customTheme["--accent"];
-  loadCustomBtn.style.color        = customTheme["--bg"];
-  loadCustomBtn.style.borderColor  = customTheme["--accent"];
+  // Load button reflects saved custom theme ONLY here
+  loadCustomBtn.style.background  = customTheme["--accent"];
+  loadCustomBtn.style.color       = customTheme["--bg"];
+  loadCustomBtn.style.borderColor = customTheme["--accent"];
 
   customThemeActive = true;
   customThemeDirty  = false;
@@ -1531,25 +1540,22 @@ applyCustomBtn.addEventListener("click", () => {
   applyCustomBtn.classList.remove("apply-glow");
   panel.classList.remove("open");
 });
-/* =======================================================
+
+
+/* -------------------------------------------------------
    LOAD SAVED CUSTOM THEME (APPLY + SYNC PICKERS)
-======================================================= */
+-------------------------------------------------------- */
 loadCustomBtn.addEventListener("click", () => {
   const saved = localStorage.getItem("tyni-custom-theme");
   if (!saved) return;
 
   const custom = JSON.parse(saved);
 
-  // Apply saved custom theme
   Object.entries(custom).forEach(([variable, value]) => {
     applyCustomColor(variable, value);
   });
 
-  // Sync pickers to saved custom theme
   syncPickersToTheme("custom");
-
-  // Do NOT recolor Apply button
-  // Do NOT recolor Load button (it already shows saved theme)
 
   customThemeActive = true;
   customThemeDirty  = false;
@@ -1559,42 +1565,20 @@ loadCustomBtn.addEventListener("click", () => {
 });
 
 
-/* =======================================================
-   PRESET THEMES
-======================================================= */
-document.querySelectorAll(".theme-option").forEach(btn => {
-  btn.addEventListener("click", () => {
-    const theme = btn.dataset.theme;
-
-    customThemeActive = false;
-    customThemeDirty  = false;
-
-    applyCustomBtn.classList.remove("apply-glow");
-
-    applyTheme(theme);
-
-    // DO NOT recolor Apply or Load buttons
-
-    panel.classList.remove("open");
-  });
-});
-/* =======================================================
-   RESET TO DEFAULT COSMIC
-======================================================= */
+/* -------------------------------------------------------
+   RESET TO THEME DEFAULTS (COSMIC ONLY)
+-------------------------------------------------------- */
 resetThemeBtn.addEventListener("click", () => {
   applyTheme("cosmic");
 
   customThemeActive = false;
   customThemeDirty  = false;
-
   applyCustomBtn.classList.remove("apply-glow");
 
-  // DO NOT recolor Apply or Load buttons
+  // Do NOT touch custom theme storage or button colors
 });
-
-
 /* =======================================================
-   PRESET THEME MAP
+   PRESET THEMES MAP
 ======================================================= */
 const THEMES = {
   cosmic:  { bg:"#0f0f15", text:"#fffffe", accent:"#7f5af0", highlight:"#ffca3a", soft:"#94a1b2" },
@@ -1603,29 +1587,12 @@ const THEMES = {
   pastel:  { bg:"#f7f1ff", text:"#2a2a2a", accent:"#c77dff", highlight:"#ffafcc", soft:"#bde0fe" },
   neon:    { bg:"#000000", text:"#39ff14", accent:"#39ff14", highlight:"#ff00ff", soft:"#00eaff" }
 };
-/* =======================================================
-   APPLY PRESET THEME
-======================================================= */
-function applyTheme(name) {
-  const t = THEMES[name];
-  if (!t) return;
 
-  // Apply CSS variables
-  for (let key in t) {
-    document.documentElement.style.setProperty(`--${key}`, t[key]);
-  }
 
-  // Save preset theme selection
-  localStorage.setItem("tyni-theme", name);
-
-  // Sync pickers to this preset
-  syncPickersToTheme(name);
-}
 /* =======================================================
    SYNC PICKERS TO THEME
 ======================================================= */
 function syncPickersToTheme(name) {
-  // Custom theme
   if (name === "custom") {
     const custom = JSON.parse(localStorage.getItem("tyni-custom-theme"));
     if (!custom) return;
@@ -1637,7 +1604,6 @@ function syncPickersToTheme(name) {
     return;
   }
 
-  // Preset theme
   const t = THEMES[name];
   if (!t) return;
 
@@ -1650,24 +1616,41 @@ function syncPickersToTheme(name) {
 
 
 /* =======================================================
-   INITIAL LOAD LOGIC
+   APPLY PRESET THEME
 ======================================================= */
-const savedTheme       = localStorage.getItem("tyni-theme");
-const savedCustomTheme = localStorage.getItem("tyni-custom-theme");
-const savedDefaultPref = localStorage.getItem("tyni-load-default");
+function applyTheme(name) {
+  const t = THEMES[name];
+  if (!t) return;
 
-// Restore checkbox state
+  for (let key in t) {
+    document.documentElement.style.setProperty(`--${key}`, t[key]);
+  }
+
+  localStorage.setItem("tyni-theme", name);
+  syncPickersToTheme(name);
+}
+
+
+/* =======================================================
+   DEFAULT THEME CHECKBOX LOGIC
+======================================================= */
+const savedDefaultPref = localStorage.getItem("tyni-load-default");
 if (savedDefaultPref === "true") {
   loadDefaultCheckbox.checked = true;
 }
 
+
+/* =======================================================
+   INITIAL THEME LOAD ON PAGE START
+======================================================= */
+const savedTheme       = localStorage.getItem("tyni-theme");
+const savedCustomTheme = localStorage.getItem("tyni-custom-theme");
+
 if (loadDefaultCheckbox.checked) {
-  // User wants Cosmic on startup
   applyTheme("cosmic");
   customThemeActive = false;
 
 } else if (savedCustomTheme) {
-  // Load saved custom theme
   const custom = JSON.parse(savedCustomTheme);
 
   Object.entries(custom).forEach(([variable, value]) => {
@@ -1685,28 +1668,26 @@ if (loadDefaultCheckbox.checked) {
   customThemeDirty  = false;
 
 } else if (savedTheme) {
-  // Load saved preset theme
   applyTheme(savedTheme);
 
 } else {
-  // Default fallback
   applyTheme("cosmic");
 }
+
+
 /* =======================================================
-   SAVE DEFAULT CHECKBOX
+   SAVE CHECKBOX STATE WHEN TOGGLED
 ======================================================= */
 loadDefaultCheckbox.addEventListener("change", () => {
   localStorage.setItem("tyni-load-default", loadDefaultCheckbox.checked);
 
   if (loadDefaultCheckbox.checked) {
-    // Switch to Cosmic immediately
     customThemeActive = false;
     customThemeDirty  = false;
     applyCustomBtn.classList.remove("apply-glow");
     applyTheme("cosmic");
 
   } else {
-    // Restore last used theme
     const savedTheme       = localStorage.getItem("tyni-theme");
     const savedCustomTheme = localStorage.getItem("tyni-custom-theme");
 
@@ -1719,7 +1700,6 @@ loadDefaultCheckbox.addEventListener("change", () => {
 
       syncPickersToTheme("custom");
 
-      // Restore Load button colors
       loadCustomBtn.style.background  = custom["--accent"];
       loadCustomBtn.style.color       = custom["--bg"];
       loadCustomBtn.style.borderColor = custom["--accent"];
@@ -1738,12 +1718,9 @@ loadDefaultCheckbox.addEventListener("change", () => {
     }
   }
 });
-
-
 /* =======================================================
-   NAVIGATION + SCROLL EFFECTS (unchanged)
+   SMOOTH SCROLL NAVIGATION
 ======================================================= */
-
 document.querySelectorAll('.nav-link').forEach(link => {
   link.addEventListener('click', e => {
     e.preventDefault();
@@ -1752,14 +1729,37 @@ document.querySelectorAll('.nav-link').forEach(link => {
   });
 });
 
+
+/* =======================================================
+   FADE-IN SECTIONS ON SCROLL
+======================================================= */
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
-    if (entry.isIntersecting) entry.target.classList.add('visible');
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
   });
 }, { threshold: 0.2 });
 
-sections.forEach(sec => observer.observe(sec));
+sections.forEach(sec => {
+  observer.observe(sec);
+});
 
+
+/* =======================================================
+   COLLAPSIBLE CHAPTERS
+======================================================= */
+document.querySelectorAll('.chapter-toggle').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const chapter = btn.parentElement;
+    chapter.classList.toggle('open');
+  });
+});
+
+
+/* =======================================================
+   SCROLL-SPY ACTIVE LINK HIGHLIGHTING
+======================================================= */
 window.addEventListener("scroll", () => {
   let current = "";
 
@@ -1787,3 +1787,4 @@ window.addEventListener("scroll", () => {
 
 </body>
 </html>
+
