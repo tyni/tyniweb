@@ -445,6 +445,33 @@ body {
   100% { box-shadow: 0 0 0px var(--accent); }
 }
 
+/* -------------------------------------------------------
+   CUSTOM LOAD BUTTON
+-------------------------------------------------------- */
+
+.custom-load-separator {
+  margin: 1.2rem 0 0.8rem 0;
+  border: none;
+  border-top: 1px solid var(--soft);
+  opacity: 0.6;
+}
+
+.load-custom-btn {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  background: transparent;
+  border: 2px solid var(--accent);
+  border-radius: 6px;
+  color: var(--accent);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.load-custom-btn:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
 
 </style>
 
@@ -482,6 +509,8 @@ body {
 		<label>Highlight Color<input type="color" id="custom-highlight"></label>
 		<label>Soft Color<input type="color" id="custom-soft"></label>
 		<button id="applyCustomTheme" class="custom-btn">Apply Custom Theme</button>
+		<hr class="custom-load-separator">
+			<button id="loadSavedCustomTheme" class="load-custom-btn">Load Saved Custom Theme</button>
 		<button id="resetTheme" class="reset-btn">Reset to Theme Defaults</button>
 	  </div>
 	</div>
@@ -1757,6 +1786,38 @@ loadDefaultCheckbox.addEventListener("change", () => {
   }
 });
 
+
+/* -------------------------------------------------------
+   LOAD CUSTOM SAVED THEME
+-------------------------------------------------------- */
+document.getElementById("loadSavedCustomTheme").addEventListener("click", () => {
+  const savedCustomTheme = localStorage.getItem("tyni-custom-theme");
+  if (!savedCustomTheme) return;
+
+  const custom = JSON.parse(savedCustomTheme);
+
+  // Apply saved custom colors
+  Object.entries(custom).forEach(([variable, value]) => {
+    applyCustomColor(variable, value);
+  });
+
+  // Sync pickers to saved custom theme
+  syncPickersToTheme("custom");
+
+  // Update Apply button to saved custom colors
+  customButtonColors.accent = pickers["--accent"].value;
+  customButtonColors.text   = pickers["--bg"].value;
+  styleApplyButtonCustom();
+
+  // This is a clean load, not a draft
+  customThemeActive = true;
+  customThemeDirty  = false;
+  applyCustomBtn.classList.remove("apply-glow");
+
+  // Close panel for consistency
+  panel.classList.remove("open");
+});
+
 </script>
 
 <footer>
@@ -1765,3 +1826,4 @@ loadDefaultCheckbox.addEventListener("change", () => {
 
 </body>
 </html>
+
