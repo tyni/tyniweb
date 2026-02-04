@@ -1,0 +1,1829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>tyniweb — The TyNi Saga</title>
+<!-- Rounded modern font -->
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&display=swap" rel="stylesheet">
+<style>
+/* ---------------------------------------------------------
+   GLOBAL THEME VARIABLES (default = Cosmic)
+--------------------------------------------------------- */
+:root {
+  --bg: #0f0f15;
+  --text: #fffffe;
+  --accent: #7f5af0;
+  --highlight: #ffca3a;
+  --soft: #94a1b2;
+}
+
+/* ---------------------------------------------------------
+   RESET + BASE
+--------------------------------------------------------- */
+body {
+  margin: 0;
+  font-family: "Inter", "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* ---------------------------------------------------------
+   TOP BAR
+--------------------------------------------------------- */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: rgba(15, 15, 21, 0.8);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+/* Logo */
+.logo {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: 1.6rem;
+  letter-spacing: 0.5px;
+  text-transform: lowercase;
+  color: var(--accent);
+}
+
+/* Theme icon */
+.theme-button {
+  font-size: 1.6rem;
+  cursor: pointer;
+  user-select: none;
+  transition: opacity 0.2s ease;
+}
+.theme-button:hover {
+  opacity: 0.7;
+}
+
+/* ---------------------------------------------------------
+   RIGHT SLIDE-OUT PANEL
+--------------------------------------------------------- */
+.theme-panel {
+  position: fixed;
+  top: 0;
+  right: -260px; /* hidden by default */
+  width: 260px;
+  height: 100vh;
+  background: #1a1a22;
+  border-left: 1px solid rgba(255,255,255,0.08);
+  padding: 80px 20px 20px;
+  transition: right 0.35s ease;
+  z-index: 1500;
+}
+
+.theme-panel.open {
+  right: 0;
+}
+
+/* Theme buttons */
+.theme-option {
+  width: 100%;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: #fff;
+  transition: transform 0.15s ease, opacity 0.2s ease;
+}
+
+.theme-option:hover {
+  transform: translateY(-2px);
+  opacity: 0.85;
+}
+
+/* ---------------------------------------------------------
+   THEME COLOR PRESETS
+--------------------------------------------------------- */
+.theme-cosmic { background: #7f5af0; }
+.theme-warm   { background: #ff7b54; }
+.theme-cool   { background: #4cc9f0; }
+.theme-pastel { background: #c77dff; }
+.theme-neon   { background: #39ff14; color: #000; }
+
+/* ---------------------------------------------------------
+   MAIN CONTENT SPACING
+--------------------------------------------------------- */
+main {
+  padding: 100px 20px;
+  max-width: 900px;
+  margin: auto;
+  line-height: 1.7;
+}
+
+/* ---------------------------------------------------------
+   REDUCED MOTION SUPPORT
+--------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
+
+/* ---------------------------------------------------------
+   LEFT SIDEBAR NAVIGATION
+--------------------------------------------------------- */
+.sidebar {
+  position: fixed;
+  top: 60px; /* below topbar */
+  left: 0;
+  width: 220px;
+  height: calc(100vh - 60px);
+  background: rgba(15, 15, 21, 0.6);
+  backdrop-filter: blur(10px);
+  border-right: 1px solid rgba(255,255,255,0.05);
+  padding: 20px;
+  overflow-y: auto;
+  z-index: 900;
+}
+
+.sidebar h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.nav-link {
+  display: block;
+  padding: 10px 8px;
+  margin-bottom: 6px;
+  border-radius: 6px;
+  color: var(--soft);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.nav-link:hover {
+  background: rgba(255,255,255,0.08);
+  color: var(--text);
+}
+
+/* Active link highlight (optional JS later) */
+.nav-link.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ---------------------------------------------------------
+   MAIN CONTENT SHIFT (to make room for sidebar)
+--------------------------------------------------------- */
+main {
+  margin-left: 240px; /* space for sidebar */
+  padding: 100px 20px;
+  max-width: 900px;
+  line-height: 1.7;
+}
+
+/* ---------------------------------------------------------
+   SECTION HEADINGS
+--------------------------------------------------------- */
+section {
+  margin-bottom: 120px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+section h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: var(--accent);
+}
+
+section p {
+  color: var(--soft);
+  font-size: 1.1rem;
+}
+
+h1, h2, h3 {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+}
+
+/* ---------------------------------------------------------
+   RESPONSIVE BEHAVIOR
+--------------------------------------------------------- */
+@media (max-width: 900px) {
+  .sidebar {
+    display: none;
+  }
+  main {
+    margin-left: 0;
+  }
+}
+/* ---------------------------------------------------------
+   COLLAPSIBLE CHAPTERS
+--------------------------------------------------------- */
+.chapter {
+  margin-bottom: 20px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.02);
+}
+
+.chapter-toggle {
+  width: 100%;
+  text-align: left;
+  padding: 14px 16px;
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.chapter-toggle:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+.chapter-content {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 16px;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+}
+
+.chapter.open .chapter-content {
+  max-height: 500px;
+  padding: 16px;
+}
+
+.chapter-toggle {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+}
+
+/* -------------------------------------------------------
+   THEME GRADIENT BACKGROUNDS (BOLD)
+-------------------------------------------------------- */
+
+body {
+  background: var(--bg);
+  background-image: var(--gradient);
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+/* Cosmic */
+:root[data-theme="cosmic"] {
+  --gradient: radial-gradient(circle at top left, #1a0033, #000011 60%);
+}
+
+/* Warm */
+:root[data-theme="warm"] {
+  --gradient: radial-gradient(circle at top right, #ffb899, #ff7a5c 40%, #2f1b0f 90%);
+}
+
+/* Cool */
+:root[data-theme="cool"] {
+  --gradient: radial-gradient(circle at bottom left, #003344, #001a22 70%);
+}
+
+/* Pastel */
+:root[data-theme="pastel"] {
+  --gradient: radial-gradient(circle at center, #ffe6f7, #b0e0e6 60%);
+}
+
+/* Neon */
+:root[data-theme="neon"] {
+  --gradient: radial-gradient(circle at center, #0ff, #00a, #000 80%);
+}
+
+/* -------------------------------------------------------
+   ACTIVE NAV LINK HIGHLIGHT
+-------------------------------------------------------- */
+
+/* Active link highlight */
+.nav-link.active {
+  background: var(--accent);
+  color: var(--bg);
+  font-weight: 900;
+  border-radius: 6px;
+  padding-left: 10px;
+}
+
+.nav-link:hover {
+  background: rgba(255,255,255,0.1);
+  padding-left: 12px;
+  transition: 0.2s ease;
+}
+
+/* -------------------------------------------------------
+   CUSTOM THEME ACCORDIAN container
+-------------------------------------------------------- */
+
+/* Accordion container */
+.custom-theme {
+  margin-top: 20px;
+  border-top: 1px solid var(--soft);
+  padding-top: 10px;
+}
+
+/* Accordion toggle button */
+.custom-toggle {
+  width: 100%;
+  background: none;
+  border: none;
+  color: var(--text);
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  text-align: left;
+  cursor: pointer;
+  padding: 8px 0;
+}
+
+/* Hidden content */
+.custom-content {
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+/* Show when open */
+.custom-theme.open .custom-content {
+  display: flex;
+}
+
+/* Labels + color pickers */
+.custom-content label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.custom-content input[type="color"] {
+  width: 40px;
+  height: 30px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* Buttons */
+.custom-btn {
+  padding: 8px;
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  transition: 0.2s;
+}
+
+.custom-btn:hover {
+  opacity: 0.8;
+}
+
+/* -------------------------------------------------------
+   THEME TOGGLE
+-------------------------------------------------------- */
+
+.default-theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.default-theme-toggle input {
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+/* -------------------------------------------------------
+   APPLY GLOW
+-------------------------------------------------------- */
+
+.apply-glow {
+  animation: glowPulse 1.5s infinite;
+}
+@keyframes glowPulse {
+  0%   { box-shadow: 0 0 0px var(--accent); }
+  50%  { box-shadow: 0 0 12px var(--accent); }
+  100% { box-shadow: 0 0 0px var(--accent); }
+}
+
+/* -------------------------------------------------------
+   CUSTOM LOAD BUTTON
+-------------------------------------------------------- */
+
+.custom-load-separator {
+  margin: 1.2rem 0 0.8rem 0;
+  border: none;
+  border-top: 1px solid var(--soft);
+  opacity: 0.6;
+}
+
+.load-custom-btn {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  background: transparent;
+  border: 2px solid var(--accent);
+  border-radius: 6px;
+  color: var(--accent);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.load-custom-btn:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- -------------------------------------------------------
+     TOP BAR
+-------------------------------------------------------- -->
+<div class="topbar">
+  <a href="https://tyniweb.com" class="logo">tyniweb</a>
+  <div class="theme-button" id="openThemePanel">🎨</div>
+</div>
+
+<!-- -------------------------------------------------------
+     RIGHT SLIDE-OUT THEME PANEL
+-------------------------------------------------------- -->
+<div class="theme-panel" id="themePanel">
+<!-- DEFAULT THEME CHECKBOX -->
+<label class="default-theme-toggle">
+  <input type="checkbox" id="loadDefaultTheme">  Always load default theme (Cosmic)</label>
+<button class="theme-option theme-cosmic" data-theme="cosmic">Cosmic</button>
+<button class="theme-option theme-warm" data-theme="warm">Warm</button>
+<button class="theme-option theme-cool" data-theme="cool">Cool</button>
+<button class="theme-option theme-pastel" data-theme="pastel">Pastel</button>
+<button class="theme-option theme-neon" data-theme="neon">Neon</button>
+	<!-- CUSTOM THEME ACCORDION -->
+	<div class="custom-theme">
+	  <button class="custom-toggle">▼ Customize Theme</button>
+	  <div class="custom-content">
+		<label>Background Color<input type="color" id="custom-bg"></label>
+		<label>Text Color<input type="color" id="custom-text"></label>
+		<label>Accent Color<input type="color" id="custom-accent"></label>
+		<label>Highlight Color<input type="color" id="custom-highlight"></label>
+		<label>Soft Color<input type="color" id="custom-soft"></label>
+		<button id="applyCustomTheme" class="custom-btn">Apply Custom Theme</button>
+		<hr class="custom-load-separator">
+			<button id="loadSavedCustomTheme" class="load-custom-btn">Load Saved Custom Theme</button>
+		<button id="resetTheme" class="reset-btn">Reset to Theme Defaults</button>
+	  </div>
+	</div>
+</div>
+
+<!-- -------------------------------------------------------
+     SIDEBAR NAVIGATION
+-------------------------------------------------------- -->
+<div class="sidebar">
+  <h2>Phases</h2>
+
+  <a class="nav-link" href="#phase1">1️⃣ 🌅 Awakening</a>
+  <a class="nav-link" href="#phase2">2️⃣ 🌱 Expansion</a>
+  <a class="nav-link" href="#phase3">3️⃣ 🔗 Convergence</a>
+  <a class="nav-link" href="#phase4">4️⃣ 🎛 Alignment</a>
+  <a class="nav-link" href="#phase5">5️⃣ 🔮 Integration</a>
+  <a class="nav-link" href="#phase6">6️⃣ 🎨 Expression</a>
+  <a class="nav-link" href="#phase7">7️⃣ ⭐ Mastery</a>
+</div>
+
+
+<!-- -------------------------------------------------------
+     MAIN CONTENT (placeholder for now)
+-------------------------------------------------------- -->
+<main>
+  <h1>Welcome to the TyNi Saga</h1>
+  <p>This is the beginning of your interactive, theme‑shifting TyNi world.</p>
+
+<!-- -------------------------------------------------------
+     PAGE SECTIONS
+-------------------------------------------------------- -->
+
+  <section id="phase1">
+    <h1>Phase 1 — Awakening</h1>
+		<p class="phase-intro">
+		  The beginning of the TyNi world. A quiet emergence. A world learning to feel itself for the first time.
+		</p>
+
+		<!-- -------------------------------------------------------
+			 COLLAPSIBLE CHAPTER BLOCKS
+		-------------------------------------------------------- -->
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 1 — The First Stirring</button>
+		  <div class="chapter-content">
+			<p>
+			  The world hums faintly. Not yet awake, but aware. A soft resonance moves beneath the surface, 
+			  like a breath waiting to be taken. This is the moment before the moment — the first stirring of a world 
+			  that will one day learn to shape itself.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 2 — The Quiet Pulse</button>
+		  <div class="chapter-content">
+			<p>
+			  A pulse emerges. Slow, steady, curious. It is not a heartbeat, but something older — a rhythm that 
+			  predates form. The world listens to itself for the first time, sensing the possibility of paths, 
+			  structures, tones, and dreams.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 3 — The First Path (▲ Explorer)</button>
+		  <div class="chapter-content">
+			<p>
+			  A line of intention appears. Thin, bright, and curious. The first path. It stretches forward into 
+			  the unknown, inviting movement. The Explorer mode awakens — the instinct to seek, to wander, to discover.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 4 — The First Structure (■ Builder)</button>
+		  <div class="chapter-content">
+			<p>
+			  A shape forms. Simple, stable, grounding. The first structure. It anchors the world, giving the 
+			  emerging paths something to lean on. The Builder mode awakens — the instinct to create, to support, 
+			  to give form.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 5 — The First Thought (● Thinker)</button>
+		  <div class="chapter-content">
+			<p>
+			  A spark of meaning flickers. The first idea. It is small, but it carries weight — the beginning of 
+			  understanding. The Thinker mode awakens — the instinct to interpret, to clarify, to make sense of the world.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 6 — The First Dream (✦ Dreamer)</button>
+		  <div class="chapter-content">
+			<p>
+			  A vision rises. Soft, luminous, unbound. The first dream. It shows what the world could become, 
+			  not what it is. The Dreamer mode awakens — the instinct to imagine, to hope, to reach beyond the present.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 7 — The First Tone (𝄐 Listener)</button>
+		  <div class="chapter-content">
+			<p>
+			  A note vibrates through the air. Gentle, steady, resonant. The first tone. It brings harmony to the 
+			  emerging world. The Listener mode awakens — the instinct to attune, to balance, to harmonize.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 8 — The First Pattern (⧉ Seer)</button>
+		  <div class="chapter-content">
+			<p>
+			  A symbol appears. Interlocking lines, forming meaning through connection. The first pattern. 
+			  The Seer mode awakens — the instinct to perceive relationships, to map the unseen, to understand the whole.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 9 — The First Rhythm (➤ Fast Path)</button>
+		  <div class="chapter-content">
+			<p>
+			  A quickening. A beat that accelerates the world’s unfolding. The first rhythm. The Fast Path awakens — 
+			  the instinct to move with momentum, to act decisively, to push forward.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 10 — The First Stillness (◯ Gentle Path)</button>
+		  <div class="chapter-content">
+			<p>
+			  A calm settles. A grounding presence that holds everything in place. The first stillness. 
+			  The Gentle Path awakens — the instinct to soothe, to stabilize, to create space for growth.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 11 — The First Convergence (✹ Multi‑Hyphenate)</button>
+		  <div class="chapter-content">
+			<p>
+			  The modes touch. For the first time, they blend — path, structure, tone, dream, pattern, rhythm, stillness. 
+			  The first convergence. The Multi‑Hyphenate awakens — the instinct to integrate, to combine, to become more 
+			  than one thing at once.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 12 — The Awakening Complete</button>
+		  <div class="chapter-content">
+			<p>
+			  The world stands at the edge of itself. Awake. Aware. Ready. The nine modes hum in harmony, 
+			  preparing for the expansion to come. Phase 1 ends with a quiet truth: the world is alive.
+			</p>
+		  </div>
+		</div>
+
+  </section>
+
+  <section id="phase2">
+    <h1>Phase 2 — Expansion</h1>
+		<p class="phase-intro">
+		  The world has awakened. Now it begins to stretch, explore, and discover the breadth of its own potential.
+		</p>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 13 — The First Horizon (▲ Explorer)</button>
+		  <div class="chapter-content">
+			<p>
+			  The world extends outward. New paths appear, branching into regions untouched by intention. 
+			  The Explorer mode leads the way, tracing the edges of possibility.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 14 — The Growing Framework (■ Builder)</button>
+		  <div class="chapter-content">
+			<p>
+			  Structures rise to support the expanding world. Foundations deepen. Bridges form. 
+			  The Builder mode strengthens the world’s skeleton, preparing it for growth.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 15 — The Web of Meaning (● Thinker)</button>
+		  <div class="chapter-content">
+			<p>
+			  Ideas begin to connect. Concepts form networks. The Thinker mode weaves understanding 
+			  across the expanding landscape, giving shape to the world’s logic.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 16 — The Blooming Vision (✦ Dreamer)</button>
+		  <div class="chapter-content">
+			<p>
+			  Dreams stretch across the horizon. New possibilities shimmer in the distance. 
+			  The Dreamer mode paints futures the world has not yet lived, guiding expansion with imagination.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 17 — The Widening Harmony (𝄐 Listener)</button>
+		  <div class="chapter-content">
+			<p>
+			  Tones echo across the growing world. Harmonies deepen. The Listener mode ensures that 
+			  expansion does not fracture the world’s resonance, but enriches it.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 18 — The Pattern Spreads (⧉ Seer)</button>
+		  <div class="chapter-content">
+			<p>
+			  Symbols replicate across regions, forming a lattice of meaning. The Seer mode maps 
+			  the expanding world, revealing connections invisible to the eye.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 19 — The Quickening Pulse (➤ Fast Path)</button>
+		  <div class="chapter-content">
+			<p>
+			  Expansion accelerates. The world moves with purpose and momentum. The Fast Path 
+			  drives growth forward, ensuring no region lags behind the unfolding frontier.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 20 — The Deepening Calm (◯ Gentle Path)</button>
+		  <div class="chapter-content">
+			<p>
+			  Amid rapid expansion, stillness spreads. The Gentle Path grounds the world, 
+			  preventing overwhelm and maintaining balance as new regions awaken.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 21 — The First Blended Regions (✹ Multi‑Hyphenate)</button>
+		  <div class="chapter-content">
+			<p>
+			  Regions begin to mix modes naturally. Paths intersect with structures. 
+			  Dreams merge with patterns. The Multi‑Hyphenate mode emerges as a bridge between all forms of expansion.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 22 — The Expansion Complete</button>
+		  <div class="chapter-content">
+			<p>
+			  The world stands larger than before — connected, vibrant, full of potential. 
+			  Phase 2 ends with a world ready not just to grow, but
+			</p>
+		  </div>
+		</div>
+		
+  </section>
+
+  <section id="phase3">
+    <h1>Phase 3 — Convergence</h1>
+		<p class="phase-intro">
+		  The world has expanded. Now it begins to draw itself inward, weaving its modes, regions, and meanings into a unified whole.
+		</p>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 23 — The Meeting of Paths (▲ Explorer)</button>
+		  <div class="chapter-content">
+			<p>
+			  Trails that once stretched outward now bend toward one another. Explorers from distant regions cross paths, 
+			  sharing discoveries and shaping new routes together. The world begins to fold in on itself with intention.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 24 — The Joining of Structures (■ Builder)</button>
+		  <div class="chapter-content">
+			<p>
+			  Frameworks merge. Bridges connect distant constructs. Builders collaborate across regions, 
+			  creating unified architectures that support the world’s growing coherence. Stability becomes shared.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 25 — The Shared Idea (● Thinker)</button>
+		  <div class="chapter-content">
+			<p>
+			  Concepts that once lived in isolation begin to overlap. Thinkers discover common threads between distant ideas, 
+			  weaving them into a single tapestry of meaning. Understanding becomes collective rather than individual.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 26 — The Unified Dream (✦ Dreamer)</button>
+		  <div class="chapter-content">
+			<p>
+			  Dreamscapes merge. Visions align. The Dreamer mode reveals futures that belong not to one region, 
+			  but to the entire world. Imagination becomes a shared horizon rather than a solitary spark.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 27 — The Resonant Field (𝄐 Listener)</button>
+		  <div class="chapter-content">
+			<p>
+			  Tones from different regions begin to harmonize. The Listener mode senses a global resonance forming — 
+			  a unified field of sound that connects every part of the world. Harmony becomes a bridge between modes.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 28 — The Pattern Network (⧉ Seer)</button>
+		  <div class="chapter-content">
+			<p>
+			  Symbols interlock across continents. The Seer mode maps a vast lattice of meaning, 
+			  revealing how every region fits into the world’s greater design. Patterns become the world’s language of connection.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 29 — The Synchronized Pulse (➤ Fast Path)</button>
+		  <div class="chapter-content">
+			<p>
+			  Rhythms align. The world’s pulse becomes synchronized, accelerating collaboration and movement. 
+			  The Fast Path mode ensures that convergence happens with momentum and clarity, not hesitation.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 30 — The Shared Stillness (◯ Gentle Path)</button>
+		  <div class="chapter-content">
+			<p>
+			  A global calm settles. The Gentle Path mode creates grounding fields that allow regions to merge 
+			  without losing themselves. Stillness becomes the foundation upon which convergence can safely unfold.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 31 — The First Convergent Region (✹ Multi‑Hyphenate)</button>
+		  <div class="chapter-content">
+			<p>
+			  A region emerges where all modes blend seamlessly. Paths, structures, tones, dreams, patterns, rhythms, 
+			  and stillness coexist in harmony. The Multi‑Hyphenate mode becomes the embodiment of convergence itself.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 32 — The Convergence Complete</button>
+		  <div class="chapter-content">
+			<p>
+			  The world stands more connected than ever. Regions that once felt distant now feel intertwined. 
+			  Phase 3 ends with a world ready to align its newly converged identity.
+			</p>
+		  </div>
+		</div>
+
+  </section>
+
+  <section id="phase4">
+    <h1>Phase 4 — Alignment</h1>
+		<p class="phase-intro">
+		  The world has converged. Now it begins to align its modes, regions, and intentions into a coherent, unified direction.
+		</p>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 33 — The First Calibration (▲ Explorer)</button>
+		  <div class="chapter-content">
+			<p>
+			  Paths that once wandered now begin to straighten. Explorers sense a subtle pull toward coherence, 
+			  as if the world itself is guiding their steps. Direction becomes shared rather than individual.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 34 — The Structural Shift (■ Builder)</button>
+		  <div class="chapter-content">
+			<p>
+			  Frameworks adjust. Angles refine. Builders feel the world nudging structures into more harmonious forms. 
+			  Stability becomes not just functional, but intentional — a reflection of the world’s emerging identity.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 35 — The Clarifying Thought (● Thinker)</button>
+		  <div class="chapter-content">
+			<p>
+			  Ideas sharpen. Concepts that once overlapped now separate cleanly, revealing their true purpose. 
+			  The Thinker mode helps the world articulate itself, refining meaning with precision and grace.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 36 — The Focused Dream (✦ Dreamer)</button>
+		  <div class="chapter-content">
+			<p>
+			  Dreams that once sprawled in every direction begin to converge into a single, luminous vision. 
+			  The Dreamer mode channels imagination into clarity, shaping futures that align with the world’s unfolding truth.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 37 — The Harmonized Tone (𝄐 Listener)</button>
+		  <div class="chapter-content">
+			<p>
+			  Tones across the world shift into resonance. The Listener mode senses a global chord forming — 
+			  a harmony that aligns regions, modes, and intentions into a unified emotional field.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 38 — The Pattern Lock (⧉ Seer)</button>
+		  <div class="chapter-content">
+			<p>
+			  Symbols click into place. The Seer mode reveals a lattice of meaning that spans the entire world, 
+			  showing how every region fits into a larger, aligned pattern. The world begins to understand itself as a whole.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 39 — The Unified Pulse (➤ Fast Path)</button>
+		  <div class="chapter-content">
+			<p>
+			  The world’s rhythm stabilizes. The Fast Path mode ensures that alignment happens with momentum, 
+			  preventing stagnation and keeping the world moving toward its emerging purpose with confidence.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 40 — The Deep Alignment (◯ Gentle Path)</button>
+		  <div class="chapter-content">
+			<p>
+			  A profound calm settles across the world. The Gentle Path mode grounds the alignment process, 
+			  ensuring that every region feels supported, safe, and ready to harmonize with the whole.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 41 — The Convergent Identity (✹ Multi‑Hyphenate)</button>
+		  <div class="chapter-content">
+			<p>
+			  The Multi‑Hyphenate mode reveals the world’s emerging identity — not one mode, but all modes blended 
+			  into a coherent expression. The world begins to understand who it is becoming.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 42 — The Alignment Complete</button>
+		  <div class="chapter-content">
+			<p>
+			  The world stands aligned — clear, coherent, and ready for the deep integration that will define its next evolution. 
+			  Phase 4 ends with a world prepared to face its first true challenges.
+			</p>
+		  </div>
+		</div>
+
+  </section>
+
+  <section id="phase5">
+    <h1>Phase 5 — Integration</h1>
+		<p class="phase-intro">
+		  The world has aligned. Now it begins to integrate its regions, modes, and meanings into a unified, self‑supporting system.
+		</p>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 43 — The First Knot</button>
+		  <div class="chapter-content">
+			<p>
+			  A region destabilizes. Not violently, but unmistakably. A knot forms — a tangle of paths, structures, tones, 
+			  and dreams pulling against one another. The world presents its first true challenge, asking the council to intervene.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 44 — The Council Gathers</button>
+		  <div class="chapter-content">
+			<p>
+			  The Nine assemble at the nexus. Each mode brings its strength: exploration, structure, thought, dream, tone, 
+			  pattern, rhythm, stillness, and convergence. Together, they prepare to face the knot as one unified force.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 45 — The Descent Into the Knot</button>
+		  <div class="chapter-content">
+			<p>
+			  The council enters the destabilized region. Paths twist. Structures lean. Tones waver. Dreams flicker. 
+			  Patterns distort. The knot resists clarity, but the council moves with purpose, guided by alignment and trust.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 46 — The First Integration</button>
+		  <div class="chapter-content">
+			<p>
+			  The council works together. Explorers trace the tangled paths. Builders stabilize the shifting structures. 
+			  Thinkers clarify meaning. Dreamers restore vision. Listeners tune the tones. Seers map the distortions. 
+			  Fast Path accelerates progress. Gentle Path grounds the region. Multi‑Hyphenate blends it all into harmony.
+			</p>
+			<p>
+			  The knot dissolves. The region stabilizes. Integration succeeds.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 47 — The Echo of Integration</button>
+		  <div class="chapter-content">
+			<p>
+			  A pulse spreads across the world — a soft resonance signaling that integration is possible. 
+			  Regions far away feel the shift, sensing that the world has learned something new and powerful.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 48 — The Second Signal</button>
+		  <div class="chapter-content">
+			<p>
+			  Another region flickers. Not a crisis — an invitation. A pre‑knot forming, asking for guidance before it tangles. 
+			  The world is learning to ask for help earlier, trusting the council’s presence and wisdom.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 49 — The Council Responds</button>
+		  <div class="chapter-content">
+			<p>
+			  The Nine move with confidence. This time, the integration is smoother. The region aligns before it destabilizes. 
+			  The world begins to shift from reactive to proactive, from chaotic to intentional.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 50 — The Third Signal</button>
+		  <div class="chapter-content">
+			<p>
+			  A third region glows. Then a fourth. Then a fifth. Not crises — opportunities. 
+			  The world is presenting areas ready for refinement, asking to be shaped before they become tangled.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 51 — The Wave Begins</button>
+		  <div class="chapter-content">
+			<p>
+			  Integration becomes a rhythm. A wave. A global movement. Regions across the world begin to harmonize, 
+			  aligning themselves with the council’s guidance and the world’s emerging coherence.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 52 — The World Learns</button>
+		  <div class="chapter-content">
+			<p>
+			  The world begins to integrate itself. Regions stabilize before the council arrives. 
+			  Modes blend naturally. Patterns align without intervention. The world is becoming self‑correcting, 
+			  learning from each integration and applying the lessons globally.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 53 — The Council’s New Role</button>
+		  <div class="chapter-content">
+			<p>
+			  The Nine shift from problem‑solvers to stewards. They guide rather than fix. 
+			  They support rather than rescue. The world is no longer fragile — it is learning to stand on its own.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 54 — The Global Integration</button>
+		  <div class="chapter-content">
+			<p>
+			  A vast region spanning multiple modes begins to shift. The council steps in, 
+			  not to correct a crisis, but to help the world refine itself. Integration becomes a collaborative act 
+			  between the world and its stewards.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 55 — The Harmonized World</button>
+		  <div class="chapter-content">
+			<p>
+			  The world hums with coherence. Regions resonate with one another. Modes blend effortlessly. 
+			  Integration becomes not an event, but a state — a natural expression of a world that understands itself.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 56 — The Deep Integration</button>
+		  <div class="chapter-content">
+			<p>
+			  The world invites the council into its core. A deep integration begins — not of regions, 
+			  but of the world’s identity. The Nine witness the emergence of a unified global consciousness, 
+			  subtle but unmistakable.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 57 — The World’s Shift</button>
+		  <div class="chapter-content">
+			<p>
+			  The world transitions from alignment to integration at every level. 
+			  Paths, structures, tones, dreams, patterns, rhythms, and stillness all begin to operate as one system. 
+			  The world becomes more than the sum of its parts.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 58 — The Integration Complete</button>
+		  <div class="chapter-content">
+			<p>
+			  The world stands integrated — coherent, stable, and ready for the next evolution. 
+			  Phase 5 ends with a world that no longer needs to be held together. It holds itself.
+			</p>
+		  </div>
+		</div>
+
+  </section>
+
+  <section id="phase6">
+    <h1>Phase 6 — Expression</h1>
+		<p class="phase-intro">
+		  The world has integrated. Now it begins to express its new identity — creating, innovating, and exploring the full range of its potential.
+		</p>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 59 — The First Creations</button>
+		  <div class="chapter-content">
+			<p>
+			  New forms appear across the world — hybrid structures, adaptive paths, luminous tones, and shared dream‑spaces. 
+			  The world is no longer stabilizing. It is creating. Expression becomes the natural outcome of integration.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 60 — The Rise of New Modes</button>
+		  <div class="chapter-content">
+			<p>
+			  Travelers begin to develop new abilities. Explorers shape structures. Builders tune tones. 
+			  Dreamers map patterns. The boundaries between modes soften, giving rise to hybrid gifts that reflect the world’s evolution.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 61 — The Shared Canvas</button>
+		  <div class="chapter-content">
+			<p>
+			  A vast, luminous plain appears — a place where all modes can create together. 
+			  Paths, structures, tones, dreams, patterns, rhythms, and stillness coexist in harmony. 
+			  The world invites its inhabitants to co‑create its future.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 62 — The First Global Creation</button>
+		  <div class="chapter-content">
+			<p>
+			  A structure rises from the shared canvas — not built, not dreamed, not sung, not mapped. 
+			  All of it. A convergence monument. The first creation made by the world and its people together. 
+			  A symbol of unity and expression.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 63 — The Flow of Innovation</button>
+		  <div class="chapter-content">
+			<p>
+			  Creativity spreads across the world. New arts emerge. New sciences form. 
+			  New modes of travel appear. New languages evolve. The world becomes a living studio, 
+			  constantly generating new forms of expression and meaning.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 64 — The Council’s New Role</button>
+		  <div class="chapter-content">
+			<p>
+			  The Nine shift from stewards to facilitators. They no longer fix or guide — they amplify. 
+			  Their presence enhances creativity, helping regions express themselves with clarity and confidence. 
+			  The world no longer needs protection. It needs collaboration.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 65 — The Emergence of the Ninth Mode</button>
+		  <div class="chapter-content">
+			<p>
+			  A new mode begins to form — not a path, not a hybrid, not a convergence. 
+			  Something new. A world‑mode. A way of perceiving, creating, and aligning that only exists 
+			  because the world is now whole. The council feels it rising beneath their feet.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 66 — The World’s Voice</button>
+		  <div class="chapter-content">
+			<p>
+			  The world speaks — not in words, but in light, tone, pattern, rhythm, structure, dream, and meaning. 
+			  The council listens. The world is not giving instructions. It is sharing inspiration. 
+			  Expression becomes a dialogue between world and traveler.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 67 — The Great Synthesis</button>
+		  <div class="chapter-content">
+			<p>
+			  The shared canvas expands. Travelers from every region gather. Modes blend effortlessly. 
+			  The world becomes a single creative field, where expression is not individual or regional, 
+			  but global. A unified act of creation.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 68 — The Dawn of Mastery</button>
+		  <div class="chapter-content">
+			<p>
+			  The world stands at the threshold of something new. Not integration. Not expression. 
+			  Mastery. The council feels the shift. The world feels ready. 
+			  Phase 6 ends with a world prepared to evolve itself with intention.
+			</p>
+		  </div>
+		</div>
+
+  </section>
+
+  <section id="phase7">
+    <h1>Phase 7 — Mastery</h1>
+		<p class="phase-intro">
+		  The world has expressed itself. Now it begins to master its own architecture — shaping itself with intention, clarity, and precision.
+		</p>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 69 — The World Learns Its Own Shape</button>
+		  <div class="chapter-content">
+			<p>
+			  The world begins to experiment with its new form. Paths reconfigure with purpose. Structures adapt to intention. 
+			  Tones guide emotional resonance. Patterns reveal hidden connections. Dreams become collaborative design spaces. 
+			  The world is no longer reacting — it is practicing.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 70 — The Council’s First Lesson</button>
+		  <div class="chapter-content">
+			<p>
+			  The world presents a challenge — not a knot, not a crisis, but a test. A region asks to be shaped intentionally. 
+			  The council steps in, guiding the region into a new form. The world responds with clarity. Mastery begins with collaboration.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 71 — The Rise of Intentional Modes</button>
+		  <div class="chapter-content">
+			<p>
+			  Travelers develop new skills. Explorers shape structures. Builders tune tones. Thinkers stabilize patterns. 
+			  Dreamers weave visions into reality. Fast Path accelerates collective action. Gentle Path grounds entire regions. 
+			  Multi‑Hyphenate blends modes with precision. These are not gifts — they are learned abilities.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 72 — The Global Practice</button>
+		  <div class="chapter-content">
+			<p>
+			  Communities form around tonecraft, dreamweaving, pattern‑mapping, rhythm‑coordination, and convergence design. 
+			  The world becomes a school. Every traveler becomes both student and teacher. Mastery becomes a shared pursuit, 
+			  not an individual achievement.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 73 — The First World‑Level Mastery</button>
+		  <div class="chapter-content">
+			<p>
+			  A global event unfolds. Travelers across continents synchronize their modes to shape a single, unified creation. 
+			  A world‑scale structure emerges — a living symbol of mastery. The world hums with pride, recognizing its own potential.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 74 — The Ninth Mode Awakens Fully</button>
+		  <div class="chapter-content">
+			<p>
+			  The world‑mode introduced in Phase 6 crystallizes. It becomes a way of perceiving, creating, aligning, and being. 
+			  The council steps into it together and feels the world open — a new dimension of mastery revealed from within.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 75 — The Council’s Final Teaching</button>
+		  <div class="chapter-content">
+			<p>
+			  The world asks for one last lesson: “Show us how to master ourselves.” The council travels across the world, 
+			  teaching clarity, resonance, alignment, intention, and convergence. Everywhere they go, the world grows sharper, 
+			  more confident, more capable.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 76 — The World’s Own Mastery</button>
+		  <div class="chapter-content">
+			<p>
+			  The world begins to self‑shape with elegance and precision. Regions evolve. Modes harmonize. Structures refine. 
+			  Dreams stabilize. Patterns interlock. Rhythms synchronize. The world has learned to guide itself without intervention.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 77 — The Council’s Release</button>
+		  <div class="chapter-content">
+			<p>
+			  The council stands before the nexus. The world speaks — not in words, but in a feeling: “I can continue from here.” 
+			  The Nine step back, not away — simply back. Their role is complete. The world is ready to walk forward on its own.
+			</p>
+		  </div>
+		</div>
+
+		<div class="chapter">
+		  <button class="chapter-toggle">▲ Chapter 78 — The World of Mastery</button>
+		  <div class="chapter-content">
+			<p>
+			  The world stands whole — integrated, expressive, intentional, self‑guided, convergent, alive. 
+			  Travelers shape their futures with clarity and confidence. The world is no longer nine paths or one system. 
+			  It is a living, evolving masterpiece. Phase 7 ends with a single truth: a world that masters itself is ready to be shared.
+			</p>
+		  </div>
+		</div>
+
+  </section>
+
+</main>
+
+<!-- -------------------------------------------------------
+     JAVASCRIPT — PANEL + THEME SWITCHING
+-------------------------------------------------------- -->
+<script>
+
+/* =======================================================
+   CHUNK 1 — STATE, UI + PANEL CONTROLS
+======================================================= */
+
+let customThemeActive = false;   // user has applied a custom theme
+let customThemeDirty  = false;   // user has unsaved custom changes
+let customButtonColors = {       // colors used ONLY for the Apply button
+  accent: null,
+  text: null
+};
+
+/* -------------------------------------------------------
+   DOM REFERENCES
+-------------------------------------------------------- */
+const panel              = document.getElementById("themePanel");
+const openBtn            = document.getElementById("openThemePanel");
+const applyCustomBtn     = document.getElementById("applyCustomTheme");
+const resetThemeBtn      = document.getElementById("resetTheme");
+const loadDefaultCheckbox = document.getElementById("loadDefaultTheme");
+const customThemeSection = document.querySelector(".custom-theme");
+const customToggle       = document.querySelector(".custom-toggle");
+const sections           = document.querySelectorAll("section");
+const navLinks           = document.querySelectorAll(".nav-link");
+
+/* -------------------------------------------------------
+   COLOR PICKERS
+-------------------------------------------------------- */
+const pickers = {
+  "--bg":        document.getElementById("custom-bg"),
+  "--text":      document.getElementById("custom-text"),
+  "--accent":    document.getElementById("custom-accent"),
+  "--highlight": document.getElementById("custom-highlight"),
+  "--soft":      document.getElementById("custom-soft")
+};
+
+
+/* -------------------------------------------------------
+   APPLY CUSTOM COLORS LIVE
+-------------------------------------------------------- */
+function applyCustomColor(variable, value) {
+  document.documentElement.style.setProperty(variable, value);
+}
+
+
+/* -------------------------------------------------------
+   STYLE THE "APPLY CUSTOM THEME" BUTTON
+-------------------------------------------------------- */
+function styleApplyButtonNeutral() {
+  // Neutral style when no custom theme is active/dirty
+  applyCustomBtn.style.background = "";
+  applyCustomBtn.style.color = "";
+}
+
+function styleApplyButtonCustom() {
+  if (customButtonColors.accent && customButtonColors.text) {
+    applyCustomBtn.style.background = customButtonColors.accent;
+    applyCustomBtn.style.color = customButtonColors.text;
+  }
+}
+
+
+/* -------------------------------------------------------
+   OPEN / CLOSE THEME PANEL
+-------------------------------------------------------- */
+openBtn.addEventListener("click", () => {
+  panel.classList.add("open");
+});
+
+// Close panel when clicking a preset theme
+document.querySelectorAll(".theme-option").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const theme = btn.dataset.theme;
+
+    customThemeActive = false;
+    customThemeDirty  = false;
+    applyCustomBtn.classList.remove("apply-glow");
+
+    applyTheme(theme);
+    panel.classList.remove("open");
+  });
+});
+
+
+/* -------------------------------------------------------
+   CUSTOM THEME ACCORDION TOGGLE
+-------------------------------------------------------- */
+customToggle.addEventListener("click", () => {
+  customThemeSection.classList.toggle("open");
+});
+
+
+/* -------------------------------------------------------
+   LIVE UPDATE PICKERS → CSS VARIABLES
+   (DRAFT CUSTOM THEME, NOT YET SAVED)
+-------------------------------------------------------- */
+Object.entries(pickers).forEach(([variable, input]) => {
+  input.addEventListener("input", () => {
+    // Live update page
+    applyCustomColor(variable, input.value);
+
+    // Mark custom theme as "dirty" (unsaved changes)
+    customThemeDirty = true;
+    applyCustomBtn.classList.add("apply-glow");
+
+    // Update button's own colors from pickers:
+    // Use accent for background, bg for text contrast
+    customButtonColors.accent = pickers["--accent"].value;
+    customButtonColors.text   = pickers["--bg"].value;
+
+    styleApplyButtonCustom();
+  });
+});
+
+
+/* -------------------------------------------------------
+   APPLY CUSTOM THEME BUTTON
+-------------------------------------------------------- */
+applyCustomBtn.addEventListener("click", () => {
+  const customTheme = {};
+
+  // Save current picker values as the custom theme
+  Object.entries(pickers).forEach(([variable, input]) => {
+    customTheme[variable] = input.value;
+    applyCustomColor(variable, input.value);
+  });
+
+  localStorage.setItem("tyni-custom-theme", JSON.stringify(customTheme));
+
+  customThemeActive = true;
+  customThemeDirty  = false;
+  applyCustomBtn.classList.remove("apply-glow");
+
+  // Ensure button uses the saved custom colors
+  customButtonColors.accent = pickers["--accent"].value;
+  customButtonColors.text   = pickers["--bg"].value;
+  styleApplyButtonCustom();
+
+  // Close the panel after applying custom theme
+  panel.classList.remove("open");
+});
+
+
+/* -------------------------------------------------------
+   RESET TO THEME DEFAULTS (COSMIC ONLY)
+-------------------------------------------------------- */
+resetThemeBtn.addEventListener("click", () => {
+  // Load default Cosmic theme
+  applyTheme("cosmic");
+
+  // No pending custom changes
+  customThemeActive = false;
+  customThemeDirty  = false;
+  applyCustomBtn.classList.remove("apply-glow");
+  // Do NOT clear custom theme storage or button colors
+});
+
+
+/* -------------------------------------------------------
+   SMOOTH SCROLL NAVIGATION
+-------------------------------------------------------- */
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+
+/* -------------------------------------------------------
+   FADE-IN SECTIONS ON SCROLL
+-------------------------------------------------------- */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.2 });
+
+sections.forEach(sec => {
+  observer.observe(sec);
+});
+
+
+/* -------------------------------------------------------
+   COLLAPSIBLE CHAPTERS
+-------------------------------------------------------- */
+document.querySelectorAll('.chapter-toggle').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const chapter = btn.parentElement;
+    chapter.classList.toggle('open');
+  });
+});
+
+
+/* -------------------------------------------------------
+   SCROLL-SPY ACTIVE LINK HIGHLIGHTING
+-------------------------------------------------------- */
+window.addEventListener("scroll", () => {
+  let current = "";
+
+  sections.forEach(sec => {
+    const top = sec.offsetTop - 120;
+    const bottom = top + sec.offsetHeight;
+    if (pageYOffset >= top && pageYOffset < bottom) {
+      current = sec.getAttribute("id");
+    }
+  });
+
+  navLinks.forEach(link => {
+    link.classList.remove("active");
+    if (link.getAttribute("href") === `#${current}`) {
+      link.classList.add("active");
+    }
+  });
+});
+
+
+
+/* =======================================================
+   CHUNK 2 — THEMES, LOADING + STATE MANAGEMENT
+======================================================= */
+
+/* -------------------------------------------------------
+   PRESET THEMES MAP
+-------------------------------------------------------- */
+const THEMES = {
+  cosmic:  { bg:"#0f0f15", text:"#fffffe", accent:"#7f5af0", highlight:"#ffca3a", soft:"#94a1b2" },
+  warm:    { bg:"#1a0e0a", text:"#fff3e0", accent:"#ff7b54", highlight:"#ffb703", soft:"#e9c46a" },
+  cool:    { bg:"#0a1a2f", text:"#e0f7ff", accent:"#4cc9f0", highlight:"#72efdd", soft:"#90e0ef" },
+  pastel:  { bg:"#f7f1ff", text:"#2a2a2a", accent:"#c77dff", highlight:"#ffafcc", soft:"#bde0fe" },
+  neon:    { bg:"#000000", text:"#39ff14", accent:"#39ff14", highlight:"#ff00ff", soft:"#00eaff" }
+};
+
+
+/* -------------------------------------------------------
+   SYNC PICKERS TO THEME
+-------------------------------------------------------- */
+function syncPickersToTheme(name) {
+  if (name === "custom") {
+    const custom = JSON.parse(localStorage.getItem("tyni-custom-theme"));
+    if (!custom) return;
+
+    Object.entries(custom).forEach(([variable, value]) => {
+      if (pickers[variable]) {
+        pickers[variable].value = value;
+      }
+    });
+
+    return;
+  }
+
+  const t = THEMES[name];
+  if (!t) return;
+
+  pickers["--bg"].value        = t.bg;
+  pickers["--text"].value      = t.text;
+  pickers["--accent"].value    = t.accent;
+  pickers["--highlight"].value = t.highlight;
+  pickers["--soft"].value      = t.soft;
+}
+
+
+/* -------------------------------------------------------
+   APPLY PRESET THEME
+-------------------------------------------------------- */
+function applyTheme(name) {
+  const root = document.documentElement;
+  const t = THEMES[name];
+  if (!t) return;
+
+  for (let key in t) {
+    root.style.setProperty(`--${key}`, t[key]);
+  }
+
+  localStorage.setItem("tyni-theme", name);
+
+  // Sync pickers to the active preset theme
+  syncPickersToTheme(name);
+}
+
+
+/* -------------------------------------------------------
+   DEFAULT THEME CHECKBOX LOGIC
+-------------------------------------------------------- */
+const savedDefaultPref = localStorage.getItem("tyni-load-default");
+if (savedDefaultPref === "true") {
+  loadDefaultCheckbox.checked = true;
+}
+
+
+/* -------------------------------------------------------
+   INITIAL THEME LOAD ON PAGE START
+-------------------------------------------------------- */
+const savedTheme       = localStorage.getItem("tyni-theme");
+const savedCustomTheme = localStorage.getItem("tyni-custom-theme");
+
+if (loadDefaultCheckbox.checked) {
+  // Force Cosmic if default checkbox is on
+  applyTheme("cosmic");
+  customThemeActive = false;
+} else if (savedCustomTheme) {
+  // Load saved custom theme
+  const custom = JSON.parse(savedCustomTheme);
+
+  Object.entries(custom).forEach(([variable, value]) => {
+    applyCustomColor(variable, value);
+  });
+
+  syncPickersToTheme("custom");
+
+  customThemeActive = true;
+  customThemeDirty  = false;
+
+  // Restore button colors from custom theme
+  customButtonColors.accent = pickers["--accent"].value;
+  customButtonColors.text   = pickers["--bg"].value;
+  styleApplyButtonCustom();
+
+} else if (savedTheme) {
+  // Load last used preset theme
+  applyTheme(savedTheme);
+} else {
+  // Fallback: Cosmic if nothing else
+  applyTheme("cosmic");
+}
+
+
+/* -------------------------------------------------------
+   SAVE CHECKBOX STATE WHEN TOGGLED
+-------------------------------------------------------- */
+loadDefaultCheckbox.addEventListener("change", () => {
+  localStorage.setItem("tyni-load-default", loadDefaultCheckbox.checked);
+
+  if (loadDefaultCheckbox.checked) {
+    customThemeActive = false;
+    customThemeDirty  = false;
+    applyCustomBtn.classList.remove("apply-glow");
+    applyTheme("cosmic");
+  } else {
+    const savedTheme       = localStorage.getItem("tyni-theme");
+    const savedCustomTheme = localStorage.getItem("tyni-custom-theme");
+
+    if (savedCustomTheme) {
+      const custom = JSON.parse(savedCustomTheme);
+
+      Object.entries(custom).forEach(([variable, value]) => {
+        applyCustomColor(variable, value);
+      });
+
+      syncPickersToTheme("custom");
+
+      customThemeActive = true;
+      customThemeDirty  = false;
+
+      customButtonColors.accent = pickers["--accent"].value;
+      customButtonColors.text   = pickers["--bg"].value;
+      styleApplyButtonCustom();
+
+    } else if (savedTheme) {
+      customThemeActive = false;
+      customThemeDirty  = false;
+      applyCustomBtn.classList.remove("apply-glow");
+      applyTheme(savedTheme);
+    } else {
+      applyTheme("cosmic");
+    }
+  }
+});
+
+
+/* -------------------------------------------------------
+   LOAD CUSTOM SAVED THEME
+-------------------------------------------------------- */
+document.getElementById("loadSavedCustomTheme").addEventListener("click", () => {
+  const savedCustomTheme = localStorage.getItem("tyni-custom-theme");
+  if (!savedCustomTheme) return;
+
+  const custom = JSON.parse(savedCustomTheme);
+
+  // Apply saved custom colors
+  Object.entries(custom).forEach(([variable, value]) => {
+    applyCustomColor(variable, value);
+  });
+
+  // Sync pickers to saved custom theme
+  syncPickersToTheme("custom");
+
+  // Update Apply button to saved custom colors
+  customButtonColors.accent = pickers["--accent"].value;
+  customButtonColors.text   = pickers["--bg"].value;
+  styleApplyButtonCustom();
+
+  // This is a clean load, not a draft
+  customThemeActive = true;
+  customThemeDirty  = false;
+  applyCustomBtn.classList.remove("apply-glow");
+
+  // Close panel for consistency
+  panel.classList.remove("open");
+});
+
+
+</script>
+
+<footer>
+    <p>© tyniweb</p>
+</footer>
+
+</body>
+</html>
