@@ -1371,6 +1371,13 @@ body {
      JAVASCRIPT — PANEL + THEME SWITCHING
 -------------------------------------------------------- -->
 <script>
+
+/* =======================================================
+   CHUNK 1 — UI + PANEL CONTROLS + CUSTOM THEME INPUT
+======================================================= */
+
+let customThemeActive = false;
+
 /* -------------------------------------------------------
    OPEN / CLOSE THEME PANEL
 -------------------------------------------------------- */
@@ -1386,6 +1393,7 @@ openBtn.addEventListener("click", () => {
 document.querySelectorAll(".theme-option").forEach(btn => {
   btn.addEventListener("click", () => {
     const theme = btn.dataset.theme;
+    customThemeActive = false; // Prevent button recolor
     applyTheme(theme);
     panel.classList.remove("open");
   });
@@ -1511,7 +1519,8 @@ document.getElementById("applyCustomTheme").addEventListener("click", () => {
 
   localStorage.setItem("tyni-custom-theme", JSON.stringify(customTheme));
 
-  // Recolor the button itself
+  customThemeActive = true; // Custom theme is now active
+
   styleCustomThemeButton();
 });
 
@@ -1535,21 +1544,26 @@ document.getElementById("resetTheme").addEventListener("click", () => {
   const savedTheme = localStorage.getItem("tyni-theme");
   if (savedTheme) applyTheme(savedTheme);
 
-  // Clear custom theme overrides
   Object.keys(pickers).forEach(variable => {
     document.documentElement.style.removeProperty(variable);
   });
 
   localStorage.removeItem("tyni-custom-theme");
+
+  customThemeActive = false; // Reset custom theme state
 });
 
+
+
+/* =======================================================
+   CHUNK 2 — THEME LOADING + STATE MANAGEMENT
+======================================================= */
 
 /* -------------------------------------------------------
    LOAD CUSTOM THEME (only after a theme is applied)
 -------------------------------------------------------- */
-
-// Get saved custom theme once
 const savedCustom = localStorage.getItem("tyni-custom-theme");
+
 
 /* -------------------------------------------------------
    SYNC PICKERS TO THEME
@@ -1563,7 +1577,6 @@ function syncPickersToTheme(name) {
     neon:    { bg:"#000000", text:"#39ff14", accent:"#39ff14", highlight:"#ff00ff", soft:"#00eaff" }
   };
 
-  // If syncing to custom theme
   if (name === "custom") {
     const custom = JSON.parse(localStorage.getItem("tyni-custom-theme"));
     if (!custom) return;
@@ -1575,7 +1588,6 @@ function syncPickersToTheme(name) {
     return;
   }
 
-  // Sync to preset theme
   const t = themes[name];
   if (!t) return;
 
@@ -1586,45 +1598,56 @@ function syncPickersToTheme(name) {
   pickers["--soft"].value      = t.soft;
 }
 
+
 /* -------------------------------------------------------
    DEFAULT THEME CHECKBOX LOGIC
 -------------------------------------------------------- */
-
 const loadDefaultCheckbox = document.getElementById("loadDefaultTheme");
 
-// Load saved checkbox state
 const savedDefaultPref = localStorage.getItem("tyni-load-default");
 if (savedDefaultPref === "true") {
   loadDefaultCheckbox.checked = true;
 }
 
-// Apply default theme on load if enabled
 if (loadDefaultCheckbox.checked) {
   applyTheme("cosmic");
-} else {
-  // Load last used theme or custom theme
-  const savedTheme = localStorage.getItem("tyni-theme");
-
-  if (savedCustom) {
-    // Apply custom theme colors
-    const custom = JSON.parse(savedCustom);
-    Object.entries(custom).forEach(([variable, value]) => {
-      applyCustomColor(variable, value);
-    });
-
-    // Sync pickers to custom
-    syncPickersToTheme("custom");
-
-  } else if (savedTheme) {
-    applyTheme(savedTheme);
-  }
 }
 
-// Save checkbox state when toggled
+
+/* -------------------------------------------------------
+   LOAD SAVED PRESET THEME (if any)
+-------------------------------------------------------- */
+const saved = localStorage.getItem("tyni-theme");
+if (!loadDefaultCheckbox.checked && saved) {
+  applyTheme(saved);
+}
+
+
+/* -------------------------------------------------------
+   APPLY CUSTOM THEME IF SAVED (and default theme not forced)
+-------------------------------------------------------- */
+if (!loadDefaultCheckbox.checked && savedCustom) {
+  const custom = JSON.parse(savedCustom);
+
+  Object.entries(custom).forEach(([variable, value]) => {
+    applyCustomColor(variable, value);
+  });
+
+  syncPickersToTheme("custom");
+
+  customThemeActive = true;
+  styleCustomThemeButton();
+}
+
+
+/* -------------------------------------------------------
+   SAVE CHECKBOX STATE WHEN TOGGLED
+-------------------------------------------------------- */
 loadDefaultCheckbox.addEventListener("change", () => {
   localStorage.setItem("tyni-load-default", loadDefaultCheckbox.checked);
 
   if (loadDefaultCheckbox.checked) {
+    customThemeActive = false;
     applyTheme("cosmic");
   } else {
     const savedTheme = localStorage.getItem("tyni-theme");
@@ -1632,17 +1655,22 @@ loadDefaultCheckbox.addEventListener("change", () => {
 
     if (savedCustomTheme) {
       const custom = JSON.parse(savedCustomTheme);
+
       Object.entries(custom).forEach(([variable, value]) => {
         applyCustomColor(variable, value);
       });
 
       syncPickersToTheme("custom");
 
+      customThemeActive = true;
+      styleCustomThemeButton();
+
     } else if (savedTheme) {
       applyTheme(savedTheme);
     }
   }
 });
+
 
 /* -------------------------------------------------------
    APPLY PRESET THEME
@@ -1667,28 +1695,8 @@ function applyTheme(name) {
 
   localStorage.setItem("tyni-theme", name);
 
-  // Sync pickers to preset theme
   syncPickersToTheme(name);
 }
-
-/* -------------------------------------------------------
-   APPLY CUSTOM THEME IF SAVED (and default theme not forced)
--------------------------------------------------------- */
-if (!loadDefaultCheckbox.checked && savedCustom) {
-  const custom = JSON.parse(savedCustom);
-  Object.entries(custom).forEach(([variable, value]) => {
-    applyCustomColor(variable, value);
-  });
-
-  syncPickersToTheme("custom");
-  styleCustomThemeButton();
-}
-
-/* -------------------------------------------------------
-   LOAD SAVED PRESET THEME (if any)
--------------------------------------------------------- */
-const saved = localStorage.getItem("tyni-theme");
-if (saved) applyTheme(saved);
 
 </script>
 
