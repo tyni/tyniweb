@@ -10,40 +10,49 @@ async function loadPortfolioItems() {
   container.innerHTML = "<p>Loading portfolio...</p>";
 
   try {
-    const items = await sendToProxy({ type: "get_public_portfolio" }); // 📡 Fetch portfolio items
+    const response = await fetch("/portfolio/manifest.json", { cache: "no-store" });
 
-    // ❌ If response is invalid or empty, load demo content
-    if (!Array.isArray(items) || items.length === 0) {
-      console.warn("No portfolio items found. Loading demo content."); // 🪵 Log fallback
-      renderPortfolio([
-        {
-          title: "Demo Image",
-          description: "Placeholder image example",
-          type: "image",
-          url: "https://tynisigns.com/assets/images/demo.png"
-        },
-        {
-          title: "Demo Video",
-          description: "Placeholder video example",
-          type: "video",
-          url: "https://tynisigns.com/assets/videos/demo.mp4"
-        },
-        {
-          title: "Demo 3D Model",
-          description: "Placeholder 3D model example",
-          type: "model",
-          url: "https://tynisigns.com/assets/models/demo.glb"
-        }
-      ]);
-      return;
+    if (!response.ok) {
+      throw new Error("Manifest not found");
     }
 
-    renderPortfolio(items); // ✅ Render actual portfolio items
+    const items = await response.json();
+
+    if (!Array.isArray(items) || items.length === 0) {
+      console.warn("No portfolio items found. Loading demo content.");
+      return renderPortfolio(getDemoItems());
+    }
+
+    renderPortfolio(items);
   } catch (err) {
-    console.error("Portfolio load error:", err); // 🪵 Log error
-    container.innerHTML = "<p>Error loading portfolio.</p>"; // ⚠️ Show fallback message
+    console.error("Portfolio load error:", err);
+    container.innerHTML = "<p>Error loading portfolio.</p>";
   }
 }
+
+function getDemoItems() {
+  return [
+    {
+      title: "Demo Image",
+      description: "Placeholder image example",
+      type: "image",
+      url: "https://tynisigns.com/assets/images/demo.png"
+    },
+    {
+      title: "Demo Video",
+      description: "Placeholder video example",
+      type: "video",
+      url: "https://tynisigns.com/assets/videos/demo.mp4"
+    },
+    {
+      title: "Demo 3D Model",
+      description: "Placeholder 3D model example",
+      type: "model",
+      url: "https://tynisigns.com/assets/models/demo.glb"
+    }
+  ];
+}
+
 
 // 🖼️ Render portfolio items into the grid
 function renderPortfolio(items) {
