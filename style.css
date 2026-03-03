@@ -188,3 +188,12 @@ model-viewer {
   font-weight: bold;
   color: #000;
 }
+
+.ai-links a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.ai-links a:hover {
+  opacity: 0.7; /* optional subtle hover effect */
+}
