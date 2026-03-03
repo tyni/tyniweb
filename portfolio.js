@@ -10,7 +10,7 @@ async function loadPortfolioItems() {
   container.innerHTML = "<p>Loading portfolio...</p>";
 
   try {
-    const response = await fetch("/portfolio/manifest.json", { cache: "no-store" });
+    const response = await fetch("https://tynisigns.com/portfolio/manifest.json", { cache: "no-store" });
 
     if (!response.ok) {
       throw new Error("Manifest not found");
