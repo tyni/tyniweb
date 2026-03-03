@@ -1,5 +1,9 @@
 // 📄 PORTFOLIO — portfolio.js
 
+document.addEventListener("DOMContentLoaded", () => {
+  loadPortfolioItems();  // 🎨 Load public portfolio items
+});
+
 // 🎨 Load and display public portfolio items
 async function loadPortfolioItems() {
   const container = document.getElementById("portfolioGrid");
